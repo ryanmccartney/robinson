@@ -8,7 +8,7 @@ const Shelves = () => {
         const shelfCards = [];
         {
             Object.keys(shelves).forEach((id, index) => {
-                shelfCards.push(<ShelfCard books={books} key={id} shelf={shelves[id]} />);
+                shelfCards.push(<ShelfCard books={books} key={index} shelf={shelves[id]} />);
             });
         }
 
@@ -17,7 +17,7 @@ const Shelves = () => {
 
     return (
         <>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
                 {getShelfCards()}
             </Grid>
         </>

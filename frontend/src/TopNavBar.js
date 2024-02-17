@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 
+import LibrarySelector from "./components/LibrarySelector";
+
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -106,6 +108,8 @@ export default function NavBar() {
                             inputProps={{ "aria-label": "search" }}
                         />
                     </Search>
+
+                    <LibrarySelector />
                 </Toolbar>
             </AppBar>
         </Box>

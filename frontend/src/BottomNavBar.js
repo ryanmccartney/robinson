@@ -20,9 +20,9 @@ export default function FixedBottomNavigation() {
                     setValue(newValue);
                 }}
             >
-                <BottomNavigationAction component={Link} to="/books" label="Books" icon={<ImportContactsIcon />} />
-                <BottomNavigationAction component={Link} to="/shelves" label="Shelves" icon={<DensityLargeIcon />} />
                 <BottomNavigationAction component={Link} to="/cases" label="Cases" icon={<DensitySmallIcon />} />
+                <BottomNavigationAction component={Link} to="/shelves" label="Shelves" icon={<DensityLargeIcon />} />
+                <BottomNavigationAction component={Link} to="/books" label="Books" icon={<ImportContactsIcon />} />
             </BottomNavigation>
         </Paper>
     );

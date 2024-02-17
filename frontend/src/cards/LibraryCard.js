@@ -13,14 +13,14 @@ const options = {
     shouldForwardProp: (prop) => prop !== "hoverShadow",
 };
 
-const ShelfCard = ({ shelf, books }) => {
+const LibraryCard = ({ library }) => {
     const [show, setShow] = React.useState(false);
     const media = React.useRef(null);
     const card = React.useRef(null);
 
     return (
         <Grid item xs={6} md={3} lg={2}>
-            <Link style={{ textDecoration: "none" }} to={`/shelf/${shelf.id}`}>
+            <Link style={{ textDecoration: "none" }} to={`/library/${library.id}`}>
                 <Box sx={{ width: "100%", minHeight: 400 }}>
                     <Card
                         ref={card}
@@ -39,11 +39,7 @@ const ShelfCard = ({ shelf, books }) => {
                         variant="outlined"
                         sx={{ position: "relative", width: "100%", height: "25rem" }}
                     >
-                        {show && (
-                            <Box sx={{ m: 4, zIndex: "tooltip", position: "absolute", top: 0, left: 0 }}>
-                                <Typography variant="subtitle">{shelf.books.length} books</Typography>
-                            </Box>
-                        )}
+                        {show && <Box sx={{ m: 4, zIndex: "tooltip", position: "absolute", top: 0, left: 0 }}></Box>}
                         <Box
                             sx={{
                                 height: 300,
@@ -56,12 +52,12 @@ const ShelfCard = ({ shelf, books }) => {
                         >
                             <ImageList
                                 ref={media}
-                                sx={{ margin: 1, overflow: "none" }}
+                                sx={{ align: "center", height: 250, width: "90%" }}
                                 variant="masonry"
                                 cols={3}
-                                gap={4}
+                                gap={8}
                             >
-                                {shelf.books.map((book) => (
+                                {/* {library.books.map((book) => (
                                     <ImageListItem key={book}>
                                         <img
                                             srcSet={books[book].cover}
@@ -70,24 +66,12 @@ const ShelfCard = ({ shelf, books }) => {
                                             loading="lazy"
                                         />
                                     </ImageListItem>
-                                ))}
+                                ))} */}
                             </ImageList>
 
-                            <CardContent
-                                sx={{
-                                    background: "white",
-                                    m: 4,
-                                    zIndex: "tooltip",
-                                    position: "absolute",
-                                    bottom: "-8.2rem",
-                                    left: "-1.5rem",
-                                    width: "100%",
-                                }}
-                            >
-                                <Typography variant="h6">{shelf.title}</Typography>
-                                <Typography gutterBottom variant="subtitle">
-                                    {shelf.books.length} books
-                                </Typography>
+                            <CardContent>
+                                <Typography variant="h6">{library.title}</Typography>
+                                <Typography variant="subtitle">{library.owner}</Typography>
                             </CardContent>
                         </Box>
                     </Card>
@@ -96,4 +80,5 @@ const ShelfCard = ({ shelf, books }) => {
         </Grid>
     );
 };
-export default ShelfCard;
+
+export default LibraryCard;

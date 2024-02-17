@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    mongo:
+        image: mongo:latest
+        restart: unless-stopped
+        ports:
+            - 27017:27017
+    backend:
+        build: "./backend"
+        restart: unless-stopped
+        volumes:
+            - ./backend:/home/node/app
+        environment:
+            PORT: 3100
+            NODE_ENV: development
+        depends_on:
+            - mongo
+        ports:
+            - 3100:3100
+    frontend:
+        build: "./frontend"
+        restart: unless-stopped
+        volumes:
+            - ./frontend:/home/node/app
+        environment:
+            PORT: 3000
+            NODE_ENV: development
+        depends_on:
+            - backend
+        ports:
+            - 3000:3000

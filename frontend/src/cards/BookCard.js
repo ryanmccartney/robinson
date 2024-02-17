@@ -36,7 +36,7 @@ const BookCard = ({ book }) => {
                             card.current.style.boxShadow = "0px 0px 0px #8D8D8D";
                         }}
                         variant="outlined"
-                        sx={{ position: "relative", width: "100%", height: "400px" }}
+                        sx={{ position: "relative", width: "100%", height: "25rem" }}
                     >
                         {show && (
                             <Box sx={{ m: 4, zIndex: "tooltip", position: "absolute", top: 0, left: 0 }}>

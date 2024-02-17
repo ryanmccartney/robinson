@@ -8,7 +8,7 @@ const Books = () => {
         const bookCards = [];
         {
             Object.keys(books).forEach((id, index) => {
-                bookCards.push(<BookCard key={id} book={books[id]} />);
+                bookCards.push(<BookCard key={index} book={books[id]} />);
             });
         }
 
