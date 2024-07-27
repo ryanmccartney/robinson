@@ -3,12 +3,17 @@
 const logger = require("@utils/logger")(module);
 const usersModel = require("@models/users");
 
-module.exports = async () => {
+module.exports = async (userId) => {
     try {
-        const users = await usersModel.find();
-        return { status: true, data: users };
+        let users = {};
+        if (userId) {
+            users = await usersModel.findOne({ userId: userId });
+        } else {
+            users = await usersModel.find();
+        }
+        return { data: users };
     } catch (error) {
         logger.warn(error);
-        return { status: true, error: error };
+        return { errors: error };
     }
 };
