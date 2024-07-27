@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -7,8 +7,14 @@ import { cases } from "../tests/data";
 
 const Case = () => {
     const { caseId } = useParams();
+    const [bookcase, setBookcase] = useState({});
 
-    const casey = cases[caseId];
+    useEffect(() => {
+        fetch(`/api/cases/${caseId}`)
+            .then((response) => response.json())
+            .then((json) => setBookcase(json.data))
+            .catch((error) => console.error(error));
+    }, []);
 
     return (
         <>
@@ -20,18 +26,18 @@ const Case = () => {
                             minWidth: "50%",
                             maxWidth: "80%",
                         }}
-                        alt={`${casey.title} Cover`}
-                        src={casey?.cover}
+                        alt={`${bookcase.title} Cover`}
+                        src={bookcase?.cover}
                     />
                 </Grid>
 
                 <Grid item xs={12} md={8} lg={6}>
                     <Typography gutterBottom variant="h4">
-                        {casey.title}
+                        {bookcase.title}
                     </Typography>
 
                     <Typography gutterBottom variant="body2">
-                        {casey.description}
+                        {bookcase.description}
                     </Typography>
 
                     <Typography gutterBottom variant="h5">

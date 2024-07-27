@@ -8,7 +8,7 @@ Add your bookcases, shelves and books. Track where they're stored, who they're l
 
 Search you library
 
-# Techology
+# Technology
 
 -   React fronted rolled with Webpack.
 -   Node.js Backend

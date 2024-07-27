@@ -13,14 +13,14 @@ const options = {
     shouldForwardProp: (prop) => prop !== "hoverShadow",
 };
 
-const caseyCard = ({ casey }) => {
+const bookcaseCard = ({ bookcase }) => {
     const [show, setShow] = React.useState(false);
     const media = React.useRef(null);
     const card = React.useRef(null);
 
     return (
         <Grid item xs={6} md={3} lg={2}>
-            <Link style={{ textDecoration: "none" }} to={`/case/${casey.id}`}>
+            <Link style={{ textDecoration: "none" }} to={`/case/${bookcase.caseId}`}>
                 <Box sx={{ width: "100%", minHeight: 400 }}>
                     <Card
                         ref={card}
@@ -57,7 +57,7 @@ const caseyCard = ({ casey }) => {
                                 cols={3}
                                 gap={8}
                             >
-                                {/* {casey.books.map((book) => (
+                                {/* {bookcase.books.map((book) => (
                                     <ImageListItem key={book}>
                                         <img
                                             srcSet={books[book].cover}
@@ -70,8 +70,8 @@ const caseyCard = ({ casey }) => {
                             </ImageList>
 
                             <CardContent>
-                                <Typography variant="h6">{casey.title}</Typography>
-                                <Typography variant="subtitle">{casey.location}</Typography>
+                                <Typography variant="h6">{bookcase.name}</Typography>
+                                <Typography variant="subtitle">{bookcase.description}</Typography>
                             </CardContent>
                         </Box>
                     </Card>
@@ -81,4 +81,4 @@ const caseyCard = ({ casey }) => {
     );
 };
 
-export default caseyCard;
+export default bookcaseCard;

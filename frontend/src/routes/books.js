@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import BookCard from "./../cards/BookCard";
-import { books } from "../tests/data";
 
 const Books = () => {
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        fetch(`/api/books`)
+            .then((response) => response.json())
+            .then((json) => setBooks(json.data))
+            .catch((error) => console.error(error));
+    }, []);
+
     const getBookCards = () => {
         const bookCards = [];
         {
-            Object.keys(books).forEach((id, index) => {
-                bookCards.push(<BookCard key={index} book={books[id]} />);
+            Object.keys(books).forEach((bookId, index) => {
+                bookCards.push(<BookCard key={index} book={books[bookId]} />);
             });
         }
 

@@ -1,0 +1,11 @@
+
+# misc
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# NPM Packages
+backend/node_modules
+frontend/node_modules

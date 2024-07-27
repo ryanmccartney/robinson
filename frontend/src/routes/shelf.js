@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import BookSpineCard from "../cards/BookSpineCard";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 
 import { useParams } from "react-router-dom";
-import { shelves, books } from "../tests/data";
 
 const Shelf = () => {
     const { shelfId } = useParams();
+    const [shelf, setShelf] = useState({});
 
-    const shelf = shelves[shelfId];
+    useEffect(() => {
+        fetch(`/api/shelves/${shelfId}`)
+            .then((response) => response.json())
+            .then((json) => setShelf(json.data))
+            .catch((error) => console.error(error));
+    }, []);
 
     const getBookCards = () => {
         const bookCards = [];

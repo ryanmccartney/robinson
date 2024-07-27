@@ -19,7 +19,7 @@ const BookCard = ({ book }) => {
 
     return (
         <Grid item xs={6} md={3} lg={2}>
-            <Link style={{ textDecoration: "none" }} to={`/book/${book.id}`}>
+            <Link style={{ textDecoration: "none" }} to={`/book/${book.bookId}`}>
                 <Box sx={{ width: "100%", minHeight: 400 }}>
                     <Card
                         ref={card}
@@ -43,7 +43,7 @@ const BookCard = ({ book }) => {
                                 <Typography gutterBottom variant="body2">
                                     {trimToLength(book.description)}
                                 </Typography>
-                                <Typography variant="caption" align="right">{`${book.published}`}</Typography>
+                                <Typography variant="caption" align="right">{`${book.publishDate}`}</Typography>
                                 <Typography
                                     variant="overline"
                                     display="block"

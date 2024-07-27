@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom";
-import { books } from "../tests/data";
 import Barcode from "react-barcode";
 
 const Book = () => {
     const { bookId } = useParams();
-    const book = books[bookId];
+    const [book, setBook] = useState(null);
+
+    useEffect(() => {
+        fetch(`/api/books/${bookId}`)
+            .then((response) => response.json())
+            .then((json) => setBook(json.data))
+            .catch((error) => console.error(error));
+    }, []);
+
     const [rating, setRating] = React.useState(book?.rating);
 
-    console.log(book);
+    if (!book) {
+        return null;
+    }
+
     return (
         <>
             <Grid container spacing={4}>
@@ -24,7 +34,6 @@ const Book = () => {
                             maxWidth: "80%",
                         }}
                         alt={`${book.title} Cover`}
-                        src={book.cover}
                     />
                 </Grid>
 
@@ -64,7 +73,7 @@ const Book = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography variant="body2">{book.published}</Typography>
+                            <Typography variant="body2">{book.publishDate}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
@@ -73,14 +82,6 @@ const Book = () => {
                         </Grid>
                         <Grid item xs={8}>
                             <Typography variant="body2">{book.pages}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Typography fontWeight="fontWeightLarge" variant="body2">
-                                Weight
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={8}>
-                            <Typography variant="body2">{book.weight * 1000}g</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">

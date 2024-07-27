@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import LibraryCard from "../cards/LibraryCard";
 import { libraries } from "../tests/data";
 
 const Libraries = () => {
+    const [libraries, setLibraries] = useState([]);
+
+    useEffect(() => {
+        fetch(`/api/libraries`)
+            .then((response) => response.json())
+            .then((json) => setLibraries(json.data))
+            .catch((error) => console.error(error));
+    }, []);
+
     const getLibraryCards = () => {
         const libraryCards = [];
         {

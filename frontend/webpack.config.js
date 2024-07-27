@@ -11,5 +11,11 @@ module.exports = {
         hot: true,
         port: 3000,
         historyApiFallback: true,
+        proxy: [
+            {
+                context: ["/api"],
+                target: "http://backend:3100",
+            },
+        ],
     },
 };

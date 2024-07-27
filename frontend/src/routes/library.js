@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
-import { libraries } from "../tests/data";
 
 const Library = () => {
     const { libraryId } = useParams();
+    const [library, setLibrary] = useState({});
 
-    const library = libraries[libraryId];
+    useEffect(() => {
+        fetch(`/api/libraries/${libraryId}`)
+            .then((response) => response.json())
+            .then((json) => setLibrary(json.data))
+            .catch((error) => console.error(error));
+    }, []);
 
     return (
         <>

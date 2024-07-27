@@ -4,6 +4,10 @@ services:
     mongo:
         image: mongo:latest
         restart: unless-stopped
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: robinson
+            MONGO_INITDB_ROOT_PASSWORD: robinson123
+            MONGO_INITDB_DATABASE: robinson
         ports:
             - 27017:27017
     backend:

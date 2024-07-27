@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -11,23 +11,21 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { libraries } from "../tests/data";
-
 const LibraryMenu = ({ libraries }) => {
     const getLibraryItems = () => {
         const menuItems = [];
 
         Object.keys(libraries).forEach((id, index) => {
             menuItems.push(
-                <MenuItem sx={{ padding: 1 }}>
+                <MenuItem key={id} sx={{ padding: 1 }}>
                     <ListItemIcon>
                         <Avatar
                             sx={{ fontSize: "0.75rem", width: 24, height: 24, background: "secondary", opacity: 0.25 }}
                         >
-                            {libraries[id].title}
+                            {libraries[id].name}
                         </Avatar>
                     </ListItemIcon>
-                    <ListItemText>{libraries[id].title}</ListItemText>
+                    <ListItemText>{libraries[id].name}</ListItemText>
                 </MenuItem>
             );
         });
@@ -52,9 +50,17 @@ const LibraryMenu = ({ libraries }) => {
 };
 
 const LibrarySelector = () => {
-    const [libraryId, setLibraryId] = React.useState();
+    const [libraries, setLibraries] = useState([]);
+    const [libraryId, setLibraryId] = useState();
 
-    React.useEffect(() => {
+    useEffect(() => {
+        fetch(`/api/libraries`)
+            .then((response) => response.json())
+            .then((json) => setLibraries(json.data))
+            .catch((error) => console.error(error));
+    }, []);
+
+    useEffect(() => {
         const libraryId = JSON.parse(localStorage.getItem("libraryId"));
         if (libraryId) {
             setLibraryId(libraryId);

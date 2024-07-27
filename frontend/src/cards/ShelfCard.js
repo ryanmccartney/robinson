@@ -20,7 +20,7 @@ const ShelfCard = ({ shelf, books }) => {
 
     return (
         <Grid item xs={6} md={3} lg={2}>
-            <Link style={{ textDecoration: "none" }} to={`/shelf/${shelf.id}`}>
+            <Link style={{ textDecoration: "none" }} to={`/shelf/${shelf.shelfId}`}>
                 <Box sx={{ width: "100%", minHeight: 400 }}>
                     <Card
                         ref={card}

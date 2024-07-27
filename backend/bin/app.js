@@ -9,6 +9,14 @@ const favicon = require("serve-favicon");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
+// load routes
+const documentation = require("@utils/documentation");
+const books = require("@routes/books");
+const shelves = require("@routes/shelves");
+const cases = require("@routes/cases");
+const libraries = require("@routes/libraries");
+const users = require("@routes/users");
+
 // rate limiting
 const apiLimiter = rateLimit({
     windowMs: 5 * 60 * 1000,
@@ -17,10 +25,6 @@ const apiLimiter = rateLimit({
 
 // get environment
 const nodeEnv = process.env.NODE_ENV || "production";
-
-// load routes
-const documentation = require("@utils/documentation");
-const books = require("@routes/books");
 
 const app = express();
 
@@ -53,6 +57,10 @@ app.use(cookieParser());
 app.use("/", apiLimiter);
 app.use("/documentation", documentation);
 app.use("/api/books", books);
+app.use("/api/shelves", shelves);
+app.use("/api/cases", cases);
+app.use("/api/libraries", libraries);
+app.use("/api/users", users);
 
 // Redirect /api to /documentation
 app.use("/api", (req, res, next) => {

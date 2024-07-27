@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import ShelfCard from "./../cards/ShelfCard";
-import { shelves, books } from "../tests/data";
 
 const Shelves = () => {
+    const [shelves, setShelves] = useState([]);
+
+    useEffect(() => {
+        fetch(`/api/shelves`)
+            .then((response) => response.json())
+            .then((json) => setShelves(json.data))
+            .catch((error) => console.error(error));
+    }, []);
+
     const getShelfCards = () => {
         const shelfCards = [];
         {
