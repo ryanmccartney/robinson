@@ -13,7 +13,7 @@ const Book = () => {
     useEffect(() => {
         fetch(`/api/books/${bookId}`)
             .then((response) => response.json())
-            .then((json) => setBook(json.data))
+            .then((json) => setBook(json.books))
             .catch((error) => console.error(error));
     }, []);
 

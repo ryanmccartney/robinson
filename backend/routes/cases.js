@@ -6,6 +6,7 @@ const hashResponse = require("@utils/hash-response");
 const getCases = require("@services/cases-get");
 const addCases = require("@services/cases-add");
 const deleteCases = require("@services/cases-delete");
+const updateCases = require("@services/cases-update");
 
 /**
  * @swagger
@@ -65,6 +66,30 @@ router.post("/", async (req, res, next) => {
 router.get("/:caseId", async (req, res, next) => {
     const response = await getCases(req.params.caseId);
 
+    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+});
+
+/**
+ * @swagger
+ * /cases/{caseId}:
+ *    put:
+ *      description: Update a case by it's ID
+ *      tags: [cases]
+ *      parameters:
+ *        - in: path
+ *          name: caseId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The case ID string
+ *      produces:
+ *         - application/json
+ *      responses:
+ *         '200':
+ *           description: Success
+ */
+router.put("/:caseId", async (req, res, next) => {
+    const response = await updateCases(req.params.caseId, req.body);
     hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
 });
 

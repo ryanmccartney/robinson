@@ -9,7 +9,7 @@ module.exports = async (newUser) => {
         await user.save();
         logger.info(`Add user with name '${user.firstName} ${user.lastName}' and ID ${user.userId}`);
 
-        return { data: user };
+        return { user: user };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

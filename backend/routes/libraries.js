@@ -6,6 +6,7 @@ const hashResponse = require("@utils/hash-response");
 const getLibraries = require("@services/libraries-get");
 const addLibraries = require("@services/libraries-add");
 const deleteLibraries = require("@services/libraries-delete");
+const updateLibraries = require("@services/libraries-update");
 
 /**
  * @swagger
@@ -64,7 +65,30 @@ router.post("/", async (req, res, next) => {
  */
 router.get("/:libraryId", async (req, res, next) => {
     const response = await getLibraries(req.params.libraryId);
+    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+});
 
+/**
+ * @swagger
+ * /libraries/{libraryId}:
+ *    put:
+ *      description: Update a library by it's ID
+ *      tags: [libraries]
+ *      parameters:
+ *        - in: path
+ *          name: libraryId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The library ID string
+ *      produces:
+ *         - application/json
+ *      responses:
+ *         '200':
+ *           description: Success
+ */
+router.put("/:libraryId", async (req, res, next) => {
+    const response = await updateLibraries(req.params.libraryId, req.body);
     hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
 });
 

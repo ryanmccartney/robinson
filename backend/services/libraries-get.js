@@ -11,7 +11,7 @@ module.exports = async (libraryId) => {
         } else {
             libraries = await librariesModel.find();
         }
-        return { data: libraries };
+        return { libraries: libraries };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

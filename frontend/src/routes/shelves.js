@@ -8,7 +8,7 @@ const Shelves = () => {
     useEffect(() => {
         fetch(`/api/shelves`)
             .then((response) => response.json())
-            .then((json) => setShelves(json.data))
+            .then((json) => setShelves(json.shelves))
             .catch((error) => console.error(error));
     }, []);
 

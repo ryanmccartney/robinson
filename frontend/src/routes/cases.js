@@ -8,7 +8,7 @@ const Cases = () => {
     useEffect(() => {
         fetch(`/api/cases`)
             .then((response) => response.json())
-            .then((json) => setCases(json.data))
+            .then((json) => setCases(json.cases))
             .catch((error) => console.error(error));
     }, []);
 

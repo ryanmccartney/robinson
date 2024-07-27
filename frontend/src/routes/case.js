@@ -12,7 +12,7 @@ const Case = () => {
     useEffect(() => {
         fetch(`/api/cases/${caseId}`)
             .then((response) => response.json())
-            .then((json) => setBookcase(json.data))
+            .then((json) => setBookcase(json.cases))
             .catch((error) => console.error(error));
     }, []);
 

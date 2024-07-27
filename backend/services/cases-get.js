@@ -11,7 +11,7 @@ module.exports = async (caseId) => {
         } else {
             cases = await casesModel.find();
         }
-        return { data: cases };
+        return { cases: cases };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

@@ -3,13 +3,11 @@
 const logger = require("@utils/logger")(module);
 const booksModel = require("@models/books");
 
-module.exports = async (bookId) => {
+module.exports = async (shelfId) => {
     try {
-        let books = {};
-        if (bookId) {
-            books = await booksModel.findOne({ bookId: bookId });
-        } else {
-            books = await booksModel.find();
+        let books = [];
+        if (shelfId) {
+            books = await booksModel.find({ shelfId: shelfId });
         }
         return { books: books };
     } catch (error) {

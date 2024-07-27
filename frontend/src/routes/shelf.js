@@ -9,19 +9,23 @@ import { useParams } from "react-router-dom";
 const Shelf = () => {
     const { shelfId } = useParams();
     const [shelf, setShelf] = useState({});
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch(`/api/shelves/${shelfId}`)
+        fetch(`/api/books/shelf/${shelfId}`)
             .then((response) => response.json())
-            .then((json) => setShelf(json.data))
+            .then((json) => {
+                setShelf(json.shelf);
+                setBooks(json.books);
+            })
             .catch((error) => console.error(error));
     }, []);
 
     const getBookCards = () => {
         const bookCards = [];
         {
-            for (let bookId of shelf.books) {
-                bookCards.push(<BookSpineCard key={bookId} book={books[bookId]} />);
+            for (let book of books) {
+                bookCards.push(<BookSpineCard key={book?.bookId} book={book} />);
             }
         }
 
@@ -39,7 +43,7 @@ const Shelf = () => {
 
                 <Grid item xs={12} md={8} lg={6}>
                     <Typography gutterBottom variant="h4">
-                        {shelf.title}
+                        {shelf.name}
                     </Typography>
 
                     <Typography gutterBottom variant="body2">

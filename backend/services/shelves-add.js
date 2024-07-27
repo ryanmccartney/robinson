@@ -9,7 +9,7 @@ module.exports = async (newShelf) => {
         await shelf.save();
         logger.info(`Add shelf with name '${shelf.name}' and ID ${shelf.shelfId}`);
 
-        return { data: shelf };
+        return { shelf: shelf };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

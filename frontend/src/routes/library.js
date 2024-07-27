@@ -11,7 +11,7 @@ const Library = () => {
     useEffect(() => {
         fetch(`/api/libraries/${libraryId}`)
             .then((response) => response.json())
-            .then((json) => setLibrary(json.data))
+            .then((json) => setLibrary(json.library))
             .catch((error) => console.error(error));
     }, []);
 

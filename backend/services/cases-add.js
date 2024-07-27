@@ -9,7 +9,7 @@ module.exports = async (newCase) => {
         await cases.save();
         logger.info(`Add case with name '${cases.title}' and ID ${cases.caseId}`);
 
-        return { data: cases };
+        return { case: cases };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

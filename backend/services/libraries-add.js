@@ -9,7 +9,7 @@ module.exports = async (newLibrary) => {
         await library.save();
         logger.info(`Add library with name '${library.name}' and ID ${library.libraryId}`);
 
-        return { data: library };
+        return { library: library };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

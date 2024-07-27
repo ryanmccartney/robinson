@@ -11,7 +11,7 @@ module.exports = async (shelfId) => {
         } else {
             shelves = await shelvesModel.find();
         }
-        return { data: shelves };
+        return { shelves: shelves };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

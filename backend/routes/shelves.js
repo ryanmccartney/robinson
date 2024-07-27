@@ -6,6 +6,7 @@ const hashResponse = require("@utils/hash-response");
 const getShelves = require("@services/shelves-get");
 const addShelves = require("@services/shelves-add");
 const deleteShelves = require("@services/shelves-delete");
+const updateShelves = require("@services/shelves-update");
 
 /**
  * @swagger
@@ -64,7 +65,30 @@ router.post("/", async (req, res, next) => {
  */
 router.get("/:shelfId", async (req, res, next) => {
     const response = await getShelves(req.params.shelfId);
+    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+});
 
+/**
+ * @swagger
+ * /shelves/{shelfId}:
+ *    put:
+ *      description: Update a shelf by it's ID
+ *      tags: [shelves]
+ *      parameters:
+ *        - in: path
+ *          name: shelfId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The shelf ID string
+ *      produces:
+ *         - application/json
+ *      responses:
+ *         '200':
+ *           description: Success
+ */
+router.put("/:shelfId", async (req, res, next) => {
+    const response = await updateShelves(req.params.shelfId, req.body);
     hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
 });
 

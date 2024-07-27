@@ -11,7 +11,7 @@ module.exports = async (userId) => {
         } else {
             users = await usersModel.find();
         }
-        return { data: users };
+        return { users: users };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

@@ -3,12 +3,12 @@
 const logger = require("@utils/logger")(module);
 const booksModel = require("@models/books");
 
-module.exports = async (bookId) => {
+module.exports = async (bookId, update) => {
     try {
         if (bookId) {
-            const books = await booksModel.findOneAndDelete({ bookId: bookId });
+            const books = await booksModel.findOneAndUpdate({ bookId: bookId }, update);
             if (books) {
-                logger.info(`Deleted book with title '${books.title}' and ID ${bookId}`);
+                logger.info(`Updated book with title '${books.title}' and ID ${bookId}`);
             } else {
                 logger.info(`No book with ID ${bookId}`);
             }
