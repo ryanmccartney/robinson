@@ -7,6 +7,14 @@
 </p>
 
 <h4 align="center">
+ <a href="https://github.com/ryanmccartney/robinson/actions/workflows/backend.yml">
+    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/backend.yml/badge.svg" alt="continuous integration">
+  </a>
+
+  <a href="https://github.com/ryanmccartney/robinson/actions/workflows/frontend.yml">
+    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/frontend.yml/badge.svg" alt="continuous integration">
+  </a>
+
   <a href="https://github.com/ryanmccartney/robinson/graphs/contributors">
     <img src="https://img.shields.io/github/contributors-anon/ryanmccartney/robinson?color=yellow&style=plastic" alt="contributors">
   </a>
