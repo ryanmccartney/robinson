@@ -74,7 +74,7 @@ jobs:
                   labels: |
                       author=${{github.actor}}
                       version=${{steps.version.outputs.current-version}}
-                      org.opencontainers.image.licenses=Apache-2.0
+                      org.opencontainers.image.licenses=GPLv3
                       org.opencontainers.image.source=${{github.server_url}}/${{github.repository}}
                       info.mccartney.ryan.build.timestamp=${{env.timestamp}}
                       info.mccartney.ryan.build.number=${{github.run_number}}
