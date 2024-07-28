@@ -34,6 +34,7 @@ const Book = () => {
                             maxWidth: "80%",
                         }}
                         alt={`${book.title} Cover`}
+                        src={`/api/books/cover/${book.bookId}`}
                     />
                 </Grid>
 

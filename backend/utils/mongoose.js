@@ -1,8 +1,3 @@
-//NAME: mongoose.js
-//AUTH: Ryan McCartney <ryan.mccartney@bbc.co.uk>
-//DATE: 05/04/2021
-//DESC: Mongoose Connection to Database
-
 let mongoose = require("mongoose");
 const logger = require("@utils/logger")(module);
 

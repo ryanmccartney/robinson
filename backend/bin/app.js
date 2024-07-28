@@ -16,6 +16,7 @@ const shelves = require("@routes/shelves");
 const cases = require("@routes/cases");
 const libraries = require("@routes/libraries");
 const users = require("@routes/users");
+const metadata = require("@routes/metadata");
 
 // rate limiting
 const apiLimiter = rateLimit({
@@ -61,6 +62,7 @@ app.use("/api/shelves", shelves);
 app.use("/api/cases", cases);
 app.use("/api/libraries", libraries);
 app.use("/api/users", users);
+app.use("/api/metadata", metadata);
 
 // Redirect /api to /documentation
 app.use("/api", (req, res, next) => {

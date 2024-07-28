@@ -43,11 +43,11 @@ const Shelf = () => {
 
                 <Grid item xs={12} md={8} lg={6}>
                     <Typography gutterBottom variant="h4">
-                        {shelf.name}
+                        {shelf?.name}
                     </Typography>
 
                     <Typography gutterBottom variant="body2">
-                        {shelf.description}
+                        {shelf?.description}
                     </Typography>
 
                     <Typography gutterBottom variant="h5">

@@ -17,6 +17,15 @@ const BookCard = ({ book }) => {
     const media = React.useRef(null);
     const card = React.useRef(null);
 
+    const getDate = (datetime) => {
+        const dateObject = new Date(datetime);
+
+        const month = dateObject.toLocaleString("default", { month: "long" });
+        const year = dateObject.getFullYear();
+
+        return `${month} ${year}`;
+    };
+
     return (
         <Grid item xs={6} md={3} lg={2}>
             <Link style={{ textDecoration: "none" }} to={`/book/${book.bookId}`}>
@@ -43,7 +52,9 @@ const BookCard = ({ book }) => {
                                 <Typography gutterBottom variant="body2">
                                     {trimToLength(book.description)}
                                 </Typography>
-                                <Typography variant="caption" align="right">{`${book.publishDate}`}</Typography>
+                                <Typography variant="caption" align="right">{`${getDate(
+                                    book.publishDate
+                                )}`}</Typography>
                                 <Typography
                                     variant="overline"
                                     display="block"
@@ -64,8 +75,8 @@ const BookCard = ({ book }) => {
                             <CardMedia
                                 ref={media}
                                 sx={{ height: 300, width: "100%" }}
-                                image={book.cover}
                                 title={book.title}
+                                image={`/api/books/cover/${book.bookId}`}
                             />
 
                             <CardContent>

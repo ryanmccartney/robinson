@@ -18,7 +18,7 @@ const BookSpineCard = ({ book }) => {
     const card = React.useRef(null);
     const textbox = React.useRef(null);
     return (
-        <Link style={{ textDecoration: "none" }} to={`/book/${book.id}`}>
+        <Link style={{ textDecoration: "none" }} to={`/book/${book.bookId}`}>
             <Card
                 ref={card}
                 onMouseOver={() => {
@@ -70,7 +70,7 @@ const BookSpineCard = ({ book }) => {
                         width: "100%",
                         filter: `blur(80px)`,
                     }}
-                    image={book.cover}
+                    image={`/api/books/cover/${book.bookId}`}
                     title={book.title}
                 />
             </Card>

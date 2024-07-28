@@ -60,15 +60,8 @@ const Layout = ({ title = "Page" }) => {
             <TopNavBar />
 
             <Box sx={{ pb: 7, m: 2 }}>
-                <Typography sx={{ mb: 1 }} variant="h4">
-                    {title}
-                </Typography>
                 <LayoutBreadcrumbs />
 
-                {/* 
-            {/* <Box sx={{ transform: "translateZ(0px)", flexGrow: 1 }}>
-                {children}
-                // <SpeedDial /> */}
                 <Outlet />
             </Box>
             <BottomNavBar />

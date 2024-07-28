@@ -13,7 +13,7 @@ const options = {
     shouldForwardProp: (prop) => prop !== "hoverShadow",
 };
 
-const ShelfCard = ({ shelf, books }) => {
+const ShelfCard = ({ shelf }) => {
     const [show, setShow] = React.useState(false);
     const media = React.useRef(null);
     const card = React.useRef(null);
@@ -61,13 +61,13 @@ const ShelfCard = ({ shelf, books }) => {
                                 cols={3}
                                 gap={4}
                             >
-                                {shelf.books.map((book) => (
-                                    <ImageListItem key={book}>
+                                {shelf.books.map((bookId) => (
+                                    <ImageListItem key={bookId}>
                                         <img
-                                            srcSet={books[book].cover}
-                                            src={books[book].cover}
-                                            alt={books[book].title}
+                                            srcSet={`/api/books/cover/${bookId}`}
+                                            src={`/api/books/cover/${bookId}`}
                                             loading="lazy"
+                                            alt=""
                                         />
                                     </ImageListItem>
                                 ))}
@@ -84,7 +84,7 @@ const ShelfCard = ({ shelf, books }) => {
                                     width: "100%",
                                 }}
                             >
-                                <Typography variant="h6">{shelf.title}</Typography>
+                                <Typography variant="h6">{shelf.name}</Typography>
                                 <Typography gutterBottom variant="subtitle">
                                     {shelf.books.length} books
                                 </Typography>

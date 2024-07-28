@@ -16,7 +16,7 @@ const Shelves = () => {
         const shelfCards = [];
         {
             Object.keys(shelves).forEach((id, index) => {
-                shelfCards.push(<ShelfCard books={books} key={index} shelf={shelves[id]} />);
+                shelfCards.push(<ShelfCard key={index} shelf={shelves[id]} />);
             });
         }
 

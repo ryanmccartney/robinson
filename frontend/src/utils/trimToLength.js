@@ -1,4 +1,8 @@
 const trimToLength = (str, max = 25) => {
+    if (!str) {
+        return "";
+    }
+
     const words = str.split(" ");
     let shortStr = "";
 

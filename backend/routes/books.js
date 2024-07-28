@@ -97,6 +97,40 @@ router.get("/shelf/:shelfId", async (req, res, next) => {
 
 /**
  * @swagger
+ * /books/cover/{bookId}:
+ *    get:
+ *      description: Get a book cover by it's ID
+ *      tags: [books]
+ *      parameters:
+ *        - in: path
+ *          name: bookId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The book ID string
+ *      produces:
+ *         - application/json
+ *      responses:
+ *         '200':
+ *           description: Success
+ */
+router.get("/cover/:bookId", async (req, res, next) => {
+    const response = await getBooks(req.params.bookId);
+
+    if (response.books.cover && typeof response.books.cover == "string") {
+        const image = Buffer.from(response.books.cover, "base64");
+        res.writeHead(200, {
+            "Content-Type": "image/png",
+            "Content-Length": image.length,
+        });
+        res.end(image);
+    } else {
+        hashResponse(res, req, { error: { message: "Unable to retrieve cover" }, status: "error" });
+    }
+});
+
+/**
+ * @swagger
  * /books:
  *    post:
  *      description: Add a new book
