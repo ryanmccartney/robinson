@@ -16,7 +16,7 @@ on:
             - "frontend/**"
 
 jobs:
-    docker:
+    build:
         runs-on: ubuntu-latest
         strategy:
             matrix:

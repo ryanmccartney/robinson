@@ -1,5 +1,5 @@
 # .github/workflows/frontend.yml
-name: Backend Build
+name: Frontend Build
 
 env:
     regsitry: "ghcr.io"
@@ -16,7 +16,7 @@ on:
             - "backend/**"
 
 jobs:
-    docker:
+    build:
         runs-on: ubuntu-latest
         strategy:
             matrix:
