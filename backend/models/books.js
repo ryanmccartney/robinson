@@ -15,7 +15,7 @@ const schema = mongoose.Schema({
     cover: { type: String },
     pages: { type: Number, default: 0 },
     comments: [{ body: String, date: Date, user: String }],
-    rating: { type: Number, default: 0 },
+    rating: { type: Number, min: 0, max: 5, default: 0 },
     progress: { type: Number, required: true, default: 0 },
     order: { type: Number, required: true, default: 0 },
 });

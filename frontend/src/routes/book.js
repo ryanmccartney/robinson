@@ -11,13 +11,16 @@ const Book = () => {
     const [book, setBook] = useState(null);
 
     useEffect(() => {
-        fetch(`/api/books/${bookId}`)
-            .then((response) => response.json())
-            .then((json) => setBook(json.books))
-            .catch((error) => console.error(error));
+        const fetchData = async () => {
+            const response = await fetch(`/api/books/${bookId}`);
+            const data = await response.json();
+            setBook(data.books);
+            setRating(data.books.rating);
+        };
+        fetchData();
     }, []);
 
-    const [rating, setRating] = React.useState(book?.rating);
+    const [rating, setRating] = useState(0);
 
     if (!book) {
         return null;
@@ -39,14 +42,27 @@ const Book = () => {
                 </Grid>
 
                 <Grid item xs={12} md={8} lg={6}>
-                    <Typography gutterBottom variant="h4">
-                        {book.title}
+                    <Typography variant="h4">{book.title}</Typography>
+
+                    <Typography gutterBottom variant="subtitle">
+                        {book.author}
                     </Typography>
 
+                    <br></br>
                     <Rating
                         name="simple-controlled"
                         value={rating}
-                        onChange={(event, newRating) => {
+                        onChange={async (event, newRating) => {
+                            await fetch(`/api/books/${bookId}`, {
+                                method: "PUT",
+                                headers: {
+                                    Accept: "application/json",
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    rating: newRating,
+                                }),
+                            });
                             setRating(newRating);
                         }}
                     />
@@ -62,11 +78,11 @@ const Book = () => {
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" alignItems="flex-start">
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
-                                Author
+                                Publisher
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography variant="body2">{book.author}</Typography>
+                            <Typography variant="body2">{book.publisher}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">

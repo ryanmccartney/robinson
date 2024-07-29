@@ -16,7 +16,7 @@ module.exports = async (isbn) => {
         const book = data?.items[0];
 
         logger.info(`Google books API request for ${isbn}`);
-        logger.info(JSON.stringify(book, undefined, 4));
+        logger.debug(JSON.stringify(book, undefined, 4));
 
         parsedData = {
             author: book?.volumeInfo?.authors[0],
@@ -31,7 +31,7 @@ module.exports = async (isbn) => {
         };
     } catch (error) {
         logger.warn(`Google books API request for ${isbn} failed`);
-        logger.warn(error);
+        logger.debug(error);
     }
 
     return parsedData;

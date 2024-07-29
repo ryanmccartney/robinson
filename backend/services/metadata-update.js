@@ -9,13 +9,13 @@ const getBooks = require("@services/books-get");
 module.exports = async (bookId) => {
     try {
         let book = await getBooks(bookId);
-        const response = await getMetadata(book?.isbn);
+        const response = await getMetadata(book?.books?.isbn);
 
         if (response.metadata.combined) {
-            book = await updateBooks(response.metadata.combined);
+            book = await updateBooks(bookId, response.metadata.combined);
         }
 
-        return { metadata: response.metadata, book: book };
+        return { metadata: response.metadata, book: book?.books };
     } catch (error) {
         logger.warn(error);
         return { errors: error };

@@ -16,7 +16,6 @@ module.exports = async (isbn) => {
         logger.info(`Open library API request for ${isbn}`);
         logger.debug(JSON.stringify(data, undefined, 4));
 
-        console.log(data);
         parsedData = {
             title: data?.title,
             publishData: data?.publish_date,
@@ -29,7 +28,7 @@ module.exports = async (isbn) => {
         };
     } catch (error) {
         logger.warn(`Open library API request for ${isbn} failed`);
-        logger.warn(error);
+        logger.debug(error);
     }
 
     return parsedData;
