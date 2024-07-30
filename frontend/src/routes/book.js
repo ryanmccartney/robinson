@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -6,9 +6,15 @@ import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom";
 import Barcode from "react-barcode";
 
+import BookProgress from "./../components/BookProgress";
+import BreadcrumbsContext from "./../contexts/breadcrumbs";
+import ButtonsContext from "./../contexts/buttons";
+
 const Book = () => {
     const { bookId } = useParams();
     const [book, setBook] = useState(null);
+    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { buttons, setButtons } = useContext(ButtonsContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,19 +32,40 @@ const Book = () => {
         return null;
     }
 
+    setBreadcrumbs([
+        { title: "Home", link: `/` },
+        { title: book?.case?.name || "Case", link: `/cases/${book?.case?.caseId}` },
+        { title: book?.shelf?.name || "Shelf", link: `/shelves/${book?.shelf?.shelfId}` },
+        { title: book.title, link: `/books/${book.bookId}` },
+    ]);
+
+    setButtons([
+        { label: "Edit", icon: "Edit", link: `/books/${book.bookId}/edit` },
+        { label: "Delete", icon: "Delete", link: `/cas` },
+        { label: "Favorite", icon: "FavoriteBorder", link: `/cas` },
+        { label: "Change Shelf", icon: "DensityLarge", link: `/changeShelf` },
+    ]);
+
     return (
         <>
             <Grid container spacing={4}>
                 <Grid item align="center" xs={12} md={4} lg={6}>
-                    <Box
-                        component="img"
-                        sx={{
-                            minWidth: "50%",
-                            maxWidth: "80%",
-                        }}
-                        alt={`${book.title} Cover`}
-                        src={`/api/books/cover/${book.bookId}`}
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item align="center" lg={12}>
+                            <Box
+                                component="img"
+                                sx={{
+                                    minWidth: "50%",
+                                    maxWidth: "80%",
+                                }}
+                                alt={`${book.title} Cover`}
+                                src={`/api/books/cover/${book.bookId}`}
+                            />
+                        </Grid>
+                        <Grid item align="center" lg={12}>
+                            <BookProgress progress={book.progress} total={book.pages} />
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid item xs={12} md={8} lg={6}>
