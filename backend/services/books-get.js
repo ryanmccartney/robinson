@@ -7,15 +7,15 @@ const casesModel = require("@models/cases");
 
 module.exports = async (bookId) => {
     try {
-        let books = {};
+        let data = {};
         if (bookId) {
-            books = (await booksModel.findOne({ bookId: bookId }))?.toJSON() || {};
-            books.shelf = (await shelvesModel.findOne({ shelfId: books?.shelfId })) || {};
-            books.case = (await casesModel.findOne({ caseId: books?.shelf?.caseId })) || {};
+            data.book = (await booksModel.findOne({ bookId: bookId }))?.toJSON() || null;
+            data.shelf = (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) || null;
+            data.case = (await casesModel.findOne({ caseId: data.shelf?.caseId })) || null;
         } else {
-            books = await booksModel.find();
+            data.books = await booksModel.find();
         }
-        return { books: books };
+        return data;
     } catch (error) {
         logger.warn(error);
         return { errors: error };

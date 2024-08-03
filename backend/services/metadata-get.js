@@ -24,12 +24,20 @@ module.exports = async (isbn) => {
         }
 
         //Compare ISBN
-        if (data.google.isbn) {
-            data.combined.isbn = data.google.isbn;
+        if (data.openlibrary.title || data.openlibrary.title) {
+            data.combined.isbn = isbn;
         } else if (data.openlibrary.isbn) {
             data.combined.isbn = data.openlibrary.isbn;
-        } else if (data.openlibrary.title || data.openlibrary.title) {
-            data.combined.isbn = isbn;
+        } else {
+            data.combined.isbn = data.google.isbn;
+        }
+
+        //Compare Covers
+        if (data.google.cover) {
+            data.combined.cover = data.google.cover;
+        }
+        if (data.openlibrary.cover && data.combined.cover.length < data.openlibrary.cover.length) {
+            data.combined.cover = data.openlibrary.cover;
         }
 
         return { metadata: data };

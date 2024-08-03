@@ -2,15 +2,26 @@
 
 const logger = require("@utils/logger")(module);
 const getImage = require("@utils/image-get");
+const imageGet = require("./image-get");
 
 module.exports = async (isbn) => {
     let data = {};
     let parsedData = {};
+    let chosenCover = "";
 
     try {
         if (isbn) {
             const response = await fetch(`https://openlibrary.org/isbn/${isbn}.json`);
             data = await response.json();
+        }
+
+        if (data?.covers) {
+            for (let cover of data?.covers) {
+                const coverData = await imageGet(`https://covers.openlibrary.org/a/id/${cover}-L.jpg`);
+                if (coverData.length > chosenCover.length) {
+                    chosenCover = coverData;
+                }
+            }
         }
 
         logger.info(`Open library API request for ${isbn}`);
@@ -24,7 +35,7 @@ module.exports = async (isbn) => {
             description: data?.subtitle,
             subtitle: data?.subtitle,
             pages: parseInt(data?.pagination),
-            cover: await getImage(data?.cover),
+            cover: chosenCover,
         };
     } catch (error) {
         logger.warn(`Open library API request for ${isbn} failed`);

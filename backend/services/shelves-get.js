@@ -4,7 +4,7 @@ const logger = require("@utils/logger")(module);
 const shelvesModel = require("@models/shelves");
 const booksModel = require("@models/books");
 
-const getShelf = async (shelf) => {
+const getBooksOnShelf = async (shelf) => {
     let newShelf = shelf._doc;
 
     const booksObject = await booksModel.find({ shelfId: shelf.shelfId }, { bookId: 1, _id: 0 });
@@ -15,22 +15,21 @@ const getShelf = async (shelf) => {
 
 module.exports = async (shelfId) => {
     try {
-        let shelves = {};
-        let newShelves = {};
-        if (shelfId) {
-            shelves = await shelvesModel.findOne({ shelfId: shelfId });
-            newShelves = await getShelf(shelves);
-        } else {
-            shelves = await shelvesModel.find();
+        let data = {};
 
-            newShelves = await Promise.all(
-                shelves.map(async (shelf) => {
-                    return await getShelf(shelf);
+        if (shelfId) {
+            data.shelf = await shelvesModel.findOne({ shelfId: shelfId });
+            data.shelf = await getBooksOnShelf(data.shelf);
+        } else {
+            data.shelves = await shelvesModel.find();
+            data.shelves = await Promise.all(
+                data.shelves.map(async (shelf) => {
+                    return await getBooksOnShelf(shelf);
                 })
             );
         }
 
-        return { shelves: newShelves };
+        return data;
     } catch (error) {
         logger.warn(error);
         return { errors: error };

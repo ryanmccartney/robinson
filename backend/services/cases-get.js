@@ -5,13 +5,13 @@ const casesModel = require("@models/cases");
 
 module.exports = async (caseId) => {
     try {
-        let cases = {};
+        let data = {};
         if (caseId) {
-            cases = await casesModel.findOne({ caseId: caseId });
+            data.case = (await casesModel.findOne({ caseId: caseId })) || null;
         } else {
-            cases = await casesModel.find();
+            data.cases = (await casesModel.find()) || null;
         }
-        return { cases: cases };
+        return data;
     } catch (error) {
         logger.warn(error);
         return { errors: error };

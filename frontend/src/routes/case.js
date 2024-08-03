@@ -1,20 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { useParams } from "react-router-dom";
-import { cases } from "../tests/data";
+import { useParams, useNavigate } from "react-router-dom";
+
+import BreadcrumbsContext from "./../contexts/breadcrumbs";
+import LoadingContent from "./../components/LoadingContent";
 
 const Case = () => {
+    const navigate = useNavigate();
     const { caseId } = useParams();
-    const [bookcase, setBookcase] = useState({});
+    const [data, setData] = useState(null);
+    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
 
+    const setContexts = (bookcase) => {
+        if (bookcase) {
+            setBreadcrumbs([
+                { title: "Home", link: `/` },
+                { title: bookcase?.name || "Case", link: `/case/${bookcase?.caseId}` },
+            ]);
+        }
+    };
+
+    //On component Mount
     useEffect(() => {
-        fetch(`/api/cases/${caseId}`)
-            .then((response) => response.json())
-            .then((json) => setBookcase(json.cases))
-            .catch((error) => console.error(error));
+        const fetchData = async () => {
+            const response = await fetch(`/api/cases/${caseId}`);
+            const data = await response.json();
+
+            setData(data);
+            setContexts(data.case);
+        };
+        fetchData();
     }, []);
+
+    //On component Unmount (cleanup)
+    useEffect(() => {
+        return () => {
+            setBreadcrumbs([]);
+        };
+    }, []);
+
+    if (!data) {
+        return <LoadingContent />;
+    }
+
+    if (!data.case) {
+        navigate(`/cases`);
+        return <LoadingContent />;
+    }
 
     return (
         <>
@@ -26,18 +60,18 @@ const Case = () => {
                             minWidth: "50%",
                             maxWidth: "80%",
                         }}
-                        alt={`${bookcase.title} Cover`}
-                        src={bookcase?.cover}
+                        alt={`${data.case.title} Cover`}
+                        src={data.case?.cover}
                     />
                 </Grid>
 
                 <Grid item xs={12} md={8} lg={6}>
                     <Typography gutterBottom variant="h4">
-                        {bookcase.title}
+                        {data.case.title}
                     </Typography>
 
                     <Typography gutterBottom variant="body2">
-                        {bookcase.description}
+                        {data.case.description}
                     </Typography>
 
                     <Typography gutterBottom variant="h5">

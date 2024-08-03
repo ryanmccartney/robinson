@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     mongo:
         image: mongo:latest
@@ -8,6 +6,8 @@ services:
             MONGO_INITDB_ROOT_USERNAME: robinson
             MONGO_INITDB_ROOT_PASSWORD: robinson123
             MONGO_INITDB_DATABASE: robinson
+        volumes:
+            - robinson-data:/data/db
         ports:
             - 27017:27017
     backend:
@@ -34,3 +34,5 @@ services:
             - backend
         ports:
             - 3000:3000
+volumes:
+    robinson-data:

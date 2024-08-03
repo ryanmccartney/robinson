@@ -117,8 +117,8 @@ router.get("/shelf/:shelfId", async (req, res, next) => {
 router.get("/cover/:bookId", async (req, res, next) => {
     const response = await getBooks(req.params.bookId);
 
-    if (response.books.cover && typeof response.books.cover == "string") {
-        const image = Buffer.from(response.books.cover, "base64");
+    if (response?.book?.cover && typeof response?.book?.cover == "string") {
+        const image = Buffer.from(response?.book?.cover, "base64");
         res.writeHead(200, {
             "Content-Type": "image/png",
             "Content-Length": image.length,

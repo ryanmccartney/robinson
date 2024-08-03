@@ -3,48 +3,70 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
 
+import LoadingContent from "./../components/LoadingContent";
 import BookProgress from "./../components/BookProgress";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
 import ButtonsContext from "./../contexts/buttons";
 
 const Book = () => {
+    const navigate = useNavigate();
     const { bookId } = useParams();
-    const [book, setBook] = useState(null);
+    const [data, setData] = useState(null);
+    const [rating, setRating] = useState(0);
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { buttons, setButtons } = useContext(ButtonsContext);
 
+    const setContexts = (book) => {
+        if (book) {
+            setBreadcrumbs([
+                { title: "Home", link: `/` },
+                { title: book?.case?.name || "Case", link: `/case/${book?.case?.caseId}` },
+                { title: book?.shelf?.name || "Shelf", link: `/shelf/${book?.shelf?.shelfId}` },
+                { title: book.title, link: `/book/${book.bookId}` },
+            ]);
+        }
+
+        if (book) {
+            setButtons([
+                { label: "Edit", icon: "Edit", link: `/books/${book.bookId}/edit` },
+                { label: "Delete", icon: "Delete", link: `/cas` },
+                { label: "Favourite", icon: "FavoriteBorder", link: `/cas` },
+                { label: "Change Shelf", icon: "DensityLarge", link: `/changeShelf` },
+            ]);
+        }
+    };
+
+    //On component Mount
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(`/api/books/${bookId}`);
             const data = await response.json();
-            setBook(data.books);
-            setRating(data.books.rating);
+            setData(data);
+            setRating(data?.book?.rating);
+            setContexts(data?.book);
         };
         fetchData();
     }, []);
 
-    const [rating, setRating] = useState(0);
+    //On component Unmount (cleanup)
+    useEffect(() => {
+        return () => {
+            setBreadcrumbs([]);
+            setButtons([]);
+        };
+    }, []);
 
-    if (!book) {
-        return null;
+    if (!data) {
+        return <LoadingContent />;
     }
 
-    setBreadcrumbs([
-        { title: "Home", link: `/` },
-        { title: book?.case?.name || "Case", link: `/cases/${book?.case?.caseId}` },
-        { title: book?.shelf?.name || "Shelf", link: `/shelves/${book?.shelf?.shelfId}` },
-        { title: book.title, link: `/books/${book.bookId}` },
-    ]);
-
-    setButtons([
-        { label: "Edit", icon: "Edit", link: `/books/${book.bookId}/edit` },
-        { label: "Delete", icon: "Delete", link: `/cas` },
-        { label: "Favorite", icon: "FavoriteBorder", link: `/cas` },
-        { label: "Change Shelf", icon: "DensityLarge", link: `/changeShelf` },
-    ]);
+    if (!data.book) {
+        navigate(`/books`);
+        return <LoadingContent />;
+    }
 
     return (
         <>
@@ -58,21 +80,21 @@ const Book = () => {
                                     minWidth: "50%",
                                     maxWidth: "80%",
                                 }}
-                                alt={`${book.title} Cover`}
-                                src={`/api/books/cover/${book.bookId}`}
+                                alt={`${data.book.title} Cover`}
+                                src={`/api/books/cover/${data.book.bookId}`}
                             />
                         </Grid>
                         <Grid item align="center" lg={12}>
-                            <BookProgress progress={book.progress} total={book.pages} />
+                            <BookProgress progress={data.book.progress} total={data.book.pages} />
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Grid item xs={12} md={8} lg={6}>
-                    <Typography variant="h4">{book.title}</Typography>
+                    <Typography variant="h4">{data.book.title}</Typography>
 
                     <Typography gutterBottom variant="subtitle">
-                        {book.author}
+                        {data.book.author}
                     </Typography>
 
                     <br></br>
@@ -95,7 +117,7 @@ const Book = () => {
                     />
 
                     <Typography gutterBottom variant="body2">
-                        {book.description}
+                        {data.book.description}
                     </Typography>
 
                     <Typography gutterBottom variant="h5">
@@ -109,7 +131,7 @@ const Book = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography variant="body2">{book.publisher}</Typography>
+                            <Typography variant="body2">{data.book.publisher}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
@@ -117,7 +139,7 @@ const Book = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography variant="body2">{book.publishDate}</Typography>
+                            <Typography variant="body2">{data.book.publishDate}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
@@ -125,7 +147,7 @@ const Book = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography variant="body2">{book.pages}</Typography>
+                            <Typography variant="body2">{data.book.pages}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
@@ -133,11 +155,11 @@ const Book = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography variant="body2">{book.isbn}</Typography>
+                            <Typography variant="body2">{data.book.isbn}</Typography>
                         </Grid>
                     </Grid>
 
-                    <Barcode value={book.isbn.toString()} />
+                    <Barcode value={data.book.isbn.toString()} />
                 </Grid>
             </Grid>
         </>

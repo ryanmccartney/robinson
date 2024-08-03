@@ -5,13 +5,13 @@ const usersModel = require("@models/users");
 
 module.exports = async (userId) => {
     try {
-        let users = {};
+        let data = {};
         if (userId) {
-            users = await usersModel.findOne({ userId: userId });
+            data.user = await usersModel.findOne({ userId: userId });
         } else {
-            users = await usersModel.find();
+            data.users = await usersModel.find();
         }
-        return { users: users };
+        return data;
     } catch (error) {
         logger.warn(error);
         return { errors: error };

@@ -1,18 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+
 import BookCard from "./../cards/BookCard";
+import LoadingContent from "./../components/LoadingContent";
+import BreadcrumbsContext from "./../contexts/breadcrumbs";
 
 const Books = () => {
-    const [books, setBooks] = useState([]);
+    const [data, setData] = useState(null);
+    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
 
+    const setContexts = () => {
+        setBreadcrumbs([
+            { title: "Home", link: `/` },
+            { title: "Cases", link: `/cases` },
+            { title: "Shelves", link: `/shelves` },
+            { title: "Books", link: `/books` },
+        ]);
+    };
+
+    //On component Mount
     useEffect(() => {
-        fetch(`/api/books`)
-            .then((response) => response.json())
-            .then((json) => setBooks(json.books))
-            .catch((error) => console.error(error));
+        const fetchData = async () => {
+            const response = await fetch(`/api/books`);
+            const data = await response.json();
+            setData(data);
+            setContexts();
+        };
+        fetchData();
     }, []);
 
-    const getBookCards = () => {
+    //On component Unmount (cleanup)
+    useEffect(() => {
+        return () => {
+            setBreadcrumbs([]);
+        };
+    }, []);
+
+    if (!data) {
+        return <LoadingContent />;
+    }
+
+    const getBookCards = (books) => {
         const bookCards = [];
         {
             Object.keys(books).forEach((bookId, index) => {
@@ -26,7 +54,7 @@ const Books = () => {
     return (
         <>
             <Grid container spacing={4}>
-                {getBookCards()}
+                {getBookCards(data.books)}
             </Grid>
         </>
     );
