@@ -100,7 +100,7 @@ const Book = () => {
 
     return (
         <>
-            <Grid container spacing={4}>
+            <Grid container sx={{ paddingRight: 3 }} spacing={4}>
                 <Grid item align="center" xs={12} md={4} lg={6}>
                     <Grid container spacing={2}>
                         <Grid item align="center" lg={12}>
@@ -123,7 +123,7 @@ const Book = () => {
                 <Grid item xs={12} md={8} lg={6}>
                     <Typography variant="h4">{data.book.title}</Typography>
 
-                    <Typography gutterBottom variant="subtitle">
+                    <Typography gutterBottom variant="subtitle2">
                         {data.book.author}
                     </Typography>
 
@@ -146,7 +146,7 @@ const Book = () => {
                         }}
                     />
 
-                    <Typography gutterBottom variant="body2">
+                    <Typography gutterBottom align="justify" variant="body2">
                         {data.book.description}
                     </Typography>
 
