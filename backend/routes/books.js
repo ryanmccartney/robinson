@@ -11,6 +11,9 @@ const updateBooks = require("@services/books-update");
 const getBooksByCase = require("@services/books-get-by-case");
 const getBooksByShelf = require("@services/books-get-by-shelf");
 const getBooksOrphaned = require("@services/books-get-orphaned");
+const getBooksFavourites = require("@services/books-get-favourite");
+const getBooksProgress = require("@services/books-get-progress");
+const getBooksNew = require("@services/books-get-new");
 
 /**
  * @swagger
@@ -44,6 +47,57 @@ router.get("/", async (req, res, next) => {
  */
 router.get("/orphaned", async (req, res, next) => {
     const response = await getBooksOrphaned();
+    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+});
+
+/**
+ * @swagger
+ * /books/favourites:
+ *    get:
+ *      description: Get a list of all books that have been favourite'd
+ *      tags: [books]
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
+router.get("/favourites", async (req, res, next) => {
+    const response = await getBooksFavourites();
+    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+});
+
+/**
+ * @swagger
+ * /books/progress:
+ *    get:
+ *      description: Get a list of all books that have been started (have progress)
+ *      tags: [books]
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
+router.get("/progress", async (req, res, next) => {
+    const response = await getBooksProgress();
+    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+});
+
+/**
+ * @swagger
+ * /books/new:
+ *    get:
+ *      description: Get a list of all books in order of newest
+ *      tags: [books]
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
+router.get("/new", async (req, res, next) => {
+    const response = await getBooksNew(req.body?.records);
     hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
 });
 

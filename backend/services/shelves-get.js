@@ -3,6 +3,7 @@
 const logger = require("@utils/logger")(module);
 const shelvesModel = require("@models/shelves");
 const booksModel = require("@models/books");
+const casesModel = require("@models/cases");
 
 const getBooksOnShelf = async (shelf) => {
     let newShelf = shelf._doc;
@@ -19,7 +20,8 @@ module.exports = async (shelfId) => {
 
         if (shelfId) {
             data.shelf = await shelvesModel.findOne({ shelfId: shelfId });
-            data.shelf = await getBooksOnShelf(data.shelf);
+            data.books = (await booksModel.find({ shelfId: shelfId })) || null;
+            data.case = (await casesModel.findOne({ caseId: data.shelf?.caseId })) || null;
         } else {
             data.shelves = await shelvesModel.find();
             data.shelves = await Promise.all(

@@ -5,11 +5,13 @@ import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
 import { useParams, useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
+import QRCode from "react-qr-code";
 
 import LoadingContent from "./../components/LoadingContent";
 import BookProgress from "./../components/BookProgress";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
 import ButtonsContext from "./../contexts/buttons";
+import { Height } from "@mui/icons-material";
 
 const Book = () => {
     const navigate = useNavigate();
@@ -19,22 +21,50 @@ const Book = () => {
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { buttons, setButtons } = useContext(ButtonsContext);
 
-    const setContexts = (book) => {
-        if (book) {
+    const deleteBook = async () => {
+        console.log(`Delete book - ${bookId}`);
+        await fetch(`/api/books/${bookId}`, { method: "DELETE" });
+        navigate(`/books`);
+    };
+
+    const favouriteBook = async (book) => {
+        console.log(`Favourite book - ${bookId}`);
+        const response = await fetch(`/api/books/${bookId}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                favourite: !book?.favourite,
+            }),
+        });
+        const newData = await response.json();
+        setData(newData);
+        setContexts(newData);
+    };
+
+    const setContexts = (data) => {
+        if (data) {
             setBreadcrumbs([
                 { title: "Home", link: `/` },
-                { title: book?.case?.name || "Case", link: `/case/${book?.case?.caseId}` },
-                { title: book?.shelf?.name || "Shelf", link: `/shelf/${book?.shelf?.shelfId}` },
-                { title: book.title, link: `/book/${book.bookId}` },
+                { title: data?.case?.name || "Case", link: `/case/${data?.case?.caseId}` },
+                { title: data?.shelf?.name || "Shelf", link: `/shelf/${data?.shelf?.shelfId}` },
+                { title: data?.book.title, link: `/book/${data?.book?.bookId}` },
             ]);
         }
 
-        if (book) {
+        if (data) {
             setButtons([
-                { label: "Edit", icon: "Edit", link: `/books/${book.bookId}/edit` },
-                { label: "Delete", icon: "Delete", link: `/cas` },
-                { label: "Favourite", icon: "FavoriteBorder", link: `/cas` },
-                { label: "Change Shelf", icon: "DensityLarge", link: `/changeShelf` },
+                { label: "Edit", icon: "Edit", link: `/book/${data?.book?.bookId}/edit` },
+                { label: "Delete", icon: "Delete", callback: deleteBook },
+
+                {
+                    label: "Favourite",
+                    icon: data?.book?.favourite ? "Favorite" : "FavoriteBorder",
+                    callback: () => favouriteBook(data?.book),
+                },
+                { label: "Change Shelf", icon: "DensityLarge" },
             ]);
         }
     };
@@ -46,7 +76,7 @@ const Book = () => {
             const data = await response.json();
             setData(data);
             setRating(data?.book?.rating);
-            setContexts(data?.book);
+            setContexts(data);
         };
         fetchData();
     }, []);
@@ -159,7 +189,14 @@ const Book = () => {
                         </Grid>
                     </Grid>
 
-                    <Barcode value={data.book.isbn.toString()} />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item align="center" xs={12} md={4} lg={6}>
+                            <Barcode width={2} height={50} fontSize={15} value={data.book.isbn.toString()} />
+                        </Grid>
+                        <Grid item align="center" xs={12} md={4} lg={6}>
+                            <QRCode size={100} value={window.location.href} />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </>

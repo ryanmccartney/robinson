@@ -49,7 +49,7 @@ app.use(
     })
 );
 
-app.use(favicon(path.join(__dirname, "..", "public", "logo.ico")));
+app.use(favicon(path.join(__dirname, "..", "public", "favicon.ico")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -26,7 +26,7 @@ const ButtonsLayout = () => {
             if (button.icon) {
                 buttonItems.push(
                     <Tooltip key={button.label} title={button.label}>
-                        <IconButton aria-label={button.label}>
+                        <IconButton onClick={button?.callback} href={button?.link} aria-label={button.label}>
                             <IconResolver iconName={button.icon}></IconResolver>
                         </IconButton>
                     </Tooltip>
@@ -34,7 +34,9 @@ const ButtonsLayout = () => {
             } else {
                 buttonItems.push(
                     <Tooltip title="Edit">
-                        <Button aria-label={button.label}>{sentenceCase(button.label)}</Button>
+                        <Button onClick={button?.callback} href={button?.link} aria-label={button.label}>
+                            {sentenceCase(button.label)}
+                        </Button>
                     </Tooltip>
                 );
             }
@@ -44,7 +46,7 @@ const ButtonsLayout = () => {
     };
 
     return (
-        <Stack direction="row" spacing={0.1}>
+        <Stack direction="row" spacing={0.1} sx={{ paddingRight: 1.5, justifyContent: "end" }}>
             {getButtons()}
         </Stack>
     );

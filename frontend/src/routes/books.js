@@ -44,7 +44,11 @@ const Books = () => {
         const bookCards = [];
         {
             Object.keys(books).forEach((bookId, index) => {
-                bookCards.push(<BookCard key={index} book={books[bookId]} />);
+                bookCards.push(
+                    <Grid item xs={6} md={3} lg={2}>
+                        <BookCard key={index} book={books[bookId]} />
+                    </Grid>
+                );
             });
         }
 

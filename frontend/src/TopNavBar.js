@@ -109,7 +109,7 @@ export default function NavBar() {
                         />
                     </Search>
 
-                    {/* <LibrarySelector /> */}
+                    <LibrarySelector />
                 </Toolbar>
             </AppBar>
         </Box>

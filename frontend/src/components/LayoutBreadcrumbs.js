@@ -34,7 +34,7 @@ const LayoutBreadcrumbs = () => {
     };
 
     return (
-        <Breadcrumbs sx={{ mb: 2 }} aria-label="breadcrumb">
+        <Breadcrumbs sx={{ paddingLeft: 0.9, mb: 1.5 }} aria-label="breadcrumb">
             {getBreadcrumbs()}
         </Breadcrumbs>
     );
