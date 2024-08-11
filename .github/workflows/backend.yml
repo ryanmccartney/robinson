@@ -64,7 +64,7 @@ jobs:
             - name: Build and push to registry
               uses: docker/build-push-action@v3
               with:
-                  context: "."
+                  context: "./backend"
                   platforms: ${{ matrix.architecture}}
                   push: ${{ github.event_name != 'pull_request' }}
                   tags: |
