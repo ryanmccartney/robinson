@@ -39,7 +39,7 @@ jobs:
               name: Get Version Number
               id: version
               with:
-                  path: ./
+                  path: ./frontend
             - name: Print Current Version
               run: echo Building with version ${{ steps.version.outputs.current-version }}
             #Docker Buildx Setup
@@ -68,8 +68,8 @@ jobs:
                   platforms: ${{ matrix.architecture}}
                   push: ${{ github.event_name != 'pull_request' }}
                   tags: |
-                      ${{env.regsitry}}/ryanmccartney/frontend:latest
-                      ${{env.regsitry}}/ryanmccartney/frontend:${{steps.version.outputs.current-version}}
+                      ${{env.regsitry}}/ryanmccartney/robinson-frontend:latest
+                      ${{env.regsitry}}/ryanmccartney/robinson-frontend:${{steps.version.outputs.current-version}}
                   outputs: type=registry
                   labels: |
                       author=${{github.actor}}
