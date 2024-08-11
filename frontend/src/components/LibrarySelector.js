@@ -97,7 +97,9 @@ const LibrarySelector = () => {
     if (library && data) {
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
-                <Typography sx={{ padding: 1, flexGrow: 1 }}>{library.name}</Typography>
+                <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>
+                    {library.name}
+                </Typography>
                 <Avatar src={library.cover} sx={{ background: "secondary", opacity: 0.7, fontSize: "1em" }}>
                     {getInitials(library?.name)}
                 </Avatar>
@@ -106,7 +108,9 @@ const LibrarySelector = () => {
     } else {
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
-                <Typography sx={{ padding: 1, flexGrow: 1 }}>Select a Library</Typography>
+                <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>
+                    Select a Library
+                </Typography>
                 <Avatar sx={{ background: "secondary", opacity: 0.7, fontSize: "1em" }}>?</Avatar>
             </Box>
         );

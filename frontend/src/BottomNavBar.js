@@ -1,4 +1,6 @@
-import * as React from "react";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
@@ -13,13 +15,62 @@ import DensityLargeIcon from "@mui/icons-material/DensityLarge";
 import { Link } from "react-router-dom";
 
 export default function FixedBottomNavigation() {
-    const [value, setValue] = React.useState(0);
+    const navigate = useNavigate();
+    const [value, setValue] = useState(0);
+
+    const addBook = async () => {
+        const response = await fetch(`/api/books/`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title: "A New Book" }),
+        });
+
+        const data = await response.json();
+        if (data.book) {
+            navigate(`/book/${data.book?.bookId}`);
+        }
+    };
+
+    const addShelf = async () => {
+        const response = await fetch(`/api/shelves/`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: "A New Shelf" }),
+        });
+
+        const data = await response.json();
+        if (data.shelf) {
+            navigate(`/shelf/${data.shelf?.shelfId}`);
+        }
+    };
+
+    const addCase = async () => {
+        const response = await fetch(`/api/cases/`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: "A New Case" }),
+        });
+
+        const data = await response.json();
+        if (data.case) {
+            navigate(`/case/${data.case?.caseId}`);
+        }
+    };
 
     const actions = [
         { icon: <CameraAltIcon />, name: "Add book", onClick: () => {} },
-        { icon: <ImportContactsIcon />, name: "Add book manually", onClick: () => {} },
-        { icon: <DensityLargeIcon />, name: "Add shelf", onClick: () => {} },
-        { icon: <DensitySmallIcon />, name: "Add case", onClick: () => {} },
+        { icon: <ImportContactsIcon />, name: "Add book manually", onClick: addBook },
+        { icon: <DensityLargeIcon />, name: "Add shelf", onClick: addShelf },
+        { icon: <DensitySmallIcon />, name: "Add case", onClick: addCase },
     ];
 
     return (
@@ -29,7 +80,7 @@ export default function FixedBottomNavigation() {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                zIndex: 2500,
+                zIndex: 1500,
             }}
             elevation={3}
         >

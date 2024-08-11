@@ -3,7 +3,9 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useParams, useNavigate } from "react-router-dom";
 
+import EditableTypography from "../components/EditableTypography";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
+import ButtonsContext from "./../contexts/buttons";
 import LoadingContent from "./../components/LoadingContent";
 import BookCarousel from "./../components/BookCarousel";
 
@@ -11,13 +13,42 @@ const Case = () => {
     const navigate = useNavigate();
     const { caseId } = useParams();
     const [data, setData] = useState(null);
+    const [edit, setEdit] = useState(false);
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { buttons, setButtons } = useContext(ButtonsContext);
+
+    const deleteCase = async () => {
+        console.log(`Delete case - ${caseId}`);
+        await fetch(`/api/cases/${caseId}`, { method: "DELETE" });
+        navigate(`/cases`);
+    };
+
+    const updateCase = async (caseData) => {
+        const response = await fetch(`/api/cases/${caseId}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(caseData),
+        });
+        const newData = await response.json();
+        //setData(newData);
+        //setContexts(newData);
+    };
 
     const setContexts = (data) => {
         if (data) {
             setBreadcrumbs([
                 { title: "Home", link: `/` },
                 { title: data?.case?.name || "Case", link: `/case/${data?.case?.caseId}` },
+            ]);
+        }
+
+        if (data) {
+            setButtons([
+                { label: "Edit", icon: "Edit", callback: () => setEdit((s) => !s) },
+                { label: "Delete", icon: "Delete", callback: deleteCase },
             ]);
         }
     };
@@ -38,6 +69,7 @@ const Case = () => {
     useEffect(() => {
         return () => {
             setBreadcrumbs([]);
+            setButtons([]);
         };
     }, []);
 
@@ -64,13 +96,13 @@ const Case = () => {
 
     return (
         <>
-            <Typography gutterBottom variant="h5">
+            <EditableTypography field="name" edit={edit} onChange={updateCase} variant="h5">
                 {data?.case?.name}
-            </Typography>
+            </EditableTypography>
 
-            <Typography gutterBottom variant="subtitle2">
+            <EditableTypography field="description" edit={edit} onChange={updateCase} variant="subtitle2">
                 {data?.case?.description}
-            </Typography>
+            </EditableTypography>
 
             <Grid container spacing={2}>
                 {getShelves()}

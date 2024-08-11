@@ -5,7 +5,7 @@ const schema = mongoose.Schema({
     bookId: { type: String, default: () => id(), index: true, unique: true, required: true, immutable: true },
     shelfId: { type: String },
     title: { type: String, required: true },
-    isbn: { type: Number, required: true, unique: true },
+    isbn: { type: Number, unique: true },
     author: { type: String },
     description: { type: String },
     subtitle: { type: String },

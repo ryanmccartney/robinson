@@ -3,20 +3,26 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
+import Chip from "@mui/material/Chip";
 import { useParams, useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
 import QRCode from "react-qr-code";
 
+import CoverCard from "./../cards/CoverCard";
+import EditableTypography from "../components/EditableTypography";
+import OrganiserModal from "./../components/OrganiserModal";
 import LoadingContent from "./../components/LoadingContent";
 import BookProgress from "./../components/BookProgress";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
 import ButtonsContext from "./../contexts/buttons";
-import { Height } from "@mui/icons-material";
+import isbn from "isbn3";
 
 const Book = () => {
     const navigate = useNavigate();
     const { bookId } = useParams();
     const [data, setData] = useState(null);
+    const [edit, setEdit] = useState(false);
+    const [organiserOpen, setOrganiserOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { buttons, setButtons } = useContext(ButtonsContext);
@@ -25,6 +31,59 @@ const Book = () => {
         console.log(`Delete book - ${bookId}`);
         await fetch(`/api/books/${bookId}`, { method: "DELETE" });
         navigate(`/books`);
+    };
+
+    const getISBN = (isbnString, hypens = true) => {
+        if (isbnString) {
+            const isbnObject = isbn.parse(isbnString);
+            if (isbnObject) {
+                if (hypens) {
+                    return isbnObject.isbn10h;
+                }
+                return isbnObject.isbn10;
+            }
+            return isbnString;
+        }
+    };
+
+    const getDate = (datetime) => {
+        const dateObject = new Date(datetime);
+        const month = dateObject.toLocaleString("default", { month: "long" });
+        const year = dateObject.getFullYear();
+        return `${month} ${year}`;
+    };
+
+    const getChips = () => {
+        const chips = [];
+
+        if (!data.book.shelfId) {
+            chips.push(
+                <Chip
+                    sx={{ borderRadius: 1 }}
+                    key="1"
+                    size="small"
+                    label="Orphaned"
+                    color="error"
+                    onClick={() => setOrganiserOpen(true)}
+                />
+            );
+        }
+
+        return <Box>{chips}</Box>;
+    };
+
+    const updateBook = async (bookData) => {
+        const response = await fetch(`/api/books/${bookId}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bookData),
+        });
+        const newData = await response.json();
+        setData(newData);
+        setContexts(newData);
     };
 
     const favouriteBook = async (book) => {
@@ -56,7 +115,7 @@ const Book = () => {
 
         if (data) {
             setButtons([
-                { label: "Edit", icon: "Edit", link: `/book/${data?.book?.bookId}/edit` },
+                { label: "Edit", icon: "Edit", callback: () => setEdit((s) => !s) },
                 { label: "Delete", icon: "Delete", callback: deleteBook },
 
                 {
@@ -64,7 +123,7 @@ const Book = () => {
                     icon: data?.book?.favourite ? "Favorite" : "FavoriteBorder",
                     callback: () => favouriteBook(data?.book),
                 },
-                { label: "Change Shelf", icon: "DensityLarge" },
+                { label: "Change Location", icon: "DensityLarge", callback: () => setOrganiserOpen(true) },
             ]);
         }
     };
@@ -100,34 +159,41 @@ const Book = () => {
 
     return (
         <>
-            <Grid container sx={{ paddingRight: 3 }} spacing={4}>
+            <OrganiserModal data={data} setData={setData} open={organiserOpen} setOpen={setOrganiserOpen} />
+            <Grid container sx={{ paddingRight: { xs: 0, md: 2 } }} spacing={3}>
                 <Grid item align="center" xs={12} md={4} lg={6}>
                     <Grid container spacing={2}>
-                        <Grid item align="center" lg={12}>
-                            <Box
-                                component="img"
-                                sx={{
-                                    minWidth: "50%",
-                                    maxWidth: "80%",
-                                }}
-                                alt={`${data.book.title} Cover`}
-                                src={`/api/books/cover/${data.book.bookId}`}
-                            />
+                        <Grid item align="center" xs={12} lg={12}>
+                            <CoverCard edit={edit} data={data} setData={setData} />
                         </Grid>
-                        <Grid item align="center" lg={12}>
+                        <Grid item align="center" xs={12} lg={12}>
                             <BookProgress progress={data.book.progress} total={data.book.pages} />
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Grid item xs={12} md={8} lg={6}>
-                    <Typography variant="h4">{data.book.title}</Typography>
+                    <Grid container spacing={0}>
+                        <Grid margin="0" item xs={12} lg={8}>
+                            <EditableTypography field="title" edit={edit} onChange={updateBook} variant="h4">
+                                {data.book.title}
+                            </EditableTypography>
+                        </Grid>
+                        <Grid item margin="0" paddingTop="5px" align="right" xs={12} lg={4}>
+                            {getChips()}
+                        </Grid>
+                    </Grid>
 
-                    <Typography gutterBottom variant="subtitle2">
+                    <EditableTypography
+                        edit={edit}
+                        field="author"
+                        onChange={updateBook}
+                        gutterBottom
+                        variant="subtitle2"
+                    >
                         {data.book.author}
-                    </Typography>
+                    </EditableTypography>
 
-                    <br></br>
                     <Rating
                         name="simple-controlled"
                         value={rating}
@@ -146,55 +212,74 @@ const Book = () => {
                         }}
                     />
 
-                    <Typography gutterBottom align="justify" variant="body2">
+                    <EditableTypography
+                        gutterBottom
+                        field="description"
+                        multiline
+                        edit={edit}
+                        onChange={updateBook}
+                        align="justify"
+                        variant="body2"
+                    >
                         {data.book.description}
-                    </Typography>
+                    </EditableTypography>
 
                     <Typography gutterBottom variant="h5">
                         Details
                     </Typography>
 
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" alignItems="flex-start">
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
                                 Publisher
                             </Typography>
                         </Grid>
-                        <Grid item xs={8}>
-                            <Typography variant="body2">{data.book.publisher}</Typography>
+                        <Grid item xs={6}>
+                            <EditableTypography field="publisher" edit={edit} onChange={updateBook} variant="body2">
+                                {data.book.publisher}
+                            </EditableTypography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
                                 Published
                             </Typography>
                         </Grid>
-                        <Grid item xs={8}>
-                            <Typography variant="body2">{data.book.publishDate}</Typography>
+                        <Grid item xs={6}>
+                            <Typography variant="body2">{getDate(data.book.publishDate)}</Typography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
                                 Pages
                             </Typography>
                         </Grid>
-                        <Grid item xs={8}>
-                            <Typography variant="body2">{data.book.pages}</Typography>
+                        <Grid item xs={6}>
+                            <EditableTypography field="pages" edit={edit} onChange={updateBook} variant="body2">
+                                {data.book.pages}
+                            </EditableTypography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
-                                ISBN
+                                ISBN-10
                             </Typography>
                         </Grid>
-                        <Grid item xs={8}>
-                            <Typography variant="body2">{data.book.isbn}</Typography>
+                        <Grid item xs={6}>
+                            <EditableTypography field="isbn" edit={edit} onChange={updateBook} variant="body2">
+                                {getISBN(data.book.isbn)}
+                            </EditableTypography>
                         </Grid>
-                    </Grid>
 
-                    <Grid container spacing={2} alignItems="center">
-                        <Grid item align="center" xs={12} md={4} lg={6}>
-                            <Barcode width={2} height={50} fontSize={15} value={data.book.isbn.toString()} />
+                        <Grid item xs={6}>
+                            <Typography fontWeight="fontWeightMedium" variant="body2"></Typography>
                         </Grid>
-                        <Grid item align="center" xs={12} md={4} lg={6}>
-                            <QRCode size={100} value={window.location.href} />
+                        <Grid item xs={6}>
+                            <Barcode width={2} height={40} fontSize={12} value={getISBN(data.book.isbn, false)} />
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <Typography fontWeight="fontWeightMedium" variant="body2"></Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <QRCode size={70} value={window.location.href} />
                         </Grid>
                     </Grid>
                 </Grid>
