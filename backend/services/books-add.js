@@ -7,11 +7,10 @@ module.exports = async (newBook) => {
     try {
         if (newBook.isbn) {
             const isbnParsed = isbn.parse(newBook.isbn);
-            if (isbnParsed.isIsbn10()) {
-                newBook.isbn = isbnParsed.asIsbn13();
-            }
-            if (isbnParsed.isIsbn13()) {
-                newBook.isbn = isbnParsed.asIsbn13();
+            if (isbnParsed) {
+                newBook.isbn = isbnParsed.isbn13;
+            } else {
+                newBook.isbn = undefined;
             }
         }
         const book = new booksModel(newBook);

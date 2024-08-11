@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -7,18 +6,88 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import { red } from "@mui/material/colors";
 
 import BookmarkUpdater from "../components/BookmarkUpdater";
+
+const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+            const data = fileReader.result.split(",")[1];
+            resolve(data);
+        };
+
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });
+};
 
 const BookCard = ({ edit, data, setData, opacity = "1" }) => {
     const [show, setShow] = useState(false);
     const [bookmarkOpener, setBookmarkOpener] = useState(false);
     const card = useRef(null);
     const media = useRef(null);
+    const coverRef = useRef(null);
 
+    const getOverlay = () => {
+        if (edit) {
+            return (
+                <>
+                    <FileUploadIcon sx={{ fontSize: 50 }} />
+                    <br></br>
+                    <Typography variant="caption" align="center">
+                        Update Cover
+                    </Typography>
+                </>
+            );
+        }
+        return (
+            <>
+                <BookmarkIcon sx={{ fontSize: 50 }} />
+                <br></br>
+                <Typography variant="caption" align="center">
+                    Bookmark
+                </Typography>
+            </>
+        );
+    };
+
+    const handleUpload = async (event) => {
+        const file = event.target.files[0];
+        console.log(file);
+        const fileBody = await convertBase64(file);
+        const response = await fetch(`/api/books/${data?.book?.bookId}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ cover: fileBody }),
+        });
+        const updatedData = await response.json();
+        setData(updatedData);
+    };
+
+    const handleOpen = () => {
+        if (edit) {
+            coverRef.current.click();
+        } else {
+            setBookmarkOpener(true);
+        }
+    };
     return (
         <Box>
+            <input
+                onChange={handleUpload}
+                accept="image/*"
+                ref={coverRef}
+                style={{ display: "none" }}
+                type="file"
+                name="cover"
+            />
             <BookmarkUpdater data={data} setData={setData} open={bookmarkOpener} setOpen={setBookmarkOpener} />
 
             <Card
@@ -43,19 +112,28 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                     maxWidth: { xs: "80%", md: "90%" },
                     width: { xs: "80%", md: "40%" },
                 }}
-                onClick={() => setBookmarkOpener(true)}
+                onClick={handleOpen}
             >
                 <CardMedia
                     ref={media}
-                    sx={{ opacity: opacity, height: "85%", width: "100%", objectPosition: "50% 0%" }}
+                    sx={{
+                        opacity: opacity,
+                        minHeight: "30rem",
+                        height: "85%",
+                        width: "100%",
+                        objectPosition: "50% 0%",
+                    }}
                     image={`/api/books/cover/${data.book.bookId}`}
                     component="img"
+                    title={data?.book?.title}
+                    loading="lazy"
+                    alt=""
                 />
                 {show && (
                     <Box
                         sx={{
                             zIndex: "tooltip",
-                            top: "50%",
+                            top: "40%",
                             position: "absolute",
                             left: "0",
                             right: "0",
@@ -63,11 +141,7 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                             marginRight: "auto",
                         }}
                     >
-                        <BookmarkIcon sx={{ fontSize: 50 }} />
-                        <br></br>
-                        <Typography variant="caption" align="center">
-                            Bookmark
-                        </Typography>
+                        {getOverlay()}
                     </Box>
                 )}
             </Card>

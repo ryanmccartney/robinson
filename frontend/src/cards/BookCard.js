@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import trimToLength from "./../utils/trimToLength";
 import { Link } from "react-router-dom";
+import * as dayjs from "dayjs";
 
 const options = {
     shouldForwardProp: (prop) => prop !== "hoverShadow",
@@ -16,15 +17,6 @@ const BookCard = ({ book, width = "100%", height = "24rem", opacity = "1" }) => 
     const [show, setShow] = React.useState(false);
     const media = React.useRef(null);
     const card = React.useRef(null);
-
-    const getDate = (datetime) => {
-        const dateObject = new Date(datetime);
-
-        const month = dateObject.toLocaleString("default", { month: "long" });
-        const year = dateObject.getFullYear();
-
-        return `${month} ${year}`;
-    };
 
     return (
         <Link style={{ flexShrink: 0, textDecoration: "none" }} to={`/book/${book.bookId}`}>
@@ -51,7 +43,9 @@ const BookCard = ({ book, width = "100%", height = "24rem", opacity = "1" }) => 
                             <Typography gutterBottom variant="subtitle2">
                                 {trimToLength(book.description, 20)}
                             </Typography>
-                            <Typography variant="caption" align="right">{`${getDate(book.publishDate)}`}</Typography>
+                            <Typography variant="caption" align="right">{`${dayjs(book.publishDate).format(
+                                "MMMM YYYY"
+                            )}`}</Typography>
                             <Typography
                                 variant="overline"
                                 display="block"

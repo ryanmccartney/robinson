@@ -67,7 +67,7 @@ export default function FixedBottomNavigation() {
     };
 
     const actions = [
-        { icon: <CameraAltIcon />, name: "Add book", onClick: () => {} },
+        { icon: <CameraAltIcon />, name: "Add book", onClick: () => navigate(`/scan`) },
         { icon: <ImportContactsIcon />, name: "Add book manually", onClick: addBook },
         { icon: <DensityLargeIcon />, name: "Add shelf", onClick: addShelf },
         { icon: <DensitySmallIcon />, name: "Add case", onClick: addCase },

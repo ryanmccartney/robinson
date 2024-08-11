@@ -22,7 +22,7 @@ const LayoutBreadcrumbs = () => {
             if (breadcrumb.link) {
                 breadcrumbsItems.push(
                     <Link key={breadcrumb.link} underline="hover" color="inherit" href={breadcrumb.link}>
-                        {sentenceCase(breadcrumb.title)}
+                        {sentenceCase(breadcrumb.title || "")}
                     </Link>
                 );
             } else {

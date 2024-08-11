@@ -4,9 +4,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
 import Chip from "@mui/material/Chip";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useParams, useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
 import QRCode from "react-qr-code";
+import * as dayjs from "dayjs";
 
 import CoverCard from "./../cards/CoverCard";
 import EditableTypography from "../components/EditableTypography";
@@ -38,19 +42,12 @@ const Book = () => {
             const isbnObject = isbn.parse(isbnString);
             if (isbnObject) {
                 if (hypens) {
-                    return isbnObject.isbn10h;
+                    return isbnObject.isbn13h;
                 }
-                return isbnObject.isbn10;
+                return isbnObject.isbn13;
             }
             return isbnString;
         }
-    };
-
-    const getDate = (datetime) => {
-        const dateObject = new Date(datetime);
-        const month = dateObject.toLocaleString("default", { month: "long" });
-        const year = dateObject.getFullYear();
-        return `${month} ${year}`;
     };
 
     const getChips = () => {
@@ -109,7 +106,7 @@ const Book = () => {
                 { title: "Home", link: `/` },
                 { title: data?.case?.name || "Case", link: `/case/${data?.case?.caseId}` },
                 { title: data?.shelf?.name || "Shelf", link: `/shelf/${data?.shelf?.shelfId}` },
-                { title: data?.book.title, link: `/book/${data?.book?.bookId}` },
+                { title: data?.book?.title || "Book", link: `/book/${data?.book?.bookId}` },
             ]);
         }
 
@@ -245,7 +242,19 @@ const Book = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography variant="body2">{getDate(data.book.publishDate)}</Typography>
+                            {edit ? (
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        sx={{ width: "100%" }}
+                                        value={dayjs(data.book.publishDate)}
+                                        onChange={(newValue) => updateBook({ publishDate: newValue })}
+                                    />
+                                </LocalizationProvider>
+                            ) : (
+                                <Typography variant="body2">
+                                    {dayjs(data.book.publishDate).format("MMMM YYYY")}
+                                </Typography>
+                            )}
                         </Grid>
                         <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
@@ -259,7 +268,7 @@ const Book = () => {
                         </Grid>
                         <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2">
-                                ISBN-10
+                                ISBN-13
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -272,9 +281,14 @@ const Book = () => {
                             <Typography fontWeight="fontWeightMedium" variant="body2"></Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Barcode width={2} height={40} fontSize={12} value={getISBN(data.book.isbn, false)} />
+                            <Barcode
+                                format="EAN13"
+                                width={2}
+                                height={40}
+                                fontSize={12}
+                                value={getISBN(data.book.isbn, false)}
+                            />
                         </Grid>
-
                         <Grid item xs={6}>
                             <Typography fontWeight="fontWeightMedium" variant="body2"></Typography>
                         </Grid>

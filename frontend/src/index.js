@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./routes/layout";
 import Error from "./routes/error";
 import Root from "./routes/root";
+import Scan from "./routes/scan";
 
 import Shelves from "./routes/shelves";
 import Shelf from "./routes/shelf";
@@ -32,6 +33,7 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<Layout />}>
                             <Route path="/" element={<Root />} />
+                            <Route path="scan" element={<Scan />} />
                             <Route path="shelves" element={<Shelves />} />
                             <Route path="shelf/:shelfId" element={<Shelf />} />
                             <Route path="books" element={<Books />} />

@@ -22,6 +22,7 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
                     children: <RemoveIcon fontSize="small" />,
                 },
             }}
+            type="number"
             sx={{ marginTop: "25%" }}
             {...props}
             ref={ref}

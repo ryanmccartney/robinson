@@ -29,6 +29,10 @@ const nodeEnv = process.env.NODE_ENV || "production";
 
 const app = express();
 
+//File limits
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
+
 app.set("json spaces", 2);
 app.use(cors());
 app.use(
