@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -30,6 +31,7 @@ export default function FixedBottomNavigation() {
 
         const data = await response.json();
         if (data.book) {
+            enqueueSnackbar(`Created a book called ${data.book.title}`);
             navigate(`/book/${data.book?.bookId}`);
         }
     };
@@ -46,6 +48,7 @@ export default function FixedBottomNavigation() {
 
         const data = await response.json();
         if (data.shelf) {
+            enqueueSnackbar(`Created a shelf called ${data.shelf.name}`);
             navigate(`/shelf/${data.shelf?.shelfId}`);
         }
     };
@@ -62,6 +65,7 @@ export default function FixedBottomNavigation() {
 
         const data = await response.json();
         if (data.case) {
+            enqueueSnackbar(`Created a case called ${data.case.name}`);
             navigate(`/case/${data.case?.caseId}`);
         }
     };

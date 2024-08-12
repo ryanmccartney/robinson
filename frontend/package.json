@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "development": "webpack serve --mode development --open",
-    "production": "serve -s build",
+    "production": "serve -l 3001 -s build",
     "build": "webpack --mode production",
     "test": "jest"
   },
@@ -22,13 +22,14 @@
     "barcode-detector": "^2.2.7",
     "dayjs": "^1.11.12",
     "isbn3": "^1.1.51",
+    "notistack": "^3.0.1",
     "react": "^18.3.1",
     "react-barcode": "^1.4.6",
     "react-dom": "^18.3.1",
     "react-qr-code": "^2.0.15",
     "react-router-dom": "^6.21.1",
     "react-webcam": "^7.2.0",
-    "serve": "^14.2.1"
+    "serve": "^14.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",

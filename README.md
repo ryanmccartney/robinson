@@ -45,3 +45,42 @@ Find the development frontend on `http://localhost:3000` and self-documenting AP
 -   React fronted rolled with Webpack.
 -   Node.js Express Backend
 -   Docker-based for easy self-hosting
+
+# Installation
+
+```yml
+services:
+    mongo:
+        image: mongo:latest
+        restart: unless-stopped
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: robinson
+            MONGO_INITDB_ROOT_PASSWORD: robinson123
+            MONGO_INITDB_DATABASE: robinson
+        volumes:
+            - robinson-data:/data/db
+        ports:
+            - 27017:27017
+    backend:
+        image: ghcr.io/ryanmccartney/robinson-backend:latest
+        restart: unless-stopped
+        environment:
+            PORT: 3202
+            NODE_ENV: production
+        depends_on:
+            - mongo
+        ports:
+            - 3100:3100
+    frontend:
+        image: ghcr.io/ryanmccartney/robinson-frontend:latest
+        restart: unless-stopped
+        environment:
+            PORT: 3202
+            NODE_ENV: production
+        depends_on:
+            - backend
+        ports:
+            - 3000:3000
+volumes:
+    robinson-data:
+```
