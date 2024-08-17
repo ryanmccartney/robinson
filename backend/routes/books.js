@@ -1,7 +1,8 @@
 "use strict";
 
 const router = require("express").Router();
-const hashResponse = require("@utils/hash-response");
+const response = require("@utils/response");
+const auth = require("@utils/auth");
 
 const getBooks = require("@services/books-get");
 const addBooks = require("@services/books-add");
@@ -27,10 +28,9 @@ const getBooksNew = require("@services/books-get-new");
  *        '200':
  *          description: Success
  */
-router.get("/", async (req, res, next) => {
-    const response = await getBooks();
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooks();
+    response(res, req, data);
 });
 
 /**
@@ -45,9 +45,9 @@ router.get("/", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/orphaned", async (req, res, next) => {
-    const response = await getBooksOrphaned();
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/orphaned", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooksOrphaned();
+    response(res, req, data);
 });
 
 /**
@@ -62,9 +62,9 @@ router.get("/orphaned", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/favourites", async (req, res, next) => {
-    const response = await getBooksFavourites();
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/favourites", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooksFavourites();
+    response(res, req, data);
 });
 
 /**
@@ -79,9 +79,9 @@ router.get("/favourites", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/progress", async (req, res, next) => {
-    const response = await getBooksProgress();
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/progress", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooksProgress();
+    response(res, req, data);
 });
 
 /**
@@ -96,9 +96,9 @@ router.get("/progress", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/new", async (req, res, next) => {
-    const response = await getBooksNew(req.body?.records);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/new", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooksNew(req.body?.records);
+    response(res, req, data);
 });
 
 /**
@@ -120,9 +120,9 @@ router.get("/new", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/case/:caseId", async (req, res, next) => {
-    const response = await getBooksByCase(req.params.caseId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/case/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooksByCase(req.params.caseId);
+    response(res, req, data);
 });
 
 /**
@@ -144,9 +144,9 @@ router.get("/case/:caseId", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/shelf/:shelfId", async (req, res, next) => {
-    const response = await getBooksByShelf(req.params.shelfId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/shelf/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooksByShelf(req.params.shelfId);
+    response(res, req, data);
 });
 
 /**
@@ -168,18 +168,18 @@ router.get("/shelf/:shelfId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/cover/:bookId", async (req, res, next) => {
-    const response = await getBooks(req.params.bookId);
+router.get("/cover/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooks(req.params.bookId);
 
-    if (response?.book?.cover && typeof response?.book?.cover == "string") {
-        const image = Buffer.from(response?.book?.cover, "base64");
+    if (data?.book?.cover && typeof data?.book?.cover == "string") {
+        const image = Buffer.from(data?.book?.cover, "base64");
         res.writeHead(200, {
             "Content-Type": "image/png",
             "Content-Length": image.length,
         });
         res.end(image);
     } else {
-        hashResponse(res, req, { error: { message: "Unable to retrieve cover" }, status: "error" });
+        response(res, req, { error: { message: "Unable to retrieve cover" }, status: "error" });
     }
 });
 
@@ -195,10 +195,9 @@ router.get("/cover/:bookId", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.post("/", async (req, res, next) => {
-    const response = await addBooks(req.body);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
+    const data = await addBooks(req.body);
+    response(res, req, data);
 });
 
 /**
@@ -220,9 +219,9 @@ router.post("/", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:bookId", async (req, res, next) => {
-    const response = await getBooks(req.params.bookId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getBooks(req.params.bookId);
+    response(res, req, data);
 });
 
 /**
@@ -244,9 +243,9 @@ router.get("/:bookId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:bookId", async (req, res, next) => {
-    const response = await updateBooks(req.params.bookId, req.body);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.put("/:bookId", auth.restrict(["update_data"]), async (req, res, next) => {
+    const data = await updateBooks(req.params.bookId, req.body);
+    response(res, req, data);
 });
 
 /**
@@ -268,9 +267,9 @@ router.put("/:bookId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.delete("/:bookId", async (req, res, next) => {
-    const response = await deleteBooks(req.params.bookId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.delete("/:bookId", auth.restrict(["delete_data"]), async (req, res, next) => {
+    const data = await deleteBooks(req.params.bookId);
+    response(res, req, data);
 });
 
 module.exports = router;

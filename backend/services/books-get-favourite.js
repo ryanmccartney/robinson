@@ -1,6 +1,7 @@
 "use strict";
 
 const logger = require("@utils/logger")(module);
+const getError = require("@utils/error-get");
 const booksModel = require("@models/books");
 
 module.exports = async () => {
@@ -12,7 +13,6 @@ module.exports = async () => {
         });
         return data;
     } catch (error) {
-        logger.warn(error);
-        return { errors: error };
+        return getError(error);
     }
 };

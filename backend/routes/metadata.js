@@ -1,7 +1,8 @@
 "use strict";
 
 const router = require("express").Router();
-const hashResponse = require("@utils/hash-response");
+const response = require("@utils/response");
+const auth = require("@utils/auth");
 
 const getMetadata = require("@services/metadata-get");
 const updateMetadata = require("@services/metadata-update");
@@ -26,10 +27,9 @@ const addMetadata = require("@services/metadata-add");
  *        '200':
  *          description: Success
  */
-router.get("/:isbn", async (req, res, next) => {
-    const response = await getMetadata(req.params.isbn);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getMetadata(req.params.isbn);
+    response(res, req, data);
 });
 
 /**
@@ -51,9 +51,9 @@ router.get("/:isbn", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.put("/:bookId", async (req, res, next) => {
-    const response = await updateMetadata(req.params.bookId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.put("/:bookId", auth.restrict(["update_data"]), async (req, res, next) => {
+    const data = await updateMetadata(req.params.bookId);
+    response(res, req, data);
 });
 
 /**
@@ -75,9 +75,9 @@ router.put("/:bookId", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.post("/:isbn", async (req, res, next) => {
-    const response = await addMetadata(req.params.isbn);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.post("/:isbn", auth.restrict(["add_data"]), async (req, res, next) => {
+    const data = await addMetadata(req.params.isbn);
+    response(res, req, data);
 });
 
 module.exports = router;

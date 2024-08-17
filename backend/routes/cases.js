@@ -1,7 +1,8 @@
 "use strict";
 
 const router = require("express").Router();
-const hashResponse = require("@utils/hash-response");
+const response = require("@utils/response");
+const auth = require("@utils/auth");
 
 const getCases = require("@services/cases-get");
 const addCases = require("@services/cases-add");
@@ -20,10 +21,9 @@ const updateCases = require("@services/cases-update");
  *        '200':
  *          description: Success
  */
-router.get("/", async (req, res, next) => {
-    const response = await getCases();
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getCases();
+    response(res, req, data);
 });
 
 /**
@@ -38,10 +38,9 @@ router.get("/", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.post("/", async (req, res, next) => {
-    const response = await addCases(req.body);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
+    const data = await addCases(req.body);
+    response(res, req, data);
 });
 
 /**
@@ -63,10 +62,9 @@ router.post("/", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:caseId", async (req, res, next) => {
-    const response = await getCases(req.params.caseId);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getCases(req.params.caseId);
+    response(res, req, data);
 });
 
 /**
@@ -88,9 +86,9 @@ router.get("/:caseId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:caseId", async (req, res, next) => {
-    const response = await updateCases(req.params.caseId, req.body);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.put("/:caseId", auth.restrict(["update_data"]), async (req, res, next) => {
+    const data = await updateCases(req.params.caseId, req.body);
+    response(res, req, data);
 });
 
 /**
@@ -112,9 +110,9 @@ router.put("/:caseId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.delete("/:caseId", async (req, res, next) => {
-    const response = await deleteCases(req.params.caseId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.delete("/:caseId", auth.restrict(["delete_data"]), async (req, res, next) => {
+    const data = await deleteCases(req.params.caseId);
+    response(res, req, data);
 });
 
 module.exports = router;

@@ -1,7 +1,8 @@
 "use strict";
 
 const router = require("express").Router();
-const hashResponse = require("@utils/hash-response");
+const response = require("@utils/response");
+const auth = require("@utils/auth");
 
 const getShelves = require("@services/shelves-get");
 const addShelves = require("@services/shelves-add");
@@ -20,10 +21,9 @@ const updateShelves = require("@services/shelves-update");
  *        '200':
  *          description: Success
  */
-router.get("/", async (req, res, next) => {
-    const response = await getShelves();
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getShelves();
+    response(res, req, data);
 });
 
 /**
@@ -38,10 +38,9 @@ router.get("/", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.post("/", async (req, res, next) => {
-    const response = await addShelves(req.body);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
+    const data = await addShelves(req.body);
+    response(res, req, data);
 });
 
 /**
@@ -63,9 +62,9 @@ router.post("/", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:shelfId", async (req, res, next) => {
-    const response = await getShelves(req.params.shelfId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getShelves(req.params.shelfId);
+    response(res, req, data);
 });
 
 /**
@@ -87,9 +86,9 @@ router.get("/:shelfId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:shelfId", async (req, res, next) => {
-    const response = await updateShelves(req.params.shelfId, req.body);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.put("/:shelfId", auth.restrict(["update_data"]), async (req, res, next) => {
+    const data = await updateShelves(req.params.shelfId, req.body);
+    response(res, req, data);
 });
 
 /**
@@ -111,9 +110,9 @@ router.put("/:shelfId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.delete("/:shelfId", async (req, res, next) => {
-    const response = await deleteShelves(req.params.shelfId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.delete("/:shelfId", auth.restrict(["delete_data"]), async (req, res, next) => {
+    const data = await deleteShelves(req.params.shelfId);
+    response(res, req, data);
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 "use strict";
 
 const logger = require("@utils/logger")(module);
+const getError = require("@utils/error-get");
 const casesModel = require("@models/cases");
 
 module.exports = async (newCase) => {
@@ -11,7 +12,6 @@ module.exports = async (newCase) => {
 
         return { case: cases };
     } catch (error) {
-        logger.warn(error);
-        return { errors: error };
+        return getError(error);
     }
 };

@@ -3,6 +3,8 @@
 const logger = require("@utils/logger")(module);
 const booksModel = require("@models/books");
 const isbn = require("isbn3");
+const getError = require("@utils/error-get");
+
 module.exports = async (newBook) => {
     try {
         if (newBook.isbn) {
@@ -19,7 +21,6 @@ module.exports = async (newBook) => {
 
         return { book: book };
     } catch (error) {
-        logger.warn(error);
-        return { errors: error };
+        return getError(error);
     }
 };

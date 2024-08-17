@@ -1,6 +1,7 @@
 "use strict";
 
 const logger = require("@utils/logger")(module);
+const getError = require("@utils/error-get");
 const booksModel = require("@models/books");
 const shelvesModel = require("@models/shelves");
 const casesModel = require("@models/cases");
@@ -26,7 +27,6 @@ module.exports = async (bookId, update) => {
             throw "No book ID provided";
         }
     } catch (error) {
-        logger.warn(error);
-        return { errors: error };
+        return getError(error);
     }
 };

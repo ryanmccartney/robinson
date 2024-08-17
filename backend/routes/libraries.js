@@ -1,7 +1,8 @@
 "use strict";
 
 const router = require("express").Router();
-const hashResponse = require("@utils/hash-response");
+const response = require("@utils/response");
+const auth = require("@utils/auth");
 
 const getLibraries = require("@services/libraries-get");
 const addLibraries = require("@services/libraries-add");
@@ -20,10 +21,9 @@ const updateLibraries = require("@services/libraries-update");
  *        '200':
  *          description: Success
  */
-router.get("/", async (req, res, next) => {
-    const response = await getLibraries();
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getLibraries();
+    response(res, req, data);
 });
 
 /**
@@ -38,10 +38,9 @@ router.get("/", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.post("/", async (req, res, next) => {
-    const response = await addLibraries(req.body);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
+    const data = await addLibraries(req.body);
+    response(res, req, data);
 });
 
 /**
@@ -63,9 +62,9 @@ router.post("/", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:libraryId", async (req, res, next) => {
-    const response = await getLibraries(req.params.libraryId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/:libraryId", auth.restrict(["get_data"]), async (req, res, next) => {
+    const data = await getLibraries(req.params.libraryId);
+    response(res, req, data);
 });
 
 /**
@@ -87,9 +86,9 @@ router.get("/:libraryId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:libraryId", async (req, res, next) => {
-    const response = await updateLibraries(req.params.libraryId, req.body);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.put("/:libraryId", auth.restrict(["update_data"]), async (req, res, next) => {
+    const data = await updateLibraries(req.params.libraryId, req.body);
+    response(res, req, data);
 });
 
 /**
@@ -111,9 +110,9 @@ router.put("/:libraryId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.delete("/:libraryId", async (req, res, next) => {
-    const response = await deleteLibraries(req.params.libraryId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.delete("/:libraryId", auth.restrict(["delete_data"]), async (req, res, next) => {
+    const data = await deleteLibraries(req.params.libraryId);
+    response(res, req, data);
 });
 
 module.exports = router;

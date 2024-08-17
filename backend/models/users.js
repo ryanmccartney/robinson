@@ -6,7 +6,10 @@ const schema = mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     password: { type: String, required: true },
+    username: { type: String, required: true },
     libraries: { type: Array },
+    role: { type: String, enum: ["user", "guest", "admin"], required: true },
+    enabled: { type: Boolean, required: true, default: true },
 });
 
 module.exports = mongoose.model("users", schema);

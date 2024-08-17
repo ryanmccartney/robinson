@@ -1,6 +1,7 @@
 "use strict";
 
 const logger = require("@utils/logger")(module);
+const getError = require("@utils/error-get");
 const booksModel = require("@models/books");
 const shelvesModel = require("@models/shelves");
 
@@ -18,7 +19,6 @@ module.exports = async (caseId) => {
         }
         return { shelves: shelves, books: books };
     } catch (error) {
-        logger.warn(error);
-        return { errors: error };
+        return getError(error);
     }
 };

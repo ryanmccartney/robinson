@@ -1,7 +1,8 @@
 "use strict";
 
 const router = require("express").Router();
-const hashResponse = require("@utils/hash-response");
+const response = require("@utils/response");
+const auth = require("@utils/auth");
 
 const getUsers = require("@services/users-get");
 const addUsers = require("@services/users-add");
@@ -20,10 +21,9 @@ const updateUsers = require("@services/users-update");
  *        '200':
  *          description: Success
  */
-router.get("/", async (req, res, next) => {
-    const response = await getUsers();
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/", auth.restrict(["get_user_data"]), async (req, res, next) => {
+    const data = await getUsers();
+    response(res, req, data);
 });
 
 /**
@@ -38,17 +38,16 @@ router.get("/", async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.post("/", async (req, res, next) => {
-    const response = await addUsers(req.body);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.post("/", auth.restrict(["add_user_data"]), async (req, res, next) => {
+    const data = await addUsers(req.body);
+    response(res, req, data);
 });
 
 /**
  * @swagger
  * /users/{usersId}:
  *    get:
- *      description: Get a user by it's ID
+ *      description: Get a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -63,17 +62,16 @@ router.post("/", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:userId", async (req, res, next) => {
-    const response = await getUsers(req.params.userId);
-
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.get("/:userId", auth.restrict(["get_user_data"]), async (req, res, next) => {
+    const data = await getUsers(req.params.userId);
+    response(res, req, data);
 });
 
 /**
  * @swagger
  * /users/{userId}:
  *    put:
- *      description: Update a user by it's ID
+ *      description: Update a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -88,16 +86,16 @@ router.get("/:userId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:userId", async (req, res, next) => {
-    const response = await updateUsers(req.params.userId, req.body);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.put("/:userId", auth.restrict(["update_user_data"]), async (req, res, next) => {
+    const data = await updateUsers(req.params.userId, req.body);
+    response(res, req, data);
 });
 
 /**
  * @swagger
  * /users/{usersId}:
  *    delete:
- *      description: Delete a user by it's ID
+ *      description: Delete a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -112,9 +110,9 @@ router.put("/:userId", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.delete("/:userId", async (req, res, next) => {
-    const response = await deleteUsers(req.params.userId);
-    hashResponse(res, req, { ...response, ...{ status: response.errors ? "error" : "success" } });
+router.delete("/:userId", auth.restrict(["delete_user_data"]), async (req, res, next) => {
+    const data = await deleteUsers(req.params.userId);
+    response(res, req, data);
 });
 
 module.exports = router;

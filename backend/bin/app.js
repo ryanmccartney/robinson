@@ -8,6 +8,9 @@ const cors = require("cors");
 const favicon = require("serve-favicon");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const passport = require("passport");
+const auth = require("@utils/auth");
+const getError = require("@utils/error-get");
 
 // load routes
 const documentation = require("@utils/documentation");
@@ -17,6 +20,8 @@ const cases = require("@routes/cases");
 const libraries = require("@routes/libraries");
 const users = require("@routes/users");
 const metadata = require("@routes/metadata");
+const login = require("@routes/login");
+const logout = require("@routes/logout");
 
 // rate limiting
 const apiLimiter = rateLimit({
@@ -59,7 +64,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/", apiLimiter);
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
+app.use(auth.session());
+passport.use(auth.strategy);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(apiLimiter);
 app.use("/documentation", documentation);
 app.use("/api/books", books);
 app.use("/api/shelves", shelves);
@@ -67,6 +85,8 @@ app.use("/api/cases", cases);
 app.use("/api/libraries", libraries);
 app.use("/api/users", users);
 app.use("/api/metadata", metadata);
+app.use("/api/login", login);
+app.use("/api/logout", logout);
 
 // Redirect /api to /documentation
 app.use("/api", (req, res, next) => {
@@ -82,11 +102,9 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((error, req, res, next) => {
-    res.status(error.status || 500).json({
-        status: error.status,
-        message: error.message,
-        stack: nodeEnv !== "production" ? error.stack.split("\n") : undefined,
-    });
+    res.status(error.status || 500).json(getError(error));
 });
+
+auth.initUsers();
 
 module.exports = app;
