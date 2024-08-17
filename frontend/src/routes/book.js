@@ -11,6 +11,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
 import QRCode from "react-qr-code";
 import * as dayjs from "dayjs";
+import fetcher from "./../utils/fetcher";
 
 import CoverCard from "./../cards/CoverCard";
 import EditableTypography from "../components/EditableTypography";
@@ -128,8 +129,7 @@ const Book = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/books/${bookId}`);
-            const data = await response.json();
+            const data = await fetcher(`books/${bookId}`);
             setData(data);
             setRating(data?.book?.rating);
             setContexts(data);

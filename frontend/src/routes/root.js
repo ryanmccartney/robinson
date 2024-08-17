@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import fetcher from "./../utils/fetcher";
 
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
 import BookCarousel from "./../components/BookCarousel";
@@ -17,17 +18,9 @@ const Root = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            let response = await fetch(`/api/books/favourites`);
-            let data = await response.json();
-            setFavourites(data);
-
-            response = await fetch(`/api/books/progress`);
-            data = await response.json();
-            setReading(data);
-
-            response = await fetch(`/api/books/new`);
-            data = await response.json();
-            setRecently(data);
+            setFavourites(await fetcher(`books/favourites`));
+            setReading(await fetcher(`books/progress`));
+            setRecently(await fetcher(`books/new`));
         };
         fetchData();
         setContexts();

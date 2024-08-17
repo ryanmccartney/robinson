@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import LibraryCard from "../cards/LibraryCard";
-import { libraries } from "../tests/data";
+import fetcher from "./../utils/fetcher";
 
 const Libraries = () => {
-    const [libraries, setLibraries] = useState([]);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch(`/api/libraries`)
-            .then((response) => response.json())
-            .then((json) => setLibraries(json.libraries))
-            .catch((error) => console.error(error));
+        const fetchData = async () => {
+            const data = await fetcher(`libraries`);
+            setData(data);
+        };
+        fetchData();
     }, []);
 
     const getLibraryCards = () => {
         const libraryCards = [];
         {
             Object.keys(libraries).forEach((id, index) => {
-                libraryCards.push(<LibraryCard key={index} library={libraries[id]} />);
+                libraryCards.push(<LibraryCard key={index} library={data[id]} />);
             });
         }
 

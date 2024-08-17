@@ -3,16 +3,19 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
+import fetcher from "./../utils/fetcher";
 
 const Library = () => {
     const { libraryId } = useParams();
     const [library, setLibrary] = useState({});
 
     useEffect(() => {
-        fetch(`/api/libraries/${libraryId}`)
-            .then((response) => response.json())
-            .then((json) => setLibrary(json.library))
-            .catch((error) => console.error(error));
+        const fetchData = async () => {
+            const data = await fetcher(`libraries/${libraryId}`);
+            setData(data);
+            setContexts();
+        };
+        fetchData();
     }, []);
 
     return (

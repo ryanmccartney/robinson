@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import fetcher from "./../utils/fetcher";
 
 import BookCard from "./../cards/BookCard";
 import LoadingContent from "./../components/LoadingContent";
@@ -21,8 +22,7 @@ const Books = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/books`);
-            const data = await response.json();
+            const data = await fetcher(`books`);
             setData(data);
             setContexts();
         };
@@ -40,7 +40,7 @@ const Books = () => {
         return <LoadingContent />;
     }
 
-    const getBookCards = (books) => {
+    const getBookCards = (books = {}) => {
         const bookCards = [];
         {
             Object.keys(books).forEach((bookId, index) => {
@@ -58,7 +58,7 @@ const Books = () => {
     return (
         <>
             <Grid container spacing={4}>
-                {getBookCards(data.books)}
+                {getBookCards(data?.books)}
             </Grid>
         </>
     );

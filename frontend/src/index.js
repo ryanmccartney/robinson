@@ -7,6 +7,7 @@ import Layout from "./routes/layout";
 import Error from "./routes/error";
 import Root from "./routes/root";
 import Scan from "./routes/scan";
+import Login from "./routes/login";
 
 import Shelves from "./routes/shelves";
 import Shelf from "./routes/shelf";
@@ -43,6 +44,7 @@ const App = () => {
                         <Routes>
                             <Route path="/" element={<Layout />}>
                                 <Route path="/" element={<Root />} />
+                                <Route path="login" element={<Login />} />
                                 <Route path="scan" element={<Scan />} />
                                 <Route path="shelves" element={<Shelves />} />
                                 <Route path="shelf/:shelfId" element={<Shelf />} />

@@ -13,7 +13,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import getInitials from "../utils/getInitials";
 
-const LibraryMenu = ({ libraries = [], callback }) => {
+const LibraryMenu = ({ libraries = {}, callback }) => {
     const getLibraryItems = () => {
         const menuItems = [];
 
@@ -82,7 +82,7 @@ const LibrarySelector = () => {
             setData(data);
 
             const libraryId = localStorage.getItem("libraryId");
-            if (libraryId) {
+            if (libraryId && data.libraries) {
                 for (let item of data.libraries) {
                     if (item?.libraryId == libraryId) {
                         setLibrary(item);

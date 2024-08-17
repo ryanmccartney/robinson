@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import fetcher from "./../utils/fetcher";
 
 import CaseCard from "../cards/CaseCard";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
@@ -19,8 +20,7 @@ const Cases = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/cases`);
-            const data = await response.json();
+            const data = await fetcher(`cases`);
             setData(data);
             setContexts();
         };
@@ -38,7 +38,7 @@ const Cases = () => {
         return <LoadingContent />;
     }
 
-    const getCaseCards = (cases) => {
+    const getCaseCards = (cases = {}) => {
         const caseCards = [];
         {
             Object.keys(cases).forEach((id, index) => {
@@ -51,7 +51,7 @@ const Cases = () => {
     return (
         <>
             <Grid container spacing={4}>
-                {getCaseCards(data.cases)}
+                {getCaseCards(data?.cases)}
             </Grid>
         </>
     );

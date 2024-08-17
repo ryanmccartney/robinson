@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import fetcher from "./../utils/fetcher";
 
 import ShelfCard from "./../cards/ShelfCard";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
@@ -20,9 +21,7 @@ const Shelves = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/shelves`);
-            const data = await response.json();
-            setData(data);
+            setData(await fetcher(`shelves`));
             setContexts();
         };
         fetchData();
@@ -39,7 +38,7 @@ const Shelves = () => {
         return <LoadingContent />;
     }
 
-    const getShelfCards = (shelves) => {
+    const getShelfCards = (shelves = {}) => {
         const shelfCards = [];
         {
             Object.keys(shelves).forEach((id, index) => {
@@ -53,7 +52,7 @@ const Shelves = () => {
     return (
         <>
             <Grid container spacing={2}>
-                {getShelfCards(data.shelves)}
+                {getShelfCards(data?.shelves)}
             </Grid>
         </>
     );

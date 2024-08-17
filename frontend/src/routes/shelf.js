@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import fetcher from "./../utils/fetcher";
 
 import EditableTypography from "../components/EditableTypography";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
@@ -58,8 +59,7 @@ const Shelf = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/shelves/${shelfId}`);
-            const data = await response.json();
+            const data = await fetcher(`shelves/${shelfId}`);
             setData(data);
             setContexts(data);
         };
