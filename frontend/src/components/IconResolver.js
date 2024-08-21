@@ -1,15 +1,37 @@
 import React from "react";
-import * as Icons from "@mui/icons-material";
+import {
+    Edit,
+    Delete,
+    Favorite,
+    FavoriteBorder,
+    DensityLarge,
+    AutoStories,
+    NavigateBefore,
+    NavigateNext,
+} from "@mui/icons-material";
 
 const IconResolver = ({ iconName, ...props }) => {
-    const IconComponent = Icons[iconName];
-
-    if (!IconComponent) {
-        console.error(`Icon "${iconName}" not found`);
-        return null;
+    switch (iconName) {
+        case "Edit":
+            return <Edit {...props} />;
+        case "Delete":
+            return <Delete {...props} />;
+        case "Favorite":
+            return <Favorite {...props} />;
+        case "FavoriteBorder":
+            return <FavoriteBorder {...props} />;
+        case "DensityLarge":
+            return <DensityLarge {...props} />;
+        case "AutoStories":
+            return <AutoStories {...props} />;
+        case "NavigateBefore":
+            return <NavigateBefore {...props} />;
+        case "NavigateNext":
+            return <NavigateNext {...props} />;
+        default:
+            console.error(`Icon "${iconName}" not found`);
+            return null;
     }
-
-    return <IconComponent {...props} />;
 };
 
 export default IconResolver;

@@ -1,10 +1,31 @@
 const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.js",
-    output: { path: path.join(__dirname, "/build"), filename: "bundle.js" },
+    output: {
+        path: path.join(__dirname, "/build"),
+        filename: "[name].[contenthash].js",
+        chunkFilename: "[name].[contenthash].js",
+    },
+    optimization: {
+        splitChunks: {
+            chunks: "all",
+        },
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    compress: {
+                        unused: true,
+                        dead_code: true,
+                    },
+                },
+            }),
+        ],
+    },
     module: {
         rules: [
             { test: /.js$/, exclude: /node_modules/, use: { loader: "babel-loader" } },
