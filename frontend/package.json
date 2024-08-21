@@ -20,6 +20,9 @@
     "@mui/material": "^5.16.7",
     "@mui/x-date-pickers": "^7.12.1",
     "barcode-detector": "^2.2.7",
+    "cookie": "^0.6.0",
+    "crypto-js": "^4.2.0",
+    "css-loader": "^7.1.2",
     "dayjs": "^1.11.12",
     "isbn3": "^1.1.51",
     "notistack": "^3.0.1",
@@ -29,7 +32,8 @@
     "react-qr-code": "^2.0.15",
     "react-router-dom": "^6.21.1",
     "react-webcam": "^7.2.0",
-    "serve": "^14.2.3"
+    "serve": "^14.2.3",
+    "style-loader": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",

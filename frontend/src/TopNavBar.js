@@ -12,6 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 
 import LibrarySelector from "./components/LibrarySelector";
+import UserMenu from "./components/UserMenu";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -109,7 +110,7 @@ export default function NavBar() {
                         />
                     </Search>
 
-                    <LibrarySelector />
+                    <UserMenu />
                 </Toolbar>
             </AppBar>
         </Box>
