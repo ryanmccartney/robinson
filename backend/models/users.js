@@ -7,8 +7,9 @@ const schema = mongoose.Schema({
     lastName: { type: String, required: true },
     password: { type: String, required: true },
     username: { type: String, required: true },
+    email: { type: String, required: false },
     libraries: { type: Array },
-    role: { type: String, enum: ["user", "guest", "admin"], required: true },
+    role: { type: String, enum: ["member", "curator", "librarian"], required: true },
     enabled: { type: Boolean, required: true, default: true },
 });
 

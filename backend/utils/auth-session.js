@@ -2,6 +2,7 @@
 
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const nodeEnv = process.env.NODE_ENV || "production";
 
 const dbHost = process.env.DB_HOST || "mongo";
 const dbName = process.env.DB_NAME || "robinson";
@@ -22,10 +23,12 @@ const mongoSession = () => {
         secret: sessionSecret,
         cookie: {
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+            secure: nodeEnv == "production" ? true : false,
         },
         store: store,
         resave: false,
         saveUninitialized: false,
+        name: "robinson",
     });
 };
 

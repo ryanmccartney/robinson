@@ -5,10 +5,10 @@ const response = require("@utils/response");
 const auth = require("@utils/auth");
 
 const getUsers = require("@services/users-get");
+const getUsersCurrent = require("@services/users-get-current");
 const addUsers = require("@services/users-add");
 const deleteUsers = require("@services/users-delete");
 const updateUsers = require("@services/users-update");
-
 /**
  * @swagger
  * /users:
@@ -40,6 +40,23 @@ router.get("/", auth.restrict(["get_user_data"]), async (req, res, next) => {
  */
 router.post("/", auth.restrict(["add_user_data"]), async (req, res, next) => {
     const data = await addUsers(req.body);
+    response(res, req, data);
+});
+
+/**
+ * @swagger
+ * /users/current:
+ *    get:
+ *      description: Get the current user
+ *      tags: [users]
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
+router.get("/current", async (req, res, next) => {
+    const data = await getUsersCurrent(req.user);
     response(res, req, data);
 });
 

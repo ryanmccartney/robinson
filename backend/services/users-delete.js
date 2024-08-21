@@ -6,13 +6,16 @@ const usersModel = require("@models/users");
 module.exports = async (userId) => {
     try {
         if (userId) {
-            const users = await usersModel.findOneAndDelete({ userId: userId });
-            if (users) {
-                logger.info(`Deleted user with name '${users.firstName} ${users.lastName}' and ID ${userId}`);
+            const user = await usersModel.findOneAndDelete({ userId: userId }, { password: 0 });
+            if (user) {
+                logger.info(`Deleted user with name '${user.firstName} ${user.lastName}' and ID ${userId}`);
             } else {
                 logger.info(`No user with ID ${userId}`);
             }
-            return { user: users };
+            if (user.password) {
+                user.password = undefined;
+            }
+            return { user: user };
         } else {
             throw "No user ID provided";
         }

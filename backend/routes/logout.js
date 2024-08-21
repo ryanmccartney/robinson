@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const response = require("@utils/response");
-const getUsers = require("@services/users-get");
+const getUsersCurrent = require("@services/users-get-current");
 
 /**
  * @swagger
@@ -17,7 +17,7 @@ const getUsers = require("@services/users-get");
  *           type: object
  */
 router.post("/", async (req, res) => {
-    const data = await getUsers(req?.user);
+    const data = await getUsersCurrent(req?.user);
     try {
         req.logout((err) => {
             if (err) {

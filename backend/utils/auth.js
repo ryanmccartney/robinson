@@ -16,9 +16,9 @@ const defaultUser = {
     lastName: "Admin",
     email: "admin@admin.com",
     username: "admin",
-    role: "admin",
+    role: "librarian",
     enabled: true,
-    password: "0192023a7bbd73250516f069df18b500",
+    password: md5("admin123"),
 };
 
 const initUsers = async () => {
@@ -41,17 +41,19 @@ const initUsers = async () => {
 const strategy = new LocalStrategy(async (username, password, done) => {
     const user = await usersModel.findOne({ username: username });
 
-    console.log(user);
-    console.log(password);
-    console.log(md5(password));
     if (!user) {
         logger.info(`[auth] User '${username}' does not exist.`);
-        return done(new Error(`[auth] User with '${username}' does not exist.`), false);
+        return done(new Error(`User does not exist.`), false);
     }
 
     if (!user.enabled) {
         logger.info(`[auth] User '${user?.firstName} ${user?.lastName}' is not enabled.`);
-        return done(new Error(`[auth] User '${user?.firstName} ${user?.lastName}' is not enabled.`), false);
+        return done(new Error(`User is not enabled.`), false);
+    }
+
+    if (user.password != md5(password)) {
+        logger.info(`[auth] Passport is incorrect`);
+        return done(new Error(`Password incorrect`), false);
     }
 
     logger.info(`[auth] ${user?.firstName} ${user?.lastName} logged in.`);

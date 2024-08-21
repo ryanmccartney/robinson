@@ -3,7 +3,7 @@ const roles = require("@utils/auth-roles");
 const getError = require("@utils/error-get");
 const usersModel = require("@models/users");
 
-const checkRoles = (permissions = [], roleName = "guest") => {
+const checkRoles = (permissions = [], roleName = "member") => {
     const role = roles[roleName];
 
     for (let permission of permissions) {

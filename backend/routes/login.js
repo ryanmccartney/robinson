@@ -43,13 +43,13 @@ router.post("/", async (req, res, next) => {
 
         const data = await getUsers(id);
 
-        req.logIn(id, function (err) {
+        req.logIn(id, (err) => {
             if (err) {
                 return next(err);
             }
             return response(res, req, {
                 status: data.user ? "success" : "failure",
-                message: data.user ? `Sucessfully logged in ${data.user.username}` : "Login failed",
+                message: data.user ? `Successfully logged in ${data.user.username}` : "Login failed",
                 user: data.user,
             });
         });
