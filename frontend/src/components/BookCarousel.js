@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -11,13 +11,13 @@ import IconResolver from "./IconResolver";
 import BookSpineCard from "./../cards/BookSpineCard";
 import BookCard from "./../cards/BookCard";
 
-const BookCarousel = ({ books = [], title }) => {
-    const carousel = React.useRef(null);
+const BookCarousel = ({ books = [], title, autoWidth }) => {
+    const carousel = useRef(null);
 
-    const [view, setView] = useState(false);
+    const [view, setView] = useState(true);
     const [button, setButton] = useState({
-        icon: "AutoStories",
-        label: "View covers",
+        icon: "ViewColumn",
+        label: "View shelf",
     });
 
     const scroll = (scrollOffset) => {
@@ -64,10 +64,16 @@ const BookCarousel = ({ books = [], title }) => {
             if (view) {
                 bookCards.push(<BookCard opacity="0.8" width={width} height="24rem" key={book?.bookId} book={book} />);
             } else {
+                //Set the book width when in spine mode
                 let bookWidth = "4rem";
-                // if (book.pages) {
-                //     bookWidth = `${8 * (book.pages / 400)}rem`;
-                // }
+                if (book.pages && autoWidth) {
+                    let width = 0.9 * (book.pages / 100);
+                    if (width > 8) {
+                        width = 8;
+                    }
+                    bookWidth = `${width}rem`;
+                }
+
                 bookCards.push(
                     <BookSpineCard
                         expandedWidth={width}

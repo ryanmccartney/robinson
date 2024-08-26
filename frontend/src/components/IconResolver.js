@@ -4,6 +4,7 @@ import {
     Delete,
     Favorite,
     FavoriteBorder,
+    ViewColumn,
     DensityLarge,
     AutoStories,
     NavigateBefore,
@@ -28,6 +29,8 @@ const IconResolver = ({ iconName, ...props }) => {
             return <NavigateBefore {...props} />;
         case "NavigateNext":
             return <NavigateNext {...props} />;
+        case "ViewColumn":
+            return <ViewColumn {...props} />;
         default:
             console.error(`Icon "${iconName}" not found`);
             return null;

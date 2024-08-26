@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+# data
+/logs
+
+# testing
+/coverage
+
+# production
+/build
+
+# debug
+npm-debug.log*
+

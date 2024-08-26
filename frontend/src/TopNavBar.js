@@ -90,12 +90,7 @@ export default function NavBar() {
                     >
                         <ImportContactsIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-                    >
+                    <Typography variant="header" noWrap sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
                         Robinson
                     </Typography>
 

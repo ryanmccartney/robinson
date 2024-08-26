@@ -10,14 +10,14 @@ const LinearProgressWithLabel = (props) => {
     return (
         <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box sx={{ paddingTop: 2.5, minWidth: 100, display: { xs: "none", md: "block" } }}>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>{`${Math.round(
+                <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>{`${Math.round(
                     props.value
                 )} pages`}</Typography>
             </Box>
 
             <Box sx={{ width: "100%" }}>
                 <Box sx={{ width: "100%" }}>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }}>{`${Math.round(
+                    <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>{`${Math.round(
                         normalise(props.value)
                     )}%`}</Typography>
                 </Box>
@@ -30,7 +30,7 @@ const LinearProgressWithLabel = (props) => {
                 </Box>
             </Box>
             <Box sx={{ paddingTop: 2.5, minWidth: 100, display: { xs: "none", md: "block" } }}>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>{`${Math.round(
+                <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>{`${Math.round(
                     props.max
                 )} pages`}</Typography>
             </Box>

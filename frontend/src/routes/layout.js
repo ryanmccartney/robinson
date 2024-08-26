@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import { Outlet } from "react-router-dom";
 import TopNavBar from "../TopNavBar";
 import BottomNavBar from "../BottomNavBar";
-import CssBaseline from "@mui/material/CssBaseline";
 
 import LayoutBreadcrumbs from "../components/LayoutBreadcrumbs";
 import LayoutButtons from "../components/LayoutButtons";
@@ -12,7 +11,6 @@ import LayoutButtons from "../components/LayoutButtons";
 const Layout = () => {
     return (
         <>
-            <CssBaseline />
             <TopNavBar />
 
             <Box sx={{ pb: 7, m: 2 }}>

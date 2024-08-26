@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
+
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
 
 import BreadcrumbsContext from "./contexts/breadcrumbs";
 import ButtonsContext from "./contexts/buttons";
 import { UserProvider } from "./contexts/user";
 import Layout from "./routes/layout";
 import LoadingContent from "./components/LoadingContent";
-
-import { lazy, Suspense } from "react";
 
 const Error = lazy(() => import("./routes/error"));
 const Root = lazy(() => import("./routes/root"));
@@ -33,47 +35,50 @@ const App = () => {
     const [buttons, setButtons] = useState([]);
 
     return (
-        <UserProvider>
-            <SnackbarProvider
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                }}
-                sx={{
-                    "& .notistack-SnackbarContainer": {
-                        bottom: "6rem !important",
-                    },
-                }}
-                maxSnack={4}
-                autoHideDuration={3000}
-                preventDuplicate
-            >
-                <BreadcrumbsContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
-                    <ButtonsContext.Provider value={{ buttons, setButtons }}>
-                        <BrowserRouter>
-                            <Suspense fallback={<LoadingContent />}>
-                                <Routes>
-                                    <Route path="/" element={<Layout />}>
-                                        <Route path="/" element={<Root />} />
-                                        <Route path="login" element={<Login />} />
-                                        <Route path="scan" element={<Scan />} />
-                                        <Route path="shelves" element={<Shelves />} />
-                                        <Route path="shelf/:shelfId" element={<Shelf />} />
-                                        <Route path="books" element={<Books />} />
-                                        <Route path="book/:bookId" element={<Book />} />
-                                        <Route path="cases" element={<Cases />} />
-                                        <Route path="case/:caseId" element={<Case />} />
-                                        <Route path="libraries" element={<Libraries />} />
-                                        <Route path="library/:libraryId" element={<Library />} />
-                                        <Route path="*" element={<Error />} />
-                                    </Route>
-                                </Routes>
-                            </Suspense>
-                        </BrowserRouter>
-                    </ButtonsContext.Provider>
-                </BreadcrumbsContext.Provider>
-            </SnackbarProvider>
-        </UserProvider>
+        <ThemeProvider theme={theme()}>
+            <CssBaseline />
+            <UserProvider>
+                <SnackbarProvider
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                    }}
+                    sx={{
+                        "& .notistack-SnackbarContainer": {
+                            bottom: "6rem !important",
+                        },
+                    }}
+                    maxSnack={4}
+                    autoHideDuration={3000}
+                    preventDuplicate
+                >
+                    <BreadcrumbsContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
+                        <ButtonsContext.Provider value={{ buttons, setButtons }}>
+                            <BrowserRouter>
+                                <Suspense fallback={<LoadingContent />}>
+                                    <Routes>
+                                        <Route path="/" element={<Layout />}>
+                                            <Route path="/" element={<Root />} />
+                                            <Route path="login" element={<Login />} />
+                                            <Route path="scan" element={<Scan />} />
+                                            <Route path="shelves" element={<Shelves />} />
+                                            <Route path="shelf/:shelfId" element={<Shelf />} />
+                                            <Route path="books" element={<Books />} />
+                                            <Route path="book/:bookId" element={<Book />} />
+                                            <Route path="cases" element={<Cases />} />
+                                            <Route path="case/:caseId" element={<Case />} />
+                                            <Route path="libraries" element={<Libraries />} />
+                                            <Route path="library/:libraryId" element={<Library />} />
+                                            <Route path="*" element={<Error />} />
+                                        </Route>
+                                    </Routes>
+                                </Suspense>
+                            </BrowserRouter>
+                        </ButtonsContext.Provider>
+                    </BreadcrumbsContext.Provider>
+                </SnackbarProvider>
+            </UserProvider>
+        </ThemeProvider>
     );
 };
 

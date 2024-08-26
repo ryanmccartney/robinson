@@ -186,7 +186,7 @@ const Book = () => {
                         field="author"
                         onChange={updateBook}
                         gutterBottom
-                        variant="subtitle2"
+                        variant="subtitle1"
                     >
                         {data.book.author}
                     </EditableTypography>

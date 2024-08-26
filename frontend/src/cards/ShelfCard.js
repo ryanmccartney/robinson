@@ -75,7 +75,6 @@ const ShelfCard = ({ shelf }) => {
 
                             <CardContent
                                 sx={{
-                                    background: "white",
                                     m: 4,
                                     zIndex: "tooltip",
                                     position: "absolute",
