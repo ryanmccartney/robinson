@@ -25,11 +25,15 @@ const BookSpineCard = ({ book, spineWidth = "4rem", expandedWidth = "20rem", min
                 ref={card}
                 onMouseOver={() => {
                     setShow(true);
-                    media.current.style.transform = "1.05";
-                    media.current.style.opacity = "0.3";
-                    media.current.style.filter = `blur(0px)`;
-                    card.current.style.boxShadow = "1px 2px 15px #8D8D8D";
-                    card.current.style.width = expandedWidth;
+                    if (media.current) {
+                        media.current.style.transform = "1.05";
+                        media.current.style.opacity = "0.3";
+                        media.current.style.filter = `blur(0px)`;
+                    }
+                    if (card.current) {
+                        card.current.style.boxShadow = "1px 2px 15px #8D8D8D";
+                        card.current.style.width = expandedWidth;
+                    }
                     textbox.current.style.width = `${expandedWidth.split("rem")[0] * 0.9}rem`;
                     textbox.current.style.rotate = "0deg";
                     textbox.current.style.top = "18rem";
@@ -37,11 +41,15 @@ const BookSpineCard = ({ book, spineWidth = "4rem", expandedWidth = "20rem", min
                 }}
                 onMouseOut={() => {
                     setShow(false);
-                    media.current.style.transform = "1.0";
-                    media.current.style.opacity = "1";
-                    media.current.style.filter = `blur(80px)`;
-                    card.current.style.boxShadow = "0px 0px 0px #8D8D8D";
-                    card.current.style.width = spineWidth;
+                    if (media.current) {
+                        media.current.style.transform = "1.0";
+                        media.current.style.opacity = "1";
+                        media.current.style.filter = `blur(80px)`;
+                    }
+                    if (card.current) {
+                        card.current.style.boxShadow = "0px 0px 0px #8D8D8D";
+                        card.current.style.width = spineWidth;
+                    }
                     textbox.current.style.width = `${minHeight.split("rem")[0] * 0.9}rem`;
                     textbox.current.style.rotate = "-90deg";
                     textbox.current.style.bottom = `${textPos}rem`;

@@ -38,6 +38,12 @@ const getTheme = (userMode = "auto") => {
             subtitle: {
                 fontFamily: "Moderustic",
             },
+            overline: {
+                fontFamily: "Moderustic",
+            },
+            caption: {
+                fontFamily: "Moderustic",
+            },
             h1: {
                 fontFamily: "Moderustic",
             },
@@ -64,9 +70,6 @@ const getTheme = (userMode = "auto") => {
                 letterSpacing: "0.2rem",
                 fontSize: "1.5rem",
                 fontWeight: "bold",
-            },
-            bottomNavLabel: {
-                fontFamily: "Moderustic",
             },
         },
         components: {
