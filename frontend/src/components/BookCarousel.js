@@ -62,7 +62,7 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
         let width = "12rem";
         for (let book of books) {
             if (view) {
-                bookCards.push(<BookCard opacity="0.8" width={width} height="24rem" key={book?.bookId} book={book} />);
+                bookCards.push(<BookCard opacity="1" width={width} height="24rem" key={book?.bookId} book={book} />);
             } else {
                 //Set the book width when in spine mode
                 let bookWidth = "4rem";

@@ -89,7 +89,7 @@ const UserMenu = () => {
                     {`${user?.firstName} ${user?.lastName}`}
                 </Typography>
                 <Avatar
-                    src={`https://gravatar.com/avatar/${hash}?s=200`}
+                    src={`https://gravatar.com/avatar/${hash}?s=200&d=404`}
                     sx={{ background: "secondary", opacity: 1, fontSize: "1em" }}
                 >
                     {getInitials(`${user?.firstName} ${user?.lastName}`)}
