@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require("express");
-const documentation = express.Router();
+const router = express.Router();
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
@@ -36,7 +36,8 @@ const swaggerOptions = {
     apis: ["./routes/*.js", "./modules/*.js"],
 };
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-documentation.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+const spec = swaggerJSDoc(swaggerOptions);
 
-module.exports = documentation;
+router.use("/", swaggerUi.serve, swaggerUi.setup(spec));
+
+module.exports = { router: router, spec: spec };

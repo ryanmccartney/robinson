@@ -86,6 +86,26 @@ router.get("/:userId", auth.restrict(["get_user_data"]), async (req, res, next) 
 
 /**
  * @swagger
+ * /users/current:
+ *    put:
+ *      description: Update the current user
+ *      tags: [users] 
+ *      produces:
+ *         - application/json
+ *      responses:
+ *         '200':
+ *           description: Success
+ */
+router.put("/current", async (req, res, next) => {
+    delete req.body?.roles
+    delete req.body?.enabled
+    delete req.body?.libraries
+    const data = await updateUsers(req.user, req.body);
+    response(res, req, data);
+});
+
+/**
+ * @swagger
  * /users/{userId}:
  *    put:
  *      description: Update a user by their ID

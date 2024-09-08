@@ -79,7 +79,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(apiLimiter);
-app.use("/documentation", documentation);
+app.use("/documentation", documentation.router);
 app.use("/api/books", books);
 app.use("/api/shelves", shelves);
 app.use("/api/cases", cases);

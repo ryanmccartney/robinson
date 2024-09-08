@@ -1,0 +1,569 @@
+openapi: 3.0.0
+info:
+  title: Robinson API
+  version: 0.1.0
+  description: Robinson RESTful API
+  license:
+    name: GPLv3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  contact:
+    name: Ryan McCartney
+    url: https://ryan.mccartney.info/robinson
+    email: ryan@mccartney.info
+servers:
+  - url: http://localhost:80/api/
+paths:
+  /books:
+    get:
+      description: Get a list of all books
+      tags:
+        - books
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    post:
+      description: Add a new book
+      tags:
+        - books
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /books/orphaned:
+    get:
+      description: Get a list of all books that don't have a shelf (Orphaned)
+      tags:
+        - books
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /books/favourites:
+    get:
+      description: Get a list of all books that have been favourite'd
+      tags:
+        - books
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /books/progress:
+    get:
+      description: Get a list of all books that have been started (have progress)
+      tags:
+        - books
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /books/new:
+    get:
+      description: Get a list of all books in order of newest
+      tags:
+        - books
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/books/case/{caseId}":
+    get:
+      description: Get a list of all books in a case
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: caseId
+          schema:
+            type: string
+          required: true
+          description: The case ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/books/shelf/{caseId}":
+    get:
+      description: Get a list of all books on a shelf
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: shelfId
+          schema:
+            type: string
+          required: true
+          description: The shelf ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/books/cover/{bookId}":
+    get:
+      description: Get a book cover by it's ID
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: string
+          required: true
+          description: The book ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/books/{bookId}":
+    get:
+      description: Get a book by it's ID
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: string
+          required: true
+          description: The book ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    put:
+      description: Update a book by it's ID
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: string
+          required: true
+          description: The book ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    delete:
+      description: Delete a book by it's ID
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: string
+          required: true
+          description: The book ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /cases:
+    get:
+      description: Get a list of all cases
+      tags:
+        - cases
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    post:
+      description: Add a new case
+      tags:
+        - cases
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/cases/{casesId}":
+    get:
+      description: Get a case by it's ID
+      tags:
+        - cases
+      parameters:
+        - in: path
+          name: casesId
+          schema:
+            type: string
+          required: true
+          description: The case ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    delete:
+      description: Delete a case by it's ID
+      tags:
+        - cases
+      parameters:
+        - in: path
+          name: casesId
+          schema:
+            type: string
+          required: true
+          description: The case ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/cases/{caseId}":
+    put:
+      description: Update a case by it's ID
+      tags:
+        - cases
+      parameters:
+        - in: path
+          name: caseId
+          schema:
+            type: string
+          required: true
+          description: The case ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /libraries:
+    get:
+      description: Get a list of all libraries
+      tags:
+        - libraries
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    post:
+      description: Add a new library
+      tags:
+        - libraries
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/libraries/{librariesId}":
+    get:
+      description: Get a library by it's ID
+      tags:
+        - libraries
+      parameters:
+        - in: path
+          name: librariesId
+          schema:
+            type: string
+          required: true
+          description: The library ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    delete:
+      description: Delete a library by it's ID
+      tags:
+        - libraries
+      parameters:
+        - in: path
+          name: librariesId
+          schema:
+            type: string
+          required: true
+          description: The library ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/libraries/{libraryId}":
+    put:
+      description: Update a library by it's ID
+      tags:
+        - libraries
+      parameters:
+        - in: path
+          name: libraryId
+          schema:
+            type: string
+          required: true
+          description: The library ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /login:
+    post:
+      description: Creates a login session
+      tags:
+        - auth
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: username
+          type: string
+          description: Username
+          required: false
+        - in: formData
+          name: password
+          type: string
+          description: Password
+          required: false
+      responses:
+        "200":
+          description: Successfully logged in user.
+          schema:
+            type: object
+  /logout:
+    post:
+      description: Clears any session cookies to log a user out.
+      tags:
+        - auth
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully logged the user out.
+          schema:
+            type: object
+  "/metadata/{isbn}":
+    get:
+      description: Get a list of all available metadata
+      tags:
+        - metadata
+      parameters:
+        - in: path
+          name: isbn
+          schema:
+            type: string
+          required: true
+          description: ISBN of the book, should convert between any format
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    post:
+      description: Get a list of all available metadata and create a book with it
+      tags:
+        - metadata
+      parameters:
+        - in: path
+          name: isbn
+          schema:
+            type: string
+          required: true
+          description: ISBN of the book, should convert between any format
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/metadata/{bookId}":
+    put:
+      description: Get a list of all available metadata and update existing records
+        for an existing book
+      tags:
+        - metadata
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: string
+          required: true
+          description: Book ID as a string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /search:
+    get:
+      description: Search books, shelves, libraries, cases
+      tags:
+        - search
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully logged the user out.
+          schema:
+            type: object
+  /shelves:
+    get:
+      description: Get a list of all shelves
+      tags:
+        - shelves
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    post:
+      description: Add a new shelf
+      tags:
+        - shelves
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/shelves/{shelvesId}":
+    get:
+      description: Get a shelf by it's ID
+      tags:
+        - shelves
+      parameters:
+        - in: path
+          name: shelvesId
+          schema:
+            type: string
+          required: true
+          description: The shelf ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    delete:
+      description: Delete a shelf by it's ID
+      tags:
+        - shelves
+      parameters:
+        - in: path
+          name: shelvesId
+          schema:
+            type: string
+          required: true
+          description: The shelf ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/shelves/{shelfId}":
+    put:
+      description: Update a shelf by it's ID
+      tags:
+        - shelves
+      parameters:
+        - in: path
+          name: shelfId
+          schema:
+            type: string
+          required: true
+          description: The shelf ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /users:
+    get:
+      description: Get a list of all users
+      tags:
+        - users
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    post:
+      description: Add a new user
+      tags:
+        - users
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  /users/current:
+    get:
+      description: Get the current user
+      tags:
+        - users
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    put:
+      description: Update the current user
+      tags:
+        - users
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/users/{usersId}":
+    get:
+      description: Get a user by their ID
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: usersId
+          schema:
+            type: string
+          required: true
+          description: The user ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+    delete:
+      description: Delete a user by their ID
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: usersId
+          schema:
+            type: string
+          required: true
+          description: The user ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+  "/users/{userId}":
+    put:
+      description: Update a user by their ID
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: The user ID string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+components: {}
+tags: []

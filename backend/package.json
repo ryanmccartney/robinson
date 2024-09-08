@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "development": "nodemon index",
-    "production": "node index"
+    "production": "node index",
+    "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ./../docs/api.yml  -o ./../docs/api.md"
   },
   "author": "Ryan McCartney",
   "license": "GPLv3",
