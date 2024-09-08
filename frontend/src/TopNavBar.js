@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,10 +8,11 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import { Link } from "react-router-dom";
 
+import fetcher from "./utils/fetcher";
+
 import SearchIcon from "@mui/icons-material/Search";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 
-import LibrarySelector from "./components/LibrarySelector";
 import UserMenu from "./components/UserMenu";
 
 const Search = styled("div")(({ theme }) => ({
@@ -57,10 +58,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar() {
-    const searchRef = React.useRef(null);
+    const searchRef = useRef(null);
+    const [data, setData] = useState(null);
 
-    React.useEffect(() => {
-        function handleKeyDown(e) {
+    useEffect(() => {
+        const handleKeyDown = (e) => {
             if (e.keyCode === 191) {
                 event.preventDefault();
                 searchRef.current.focus();
@@ -70,10 +72,17 @@ export default function NavBar() {
         document.addEventListener("keydown", handleKeyDown);
 
         // Don't forget to clean up
-        return function cleanup() {
+        return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
     }, []);
+
+
+    const search = async (event) => {
+        const data = await fetcher(`search?query=${event.target.value}`);
+        setData(data);
+        console.log(data)
+    }
 
     return (
         <Box sx={{ margin: 0, padding: 0, display: "flex" }}>
@@ -102,6 +111,7 @@ export default function NavBar() {
                             inputRef={searchRef}
                             placeholder="Press /"
                             inputProps={{ "aria-label": "search" }}
+                            onChange={search}
                         />
                     </Search>
 

@@ -20,6 +20,7 @@ const cases = require("@routes/cases");
 const libraries = require("@routes/libraries");
 const users = require("@routes/users");
 const metadata = require("@routes/metadata");
+const search = require("@routes/search");
 const login = require("@routes/login");
 const logout = require("@routes/logout");
 
@@ -87,6 +88,8 @@ app.use("/api/users", users);
 app.use("/api/metadata", metadata);
 app.use("/api/login", login);
 app.use("/api/logout", logout);
+app.use("/api/search", search);
+
 
 // Redirect /api to /documentation
 app.use("/api", (req, res, next) => {

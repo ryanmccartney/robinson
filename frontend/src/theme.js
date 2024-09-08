@@ -12,10 +12,12 @@ const getTheme = (userMode = "auto") => {
         if (prefersDarkTheme) {
             setMode = "dark";
         }
-    } else if (storedMode) {
+    }
+    if (storedMode && storedMode !== "auto") {
         setMode = storedMode;
-    } else {
-        setMode = userMode;
+    }
+    if (userMode && userMode !== "auto") {
+        setMode = storedMode;
     }
 
     const theme = createTheme({

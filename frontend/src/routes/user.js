@@ -1,9 +1,14 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+
+import Select from '@mui/material/Select';
 import { useNavigate } from "react-router-dom";
 
 import LoadingContent from "../components/LoadingContent";
@@ -11,10 +16,7 @@ import BreadcrumbsContext from "../contexts/breadcrumbs";
 import ButtonsContext from "../contexts/buttons";
 
 import { UserContext } from "../contexts/user";
-import { Typography } from "@mui/material";
-
 import UserAvatar from "../components/UserAvatar";
-import EditableTypography from "../components/EditableTypography";
 
 const User = () => {
     const navigate = useNavigate();
@@ -23,20 +25,28 @@ const User = () => {
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { buttons, setButtons } = useContext(ButtonsContext);
 
-    const updateUser = async (bookData) => {
-        const response = await fetch(`/api/books/${bookId}`, {
+    const [theme, setTheme] = useState(null);
+
+
+    const updateUser = async (key, data) => {
+        console.log(data)
+        const response = await fetch(`/api/users/${user?.userId}`, {
             method: "PUT",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(bookData),
+            body: JSON.stringify({ [key]: data }),
         });
         const newData = await response.json();
-        // setData(newData);
-        // setContexts(newData);
+        setUser(newData?.user);
     };
 
+    const handleTheme = (event) => {
+        localStorage.setItem("theme", event.target.value);
+        setTheme(event.target.value)
+        location.reload();
+    }
 
     const setContexts = (user) => {
         if (user) {
@@ -50,6 +60,7 @@ const User = () => {
 
     //On component Mount
     useEffect(() => {
+        setTheme(localStorage.getItem("theme"))
         setContexts(user)
         return () => {
             setBreadcrumbs([]);
@@ -70,30 +81,66 @@ const User = () => {
 
     return (
         <Box sx={{ m: 2 }}>
-            <Grid container spacing={3}>
-                <Grid item align="center" xs={12} md={4} lg={6} xl={6}>
-                    <Card sx={{ padding: 3 }}>
-                        <UserAvatar user={user} sx={{ width: "6rem", height: "6rem" }} />
-                        <Typography variant="h4">Account Details</Typography>
+            <Grid container alignItems="center" justifyContent="center" spacing={3}>
+                <Grid item xs={12} md={4} lg={6} xl={6}>
+                    <Card sx={{ marginTop: 6, padding: 3, overflow: "visible" }}>
+                        <Box sx={{ position: "relative", top: "-4rem", }} align="center">
+                            <UserAvatar user={user} sx={{ width: "6.5rem", height: "6.5rem" }} />
+                        </Box>
+                        <Typography sx={{ position: "relative", top: "-2rem", }} align="center" variant="h4">Account Details</Typography>
 
+                        <Grid container alignItems="center" justifyContent="center" spacing={3}>
 
-                        <EditableTypography edit={true}
-                            variant="body2">{user?.firstName}</EditableTypography>
+                            <Grid item xs={12} md={6}>
+                                <TextField fullWidth value={user?.firstName} label="First Name" onChange={(e) => updateUser("firstName", e.target.value)} />
+                            </Grid>
 
-                        <EditableTypography edit={true} variant="body2">{user?.lastName}</EditableTypography>
+                            <Grid item xs={12} md={6}>
+                                <TextField fullWidth value={user?.lastName} label="Last Name" onChange={(e) => updateUser("lastName", e.target.value)} />
+                            </Grid>
 
-                        <EditableTypography edit={true} variant="body2">{user?.email}</EditableTypography>
+                            <Grid item xs={12} xl={12}>
+                                <TextField fullWidth value={user?.email} label="Email" onChange={(e) => updateUser("email", e.target.value)} />
+                            </Grid>
 
-                        <EditableTypography edit={user?.role === "librarian" ? true : false} variant="body2">{user?.role}</EditableTypography>
+                            <Grid item xs={12} xl={12}>
+                                <TextField fullWidth value="12345678" type="password" label="Password" onChange={(e) => updateUser("password", e.target.value)} />
+                            </Grid>
 
-                        <CardActions>
-                            <Button size="small" color="primary">
-                                Cancel
-                            </Button>
-                            <Button size="small" color="primary">
-                                Save
-                            </Button>
-                        </CardActions>
+                            <Grid item xs={12} xl={12}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="role-select-label">Role</InputLabel>
+                                    <Select
+                                        labelId="role-select-label"
+                                        id="role-select"
+                                        disabled={user?.role === "librarian" ? false : true}
+                                        value={user?.role}
+                                        onChange={(e) => updateUser("role", e.target.value)}
+                                    >
+                                        <MenuItem value={"librarian"}>Librarian</MenuItem>
+                                        <MenuItem value={"curator"}>Curator</MenuItem>
+                                        <MenuItem value={"member"}>Member</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} xl={12}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="theme-select-label">Theme</InputLabel>
+                                    <Select
+                                        labelId="theme-select-label"
+                                        id="theme-select"
+                                        value={theme}
+                                        onChange={handleTheme}
+                                    >
+                                        <MenuItem value={"dark"}>Dark</MenuItem>
+                                        <MenuItem value={"light"}>Light</MenuItem>
+                                        <MenuItem value={"auto"}>System</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                        </Grid>
                     </Card>
                 </Grid>
             </Grid>

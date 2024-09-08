@@ -14,6 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import EditIcon from "@mui/icons-material/Edit";
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 import fetcher from "./../utils/fetcher";
 import { UserContext } from "../contexts/user";
@@ -22,6 +23,8 @@ import UserAvatar from "./UserAvatar";
 const MenuContents = () => {
     const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
+
+    const items = [];
 
     const logout = async () => {
         const data = await fetcher("logout", "POST");
@@ -33,39 +36,54 @@ const MenuContents = () => {
         navigate("/login");
     };
 
+    const users = async () => {
+        navigate(`/users`);
+    };
+
     const edit = async () => {
         navigate(`/user/${user?.userId}`);
     };
 
     if (user) {
-        return (
-            <MenuList>
-                <MenuItem onClick={edit}>
-                    <ListItemIcon>
-                        <EditIcon fontSize="medium" />
-                    </ListItemIcon>
-                    <ListItemText>Edit Account</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={logout}>
-                    <ListItemIcon>
-                        <LogoutIcon fontSize="medium" />
-                    </ListItemIcon>
-                    <ListItemText>Logout</ListItemText>
-                </MenuItem>
-            </MenuList>
-        );
-    } else {
-        return (
-            <MenuList>
-                <MenuItem onClick={login}>
-                    <ListItemIcon>
-                        <LoginIcon fontSize="medium" />
-                    </ListItemIcon>
-                    <ListItemText>Login</ListItemText>
-                </MenuItem>
-            </MenuList>
-        );
+        items.push(<MenuItem onClick={edit}>
+            <ListItemIcon>
+                <EditIcon fontSize="medium" />
+            </ListItemIcon>
+            <ListItemText>Edit Account</ListItemText>
+        </MenuItem>)
+
+        if (user.role === "librarian") {
+            items.push(<MenuItem onClick={users}>
+                <ListItemIcon>
+                    <PeopleOutlineIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Edit Users</ListItemText>
+            </MenuItem>)
+        }
+
+        items.push(<MenuItem onClick={logout}>
+            <ListItemIcon>
+                <LogoutIcon fontSize="medium" />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+        </MenuItem>)
+
     }
+    else {
+        items.push(<MenuItem key="login" onClick={login}>
+            <ListItemIcon>
+                <LoginIcon fontSize="medium" />
+            </ListItemIcon>
+            <ListItemText>Login</ListItemText>
+        </MenuItem>)
+    }
+
+    return (
+        <MenuList>
+            {items}
+        </MenuList>
+    );
+
 };
 
 const UserMenu = () => {
