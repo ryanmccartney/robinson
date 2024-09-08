@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import fetcher from "./../utils/fetcher";
 
 import BookCard from "./../cards/BookCard";
@@ -56,11 +57,11 @@ const Books = () => {
     };
 
     return (
-        <>
+        <Box sx={{ m: 2 }}>
             <Grid container spacing={4}>
                 {getBookCards(data?.books)}
             </Grid>
-        </>
+        </Box>
     );
 };
 

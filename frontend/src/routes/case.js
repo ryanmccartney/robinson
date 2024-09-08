@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import { useParams, useNavigate } from "react-router-dom";
 
 import EditableTypography from "../components/EditableTypography";
@@ -95,7 +95,7 @@ const Case = () => {
     };
 
     return (
-        <>
+        <Box sx={{ m: 2 }}>
             <EditableTypography field="name" edit={edit} onChange={updateCase} variant="h5">
                 {data?.case?.name}
             </EditableTypography>
@@ -107,7 +107,7 @@ const Case = () => {
             <Grid container spacing={2}>
                 {getShelves()}
             </Grid>
-        </>
+        </Box>
     );
 };
 export default Case;

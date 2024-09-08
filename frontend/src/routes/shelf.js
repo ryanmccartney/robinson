@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import fetcher from "./../utils/fetcher";
 
 import EditableTypography from "../components/EditableTypography";
@@ -84,7 +85,7 @@ const Shelf = () => {
     }
 
     return (
-        <>
+        <Box sx={{ m: 2 }}>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <BookCarousel title={data?.shelf?.name} books={data?.books} />
@@ -106,7 +107,7 @@ const Shelf = () => {
                     </EditableTypography>
                 </Grid>
             </Grid>
-        </>
+        </Box>
     );
 };
 

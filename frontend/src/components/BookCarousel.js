@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Component } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -13,6 +13,7 @@ import BookCard from "./../cards/BookCard";
 
 const BookCarousel = ({ books = [], title, autoWidth }) => {
     const carousel = useRef(null);
+    const component = useRef(null);
 
     const [view, setView] = useState(true);
     const [button, setButton] = useState({
@@ -24,22 +25,25 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
         carousel.current.scrollLeft += scrollOffset;
     };
 
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 37) {
+            scroll(-200);
+        }
+        if (e.keyCode === 39) {
+            scroll(200);
+        }
+    };
+
     useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.keyCode === 37) {
-                scroll(-200);
-            }
-            if (e.keyCode === 39) {
-                scroll(200);
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-    }, []);
+        if (component && component?.current) {
+            component?.current.addEventListener("keydown", handleKeyDown);
+            return () => {
+                if (component && component?.current) {
+                    component?.current.removeEventListener("keydown", handleKeyDown);
+                }
+            };
+        }
+    }, [component]);
 
     const changeViews = () => {
         if (view) {
@@ -89,7 +93,7 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
     };
 
     return (
-        <Box>
+        <Box ref={component}>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Typography variant="h6">{title}</Typography>

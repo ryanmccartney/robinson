@@ -13,7 +13,7 @@ const Layout = () => {
         <>
             <TopNavBar />
 
-            <Box sx={{ pb: 7, m: 2 }}>
+            <Box sx={{ pb: 7, m: 0 }}>
                 <Grid container justify="flex-end" spacing={0}>
                     <Grid item xs={9}>
                         <LayoutBreadcrumbs />

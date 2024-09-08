@@ -33,11 +33,18 @@ const LayoutBreadcrumbs = () => {
         return breadcrumbsItems;
     };
 
-    return (
-        <Breadcrumbs sx={{ display: { xs: "none", md: "block" }, paddingLeft: 0.9, mb: 1.5 }} aria-label="breadcrumb">
-            {getBreadcrumbs()}
-        </Breadcrumbs>
-    );
+    if (breadcrumbs.length > 0) {
+        return (
+            <Breadcrumbs
+                sx={{ display: { xs: "none", md: "block" }, paddingTop: 1, paddingLeft: 2, mb: 1.5 }}
+                aria-label="breadcrumb"
+            >
+                {getBreadcrumbs()}
+            </Breadcrumbs>
+        );
+    }
+
+    return null;
 };
 
 export default LayoutBreadcrumbs;

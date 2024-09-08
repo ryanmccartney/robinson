@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import fetcher from "./../utils/fetcher";
 
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
@@ -34,19 +35,21 @@ const Root = () => {
     }, []);
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <BookCarousel title="Recently Added" books={recently?.books} />
-            </Grid>
+        <Box sx={{ m: 2 }}>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <BookCarousel title="Recently Added" books={recently?.books} />
+                </Grid>
 
-            <Grid item xs={12}>
-                <BookCarousel title="Continue Reading" books={reading?.books} />
-            </Grid>
+                <Grid item xs={12}>
+                    <BookCarousel title="Continue Reading" books={reading?.books} />
+                </Grid>
 
-            <Grid item xs={12}>
-                <BookCarousel title="Favourites" books={favourites?.books} />
+                <Grid item xs={12}>
+                    <BookCarousel title="Favourites" books={favourites?.books} />
+                </Grid>
             </Grid>
-        </Grid>
+        </Box>
     );
 };
 export default Root;

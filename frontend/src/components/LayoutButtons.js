@@ -45,11 +45,15 @@ const ButtonsLayout = () => {
         return buttonItems;
     };
 
-    return (
-        <Stack direction="row" spacing={0.1} sx={{ paddingRight: 1.5, justifyContent: "end" }}>
-            {getButtons()}
-        </Stack>
-    );
+    if (buttons.length > 0) {
+        return (
+            <Stack direction="row" spacing={0.1} sx={{ paddingRight: 1.5, justifyContent: "end" }}>
+                {getButtons()}
+            </Stack>
+        );
+    }
+
+    return null;
 };
 
 export default ButtonsLayout;

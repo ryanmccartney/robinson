@@ -155,7 +155,7 @@ const Book = () => {
     }
 
     return (
-        <>
+        <Box sx={{ m: 2 }}>
             <OrganiserModal data={data} setData={setData} open={organiserOpen} setOpen={setOrganiserOpen} />
             <Grid container sx={{ paddingRight: { xs: 0, md: 2 } }} spacing={3}>
                 <Grid item align="center" xs={12} md={4} lg={6}>
@@ -298,7 +298,7 @@ const Book = () => {
                     </Grid>
                 </Grid>
             </Grid>
-        </>
+        </Box>
     );
 };
 export default Book;

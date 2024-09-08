@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import fetcher from "./../utils/fetcher";
 
 import ShelfCard from "./../cards/ShelfCard";
@@ -50,11 +51,11 @@ const Shelves = () => {
     };
 
     return (
-        <>
+        <Box sx={{ m: 2 }}>
             <Grid container spacing={2}>
                 {getShelfCards(data?.shelves)}
             </Grid>
-        </>
+        </Box>
     );
 };
 

@@ -5,14 +5,21 @@ import EditableTypography from "../components/EditableTypography";
 import { BarcodeDetector } from "barcode-detector";
 import { enqueueSnackbar } from "notistack";
 import isbn from "isbn3";
+
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
+import { Opacity } from "@mui/icons-material";
 
 const Scan = ({ delay = 250 }) => {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
     const [data, setData] = useState([]);
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const barcodeDetector = new BarcodeDetector({ formats: ["ean_13", "qr_code"] });
@@ -54,17 +61,24 @@ const Scan = ({ delay = 250 }) => {
         }
     }, [delay]);
 
-    const videoConstraints = {
-        width: 1280,
-        height: 720,
-        facingMode: "environment",
-    };
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
 
-    const getISBN = (hypens = false) => {
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const getISBN = (hyphens = false) => {
         if (data.length > 0 && data[0].rawValue) {
             const isbnObject = isbn.parse(data[0].rawValue);
             if (isbnObject) {
-                if (hypens) {
+                if (hyphens) {
                     return isbnObject.isbn10h;
                 }
                 return isbnObject.isbn10;
@@ -73,36 +87,25 @@ const Scan = ({ delay = 250 }) => {
         }
     };
 
-    // if (!data) {
-    //     return <LoadingContent />;
-    // }
-
     return (
-        <>
+        <Box sx={{ height: "83vh", overflow: "hidden" }}>
             <Webcam
+                style={{ width: "100%" }}
                 audio={false}
-                height={"80%"}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                width={"100%"}
-                videoConstraints={videoConstraints}
+                videoConstraints={{
+                    facingMode: "environment",
+                    aspectRatio: windowSize.width / windowSize.height,
+                }}
             ></Webcam>
 
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
-                sx={{ alignItems: "center", position: "absolute", width: "90%", bottom: "25%" }}
-            >
-                <Grid item xs={3}>
-                    <EditableTypography sx={{ color: "white" }} align="center" variant="h4" edit={true}>
-                        {getISBN()}
-                    </EditableTypography>
-                </Grid>
-            </Grid>
-        </>
+            <Box sx={{ alignItems: "center", position: "absolute", bottom: "6rem", width: "50%", left: "25%" }}>
+                <EditableTypography sx={{ opacity: 0.5 }} align="center" variant="h4" edit={true}>
+                    {getISBN()}
+                </EditableTypography>
+            </Box>
+        </Box>
     );
 };
 export default Scan;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
-import sha256 from "crypto-js/sha256";
 import cookie from "cookie";
 
 import Avatar from "@mui/material/Avatar";
@@ -16,9 +15,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import EditIcon from "@mui/icons-material/Edit";
 
-import getInitials from "../utils/getInitials";
 import fetcher from "./../utils/fetcher";
 import { UserContext } from "../contexts/user";
+import UserAvatar from "./UserAvatar";
 
 const MenuContents = () => {
     const navigate = useNavigate();
@@ -34,7 +33,9 @@ const MenuContents = () => {
         navigate("/login");
     };
 
-    const edit = async () => {};
+    const edit = async () => {
+        navigate(`/user/${user?.userId}`);
+    };
 
     if (user) {
         return (
@@ -81,19 +82,13 @@ const UserMenu = () => {
 
     let contents;
     if (user) {
-        const hash = sha256(user?.email);
 
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
                 <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>
                     {`${user?.firstName} ${user?.lastName}`}
                 </Typography>
-                <Avatar
-                    src={`https://gravatar.com/avatar/${hash}?s=200&d=404`}
-                    sx={{ background: "secondary", opacity: 1, fontSize: "1em" }}
-                >
-                    {getInitials(`${user?.firstName} ${user?.lastName}`)}
-                </Avatar>
+                <UserAvatar user={user} />
             </Box>
         );
     } else {

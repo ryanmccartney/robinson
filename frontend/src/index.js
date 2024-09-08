@@ -27,6 +27,9 @@ const Book = lazy(() => import("./routes/book"));
 const Cases = lazy(() => import("./routes/cases"));
 const Case = lazy(() => import("./routes/case"));
 
+const User = lazy(() => import("./routes/user"));
+const Users = lazy(() => import("./routes/users"));
+
 const Libraries = lazy(() => import("./routes/libraries"));
 const Library = lazy(() => import("./routes/library"));
 
@@ -69,6 +72,8 @@ const App = () => {
                                             <Route path="case/:caseId" element={<Case />} />
                                             <Route path="libraries" element={<Libraries />} />
                                             <Route path="library/:libraryId" element={<Library />} />
+                                            <Route path="users" element={<Users />} />
+                                            <Route path="user/:userId" element={<User />} />
                                             <Route path="*" element={<Error />} />
                                         </Route>
                                     </Routes>

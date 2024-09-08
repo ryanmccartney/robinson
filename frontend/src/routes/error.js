@@ -41,7 +41,7 @@ const Error = () => {
     // }
 
     return (
-        <Stack direction="column" justifyContent="center" alignItems="center" sx={{ width: 1, height: "75vh" }}>
+        <Stack direction="column" justifyContent="center" alignItems="center" sx={{ m: 2, width: 1, height: "75vh" }}>
             <Typography sx={{ margin: 1 }} color={grey[500]} variant="h2">
                 Error
             </Typography>
