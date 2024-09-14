@@ -4,8 +4,9 @@ name: Release
 on: workflow_dispatch
 
 jobs:
-    checkout:
+    release:
       runs-on: ubuntu-latest
+      name: Create Release
       steps:
         - name: Checkout source code
           uses: actions/checkout@v4
