@@ -18,7 +18,7 @@ const LayoutBreadcrumbs = () => {
     const getBreadcrumbs = () => {
         const breadcrumbsItems = [];
 
-        for (let breadcrumb of breadcrumbs) {
+        for (const breadcrumb of breadcrumbs) {
             if (breadcrumb.link) {
                 breadcrumbsItems.push(
                     <Link key={breadcrumb.link} underline="hover" color="inherit" href={breadcrumb.link}>

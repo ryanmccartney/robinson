@@ -9,7 +9,7 @@ const casesModel = require("@models/cases");
 module.exports = async (bookId, update) => {
     try {
         if (bookId) {
-            let data = {};
+            const data = {};
             data.book = await booksModel.findOneAndUpdate(
                 { bookId: bookId },
                 { ...update, ...{ lastUpdated: new Date() } }

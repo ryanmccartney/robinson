@@ -6,7 +6,7 @@ const booksModel = require("@models/books");
 
 module.exports = async (records = 10) => {
     try {
-        let data = {};
+        const data = {};
         data.books = await booksModel.find().sort({ dateAdded: -1 }).limit(records);
 
         return data;

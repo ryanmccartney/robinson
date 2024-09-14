@@ -60,7 +60,7 @@ const logger = (module) => {
     const filename = path.basename(module.filename);
     const loggers = {};
 
-    for (let level in customLevels.levels) {
+    for (const level in customLevels.levels) {
         loggers[level] = (message, metadata) => {
             loggerInstance[level](message, { metadata: { ...{ filename: filename }, ...metadata } });
         };

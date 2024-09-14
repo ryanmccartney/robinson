@@ -1,4 +1,4 @@
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const logger = require("@utils/logger")(module);
 
 const dbHost = process.env.DB_HOST || "mongo";

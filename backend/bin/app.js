@@ -11,6 +11,7 @@ const rateLimit = require("express-rate-limit");
 const passport = require("passport");
 const auth = require("@utils/auth");
 const getError = require("@utils/error-get");
+const openApiValidator = require("express-openapi-validator");
 
 // load routes
 const documentation = require("@utils/documentation");
@@ -79,7 +80,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(apiLimiter);
-app.use("/documentation", documentation.router);
+app.use("/api/documentation", documentation.router);
+
+app.use(
+    openApiValidator.middleware({
+        apiSpec: documentation.spec,
+        validateRequests: true,
+        validateResponses: false,
+    })
+);
+
 app.use("/api/books", books);
 app.use("/api/shelves", shelves);
 app.use("/api/cases", cases);
@@ -90,10 +100,17 @@ app.use("/api/login", login);
 app.use("/api/logout", logout);
 app.use("/api/search", search);
 
+if (nodeEnv === "production") {
+    const staticFiles = path.join(__dirname, 'build');
+    app.use('/', express.static(staticFiles));
+    app.get("*", (req, res) => {
+        res.sendFile("index.html", { staticFiles });
+    });
+}
 
 // Redirect /api to /documentation
 app.use("/api", (req, res, next) => {
-    res.redirect("/documentation");
+    res.redirect("/api/documentation");
 });
 
 // catch 404 and forward to error handler

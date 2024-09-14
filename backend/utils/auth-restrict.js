@@ -6,7 +6,7 @@ const usersModel = require("@models/users");
 const checkRoles = (permissions = [], roleName = "member") => {
     const role = roles[roleName];
 
-    for (let permission of permissions) {
+    for (const permission of permissions) {
         if (role.permissions.includes(permission)) {
             return true;
         } else {

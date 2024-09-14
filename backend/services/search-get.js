@@ -9,7 +9,7 @@ const casesModel = require("@models/cases");
 
 module.exports = async (query, fields = ["books", "author", "title", "description"]) => {
     try {
-        let data = { results: [] };
+        const data = { results: [] };
         if (query) {
 
             if (fields.includes("books")) {

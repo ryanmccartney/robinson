@@ -22,7 +22,7 @@ const ButtonsLayout = () => {
     const getButtons = () => {
         const buttonItems = [];
 
-        for (let button of buttons) {
+        for (const button of buttons) {
             if (button.icon) {
                 buttonItems.push(
                     <Tooltip key={button.label} title={button.label}>

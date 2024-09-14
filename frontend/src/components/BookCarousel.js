@@ -64,7 +64,7 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
     const getBookCards = () => {
         let bookCards = [];
         let width = "12rem";
-        for (let book of books) {
+        for (const book of books) {
             if (view) {
                 bookCards.push(<BookCard opacity="1" width={width} height="24rem" key={book?.bookId} book={book} />);
             } else {

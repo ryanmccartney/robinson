@@ -6,7 +6,7 @@ const booksModel = require("@models/books");
 
 module.exports = async () => {
     try {
-        let data = {};
+        const data = {};
         data.books = await booksModel.find({ favourite: true });
         data.books = data.books.sort((a, b) => {
             return new Date(b.lastUpdated) - new Date(a.lastUpdated);

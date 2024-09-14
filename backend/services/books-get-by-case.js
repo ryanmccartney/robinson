@@ -13,7 +13,7 @@ module.exports = async (caseId) => {
         if (caseId) {
             shelves = await shelvesModel.find({ caseId: caseId });
 
-            for (let shelf of shelves) {
+            for (const shelf of shelves) {
                 books = books.concat(await booksModel.find({ shelfId: shelf.shelfId }));
             }
         }

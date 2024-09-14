@@ -84,7 +84,7 @@ const Case = () => {
 
     const getShelves = () => {
         const shelves = [];
-        for (let shelf of data?.shelves) {
+        for (const shelf of data?.shelves) {
             shelves.push(
                 <Grid key={shelf?.shelfId} item xs={12}>
                     <BookCarousel title={shelf?.name} books={shelf?.books} />

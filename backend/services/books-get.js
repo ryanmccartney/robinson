@@ -8,7 +8,7 @@ const casesModel = require("@models/cases");
 
 module.exports = async (bookId) => {
     try {
-        let data = {};
+        const data = {};
         if (bookId) {
             data.book = (await booksModel.findOne({ bookId: bookId }))?.toJSON() || null;
             data.shelf = (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) || null;

@@ -66,7 +66,7 @@ const LibrarySelector = () => {
     const handleLibrarySelect = (newLibraryId) => {
         localStorage.setItem("libraryId", newLibraryId);
         if (newLibraryId) {
-            for (let item of data.libraries) {
+            for (const item of data.libraries) {
                 if (item?.libraryId == newLibraryId) {
                     setLibrary(item);
                 }
@@ -83,7 +83,7 @@ const LibrarySelector = () => {
 
             const libraryId = localStorage.getItem("libraryId");
             if (libraryId && data.libraries) {
-                for (let item of data.libraries) {
+                for (const item of data.libraries) {
                     if (item?.libraryId == libraryId) {
                         setLibrary(item);
                     }

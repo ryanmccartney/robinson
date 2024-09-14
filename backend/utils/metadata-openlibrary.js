@@ -16,7 +16,7 @@ module.exports = async (isbn) => {
         }
 
         if (data?.covers) {
-            for (let cover of data?.covers) {
+            for (const cover of data?.covers) {
                 const coverData = await imageGet(`https://covers.openlibrary.org/a/id/${cover}-L.jpg`);
                 if (coverData.length > chosenCover.length) {
                     chosenCover = coverData;

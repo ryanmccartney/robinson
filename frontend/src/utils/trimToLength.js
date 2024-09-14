@@ -10,7 +10,7 @@ const trimToLength = (str, max = 25) => {
         return str;
     }
 
-    for (let i in words) {
+    for (const i in words) {
         if (i > max) {
             break;
         }

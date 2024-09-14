@@ -72,7 +72,7 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
         };
 
         if (cases) {
-            for (let bookcase of cases.cases) {
+            for (const bookcase of cases.cases) {
                 casesItems.push(
                     <ListItem key={bookcase.caseId} disablePadding>
                         <ListItemButton
@@ -114,7 +114,7 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
         };
 
         if (shelves) {
-            for (let shelf of shelves.shelves) {
+            for (const shelf of shelves.shelves) {
                 if (shelf.caseId == caseId) {
                     shelvesItem.push(
                         <ListItem key={shelf.shelfId} disablePadding>

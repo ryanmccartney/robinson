@@ -6,7 +6,7 @@ const passport = require("passport");
 
 module.exports = async (userId) => {
     try {
-        let data = {};
+        const data = {};
         if (userId) {
             data.user = await usersModel.findOne({ userId: userId }, { password: 0 });
         } else {

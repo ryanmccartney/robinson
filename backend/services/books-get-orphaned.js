@@ -7,17 +7,17 @@ const shelvesModel = require("@models/shelves");
 
 module.exports = async () => {
     try {
-        let orphanedBooks = [];
-        let shelvesId = [];
+        const orphanedBooks = [];
+        const shelvesId = [];
 
         const shelves = await shelvesModel.find();
         const books = await booksModel.find();
 
-        for (let shelf of shelves) {
+        for (const shelf of shelves) {
             shelvesId.push(shelf.shelfId);
         }
 
-        for (let book of books) {
+        for (const book of books) {
             console.log(book);
             if (shelvesId.includes(book.bookId)) {
                 orphanedBooks.push(book);

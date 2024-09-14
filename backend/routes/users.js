@@ -97,9 +97,9 @@ router.get("/:userId", auth.restrict(["get_user_data"]), async (req, res, next) 
  *           description: Success
  */
 router.put("/current", async (req, res, next) => {
-    delete req.body?.roles
-    delete req.body?.enabled
-    delete req.body?.libraries
+    delete req.body?.roles;
+    delete req.body?.enabled;
+    delete req.body?.libraries;
     const data = await updateUsers(req.user, req.body);
     response(res, req, data);
 });
