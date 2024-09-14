@@ -8,8 +8,7 @@
     "production": "serve -l 3001 -s build",
     "build": "webpack --mode production",
     "test": "jest",
-    "bundle": "webpack --profile --json > stats.json && webpack-bundle-analyzer --port 3200 ./stats.json",
-    "release": "release-it"
+    "bundle": "webpack --profile --json > stats.json && webpack-bundle-analyzer --port 3200 ./stats.json"
   },
   "author": "Ryan McCartney",
   "license": "GPLv3",
