@@ -4,7 +4,7 @@
   "description": "Backend for Robinson project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "development": "nodemon index",
     "production": "node index",
     "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ./../docs/api.yml  -o ./../docs/api.md",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "auto-changelog": "^2.5.0",
     "eslint": "^9.10.0",
+    "jest": "^29.7.0",
     "nodemon": "^2.0.22",
     "release-it": "^17.6.0",
     "swagger-markdown": "^2.3.0"
