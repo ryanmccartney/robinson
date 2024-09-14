@@ -6,13 +6,8 @@ env:
 
 on:
     push:
-        branches:
-            - main
         tags:
-            - "v*"
-        paths-ignore:
-            - "**/README.md"
-            - "docs/**"
+            - "*"
 
 jobs:
     checkout:
@@ -25,7 +20,7 @@ jobs:
       needs: checkout
       defaults:
         run:
-          working-directory: ./backend
+          working-directory: backend
       steps:
         - name: Install the dependencies
           run: npm ci
@@ -34,7 +29,7 @@ jobs:
       needs: checkout
       defaults:
         run:
-          working-directory: ./frontend
+          working-directory: frontend
       steps:
         - name: Install the dependencies
           run: npm ci
