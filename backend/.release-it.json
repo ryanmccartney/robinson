@@ -1,6 +1,6 @@
 {
     "git": {
-        "requireBranch": "main",
+        "requireBranch": "main"
     },
     "hooks": {
         "before:init": [
@@ -8,7 +8,7 @@
             "npm run lint",
             "npm run test"
         ],
-        "after:bump": "npx auto-changelog -p",
+        "after:bump": "npx auto-changelog -p"
     },
     "github": {
         "release": true
