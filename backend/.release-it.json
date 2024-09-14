@@ -1,6 +1,8 @@
 {
     "git": {
-        "requireBranch": "main"
+        "requireBranch": "main",
+        "requireCleanWorkingDir": false,
+        "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
     },
     "hooks": {
         "before:init": [
@@ -11,9 +13,11 @@
         "after:bump": "npx auto-changelog -p"
     },
     "github": {
-        "release": true
+        "release": true,
+        "autoGenerate": true,
+        "releaseNotes": ""
     },
     "npm": {
-        "publish": true
+        "publish": false
     }
 }
