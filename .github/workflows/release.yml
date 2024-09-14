@@ -9,12 +9,14 @@ jobs:
       steps:
         - name: Checkout source code
           uses: actions/checkout@v4
+        - name: Show contents of directory
+          run: ls
     git-setup:
       runs-on: ubuntu-latest
       needs: checkout
       defaults:
         run:
-          working-directory: ./robinson
+          working-directory: .
       steps:
         - name: Initialize Git user
           run: |
@@ -27,7 +29,7 @@ jobs:
       needs: git-setup
       defaults:
         run:
-          working-directory: ./backend
+          working-directory: backend
       steps:
         - name: Install the dependencies
           run: npm ci
