@@ -57,13 +57,13 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
 
 /**
  * @swagger
- * /libraries/{librariesId}:
+ * /libraries/{libraryId}:
  *    get:
  *      summary: Get a library by it's ID
  *      tags: [libraries]
  *      parameters:
  *        - in: path
- *          name: librariesId
+ *          name: libraryId
  *          schema:
  *            type: string
  *          required: true
@@ -125,13 +125,13 @@ router.put(
 
 /**
  * @swagger
- * /libraries/{librariesId}:
+ * /libraries/{libraryId}:
  *    delete:
  *      summary: Delete a library by it's ID
  *      tags: [libraries]
  *      parameters:
  *        - in: path
- *          name: librariesId
+ *          name: libraryId
  *          schema:
  *            type: string
  *          required: true

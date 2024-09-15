@@ -121,13 +121,13 @@ router.put(
 
 /**
  * @swagger
- * /shelves/{shelvesId}:
+ * /shelves/{shelfId}:
  *    delete:
  *      summary: Delete a shelf by it's ID
  *      tags: [shelves]
  *      parameters:
  *        - in: path
- *          name: shelvesId
+ *          name: shelfId
  *          schema:
  *            type: string
  *          required: true

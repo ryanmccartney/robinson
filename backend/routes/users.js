@@ -80,13 +80,13 @@ router.get("/current", async (req, res, next) => {
 
 /**
  * @swagger
- * /users/{usersId}:
+ * /users/{userId}:
  *    get:
  *      summary: Get a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
- *          name: usersId
+ *          name: userId
  *          schema:
  *            type: string
  *          required: true
@@ -174,13 +174,13 @@ router.put(
 
 /**
  * @swagger
- * /users/{usersId}:
+ * /users/{userId}:
  *    delete:
  *      summary: Delete a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
- *          name: usersId
+ *          name: userId
  *          schema:
  *            type: string
  *          required: true

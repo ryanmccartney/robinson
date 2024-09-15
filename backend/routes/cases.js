@@ -161,13 +161,13 @@ router.put(
 
 /**
  * @swagger
- * /cases/{casesId}:
+ * /cases/{caseId}:
  *    delete:
  *      summary: Delete a case by it's ID
  *      tags: [cases]
  *      parameters:
  *        - in: path
- *          name: casesId
+ *          name: caseId
  *          schema:
  *            type: string
  *          required: true

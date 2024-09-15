@@ -8,6 +8,13 @@ const getSearch = require("@services/search-get");
  *   get:
  *     summary: Search books, shelves, libraries, cases
  *     tags: [search]
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The query string to make a search against
  *     responses:
  *         '200':
  *           description: Success
