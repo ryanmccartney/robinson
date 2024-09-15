@@ -17,19 +17,28 @@ module.exports = async (
             if (fields.includes("books")) {
                 if (fields.includes("title")) {
                     data.results = data.results.concat(
-                        await booksModel.find({ title: { $regex: query } }, { cover: 0 })
+                        await booksModel.find(
+                            { title: { $regex: query } },
+                            { cover: 0 }
+                        )
                     );
                 }
                 if (fields.includes("author")) {
                     data.results = data.results.concat(
-                        await booksModel.find({ author: { $regex: query } }, { cover: 0 })
+                        await booksModel.find(
+                            { author: { $regex: query } },
+                            { cover: 0 }
+                        )
                     );
                 }
                 if (fields.includes("description")) {
                     data.results = data.results.concat(
-                        await booksModel.find({
-                            description: { $regex: query },
-                        }, { cover: 0 })
+                        await booksModel.find(
+                            {
+                                description: { $regex: query },
+                            },
+                            { cover: 0 }
+                        )
                     );
                 }
             }
