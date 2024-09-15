@@ -11,10 +11,6 @@
     <img src="https://github.com/ryanmccartney/robinson/actions/workflows/release.yml/badge.svg" alt="continuous integration">
   </a>
 
-  <a href="https://github.com/ryanmccartney/robinson/actions/workflows/deploy.yml">
-    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/deploy.yml/badge.svg" alt="continuous integration">
-  </a>
-
   <a href="https://github.com/ryanmccartney/robinson/graphs/contributors">
     <img src="https://img.shields.io/github/contributors-anon/ryanmccartney/robinson?color=yellow&style=plastic" alt="contributors">
   </a>
