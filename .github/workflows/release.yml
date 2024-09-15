@@ -62,6 +62,8 @@ jobs:
           run: cd ./frontend && npm run build
         - name: Move build files to the backend folder
           run: mkdir ./backend/build && mv ./frontend/build/* ./backend/build/
+        - name: Check contents of build folder
+          run: ls -l ./backend/build
           
         #Login to GHCR
         - name: Login to GHCR Registry

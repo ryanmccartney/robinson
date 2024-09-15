@@ -57,13 +57,13 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
 
 /**
  * @swagger
- * /cases/{casesId}:
+ * /cases/{caseId}:
  *    get:
  *      summary: Get a case by it's ID
  *      tags: [cases]
  *      parameters:
  *        - in: path
- *          name: casesId
+ *          name: caseId
  *          schema:
  *            type: string
  *          required: true

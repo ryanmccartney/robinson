@@ -55,15 +55,15 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
     response(res, req, data);
 });
 
-/**
+/** 
  * @swagger
- * /shelves/{shelvesId}:
+ * /shelves/{shelfId}:
  *    get:
  *      summary: Get a shelf by it's ID
  *      tags: [shelves]
  *      parameters:
  *        - in: path
- *          name: shelvesId
+ *          name: shelfId
  *          schema:
  *            type: string
  *          required: true
