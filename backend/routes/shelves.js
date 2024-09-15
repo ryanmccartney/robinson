@@ -55,7 +55,7 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
     response(res, req, data);
 });
 
-/** 
+/**
  * @swagger
  * /shelves/{shelfId}:
  *    get:
