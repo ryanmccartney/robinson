@@ -7,12 +7,12 @@
 </p>
 
 <h4 align="center">
- <a href="https://github.com/ryanmccartney/robinson/actions/workflows/backend.yml">
-    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/backend.yml/badge.svg" alt="continuous integration">
+ <a href="https://github.com/ryanmccartney/robinson/actions/workflows/release.yml">
+    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/release.yml/badge.svg" alt="continuous integration">
   </a>
 
-  <a href="https://github.com/ryanmccartney/robinson/actions/workflows/frontend.yml">
-    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/frontend.yml/badge.svg" alt="continuous integration">
+  <a href="https://github.com/ryanmccartney/robinson/actions/workflows/deploy.yml">
+    <img src="https://github.com/ryanmccartney/robinson/actions/workflows/deploy.yml/badge.svg" alt="continuous integration">
   </a>
 
   <a href="https://github.com/ryanmccartney/robinson/graphs/contributors">
@@ -21,6 +21,11 @@
   <a href="https://opensource.org/license/gpl-3-0">
     <img src="https://img.shields.io/badge/GNU%20GPL%20v3.0-blue.svg?style=plastic&label=license" alt="license">
   </a>
+
+  <a href="https://github.com/ryanmccartney/robinson/releases">
+    <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/ryanmccartney/robinson?filename=.%2Fbackend%2Fpackage.json&style=plastic">
+  </a>
+
 </h4>
 
 _Work in Progress_
