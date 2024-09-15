@@ -118,6 +118,16 @@ router.get("/progress", auth.restrict(["get_data"]), async (req, res, next) => {
  *    get:
  *      summary: Get a list of all books in order of newest
  *      tags: [books]
+ *      requestBody:
+ *        required: false
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                records:
+ *                  type: number
+ *                  description: Number of records to return
  *      responses:
  *         '200':
  *           description: Success

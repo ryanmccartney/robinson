@@ -16,8 +16,8 @@ const getUsers = require("@services/users-get");
  *            schema:
  *              type: object
  *              required:
- *                - type
- *                - input
+ *                - username
+ *                - password
  *              properties:
  *                username:
  *                  type: string

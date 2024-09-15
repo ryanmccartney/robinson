@@ -38,6 +38,27 @@ router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
  *    post:
  *      summary: Add a new case
  *      tags: [cases]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - name
+ *              properties:
+ *                name:
+ *                  type: string
+ *                  description: Name of case
+ *                description:
+ *                  type: string
+ *                  description: Description of case
+ *                libraryId:
+ *                  type: string
+ *                  description: Library the case belongs in
+ *                order:
+ *                  type: number
+ *                  description: Display order of case
  *      responses:
  *         '200':
  *           description: Success
@@ -98,6 +119,25 @@ router.get("/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The case ID string
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                  description: Name of case
+ *                description:
+ *                  type: string
+ *                  description: Description of case
+ *                libraryId:
+ *                  type: string
+ *                  description: Library the case belongs in
+ *                order:
+ *                  type: number
+ *                  description: Display order of case
  *      responses:
  *         '200':
  *           description: Success
