@@ -101,7 +101,7 @@ app.use("/api/logout", logout);
 app.use("/api/search", search);
 
 if (nodeEnv === "production") {
-    const staticFiles = path.join(__dirname, "build");
+    const staticFiles = path.join(__dirname, "..", "build");
     app.use("/", express.static(staticFiles));
     app.get("*", (req, res) => {
         res.sendFile("index.html", { root: staticFiles });
