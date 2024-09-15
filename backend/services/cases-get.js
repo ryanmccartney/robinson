@@ -10,10 +10,14 @@ module.exports = async (caseId) => {
         const data = {};
         if (caseId) {
             data.case = (await casesModel.findOne({ caseId: caseId })) || null;
-            data.shelves = (await shelvesModel.find({ caseId: caseId })) || null;
+            data.shelves =
+                (await shelvesModel.find({ caseId: caseId })) || null;
             if (data.shelves) {
                 for (const i in data.shelves) {
-                    data.shelves[i]._doc.books = (await booksModel.find({ shelfId: data.shelves[i].shelfId })) || null;
+                    data.shelves[i]._doc.books =
+                        (await booksModel.find({
+                            shelfId: data.shelves[i].shelfId,
+                        })) || null;
                 }
             }
         } else {

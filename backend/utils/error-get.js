@@ -7,7 +7,8 @@ module.exports = (error, status = 500) => {
         error: {
             status: status,
             message: error.message,
-            stack: nodeEnv !== "production" ? error.stack.split("\n") : undefined,
+            stack:
+                nodeEnv !== "production" ? error.stack.split("\n") : undefined,
         },
     };
 };

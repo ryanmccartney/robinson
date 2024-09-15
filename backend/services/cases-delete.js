@@ -8,7 +8,9 @@ module.exports = async (caseId) => {
         if (caseId) {
             const cases = await casesModel.findOneAndDelete({ caseId: caseId });
             if (cases) {
-                logger.info(`Deleted case with title '${cases.title}' and ID ${caseId}`);
+                logger.info(
+                    `Deleted case with title '${cases.title}' and ID ${caseId}`
+                );
             } else {
                 logger.info(`No case with ID ${caseId}`);
             }

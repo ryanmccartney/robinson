@@ -14,7 +14,9 @@ module.exports = async (caseId) => {
             shelves = await shelvesModel.find({ caseId: caseId });
 
             for (const shelf of shelves) {
-                books = books.concat(await booksModel.find({ shelfId: shelf.shelfId }));
+                books = books.concat(
+                    await booksModel.find({ shelfId: shelf.shelfId })
+                );
             }
         }
         return { shelves: shelves, books: books };

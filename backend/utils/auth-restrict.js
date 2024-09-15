@@ -29,13 +29,17 @@ module.exports = (permissions = []) => {
                         if (err) {
                             return next(err);
                         }
-                        throw new Error(`You're not authorised, speak to an admin.`);
+                        throw new Error(
+                            `You're not authorised, speak to an admin.`
+                        );
                     });
                 }
 
                 //Check if the user has the correct roles
                 if (!checkRoles(permissions, user?.role)) {
-                    throw new Error(`You don't have a suitable role to access this resource.`);
+                    throw new Error(
+                        `You don't have a suitable role to access this resource.`
+                    );
                 }
             } else {
                 //If there's no user at all
@@ -45,7 +49,10 @@ module.exports = (permissions = []) => {
             //If we've got to this point the user is shall pass
             return next();
         } catch (error) {
-            response(res, req, { ...{ user: req?.user }, ...getError(error, 403) });
+            response(res, req, {
+                ...{ user: req?.user },
+                ...getError(error, 403),
+            });
         }
     };
     return checkCredentials;

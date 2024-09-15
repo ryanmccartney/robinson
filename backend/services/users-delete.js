@@ -6,9 +6,14 @@ const usersModel = require("@models/users");
 module.exports = async (userId) => {
     try {
         if (userId) {
-            const user = await usersModel.findOneAndDelete({ userId: userId }, { password: 0 });
+            const user = await usersModel.findOneAndDelete(
+                { userId: userId },
+                { password: 0 }
+            );
             if (user) {
-                logger.info(`Deleted user with name '${user.firstName} ${user.lastName}' and ID ${userId}`);
+                logger.info(
+                    `Deleted user with name '${user.firstName} ${user.lastName}' and ID ${userId}`
+                );
             } else {
                 logger.info(`No user with ID ${userId}`);
             }

@@ -7,7 +7,9 @@ module.exports = async (newLibrary) => {
     try {
         const library = new librariesModel(newLibrary);
         await library.save();
-        logger.info(`Add library with name '${library.name}' and ID ${library.libraryId}`);
+        logger.info(
+            `Add library with name '${library.name}' and ID ${library.libraryId}`
+        );
 
         return { library: library };
     } catch (error) {

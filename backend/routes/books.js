@@ -62,10 +62,14 @@ router.get("/orphaned", auth.restrict(["get_data"]), async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/favourites", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getBooksFavourites();
-    response(res, req, data);
-});
+router.get(
+    "/favourites",
+    auth.restrict(["get_data"]),
+    async (req, res, next) => {
+        const data = await getBooksFavourites();
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -120,10 +124,14 @@ router.get("/new", auth.restrict(["get_data"]), async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.get("/case/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getBooksByCase(req.params.caseId);
-    response(res, req, data);
-});
+router.get(
+    "/case/:caseId",
+    auth.restrict(["get_data"]),
+    async (req, res, next) => {
+        const data = await getBooksByCase(req.params.caseId);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -144,10 +152,14 @@ router.get("/case/:caseId", auth.restrict(["get_data"]), async (req, res, next) 
  *        '200':
  *          description: Success
  */
-router.get("/shelf/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getBooksByShelf(req.params.shelfId);
-    response(res, req, data);
-});
+router.get(
+    "/shelf/:shelfId",
+    auth.restrict(["get_data"]),
+    async (req, res, next) => {
+        const data = await getBooksByShelf(req.params.shelfId);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -168,20 +180,27 @@ router.get("/shelf/:shelfId", auth.restrict(["get_data"]), async (req, res, next
  *         '200':
  *           description: Success
  */
-router.get("/cover/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getBooks(req.params.bookId);
+router.get(
+    "/cover/:bookId",
+    auth.restrict(["get_data"]),
+    async (req, res, next) => {
+        const data = await getBooks(req.params.bookId);
 
-    if (data?.book?.cover && typeof data?.book?.cover == "string") {
-        const image = Buffer.from(data?.book?.cover, "base64");
-        res.writeHead(200, {
-            "Content-Type": "image/png",
-            "Content-Length": image.length,
-        });
-        res.end(image);
-    } else {
-        response(res, req, { error: { message: "Unable to retrieve cover" }, status: "error" });
+        if (data?.book?.cover && typeof data?.book?.cover == "string") {
+            const image = Buffer.from(data?.book?.cover, "base64");
+            res.writeHead(200, {
+                "Content-Type": "image/png",
+                "Content-Length": image.length,
+            });
+            res.end(image);
+        } else {
+            response(res, req, {
+                error: { message: "Unable to retrieve cover" },
+                status: "error",
+            });
+        }
     }
-});
+);
 
 /**
  * @swagger
@@ -243,10 +262,14 @@ router.get("/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:bookId", auth.restrict(["update_data"]), async (req, res, next) => {
-    const data = await updateBooks(req.params.bookId, req.body);
-    response(res, req, data);
-});
+router.put(
+    "/:bookId",
+    auth.restrict(["update_data"]),
+    async (req, res, next) => {
+        const data = await updateBooks(req.params.bookId, req.body);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -267,9 +290,13 @@ router.put("/:bookId", auth.restrict(["update_data"]), async (req, res, next) =>
  *         '200':
  *           description: Success
  */
-router.delete("/:bookId", auth.restrict(["delete_data"]), async (req, res, next) => {
-    const data = await deleteBooks(req.params.bookId);
-    response(res, req, data);
-});
+router.delete(
+    "/:bookId",
+    auth.restrict(["delete_data"]),
+    async (req, res, next) => {
+        const data = await deleteBooks(req.params.bookId);
+        response(res, req, data);
+    }
+);
 
 module.exports = router;

@@ -15,10 +15,16 @@ module.exports = async (bookId, update) => {
                 { ...update, ...{ lastUpdated: new Date() } }
             );
             data.book = (await booksModel.findOne({ bookId: bookId })) || null;
-            data.shelf = (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) || null;
-            data.case = (await casesModel.findOne({ caseId: data.shelf?.caseId })) || null;
+            data.shelf =
+                (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) ||
+                null;
+            data.case =
+                (await casesModel.findOne({ caseId: data.shelf?.caseId })) ||
+                null;
             if (data.book) {
-                logger.info(`Updated book with title '${data.book.title}' and ID ${bookId}`);
+                logger.info(
+                    `Updated book with title '${data.book.title}' and ID ${bookId}`
+                );
             } else {
                 logger.info(`No book with ID ${bookId}`);
             }

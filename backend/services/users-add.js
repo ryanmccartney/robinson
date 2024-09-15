@@ -9,7 +9,9 @@ module.exports = async (newUser) => {
         newUser.password = md5(newUser.password);
         const user = new usersModel(newUser);
         await user.save();
-        logger.info(`Add user with name '${user.firstName} ${user.lastName}' and ID ${user.userId}`);
+        logger.info(
+            `Add user with name '${user.firstName} ${user.lastName}' and ID ${user.userId}`
+        );
 
         if (user.password) {
             user.password = undefined;

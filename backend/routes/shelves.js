@@ -86,10 +86,14 @@ router.get("/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:shelfId", auth.restrict(["update_data"]), async (req, res, next) => {
-    const data = await updateShelves(req.params.shelfId, req.body);
-    response(res, req, data);
-});
+router.put(
+    "/:shelfId",
+    auth.restrict(["update_data"]),
+    async (req, res, next) => {
+        const data = await updateShelves(req.params.shelfId, req.body);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -110,9 +114,13 @@ router.put("/:shelfId", auth.restrict(["update_data"]), async (req, res, next) =
  *         '200':
  *           description: Success
  */
-router.delete("/:shelfId", auth.restrict(["delete_data"]), async (req, res, next) => {
-    const data = await deleteShelves(req.params.shelfId);
-    response(res, req, data);
-});
+router.delete(
+    "/:shelfId",
+    auth.restrict(["delete_data"]),
+    async (req, res, next) => {
+        const data = await deleteShelves(req.params.shelfId);
+        response(res, req, data);
+    }
+);
 
 module.exports = router;

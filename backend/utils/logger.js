@@ -29,7 +29,9 @@ const customLogFormat = winston.format.combine(
     winston.format.errors({ stack: true }),
     winston.format.timestamp(),
     winston.format.splat(),
-    winston.format.printf((log) => `${log.timestamp} ${log.level}: ${log.message}`)
+    winston.format.printf(
+        (log) => `${log.timestamp} ${log.level}: ${log.message}`
+    )
 );
 
 winston.addColors(customLevels.colors);
@@ -51,7 +53,10 @@ const loggerInstance = winston.createLogger({
             level: logLevel,
             handleExceptions: true,
             colorize: true,
-            format: winston.format.combine(customLogFormat, winston.format.colorize({ all: true })),
+            format: winston.format.combine(
+                customLogFormat,
+                winston.format.colorize({ all: true })
+            ),
         }),
     ],
 });
@@ -62,7 +67,9 @@ const logger = (module) => {
 
     for (const level in customLevels.levels) {
         loggers[level] = (message, metadata) => {
-            loggerInstance[level](message, { metadata: { ...{ filename: filename }, ...metadata } });
+            loggerInstance[level](message, {
+                metadata: { ...{ filename: filename }, ...metadata },
+            });
         };
     }
 

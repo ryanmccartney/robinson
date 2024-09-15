@@ -44,7 +44,8 @@ const onError = (error) => {
 
 const onListening = () => {
     const addr = server.address();
-    const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+    const bind =
+        typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
     logger.info(`robinson api listening on ${bind}`);
 };
 

@@ -10,9 +10,15 @@ module.exports = async (bookId) => {
     try {
         const data = {};
         if (bookId) {
-            data.book = (await booksModel.findOne({ bookId: bookId }))?.toJSON() || null;
-            data.shelf = (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) || null;
-            data.case = (await casesModel.findOne({ caseId: data.shelf?.caseId })) || null;
+            data.book =
+                (await booksModel.findOne({ bookId: bookId }))?.toJSON() ||
+                null;
+            data.shelf =
+                (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) ||
+                null;
+            data.case =
+                (await casesModel.findOne({ caseId: data.shelf?.caseId })) ||
+                null;
         } else {
             data.books = await booksModel.find({}, { cover: 0 });
         }

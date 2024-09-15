@@ -17,7 +17,9 @@ module.exports = async (newBook) => {
         }
         const book = new booksModel(newBook);
         await book.save();
-        logger.info(`Add book with title '${book.title}' and ID ${book.bookId}`);
+        logger.info(
+            `Add book with title '${book.title}' and ID ${book.bookId}`
+        );
 
         return { book: book };
     } catch (error) {

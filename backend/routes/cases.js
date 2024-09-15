@@ -86,10 +86,14 @@ router.get("/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:caseId", auth.restrict(["update_data"]), async (req, res, next) => {
-    const data = await updateCases(req.params.caseId, req.body);
-    response(res, req, data);
-});
+router.put(
+    "/:caseId",
+    auth.restrict(["update_data"]),
+    async (req, res, next) => {
+        const data = await updateCases(req.params.caseId, req.body);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -110,9 +114,13 @@ router.put("/:caseId", auth.restrict(["update_data"]), async (req, res, next) =>
  *         '200':
  *           description: Success
  */
-router.delete("/:caseId", auth.restrict(["delete_data"]), async (req, res, next) => {
-    const data = await deleteCases(req.params.caseId);
-    response(res, req, data);
-});
+router.delete(
+    "/:caseId",
+    auth.restrict(["delete_data"]),
+    async (req, res, next) => {
+        const data = await deleteCases(req.params.caseId);
+        response(res, req, data);
+    }
+);
 
 module.exports = router;

@@ -2,7 +2,14 @@ const mongoose = require("@utils/mongoose");
 const id = require("@utils/id");
 
 const schema = mongoose.Schema({
-    bookId: { type: String, default: () => id(), index: true, unique: true, required: true, immutable: true },
+    bookId: {
+        type: String,
+        default: () => id(),
+        index: true,
+        unique: true,
+        required: true,
+        immutable: true,
+    },
     shelfId: { type: String },
     title: { type: String, required: true },
     isbn: { type: Number, unique: true },

@@ -62,10 +62,14 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:libraryId", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getLibraries(req.params.libraryId);
-    response(res, req, data);
-});
+router.get(
+    "/:libraryId",
+    auth.restrict(["get_data"]),
+    async (req, res, next) => {
+        const data = await getLibraries(req.params.libraryId);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -86,10 +90,14 @@ router.get("/:libraryId", auth.restrict(["get_data"]), async (req, res, next) =>
  *         '200':
  *           description: Success
  */
-router.put("/:libraryId", auth.restrict(["update_data"]), async (req, res, next) => {
-    const data = await updateLibraries(req.params.libraryId, req.body);
-    response(res, req, data);
-});
+router.put(
+    "/:libraryId",
+    auth.restrict(["update_data"]),
+    async (req, res, next) => {
+        const data = await updateLibraries(req.params.libraryId, req.body);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -110,9 +118,13 @@ router.put("/:libraryId", auth.restrict(["update_data"]), async (req, res, next)
  *         '200':
  *           description: Success
  */
-router.delete("/:libraryId", auth.restrict(["delete_data"]), async (req, res, next) => {
-    const data = await deleteLibraries(req.params.libraryId);
-    response(res, req, data);
-});
+router.delete(
+    "/:libraryId",
+    auth.restrict(["delete_data"]),
+    async (req, res, next) => {
+        const data = await deleteLibraries(req.params.libraryId);
+        response(res, req, data);
+    }
+);
 
 module.exports = router;

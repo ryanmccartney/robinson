@@ -51,10 +51,14 @@ router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.put("/:bookId", auth.restrict(["update_data"]), async (req, res, next) => {
-    const data = await updateMetadata(req.params.bookId);
-    response(res, req, data);
-});
+router.put(
+    "/:bookId",
+    auth.restrict(["update_data"]),
+    async (req, res, next) => {
+        const data = await updateMetadata(req.params.bookId);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger

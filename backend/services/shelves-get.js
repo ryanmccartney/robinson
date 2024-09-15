@@ -8,7 +8,10 @@ const casesModel = require("@models/cases");
 const getBooksOnShelf = async (shelf) => {
     const newShelf = shelf._doc;
 
-    const booksObject = await booksModel.find({ shelfId: shelf.shelfId }, { bookId: 1, _id: 0 });
+    const booksObject = await booksModel.find(
+        { shelfId: shelf.shelfId },
+        { bookId: 1, _id: 0 }
+    );
     newShelf.books = booksObject.map((obj) => obj.bookId);
 
     return newShelf;
@@ -21,7 +24,9 @@ module.exports = async (shelfId) => {
         if (shelfId) {
             data.shelf = await shelvesModel.findOne({ shelfId: shelfId });
             data.books = (await booksModel.find({ shelfId: shelfId })) || null;
-            data.case = (await casesModel.findOne({ caseId: data.shelf?.caseId })) || null;
+            data.case =
+                (await casesModel.findOne({ caseId: data.shelf?.caseId })) ||
+                null;
         } else {
             data.shelves = await shelvesModel.find();
             data.shelves = await Promise.all(

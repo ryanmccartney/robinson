@@ -9,7 +9,9 @@ module.exports = async (bookId) => {
         if (bookId) {
             const books = await booksModel.findOneAndDelete({ bookId: bookId });
             if (books) {
-                logger.info(`Deleted book with title '${books.title}' and ID ${bookId}`);
+                logger.info(
+                    `Deleted book with title '${books.title}' and ID ${bookId}`
+                );
             } else {
                 logger.info(`No book with ID ${bookId}`);
             }

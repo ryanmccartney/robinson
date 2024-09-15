@@ -19,7 +19,6 @@ const getSearch = require("@services/search-get");
 router.get("/", async (req, res) => {
     const data = await getSearch(req?.query?.query);
     response(res, req, data);
-
 });
 
 module.exports = router;

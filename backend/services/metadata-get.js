@@ -36,7 +36,10 @@ module.exports = async (isbn) => {
         if (data.google.cover) {
             data.combined.cover = data.google.cover;
         }
-        if (data.openlibrary.cover && data.combined.cover.length < data.openlibrary.cover.length) {
+        if (
+            data.openlibrary.cover &&
+            data.combined.cover.length < data.openlibrary.cover.length
+        ) {
             data.combined.cover = data.openlibrary.cover;
         }
 

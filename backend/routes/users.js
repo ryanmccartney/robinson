@@ -79,17 +79,21 @@ router.get("/current", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.get("/:userId", auth.restrict(["get_user_data"]), async (req, res, next) => {
-    const data = await getUsers(req.params.userId);
-    response(res, req, data);
-});
+router.get(
+    "/:userId",
+    auth.restrict(["get_user_data"]),
+    async (req, res, next) => {
+        const data = await getUsers(req.params.userId);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
  * /users/current:
  *    put:
  *      description: Update the current user
- *      tags: [users] 
+ *      tags: [users]
  *      produces:
  *         - application/json
  *      responses:
@@ -123,10 +127,14 @@ router.put("/current", async (req, res, next) => {
  *         '200':
  *           description: Success
  */
-router.put("/:userId", auth.restrict(["update_user_data"]), async (req, res, next) => {
-    const data = await updateUsers(req.params.userId, req.body);
-    response(res, req, data);
-});
+router.put(
+    "/:userId",
+    auth.restrict(["update_user_data"]),
+    async (req, res, next) => {
+        const data = await updateUsers(req.params.userId, req.body);
+        response(res, req, data);
+    }
+);
 
 /**
  * @swagger
@@ -147,9 +155,13 @@ router.put("/:userId", auth.restrict(["update_user_data"]), async (req, res, nex
  *         '200':
  *           description: Success
  */
-router.delete("/:userId", auth.restrict(["delete_user_data"]), async (req, res, next) => {
-    const data = await deleteUsers(req.params.userId);
-    response(res, req, data);
-});
+router.delete(
+    "/:userId",
+    auth.restrict(["delete_user_data"]),
+    async (req, res, next) => {
+        const data = await deleteUsers(req.params.userId);
+        response(res, req, data);
+    }
+);
 
 module.exports = router;

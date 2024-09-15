@@ -47,7 +47,9 @@ const strategy = new LocalStrategy(async (username, password, done) => {
     }
 
     if (!user.enabled) {
-        logger.info(`[auth] User '${user?.firstName} ${user?.lastName}' is not enabled.`);
+        logger.info(
+            `[auth] User '${user?.firstName} ${user?.lastName}' is not enabled.`
+        );
         return done(new Error(`User is not enabled.`), false);
     }
 
@@ -70,7 +72,10 @@ const authenticate = async (req, res, next) => {
                 next();
             }
         } catch (error) {
-            return response(res, req, { ...{ user: userId }, ...getError(error, 401) });
+            return response(res, req, {
+                ...{ user: userId },
+                ...getError(error, 401),
+            });
         }
     })(req, res, next);
 };

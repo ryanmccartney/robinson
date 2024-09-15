@@ -7,7 +7,9 @@ module.exports = async (newShelf) => {
     try {
         const shelf = new shelvesModel(newShelf);
         await shelf.save();
-        logger.info(`Add shelf with name '${shelf.name}' and ID ${shelf.shelfId}`);
+        logger.info(
+            `Add shelf with name '${shelf.name}' and ID ${shelf.shelfId}`
+        );
 
         return { shelf: shelf };
     } catch (error) {

@@ -8,7 +8,10 @@ module.exports = async (userId) => {
     try {
         const data = {};
         if (userId) {
-            data.user = await usersModel.findOne({ userId: userId }, { password: 0 });
+            data.user = await usersModel.findOne(
+                { userId: userId },
+                { password: 0 }
+            );
         } else {
             data.users = await usersModel.find({}, { password: 0 });
         }

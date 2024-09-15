@@ -6,9 +6,13 @@ const librariesModel = require("@models/libraries");
 module.exports = async (libraryId) => {
     try {
         if (libraryId) {
-            const library = await librariesModel.findOneAndDelete({ libraryId: libraryId });
+            const library = await librariesModel.findOneAndDelete({
+                libraryId: libraryId,
+            });
             if (library) {
-                logger.info(`Deleted library with title '${library.name}' and ID ${libraryId}`);
+                logger.info(
+                    `Deleted library with title '${library.name}' and ID ${libraryId}`
+                );
             } else {
                 logger.info(`No library with ID ${libraryId}`);
             }

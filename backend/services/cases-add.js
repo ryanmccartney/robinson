@@ -8,7 +8,9 @@ module.exports = async (newCase) => {
     try {
         const cases = new casesModel(newCase);
         await cases.save();
-        logger.info(`Add case with name '${cases.title}' and ID ${cases.caseId}`);
+        logger.info(
+            `Add case with name '${cases.title}' and ID ${cases.caseId}`
+        );
 
         return { case: cases };
     } catch (error) {

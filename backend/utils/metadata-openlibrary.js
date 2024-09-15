@@ -11,13 +11,17 @@ module.exports = async (isbn) => {
 
     try {
         if (isbn) {
-            const response = await fetch(`https://openlibrary.org/isbn/${isbn}.json`);
+            const response = await fetch(
+                `https://openlibrary.org/isbn/${isbn}.json`
+            );
             data = await response.json();
         }
 
         if (data?.covers) {
             for (const cover of data?.covers) {
-                const coverData = await imageGet(`https://covers.openlibrary.org/a/id/${cover}-L.jpg`);
+                const coverData = await imageGet(
+                    `https://covers.openlibrary.org/a/id/${cover}-L.jpg`
+                );
                 if (coverData.length > chosenCover.length) {
                     chosenCover = coverData;
                 }

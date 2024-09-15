@@ -6,9 +6,14 @@ const librariesModel = require("@models/libraries");
 module.exports = async (libraryId, update) => {
     try {
         if (libraryId) {
-            const library = await librariesModel.findOneAndUpdate({ libraryId: libraryId }, update);
+            const library = await librariesModel.findOneAndUpdate(
+                { libraryId: libraryId },
+                update
+            );
             if (library) {
-                logger.info(`Updated library with name '${library.name}' and ID ${libraryId}`);
+                logger.info(
+                    `Updated library with name '${library.name}' and ID ${libraryId}`
+                );
             } else {
                 logger.info(`No library with ID ${libraryId}`);
             }

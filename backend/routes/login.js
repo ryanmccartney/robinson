@@ -49,7 +49,9 @@ router.post("/", async (req, res, next) => {
             }
             return response(res, req, {
                 status: data.user ? "success" : "failure",
-                message: data.user ? `Successfully logged in ${data.user.username}` : "Login failed",
+                message: data.user
+                    ? `Successfully logged in ${data.user.username}`
+                    : "Login failed",
                 user: data.user,
             });
         });
