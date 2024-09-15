@@ -39,7 +39,7 @@ jobs:
         - name: Install the backend dependencies
           run: cd ./backend && npm ci
         - name: Install the frontend dependencies
-          run: cd ./frontend npm ci
+          run: cd ./frontend && npm ci
 
         #Get the build time
         - name: Set current date and time as an environment variable
