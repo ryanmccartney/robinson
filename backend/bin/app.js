@@ -104,7 +104,7 @@ if (nodeEnv === "production") {
     const staticFiles = path.join(__dirname, "build");
     app.use("/", express.static(staticFiles));
     app.get("*", (req, res) => {
-        res.sendFile("index.html", { staticFiles });
+        res.sendFile("index.html", { root: staticFiles });
     });
 }
 
