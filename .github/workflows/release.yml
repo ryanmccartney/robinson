@@ -29,6 +29,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     deploy:
       runs-on: ubuntu-latest
+      name: Build and Push Image
       needs: release
       steps:
         #Get the repository
@@ -60,7 +61,7 @@ jobs:
         - name: Build the frontend
           run: cd ./frontend && npm run build
         - name: Move build files to the backend folder
-          run: mkdir ./backend/build && mv ./frontend/build/* ./backend/build/*
+          run: mkdir ./backend/build && mv ./frontend/build/* ./backend/build/
           
         #Login to GHCR
         - name: Login to GHCR Registry
