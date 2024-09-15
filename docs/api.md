@@ -14,7 +14,7 @@ ryan@mccartney.info
 ### /books
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books
 
@@ -23,9 +23,13 @@ Get a list of all books
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### POST
-##### Description
+##### Summary
 
 Add a new book
 
@@ -34,11 +38,15 @@ Add a new book
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/orphaned
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books that don't have a shelf (Orphaned)
 
@@ -47,11 +55,15 @@ Get a list of all books that don't have a shelf (Orphaned)
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/favourites
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books that have been favourite'd
 
@@ -60,11 +72,15 @@ Get a list of all books that have been favourite'd
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/progress
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books that have been started (have progress)
 
@@ -73,11 +89,15 @@ Get a list of all books that have been started (have progress)
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/new
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books in order of newest
 
@@ -86,11 +106,15 @@ Get a list of all books in order of newest
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/case/{caseId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books in a case
 
@@ -105,11 +129,15 @@ Get a list of all books in a case
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
-### /books/shelf/{caseId}
+### /books/shelf/{shelfId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all books on a shelf
 
@@ -124,11 +152,15 @@ Get a list of all books on a shelf
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/cover/{bookId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a book cover by it's ID
 
@@ -143,11 +175,15 @@ Get a book cover by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /books/{bookId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a book by it's ID
 
@@ -162,9 +198,13 @@ Get a book by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### PUT
-##### Description
+##### Summary
 
 Update a book by it's ID
 
@@ -179,9 +219,13 @@ Update a book by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### DELETE
-##### Description
+##### Summary
 
 Delete a book by it's ID
 
@@ -196,12 +240,16 @@ Delete a book by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /cases
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all cases
 
@@ -210,9 +258,13 @@ Get a list of all cases
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### POST
-##### Description
+##### Summary
 
 Add a new case
 
@@ -221,11 +273,15 @@ Add a new case
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /cases/{casesId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a case by it's ID
 
@@ -240,9 +296,13 @@ Get a case by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### DELETE
-##### Description
+##### Summary
 
 Delete a case by it's ID
 
@@ -257,11 +317,15 @@ Delete a case by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /cases/{caseId}
 
 #### PUT
-##### Description
+##### Summary
 
 Update a case by it's ID
 
@@ -276,12 +340,16 @@ Update a case by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /libraries
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all libraries
 
@@ -290,9 +358,13 @@ Get a list of all libraries
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### POST
-##### Description
+##### Summary
 
 Add a new library
 
@@ -301,11 +373,15 @@ Add a new library
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /libraries/{librariesId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a library by it's ID
 
@@ -320,9 +396,13 @@ Get a library by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### DELETE
-##### Description
+##### Summary
 
 Delete a library by it's ID
 
@@ -337,11 +417,15 @@ Delete a library by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /libraries/{libraryId}
 
 #### PUT
-##### Description
+##### Summary
 
 Update a library by it's ID
 
@@ -356,46 +440,51 @@ Update a library by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /login
 
 #### POST
-##### Description
+##### Summary
 
 Creates a login session
 
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| username | formData | Username | No | string |
-| password | formData | Password | No | string |
-
 ##### Responses
 
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | Successfully logged in user. | object |
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /logout
 
 #### POST
-##### Description
+##### Summary
 
 Clears any session cookies to log a user out.
 
 ##### Responses
 
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | Successfully logged the user out. | object |
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /metadata/{isbn}
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all available metadata
 
@@ -410,9 +499,13 @@ Get a list of all available metadata
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### POST
-##### Description
+##### Summary
 
 Get a list of all available metadata and create a book with it
 
@@ -427,11 +520,15 @@ Get a list of all available metadata and create a book with it
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /metadata/{bookId}
 
 #### PUT
-##### Description
+##### Summary
 
 Get a list of all available metadata and update existing records for an existing book
 
@@ -446,26 +543,34 @@ Get a list of all available metadata and update existing records for an existing
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /search
 
 #### GET
-##### Description
+##### Summary
 
 Search books, shelves, libraries, cases
 
 ##### Responses
 
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | Successfully logged the user out. | object |
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /shelves
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all shelves
 
@@ -474,9 +579,13 @@ Get a list of all shelves
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### POST
-##### Description
+##### Summary
 
 Add a new shelf
 
@@ -485,11 +594,15 @@ Add a new shelf
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /shelves/{shelvesId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a shelf by it's ID
 
@@ -504,9 +617,13 @@ Get a shelf by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### DELETE
-##### Description
+##### Summary
 
 Delete a shelf by it's ID
 
@@ -521,11 +638,15 @@ Delete a shelf by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /shelves/{shelfId}
 
 #### PUT
-##### Description
+##### Summary
 
 Update a shelf by it's ID
 
@@ -540,12 +661,16 @@ Update a shelf by it's ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ---
 ### /users
 
 #### GET
-##### Description
+##### Summary
 
 Get a list of all users
 
@@ -554,9 +679,13 @@ Get a list of all users
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### POST
-##### Description
+##### Summary
 
 Add a new user
 
@@ -565,11 +694,15 @@ Add a new user
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /users/current
 
 #### GET
-##### Description
+##### Summary
 
 Get the current user
 
@@ -578,9 +711,13 @@ Get the current user
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### PUT
-##### Description
+##### Summary
 
 Update the current user
 
@@ -589,11 +726,15 @@ Update the current user
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /users/{usersId}
 
 #### GET
-##### Description
+##### Summary
 
 Get a user by their ID
 
@@ -608,9 +749,13 @@ Get a user by their ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 #### DELETE
-##### Description
+##### Summary
 
 Delete a user by their ID
 
@@ -625,11 +770,15 @@ Delete a user by their ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
 
 ### /users/{userId}
 
 #### PUT
-##### Description
+##### Summary
 
 Update a user by their ID
 
@@ -644,3 +793,7 @@ Update a user by their ID
 | Code | Description |
 | ---- | ----------- |
 | 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |

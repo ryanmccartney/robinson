@@ -15,66 +15,102 @@ servers:
 paths:
   /books:
     get:
-      description: Get a list of all books
+      summary: Get a list of all books
       tags:
         - books
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     post:
-      description: Add a new book
+      summary: Add a new book
       tags:
         - books
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /books/orphaned:
     get:
-      description: Get a list of all books that don't have a shelf (Orphaned)
+      summary: Get a list of all books that don't have a shelf (Orphaned)
       tags:
         - books
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /books/favourites:
     get:
-      description: Get a list of all books that have been favourite'd
+      summary: Get a list of all books that have been favourite'd
       tags:
         - books
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /books/progress:
     get:
-      description: Get a list of all books that have been started (have progress)
+      summary: Get a list of all books that have been started (have progress)
       tags:
         - books
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /books/new:
     get:
-      description: Get a list of all books in order of newest
+      summary: Get a list of all books in order of newest
       tags:
         - books
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/books/case/{caseId}":
     get:
-      description: Get a list of all books in a case
+      summary: Get a list of all books in a case
       tags:
         - books
       parameters:
@@ -84,14 +120,20 @@ paths:
             type: string
           required: true
           description: The case ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
-  "/books/shelf/{caseId}":
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+  "/books/shelf/{shelfId}":
     get:
-      description: Get a list of all books on a shelf
+      summary: Get a list of all books on a shelf
       tags:
         - books
       parameters:
@@ -101,14 +143,20 @@ paths:
             type: string
           required: true
           description: The shelf ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/books/cover/{bookId}":
     get:
-      description: Get a book cover by it's ID
+      summary: Get a book cover by it's ID
       tags:
         - books
       parameters:
@@ -118,14 +166,20 @@ paths:
             type: string
           required: true
           description: The book ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/books/{bookId}":
     get:
-      description: Get a book by it's ID
+      summary: Get a book by it's ID
       tags:
         - books
       parameters:
@@ -135,13 +189,19 @@ paths:
             type: string
           required: true
           description: The book ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     put:
-      description: Update a book by it's ID
+      summary: Update a book by it's ID
       tags:
         - books
       parameters:
@@ -151,13 +211,19 @@ paths:
             type: string
           required: true
           description: The book ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     delete:
-      description: Delete a book by it's ID
+      summary: Delete a book by it's ID
       tags:
         - books
       parameters:
@@ -167,33 +233,51 @@ paths:
             type: string
           required: true
           description: The book ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /cases:
     get:
-      description: Get a list of all cases
+      summary: Get a list of all cases
       tags:
         - cases
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     post:
-      description: Add a new case
+      summary: Add a new case
       tags:
         - cases
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/cases/{casesId}":
     get:
-      description: Get a case by it's ID
+      summary: Get a case by it's ID
       tags:
         - cases
       parameters:
@@ -203,13 +287,19 @@ paths:
             type: string
           required: true
           description: The case ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     delete:
-      description: Delete a case by it's ID
+      summary: Delete a case by it's ID
       tags:
         - cases
       parameters:
@@ -219,14 +309,20 @@ paths:
             type: string
           required: true
           description: The case ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/cases/{caseId}":
     put:
-      description: Update a case by it's ID
+      summary: Update a case by it's ID
       tags:
         - cases
       parameters:
@@ -236,33 +332,51 @@ paths:
             type: string
           required: true
           description: The case ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /libraries:
     get:
-      description: Get a list of all libraries
+      summary: Get a list of all libraries
       tags:
         - libraries
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     post:
-      description: Add a new library
+      summary: Add a new library
       tags:
         - libraries
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/libraries/{librariesId}":
     get:
-      description: Get a library by it's ID
+      summary: Get a library by it's ID
       tags:
         - libraries
       parameters:
@@ -272,13 +386,19 @@ paths:
             type: string
           required: true
           description: The library ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     delete:
-      description: Delete a library by it's ID
+      summary: Delete a library by it's ID
       tags:
         - libraries
       parameters:
@@ -288,14 +408,20 @@ paths:
             type: string
           required: true
           description: The library ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/libraries/{libraryId}":
     put:
-      description: Update a library by it's ID
+      summary: Update a library by it's ID
       tags:
         - libraries
       parameters:
@@ -305,49 +431,68 @@ paths:
             type: string
           required: true
           description: The library ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /login:
     post:
-      description: Creates a login session
+      summary: Creates a login session
       tags:
         - auth
-      produces:
-        - application/json
-      parameters:
-        - in: formData
-          name: username
-          type: string
-          description: Username
-          required: false
-        - in: formData
-          name: password
-          type: string
-          description: Password
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - input
+              properties:
+                username:
+                  type: string
+                  description: Username to login with
+                password:
+                  type: string
+                  description: Password to try and login with
       responses:
         "200":
-          description: Successfully logged in user.
-          schema:
-            type: object
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /logout:
     post:
-      description: Clears any session cookies to log a user out.
+      summary: Clears any session cookies to log a user out.
       tags:
         - auth
-      produces:
-        - application/json
       responses:
         "200":
-          description: Successfully logged the user out.
-          schema:
-            type: object
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/metadata/{isbn}":
     get:
-      description: Get a list of all available metadata
+      summary: Get a list of all available metadata
       tags:
         - metadata
       parameters:
@@ -357,13 +502,19 @@ paths:
             type: string
           required: true
           description: ISBN of the book, should convert between any format
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     post:
-      description: Get a list of all available metadata and create a book with it
+      summary: Get a list of all available metadata and create a book with it
       tags:
         - metadata
       parameters:
@@ -373,15 +524,21 @@ paths:
             type: string
           required: true
           description: ISBN of the book, should convert between any format
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/metadata/{bookId}":
     put:
-      description: Get a list of all available metadata and update existing records
-        for an existing book
+      summary: Get a list of all available metadata and update existing records for an
+        existing book
       tags:
         - metadata
       parameters:
@@ -391,45 +548,67 @@ paths:
             type: string
           required: true
           description: Book ID as a string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /search:
     get:
-      description: Search books, shelves, libraries, cases
+      summary: Search books, shelves, libraries, cases
       tags:
         - search
-      produces:
-        - application/json
       responses:
         "200":
-          description: Successfully logged the user out.
-          schema:
-            type: object
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /shelves:
     get:
-      description: Get a list of all shelves
+      summary: Get a list of all shelves
       tags:
         - shelves
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     post:
-      description: Add a new shelf
+      summary: Add a new shelf
       tags:
         - shelves
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/shelves/{shelvesId}":
     get:
-      description: Get a shelf by it's ID
+      summary: Get a shelf by it's ID
       tags:
         - shelves
       parameters:
@@ -439,13 +618,19 @@ paths:
             type: string
           required: true
           description: The shelf ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     delete:
-      description: Delete a shelf by it's ID
+      summary: Delete a shelf by it's ID
       tags:
         - shelves
       parameters:
@@ -455,14 +640,20 @@ paths:
             type: string
           required: true
           description: The shelf ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/shelves/{shelfId}":
     put:
-      description: Update a shelf by it's ID
+      summary: Update a shelf by it's ID
       tags:
         - shelves
       parameters:
@@ -472,52 +663,82 @@ paths:
             type: string
           required: true
           description: The shelf ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /users:
     get:
-      description: Get a list of all users
+      summary: Get a list of all users
       tags:
         - users
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     post:
-      description: Add a new user
+      summary: Add a new user
       tags:
         - users
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /users/current:
     get:
-      description: Get the current user
+      summary: Get the current user
       tags:
         - users
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     put:
-      description: Update the current user
+      summary: Update the current user
       tags:
         - users
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/users/{usersId}":
     get:
-      description: Get a user by their ID
+      summary: Get a user by their ID
       tags:
         - users
       parameters:
@@ -527,13 +748,19 @@ paths:
             type: string
           required: true
           description: The user ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
     delete:
-      description: Delete a user by their ID
+      summary: Delete a user by their ID
       tags:
         - users
       parameters:
@@ -543,14 +770,20 @@ paths:
             type: string
           required: true
           description: The user ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   "/users/{userId}":
     put:
-      description: Update a user by their ID
+      summary: Update a user by their ID
       tags:
         - users
       parameters:
@@ -560,10 +793,16 @@ paths:
             type: string
           required: true
           description: The user ID string
-      produces:
-        - application/json
       responses:
         "200":
           description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
 components: {}
 tags: []
