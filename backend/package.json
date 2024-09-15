@@ -73,7 +73,7 @@
         "npm run lint",
         "npm run test"
       ],
-      "after:bump": "npx auto-changelog -p"
+      "after:bump": "npx auto-changelog -p --output ./../CHANGELOG.md"
     },
     "github": {
       "release": true,
