@@ -65,7 +65,8 @@
     "git": {
       "requireBranch": "main",
       "requireCleanWorkingDir": false,
-      "changelog": "npx auto-changelog -p --stdout --output ./../CHANGELOG.md --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+      "changelog": "npx auto-changelog -p --stdout --output ./../CHANGELOG.md --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs",
+      "tagName": "v${version}"
     },
     "hooks": {
       "before:init": [
