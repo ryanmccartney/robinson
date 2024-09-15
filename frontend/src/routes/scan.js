@@ -22,14 +22,20 @@ const Scan = ({ delay = 250 }) => {
     });
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
 
-    const barcodeDetector = new BarcodeDetector({ formats: ["ean_13", "qr_code"] });
+    const barcodeDetector = new BarcodeDetector({
+        formats: ["ean_13", "qr_code"],
+    });
 
     const addBook = async (isbn) => {
-        const response = await fetch(`/api/metadata/${isbn}`, { method: "POST" });
+        const response = await fetch(`/api/metadata/${isbn}`, {
+            method: "POST",
+        });
         const data = await response.json();
         console.log(data);
         if (data.book) {
-            enqueueSnackbar(`Created a book called ${data.book.title}`, { variant: "info" });
+            enqueueSnackbar(`Created a book called ${data.book.title}`, {
+                variant: "info",
+            });
             navigate(`/book/${data.book.bookId}`);
         }
     };
@@ -40,7 +46,9 @@ const Scan = ({ delay = 250 }) => {
         const processImage = async () => {
             const canvas = await webcamRef.current.getCanvas();
             if (canvas) {
-                const image = await new Promise((resolve) => canvas.toBlob(resolve));
+                const image = await new Promise((resolve) =>
+                    canvas.toBlob(resolve)
+                );
                 const barcode = await barcodeDetector.detect(image);
                 console.log(barcode);
                 setData(barcode);
@@ -48,7 +56,9 @@ const Scan = ({ delay = 250 }) => {
                 if (barcode.length > 0 && barcode[0].format == "ean_13") {
                     const isbnObject = isbn.parse(barcode[0].rawValue);
                     if (isbnObject) {
-                        enqueueSnackbar(`Found an EAN-13 Barcode ${isbnObject.isbn13h}`);
+                        enqueueSnackbar(
+                            `Found an EAN-13 Barcode ${isbnObject.isbn13h}`
+                        );
                         addBook(isbnObject.isbn13);
                     }
                 }
@@ -100,8 +110,21 @@ const Scan = ({ delay = 250 }) => {
                 }}
             ></Webcam>
 
-            <Box sx={{ alignItems: "center", position: "absolute", bottom: "6rem", width: "50%", left: "25%" }}>
-                <EditableTypography sx={{ opacity: 0.5 }} align="center" variant="h4" edit={true}>
+            <Box
+                sx={{
+                    alignItems: "center",
+                    position: "absolute",
+                    bottom: "6rem",
+                    width: "50%",
+                    left: "25%",
+                }}
+            >
+                <EditableTypography
+                    sx={{ opacity: 0.5 }}
+                    align="center"
+                    variant="h4"
+                    edit={true}
+                >
                     {getISBN()}
                 </EditableTypography>
             </Box>

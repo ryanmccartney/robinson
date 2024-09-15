@@ -19,10 +19,19 @@ const LibraryMenu = ({ libraries = {}, callback }) => {
 
         Object.keys(libraries).forEach((id, index) => {
             menuItems.push(
-                <MenuItem onClick={() => callback(libraries[id].libraryId)} key={id}>
+                <MenuItem
+                    onClick={() => callback(libraries[id].libraryId)}
+                    key={id}
+                >
                     <ListItemIcon>
                         <Avatar
-                            sx={{ fontSize: "0.75rem", width: 24, height: 24, background: "secondary", opacity: 0.7 }}
+                            sx={{
+                                fontSize: "0.75rem",
+                                width: 24,
+                                height: 24,
+                                background: "secondary",
+                                opacity: 0.7,
+                            }}
                         >
                             {getInitials(libraries[id].name)}
                         </Avatar>
@@ -97,10 +106,23 @@ const LibrarySelector = () => {
     if (library && data) {
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
-                <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>
+                <Typography
+                    sx={{
+                        display: { xs: "none", md: "block" },
+                        padding: 1,
+                        flexGrow: 1,
+                    }}
+                >
                     {library.name}
                 </Typography>
-                <Avatar src={library.cover} sx={{ background: "secondary", opacity: 0.7, fontSize: "1em" }}>
+                <Avatar
+                    src={library.cover}
+                    sx={{
+                        background: "secondary",
+                        opacity: 0.7,
+                        fontSize: "1em",
+                    }}
+                >
                     {getInitials(library?.name)}
                 </Avatar>
             </Box>
@@ -108,10 +130,24 @@ const LibrarySelector = () => {
     } else {
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
-                <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>
+                <Typography
+                    sx={{
+                        display: { xs: "none", md: "block" },
+                        padding: 1,
+                        flexGrow: 1,
+                    }}
+                >
                     Select a Library
                 </Typography>
-                <Avatar sx={{ background: "secondary", opacity: 0.7, fontSize: "1em" }}>?</Avatar>
+                <Avatar
+                    sx={{
+                        background: "secondary",
+                        opacity: 0.7,
+                        fontSize: "1em",
+                    }}
+                >
+                    ?
+                </Avatar>
             </Box>
         );
     }
@@ -158,7 +194,10 @@ const LibrarySelector = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <LibraryMenu callback={handleLibrarySelect} libraries={data?.libraries} />
+                <LibraryMenu
+                    callback={handleLibrarySelect}
+                    libraries={data?.libraries}
+                />
             </Menu>
         </Box>
     );

@@ -30,7 +30,13 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
     );
 });
 
-export default function QuantityInput({ min = 1, max = 99, defaultValue, field = "data", onChange }) {
+export default function QuantityInput({
+    min = 1,
+    max = 99,
+    defaultValue,
+    field = "data",
+    onChange,
+}) {
     const [value, setValue] = React.useState(defaultValue);
 
     return (

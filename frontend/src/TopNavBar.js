@@ -67,7 +67,7 @@ export default function NavBar() {
                 event.preventDefault();
                 searchRef.current.focus();
             }
-        }
+        };
 
         document.addEventListener("keydown", handleKeyDown);
 
@@ -77,12 +77,11 @@ export default function NavBar() {
         };
     }, []);
 
-
     const search = async (event) => {
         const data = await fetcher(`search?query=${event.target.value}`);
         setData(data);
-        console.log(data)
-    }
+        console.log(data);
+    };
 
     return (
         <Box sx={{ margin: 0, padding: 0, display: "flex" }}>
@@ -99,7 +98,14 @@ export default function NavBar() {
                     >
                         <ImportContactsIcon />
                     </IconButton>
-                    <Typography variant="header" noWrap sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
+                    <Typography
+                        variant="header"
+                        noWrap
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: "none", sm: "block" },
+                        }}
+                    >
                         Robinson
                     </Typography>
 

@@ -19,9 +19,14 @@ const Root = () => {
     const [username, setUsername] = useState("");
 
     const login = async () => {
-        const data = await fetcher(`login`, "POST", { username: username, password: password });
+        const data = await fetcher(`login`, "POST", {
+            username: username,
+            password: password,
+        });
         if (data?.user) {
-            enqueueSnackbar(`${user?.firstName} ${user?.lastName} logged in successfully`);
+            enqueueSnackbar(
+                `${user?.firstName} ${user?.lastName} logged in successfully`
+            );
             setUser(data?.user);
             navigate(-1);
         }
@@ -48,7 +53,12 @@ const Root = () => {
     }, []);
 
     return (
-        <Stack direction="row" justifyContent="center" alignItems="center" sx={{ m: 2, width: 1, height: "70vh" }}>
+        <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ m: 2, width: 1, height: "70vh" }}
+        >
             <Card>
                 <Grid container sx={{ padding: 2 }} spacing={2}>
                     <Grid item xs={12} md={12}>
@@ -77,7 +87,14 @@ const Root = () => {
                             autoComplete="current-password"
                         />
                     </Grid>
-                    <Grid item xs={12} md={12} direction="row" alignItems="center" justify="flex-end">
+                    <Grid
+                        item
+                        xs={12}
+                        md={12}
+                        direction="row"
+                        alignItems="center"
+                        justify="flex-end"
+                    >
                         <Button onClick={login} variant="outlined">
                             Login
                         </Button>

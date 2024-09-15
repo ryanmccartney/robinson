@@ -8,7 +8,9 @@ const getTheme = (userMode = "auto") => {
     const storedMode = localStorage.getItem("theme");
 
     if (userMode == "auto" || storedMode == "auto") {
-        const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)");
+        const prefersDarkTheme = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        );
         if (prefersDarkTheme) {
             setMode = "dark";
         }

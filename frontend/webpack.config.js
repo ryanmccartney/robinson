@@ -2,7 +2,7 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const ESLintPlugin = require('eslint-webpack-plugin');
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.js",
@@ -29,7 +29,11 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /.js$/, exclude: /node_modules/, use: { loader: "babel-loader" } },
+            {
+                test: /.js$/,
+                exclude: /node_modules/,
+                use: { loader: "babel-loader" },
+            },
             {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"],
@@ -48,7 +52,22 @@ module.exports = {
             },
         ],
     },
-    plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" }), new ESLintPlugin({})],
+    plugins: [
+        new HtmlWebpackPlugin({ template: "./public/index.html" }),
+        new ESLintPlugin({
+            overrideConfig: {
+                rules: {
+                    semi: "error",
+                    "prefer-const": "error",
+                },
+                parser: "@babel/eslint-parser",
+                parserOptions: {
+                    sourceType: "module",
+                    allowImportExportEverywhere: true,
+                },
+            },
+        }),
+    ],
     devServer: {
         hot: true,
         port: 3000,

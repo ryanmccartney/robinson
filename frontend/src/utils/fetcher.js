@@ -13,7 +13,11 @@ const fetcher = async (path, method = "GET", body = {}) => {
     const data = await response.json();
 
     if (data?.error) {
-        enqueueSnackbar(data?.error?.message || `${data?.error?.status}: Something went wrong`, { variant: "error" });
+        enqueueSnackbar(
+            data?.error?.message ||
+                `${data?.error?.status}: Something went wrong`,
+            { variant: "error" }
+        );
     }
     return data;
 };

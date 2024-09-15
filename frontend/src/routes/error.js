@@ -41,7 +41,12 @@ const Error = () => {
     // }
 
     return (
-        <Stack direction="column" justifyContent="center" alignItems="center" sx={{ m: 2, width: 1, height: "75vh" }}>
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ m: 2, width: 1, height: "75vh" }}
+        >
             <Typography sx={{ margin: 1 }} color={grey[500]} variant="h2">
                 Error
             </Typography>
@@ -54,7 +59,11 @@ const Error = () => {
             </Typography>
 
             {/* <Typography variant="body1">{error.statusText || error.message}</Typography> */}
-            <Button sx={{ margin: 1, color: grey[500], borderColor: grey[600] }} variant="outlined" href="/">
+            <Button
+                sx={{ margin: 1, color: grey[500], borderColor: grey[600] }}
+                variant="outlined"
+                href="/"
+            >
                 Home
             </Button>
         </Stack>

@@ -39,7 +39,10 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
             component?.current.addEventListener("keydown", handleKeyDown);
             return () => {
                 if (component && component?.current) {
-                    component?.current.removeEventListener("keydown", handleKeyDown);
+                    component?.current.removeEventListener(
+                        "keydown",
+                        handleKeyDown
+                    );
                 }
             };
         }
@@ -62,11 +65,19 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
     };
 
     const getBookCards = () => {
-        let bookCards = [];
-        let width = "12rem";
+        const bookCards = [];
+        const width = "12rem";
         for (const book of books) {
             if (view) {
-                bookCards.push(<BookCard opacity="1" width={width} height="24rem" key={book?.bookId} book={book} />);
+                bookCards.push(
+                    <BookCard
+                        opacity="1"
+                        width={width}
+                        height="24rem"
+                        key={book?.bookId}
+                        book={book}
+                    />
+                );
             } else {
                 //Set the book width when in spine mode
                 let bookWidth = "4rem";
@@ -100,20 +111,35 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
                 </Grid>
 
                 <Grid item xs={6}>
-                    <Stack direction="row" spacing={0.1} sx={{ paddingRight: 1.5, justifyContent: "end" }}>
+                    <Stack
+                        direction="row"
+                        spacing={0.1}
+                        sx={{ paddingRight: 1.5, justifyContent: "end" }}
+                    >
                         <Tooltip title="Left">
-                            <IconButton onClick={() => scroll(-200)} aria-label="Left">
+                            <IconButton
+                                onClick={() => scroll(-200)}
+                                aria-label="Left"
+                            >
                                 <IconResolver iconName="NavigateBefore"></IconResolver>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Right">
-                            <IconButton onClick={() => scroll(200)} aria-label="Right">
+                            <IconButton
+                                onClick={() => scroll(200)}
+                                aria-label="Right"
+                            >
                                 <IconResolver iconName="NavigateNext"></IconResolver>
                             </IconButton>
                         </Tooltip>
                         <Tooltip key={button.label} title={button.label}>
-                            <IconButton onClick={changeViews} aria-label={button.label}>
-                                <IconResolver iconName={button.icon}></IconResolver>
+                            <IconButton
+                                onClick={changeViews}
+                                aria-label={button.label}
+                            >
+                                <IconResolver
+                                    iconName={button.icon}
+                                ></IconResolver>
                             </IconButton>
                         </Tooltip>
                     </Stack>

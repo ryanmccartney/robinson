@@ -19,9 +19,18 @@ const LoadingContent = ({ title, noTitle = false }) => {
     }
 
     return (
-        <Stack direction="column" justifyContent="center" alignItems="center" sx={{ width: 1, height: "75vh" }}>
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ width: 1, height: "75vh" }}
+        >
             <CircularProgress sx={{ margin: 1 }} />
-            <Typography sx={{ margin: 1 }} color={grey[500]} variant="subtitle1">
+            <Typography
+                sx={{ margin: 1 }}
+                color={grey[500]}
+                variant="subtitle1"
+            >
                 {message}
             </Typography>
         </Stack>

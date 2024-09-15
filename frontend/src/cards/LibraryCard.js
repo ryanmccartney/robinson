@@ -20,7 +20,10 @@ const LibraryCard = ({ library }) => {
 
     return (
         <Grid item xs={6} md={3} lg={2}>
-            <Link style={{ textDecoration: "none" }} to={`/library/${library.id}`}>
+            <Link
+                style={{ textDecoration: "none" }}
+                to={`/library/${library.id}`}
+            >
                 <Box sx={{ width: "100%", minHeight: 400 }}>
                     <Card
                         ref={card}
@@ -31,7 +34,8 @@ const LibraryCard = ({ library }) => {
                                 media.current.style.opacity = "0.15";
                             }
                             if (card.current) {
-                                card.current.style.boxShadow = "1px 2px 15px #8D8D8D";
+                                card.current.style.boxShadow =
+                                    "1px 2px 15px #8D8D8D";
                             }
                         }}
                         onMouseOut={() => {
@@ -41,13 +45,28 @@ const LibraryCard = ({ library }) => {
                                 media.current.style.opacity = "1";
                             }
                             if (card.current) {
-                                card.current.style.boxShadow = "0px 0px 0px #8D8D8D";
+                                card.current.style.boxShadow =
+                                    "0px 0px 0px #8D8D8D";
                             }
                         }}
                         variant="outlined"
-                        sx={{ position: "relative", width: "100%", height: "25rem" }}
+                        sx={{
+                            position: "relative",
+                            width: "100%",
+                            height: "25rem",
+                        }}
                     >
-                        {show && <Box sx={{ m: 4, zIndex: "tooltip", position: "absolute", top: 0, left: 0 }}></Box>}
+                        {show && (
+                            <Box
+                                sx={{
+                                    m: 4,
+                                    zIndex: "tooltip",
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                }}
+                            ></Box>
+                        )}
                         <Box
                             sx={{
                                 height: 300,
@@ -60,7 +79,11 @@ const LibraryCard = ({ library }) => {
                         >
                             <ImageList
                                 ref={media}
-                                sx={{ align: "center", height: 250, width: "90%" }}
+                                sx={{
+                                    align: "center",
+                                    height: 250,
+                                    width: "90%",
+                                }}
                                 variant="masonry"
                                 cols={3}
                                 gap={8}
@@ -78,8 +101,12 @@ const LibraryCard = ({ library }) => {
                             </ImageList>
 
                             <CardContent>
-                                <Typography variant="h6">{library.title}</Typography>
-                                <Typography variant="subtitle">{library.owner}</Typography>
+                                <Typography variant="h6">
+                                    {library.title}
+                                </Typography>
+                                <Typography variant="subtitle">
+                                    {library.owner}
+                                </Typography>
                             </CardContent>
                         </Box>
                     </Card>

@@ -46,7 +46,13 @@ const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
                         height="100%"
                         direction="row"
                         spacing={2}
-                        divider={<Divider orientation="vertical" flexItem children="of" />}
+                        divider={
+                            <Divider
+                                orientation="vertical"
+                                flexItem
+                                children="of"
+                            />
+                        }
                     >
                         <Box sx={{ width: "100%" }}>
                             <NumberInput

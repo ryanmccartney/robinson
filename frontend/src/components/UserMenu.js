@@ -14,7 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import EditIcon from "@mui/icons-material/Edit";
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 
 import fetcher from "./../utils/fetcher";
 import { UserContext } from "../contexts/user";
@@ -28,7 +28,9 @@ const MenuContents = () => {
 
     const logout = async () => {
         const data = await fetcher("logout", "POST");
-        enqueueSnackbar(`${data?.user?.firstName} ${data?.user?.lastName} logged out.`);
+        enqueueSnackbar(
+            `${data?.user?.firstName} ${data?.user?.lastName} logged out.`
+        );
         setUser(null);
     };
 
@@ -45,45 +47,46 @@ const MenuContents = () => {
     };
 
     if (user) {
-        items.push(<MenuItem onClick={edit}>
-            <ListItemIcon>
-                <EditIcon fontSize="medium" />
-            </ListItemIcon>
-            <ListItemText>Edit Account</ListItemText>
-        </MenuItem>)
+        items.push(
+            <MenuItem onClick={edit}>
+                <ListItemIcon>
+                    <EditIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Edit Account</ListItemText>
+            </MenuItem>
+        );
 
         if (user.role === "librarian") {
-            items.push(<MenuItem onClick={users}>
-                <ListItemIcon>
-                    <PeopleOutlineIcon fontSize="medium" />
-                </ListItemIcon>
-                <ListItemText>Edit Users</ListItemText>
-            </MenuItem>)
+            items.push(
+                <MenuItem onClick={users}>
+                    <ListItemIcon>
+                        <PeopleOutlineIcon fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText>Edit Users</ListItemText>
+                </MenuItem>
+            );
         }
 
-        items.push(<MenuItem onClick={logout}>
-            <ListItemIcon>
-                <LogoutIcon fontSize="medium" />
-            </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
-        </MenuItem>)
-
+        items.push(
+            <MenuItem onClick={logout}>
+                <ListItemIcon>
+                    <LogoutIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Logout</ListItemText>
+            </MenuItem>
+        );
+    } else {
+        items.push(
+            <MenuItem key="login" onClick={login}>
+                <ListItemIcon>
+                    <LoginIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Login</ListItemText>
+            </MenuItem>
+        );
     }
-    else {
-        items.push(<MenuItem key="login" onClick={login}>
-            <ListItemIcon>
-                <LoginIcon fontSize="medium" />
-            </ListItemIcon>
-            <ListItemText>Login</ListItemText>
-        </MenuItem>)
-    }
 
-    return (
-        <MenuList>
-            {items}
-        </MenuList>
-    );
-
+    return <MenuList>{items}</MenuList>;
 };
 
 const UserMenu = () => {
@@ -100,10 +103,15 @@ const UserMenu = () => {
 
     let contents;
     if (user) {
-
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
-                <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>
+                <Typography
+                    sx={{
+                        display: { xs: "none", md: "block" },
+                        padding: 1,
+                        flexGrow: 1,
+                    }}
+                >
                     {`${user?.firstName} ${user?.lastName}`}
                 </Typography>
                 <UserAvatar user={user} />
@@ -112,8 +120,24 @@ const UserMenu = () => {
     } else {
         contents = (
             <Box sx={{ display: "flex" }} onClick={handleClick}>
-                <Typography sx={{ display: { xs: "none", md: "block" }, padding: 1, flexGrow: 1 }}>No User</Typography>
-                <Avatar sx={{ background: "secondary", opacity: 0.7, fontSize: "1em" }}>?</Avatar>
+                <Typography
+                    sx={{
+                        display: { xs: "none", md: "block" },
+                        padding: 1,
+                        flexGrow: 1,
+                    }}
+                >
+                    No User
+                </Typography>
+                <Avatar
+                    sx={{
+                        background: "secondary",
+                        opacity: 0.7,
+                        fontSize: "1em",
+                    }}
+                >
+                    ?
+                </Avatar>
             </Box>
         );
     }

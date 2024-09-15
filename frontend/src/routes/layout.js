@@ -18,7 +18,13 @@ const Layout = () => {
                     <Grid item xs={9}>
                         <LayoutBreadcrumbs />
                     </Grid>
-                    <Grid item xs={3} alignItems="flex-end" justify="flex-end" sx={{ justifyContent: "end" }}>
+                    <Grid
+                        item
+                        xs={3}
+                        alignItems="flex-end"
+                        justify="flex-end"
+                        sx={{ justifyContent: "end" }}
+                    >
                         <LayoutButtons />
                     </Grid>
                 </Grid>

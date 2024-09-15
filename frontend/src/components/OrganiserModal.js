@@ -79,7 +79,11 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                             role={undefined}
                             onClick={() => {
                                 getCases(cases, bookcase.caseId);
-                                getShelves(shelves, bookcase.caseId, data?.shelf?.shelfId);
+                                getShelves(
+                                    shelves,
+                                    bookcase.caseId,
+                                    data?.shelf?.shelfId
+                                );
                             }}
                             dense
                         >
@@ -91,10 +95,15 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                                     checkedIcon={<RadioButtonCheckedIcon />}
                                     tabIndex={-1}
                                     disableRipple
-                                    inputProps={{ "aria-labelledby": bookcase.caseId }}
+                                    inputProps={{
+                                        "aria-labelledby": bookcase.caseId,
+                                    }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={bookcase.caseId} primary={bookcase.name} />
+                            <ListItemText
+                                id={bookcase.caseId}
+                                primary={bookcase.name}
+                            />
                         </ListItemButton>
                     </ListItem>
                 );
@@ -118,19 +127,30 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                 if (shelf.caseId == caseId) {
                     shelvesItem.push(
                         <ListItem key={shelf.shelfId} disablePadding>
-                            <ListItemButton role={undefined} onClick={() => updateShelf(shelves, shelf.shelfId)} dense>
+                            <ListItemButton
+                                role={undefined}
+                                onClick={() =>
+                                    updateShelf(shelves, shelf.shelfId)
+                                }
+                                dense
+                            >
                                 <ListItemIcon>
                                     <Checkbox
                                         edge="start"
                                         checked={isChecked(shelf.shelfId)}
                                         tabIndex={-1}
                                         disableRipple
-                                        inputProps={{ "aria-labelledby": shelf.shelfId }}
+                                        inputProps={{
+                                            "aria-labelledby": shelf.shelfId,
+                                        }}
                                         icon={<RadioButtonUncheckedIcon />}
                                         checkedIcon={<RadioButtonCheckedIcon />}
                                     />
                                 </ListItemIcon>
-                                <ListItemText id={shelf.shelfId} primary={shelf.name} />
+                                <ListItemText
+                                    id={shelf.shelfId}
+                                    primary={shelf.name}
+                                />
                             </ListItemButton>
                         </ListItem>
                     );
@@ -155,19 +175,36 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Card sx={style}>
-                    <Typography gutterBottom id="modal-modal-title" variant="h5" component="h2">
+                    <Typography
+                        gutterBottom
+                        id="modal-modal-title"
+                        variant="h5"
+                        component="h2"
+                    >
                         Book Organiser
                     </Typography>
 
-                    <Stack direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        divider={<Divider orientation="vertical" flexItem />}
+                    >
                         <Box sx={{ width: "100%" }}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                component="h2"
+                            >
                                 Select Case
                             </Typography>
                             <List>{casesComponents}</List>
                         </Box>
                         <Box sx={{ width: "100%" }}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                component="h2"
+                            >
                                 Select Shelf
                             </Typography>
                             <List>{shelvesComponents}</List>

@@ -41,13 +41,20 @@ const Case = () => {
         if (data) {
             setBreadcrumbs([
                 { title: "Home", link: `/` },
-                { title: data?.case?.name || "Case", link: `/case/${data?.case?.caseId}` },
+                {
+                    title: data?.case?.name || "Case",
+                    link: `/case/${data?.case?.caseId}`,
+                },
             ]);
         }
 
         if (data) {
             setButtons([
-                { label: "Edit", icon: "Edit", callback: () => setEdit((s) => !s) },
+                {
+                    label: "Edit",
+                    icon: "Edit",
+                    callback: () => setEdit((s) => !s),
+                },
                 { label: "Delete", icon: "Delete", callback: deleteCase },
             ]);
         }
@@ -96,11 +103,21 @@ const Case = () => {
 
     return (
         <Box sx={{ m: 2 }}>
-            <EditableTypography field="name" edit={edit} onChange={updateCase} variant="h5">
+            <EditableTypography
+                field="name"
+                edit={edit}
+                onChange={updateCase}
+                variant="h5"
+            >
                 {data?.case?.name}
             </EditableTypography>
 
-            <EditableTypography field="description" edit={edit} onChange={updateCase} variant="subtitle2">
+            <EditableTypography
+                field="description"
+                edit={edit}
+                onChange={updateCase}
+                variant="subtitle2"
+            >
                 {data?.case?.description}
             </EditableTypography>
 

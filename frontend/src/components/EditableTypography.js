@@ -17,7 +17,14 @@ const InputBaseWithChildren = ({ children, ...props }) => {
 
     return (
         <InputBase
-            sx={{ margin: 0.5, lineHeight: 0, padding: 0.5, border: 1, borderRadius: 1, borderColor: grey[500] }}
+            sx={{
+                margin: 0.5,
+                lineHeight: 0,
+                padding: 0.5,
+                border: 1,
+                borderRadius: 1,
+                borderColor: grey[500],
+            }}
             fullWidth
             {...childProps}
             className={""}
@@ -27,7 +34,12 @@ const InputBaseWithChildren = ({ children, ...props }) => {
     );
 };
 
-const EditableTypography = ({ field = "data", edit = false, onChange, ...props }) => {
+const EditableTypography = ({
+    field = "data",
+    edit = false,
+    onChange,
+    ...props
+}) => {
     const [internalValue, setInternalValue] = useState(props.children);
 
     const handleChange = (e) => {
@@ -39,7 +51,12 @@ const EditableTypography = ({ field = "data", edit = false, onChange, ...props }
 
     if (edit) {
         return (
-            <Typography {...props} children={internalValue} component={InputBaseWithChildren} onChange={handleChange} />
+            <Typography
+                {...props}
+                children={internalValue}
+                component={InputBaseWithChildren}
+                onChange={handleChange}
+            />
         );
     }
 

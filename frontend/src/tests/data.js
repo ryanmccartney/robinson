@@ -68,7 +68,12 @@ const shelves = {
         order: 2,
         length: 10,
         capacity: 30,
-        books: ["DHkErhggoxT4D2w", "CmkErhgfoxT4D2w", "LmkErhggoxT4D2w", "CmkErhgfoxT4D2w"],
+        books: [
+            "DHkErhggoxT4D2w",
+            "CmkErhgfoxT4D2w",
+            "LmkErhggoxT4D2w",
+            "CmkErhgfoxT4D2w",
+        ],
     },
     shelf3: {
         id: "shelf3",

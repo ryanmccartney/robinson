@@ -88,7 +88,12 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                 type="file"
                 name="cover"
             />
-            <BookmarkUpdater data={data} setData={setData} open={bookmarkOpener} setOpen={setBookmarkOpener} />
+            <BookmarkUpdater
+                data={data}
+                setData={setData}
+                open={bookmarkOpener}
+                setOpen={setBookmarkOpener}
+            />
 
             <Card
                 ref={card}

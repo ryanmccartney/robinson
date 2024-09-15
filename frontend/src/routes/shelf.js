@@ -44,14 +44,24 @@ const Shelf = () => {
         if (data) {
             setBreadcrumbs([
                 { title: "Home", link: `/` },
-                { title: data?.case?.name || "Case", link: `/case/${data?.case?.caseId}` },
-                { title: data?.shelf?.name || "Shelf", link: `/shelf/${data?.shelf?.shelfId}` },
+                {
+                    title: data?.case?.name || "Case",
+                    link: `/case/${data?.case?.caseId}`,
+                },
+                {
+                    title: data?.shelf?.name || "Shelf",
+                    link: `/shelf/${data?.shelf?.shelfId}`,
+                },
             ]);
         }
 
         if (data) {
             setButtons([
-                { label: "Edit", icon: "Edit", callback: () => setEdit((s) => !s) },
+                {
+                    label: "Edit",
+                    icon: "Edit",
+                    callback: () => setEdit((s) => !s),
+                },
                 { label: "Delete", icon: "Delete", callback: deleteShelf },
             ]);
         }
@@ -88,11 +98,19 @@ const Shelf = () => {
         <Box sx={{ m: 2 }}>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
-                    <BookCarousel title={data?.shelf?.name} books={data?.books} />
+                    <BookCarousel
+                        title={data?.shelf?.name}
+                        books={data?.books}
+                    />
                 </Grid>
 
                 <Grid item xs={12} md={12} lg={12}>
-                    <EditableTypography field="name" edit={edit} onChange={updateShelf} variant="h5">
+                    <EditableTypography
+                        field="name"
+                        edit={edit}
+                        onChange={updateShelf}
+                        variant="h5"
+                    >
                         {data?.shelf?.name}
                     </EditableTypography>
 

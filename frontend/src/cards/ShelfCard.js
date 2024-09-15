@@ -20,7 +20,10 @@ const ShelfCard = ({ shelf }) => {
 
     return (
         <Grid item xs={6} md={3} lg={2}>
-            <Link style={{ textDecoration: "none" }} to={`/shelf/${shelf.shelfId}`}>
+            <Link
+                style={{ textDecoration: "none" }}
+                to={`/shelf/${shelf.shelfId}`}
+            >
                 <Box sx={{ width: "100%", minHeight: 400 }}>
                     <Card
                         ref={card}
@@ -31,7 +34,8 @@ const ShelfCard = ({ shelf }) => {
                                 media.current.style.opacity = "0.15";
                             }
                             if (card.current) {
-                                card.current.style.boxShadow = "1px 2px 15px #8D8D8D";
+                                card.current.style.boxShadow =
+                                    "1px 2px 15px #8D8D8D";
                             }
                         }}
                         onMouseOut={() => {
@@ -41,15 +45,30 @@ const ShelfCard = ({ shelf }) => {
                                 media.current.style.opacity = "1";
                             }
                             if (card.current) {
-                                card.current.style.boxShadow = "0px 0px 0px #8D8D8D";
+                                card.current.style.boxShadow =
+                                    "0px 0px 0px #8D8D8D";
                             }
                         }}
                         variant="outlined"
-                        sx={{ position: "relative", width: "100%", height: "25rem" }}
+                        sx={{
+                            position: "relative",
+                            width: "100%",
+                            height: "25rem",
+                        }}
                     >
                         {show && (
-                            <Box sx={{ m: 4, zIndex: "tooltip", position: "absolute", top: 0, left: 0 }}>
-                                <Typography variant="subtitle1">{shelf.books.length} books</Typography>
+                            <Box
+                                sx={{
+                                    m: 4,
+                                    zIndex: "tooltip",
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                }}
+                            >
+                                <Typography variant="subtitle1">
+                                    {shelf.books.length} books
+                                </Typography>
                             </Box>
                         )}
                         <Box
@@ -91,7 +110,9 @@ const ShelfCard = ({ shelf }) => {
                                     width: "100%",
                                 }}
                             >
-                                <Typography variant="h6">{shelf.name}</Typography>
+                                <Typography variant="h6">
+                                    {shelf.name}
+                                </Typography>
                                 <Typography gutterBottom variant="subtitle2">
                                     {shelf.books.length} books
                                 </Typography>

@@ -12,18 +12,19 @@ const UserAvatar = ({ user, sx }) => {
                 src={`https://gravatar.com/avatar/${hash}?s=200&d=404`}
                 sx={{
                     ...{
-                        background: "secondary", opacity: 1, fontSize: "1em"
-                    }, ...sx
+                        background: "secondary",
+                        opacity: 1,
+                        fontSize: "1em",
+                    },
+                    ...sx,
                 }}
             >
                 {getInitials(`${user?.firstName} ${user?.lastName} `)}
             </Avatar>
         );
+    } else {
+        return <Avatar />;
     }
-    else {
-        return <Avatar />
-    }
-
-}
+};
 
 export default UserAvatar;

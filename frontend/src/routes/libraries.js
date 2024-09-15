@@ -18,7 +18,9 @@ const Libraries = () => {
         const libraryCards = [];
         {
             Object.keys(libraries).forEach((id, index) => {
-                libraryCards.push(<LibraryCard key={index} library={data[id]} />);
+                libraryCards.push(
+                    <LibraryCard key={index} library={data[id]} />
+                );
             });
         }
 

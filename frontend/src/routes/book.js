@@ -105,15 +105,28 @@ const Book = () => {
         if (data) {
             setBreadcrumbs([
                 { title: "Home", link: `/` },
-                { title: data?.case?.name || "Case", link: `/case/${data?.case?.caseId}` },
-                { title: data?.shelf?.name || "Shelf", link: `/shelf/${data?.shelf?.shelfId}` },
-                { title: data?.book?.title || "Book", link: `/book/${data?.book?.bookId}` },
+                {
+                    title: data?.case?.name || "Case",
+                    link: `/case/${data?.case?.caseId}`,
+                },
+                {
+                    title: data?.shelf?.name || "Shelf",
+                    link: `/shelf/${data?.shelf?.shelfId}`,
+                },
+                {
+                    title: data?.book?.title || "Book",
+                    link: `/book/${data?.book?.bookId}`,
+                },
             ]);
         }
 
         if (data) {
             setButtons([
-                { label: "Edit", icon: "Edit", callback: () => setEdit((s) => !s) },
+                {
+                    label: "Edit",
+                    icon: "Edit",
+                    callback: () => setEdit((s) => !s),
+                },
                 { label: "Delete", icon: "Delete", callback: deleteBook },
 
                 {
@@ -121,7 +134,11 @@ const Book = () => {
                     icon: data?.book?.favourite ? "Favorite" : "FavoriteBorder",
                     callback: () => favouriteBook(data?.book),
                 },
-                { label: "Change Location", icon: "DensityLarge", callback: () => setOrganiserOpen(true) },
+                {
+                    label: "Change Location",
+                    icon: "DensityLarge",
+                    callback: () => setOrganiserOpen(true),
+                },
             ]);
         }
     };
@@ -156,15 +173,27 @@ const Book = () => {
 
     return (
         <Box sx={{ m: 2 }}>
-            <OrganiserModal data={data} setData={setData} open={organiserOpen} setOpen={setOrganiserOpen} />
+            <OrganiserModal
+                data={data}
+                setData={setData}
+                open={organiserOpen}
+                setOpen={setOrganiserOpen}
+            />
             <Grid container sx={{ paddingRight: { xs: 0, md: 2 } }} spacing={3}>
                 <Grid item align="center" xs={12} md={4} lg={6}>
                     <Grid container spacing={2}>
                         <Grid item align="center" xs={12} lg={12}>
-                            <CoverCard edit={edit} data={data} setData={setData} />
+                            <CoverCard
+                                edit={edit}
+                                data={data}
+                                setData={setData}
+                            />
                         </Grid>
                         <Grid item align="center" xs={12} lg={12}>
-                            <BookProgress progress={data.book.progress} total={data.book.pages} />
+                            <BookProgress
+                                progress={data.book.progress}
+                                total={data.book.pages}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -172,11 +201,23 @@ const Book = () => {
                 <Grid item xs={12} md={8} lg={6}>
                     <Grid container spacing={0}>
                         <Grid margin="0" item xs={12} lg={8}>
-                            <EditableTypography field="title" edit={edit} onChange={updateBook} variant="h4">
+                            <EditableTypography
+                                field="title"
+                                edit={edit}
+                                onChange={updateBook}
+                                variant="h4"
+                            >
                                 {data.book.title}
                             </EditableTypography>
                         </Grid>
-                        <Grid item margin="0" paddingTop="5px" align="right" xs={12} lg={4}>
+                        <Grid
+                            item
+                            margin="0"
+                            paddingTop="5px"
+                            align="right"
+                            xs={12}
+                            lg={4}
+                        >
                             {getChips()}
                         </Grid>
                     </Grid>
@@ -225,60 +266,104 @@ const Book = () => {
                         Details
                     </Typography>
 
-                    <Grid container spacing={2} direction="row" justifyContent="flex-start" alignItems="flex-start">
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                    >
                         <Grid item xs={6}>
-                            <Typography fontWeight="fontWeightMedium" variant="body2">
+                            <Typography
+                                fontWeight="fontWeightMedium"
+                                variant="body2"
+                            >
                                 Publisher
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <EditableTypography field="publisher" edit={edit} onChange={updateBook} variant="body2">
+                            <EditableTypography
+                                field="publisher"
+                                edit={edit}
+                                onChange={updateBook}
+                                variant="body2"
+                            >
                                 {data.book.publisher}
                             </EditableTypography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography fontWeight="fontWeightMedium" variant="body2">
+                            <Typography
+                                fontWeight="fontWeightMedium"
+                                variant="body2"
+                            >
                                 Published
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
                             {edit ? (
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <LocalizationProvider
+                                    dateAdapter={AdapterDayjs}
+                                >
                                     <DatePicker
                                         sx={{ width: "100%" }}
                                         value={dayjs(data.book.publishDate)}
-                                        onChange={(newValue) => updateBook({ publishDate: newValue })}
+                                        onChange={(newValue) =>
+                                            updateBook({
+                                                publishDate: newValue,
+                                            })
+                                        }
                                     />
                                 </LocalizationProvider>
                             ) : (
                                 <Typography variant="body2">
-                                    {dayjs(data.book.publishDate).format("MMMM YYYY")}
+                                    {dayjs(data.book.publishDate).format(
+                                        "MMMM YYYY"
+                                    )}
                                 </Typography>
                             )}
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography fontWeight="fontWeightMedium" variant="body2">
+                            <Typography
+                                fontWeight="fontWeightMedium"
+                                variant="body2"
+                            >
                                 Pages
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <EditableTypography field="pages" edit={edit} onChange={updateBook} variant="body2">
+                            <EditableTypography
+                                field="pages"
+                                edit={edit}
+                                onChange={updateBook}
+                                variant="body2"
+                            >
                                 {data.book.pages}
                             </EditableTypography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography fontWeight="fontWeightMedium" variant="body2">
+                            <Typography
+                                fontWeight="fontWeightMedium"
+                                variant="body2"
+                            >
                                 ISBN-13
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <EditableTypography field="isbn" edit={edit} onChange={updateBook} variant="body2">
+                            <EditableTypography
+                                field="isbn"
+                                edit={edit}
+                                onChange={updateBook}
+                                variant="body2"
+                            >
                                 {getISBN(data.book.isbn)}
                             </EditableTypography>
                         </Grid>
 
                         <Grid item xs={6}>
-                            <Typography fontWeight="fontWeightMedium" variant="body2"></Typography>
+                            <Typography
+                                fontWeight="fontWeightMedium"
+                                variant="body2"
+                            ></Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <Barcode
@@ -290,7 +375,10 @@ const Book = () => {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography fontWeight="fontWeightMedium" variant="body2"></Typography>
+                            <Typography
+                                fontWeight="fontWeightMedium"
+                                variant="body2"
+                            ></Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <QRCode size={70} value={window.location.href} />

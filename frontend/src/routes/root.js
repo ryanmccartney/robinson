@@ -38,15 +38,24 @@ const Root = () => {
         <Box sx={{ m: 2 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <BookCarousel title="Recently Added" books={recently?.books} />
+                    <BookCarousel
+                        title="Recently Added"
+                        books={recently?.books}
+                    />
                 </Grid>
 
                 <Grid item xs={12}>
-                    <BookCarousel title="Continue Reading" books={reading?.books} />
+                    <BookCarousel
+                        title="Continue Reading"
+                        books={reading?.books}
+                    />
                 </Grid>
 
                 <Grid item xs={12}>
-                    <BookCarousel title="Favourites" books={favourites?.books} />
+                    <BookCarousel
+                        title="Favourites"
+                        books={favourites?.books}
+                    />
                 </Grid>
             </Grid>
         </Box>

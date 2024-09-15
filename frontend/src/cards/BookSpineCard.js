@@ -11,7 +11,12 @@ const options = {
     shouldForwardProp: (prop) => prop !== "hoverShadow",
 };
 
-const BookSpineCard = ({ book, spineWidth = "4rem", expandedWidth = "20rem", minHeight = "24rem" }) => {
+const BookSpineCard = ({
+    book,
+    spineWidth = "4rem",
+    expandedWidth = "20rem",
+    minHeight = "24rem",
+}) => {
     const [show, setShow] = React.useState(false);
 
     const media = React.useRef(null);
@@ -57,7 +62,11 @@ const BookSpineCard = ({ book, spineWidth = "4rem", expandedWidth = "20rem", min
                     textbox.current.style.left = `-${textPos}rem`;
                 }}
                 variant="outlined"
-                sx={{ position: "relative", minHeight: minHeight, width: spineWidth }}
+                sx={{
+                    position: "relative",
+                    minHeight: minHeight,
+                    width: spineWidth,
+                }}
             >
                 <Box
                     sx={{
@@ -71,7 +80,10 @@ const BookSpineCard = ({ book, spineWidth = "4rem", expandedWidth = "20rem", min
                     }}
                     ref={textbox}
                 >
-                    <Typography sx={{ fontSize: "1.1rem", fontWeight: 400 }} variant="h6">
+                    <Typography
+                        sx={{ fontSize: "1.1rem", fontWeight: 400 }}
+                        variant="h6"
+                    >
                         {book.title}
                     </Typography>
                     <Typography sx={{ fontWeight: 200 }} variant="subtitle2">

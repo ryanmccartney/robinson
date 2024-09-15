@@ -34,7 +34,9 @@ const Libraries = lazy(() => import("./routes/libraries"));
 const Library = lazy(() => import("./routes/library"));
 
 const App = () => {
-    const [breadcrumbs, setBreadcrumbs] = useState([{ title: "Home", link: "/" }]);
+    const [breadcrumbs, setBreadcrumbs] = useState([
+        { title: "Home", link: "/" },
+    ]);
     const [buttons, setButtons] = useState([]);
 
     return (
@@ -55,26 +57,72 @@ const App = () => {
                     autoHideDuration={3000}
                     preventDuplicate
                 >
-                    <BreadcrumbsContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
-                        <ButtonsContext.Provider value={{ buttons, setButtons }}>
+                    <BreadcrumbsContext.Provider
+                        value={{ breadcrumbs, setBreadcrumbs }}
+                    >
+                        <ButtonsContext.Provider
+                            value={{ buttons, setButtons }}
+                        >
                             <BrowserRouter>
                                 <Suspense fallback={<LoadingContent />}>
                                     <Routes>
                                         <Route path="/" element={<Layout />}>
-                                            <Route path="/" element={<Root />} />
-                                            <Route path="login" element={<Login />} />
-                                            <Route path="scan" element={<Scan />} />
-                                            <Route path="shelves" element={<Shelves />} />
-                                            <Route path="shelf/:shelfId" element={<Shelf />} />
-                                            <Route path="books" element={<Books />} />
-                                            <Route path="book/:bookId" element={<Book />} />
-                                            <Route path="cases" element={<Cases />} />
-                                            <Route path="case/:caseId" element={<Case />} />
-                                            <Route path="libraries" element={<Libraries />} />
-                                            <Route path="library/:libraryId" element={<Library />} />
-                                            <Route path="users" element={<Users />} />
-                                            <Route path="user/:userId" element={<User />} />
-                                            <Route path="*" element={<Error />} />
+                                            <Route
+                                                path="/"
+                                                element={<Root />}
+                                            />
+                                            <Route
+                                                path="login"
+                                                element={<Login />}
+                                            />
+                                            <Route
+                                                path="scan"
+                                                element={<Scan />}
+                                            />
+                                            <Route
+                                                path="shelves"
+                                                element={<Shelves />}
+                                            />
+                                            <Route
+                                                path="shelf/:shelfId"
+                                                element={<Shelf />}
+                                            />
+                                            <Route
+                                                path="books"
+                                                element={<Books />}
+                                            />
+                                            <Route
+                                                path="book/:bookId"
+                                                element={<Book />}
+                                            />
+                                            <Route
+                                                path="cases"
+                                                element={<Cases />}
+                                            />
+                                            <Route
+                                                path="case/:caseId"
+                                                element={<Case />}
+                                            />
+                                            <Route
+                                                path="libraries"
+                                                element={<Libraries />}
+                                            />
+                                            <Route
+                                                path="library/:libraryId"
+                                                element={<Library />}
+                                            />
+                                            <Route
+                                                path="users"
+                                                element={<Users />}
+                                            />
+                                            <Route
+                                                path="user/:userId"
+                                                element={<User />}
+                                            />
+                                            <Route
+                                                path="*"
+                                                element={<Error />}
+                                            />
                                         </Route>
                                     </Routes>
                                 </Suspense>
