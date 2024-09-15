@@ -7,26 +7,35 @@ const getUsers = require("@services/users-get");
  * @swagger
  * /login:
  *   post:
- *     description: Creates a login session
+ *     summary: Creates a login session
  *     tags: [auth]
- *     produces:
- *       - application/json
- *     parameters:
- *       - in: formData
- *         name: username
- *         type: string
- *         description: Username
- *         required: false
- *       - in: formData
- *         name: password
- *         type: string
- *         description: Password
- *         required: false
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - type
+ *                - input
+ *              properties:
+ *                username:
+ *                  type: string
+ *                  description: Username to login with
+ *                password:
+ *                  type: string
+ *                  description: Password to try and login with
  *     responses:
- *       200:
- *         description: Successfully logged in user.
- *         schema:
- *           type: object
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", async (req, res, next) => {
     passport.authenticate("local", async (err, id, info) => {

@@ -13,13 +13,19 @@ const updateShelves = require("@services/shelves-update");
  * @swagger
  * /shelves:
  *    get:
- *      description: Get a list of all shelves
+ *      summary: Get a list of all shelves
  *      tags: [shelves]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getShelves();
@@ -30,13 +36,19 @@ router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /shelves:
  *    post:
- *      description: Add a new shelf
+ *      summary: Add a new shelf
  *      tags: [shelves]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
     const data = await addShelves(req.body);
@@ -47,7 +59,7 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  * @swagger
  * /shelves/{shelvesId}:
  *    get:
- *      description: Get a shelf by it's ID
+ *      summary: Get a shelf by it's ID
  *      tags: [shelves]
  *      parameters:
  *        - in: path
@@ -56,11 +68,17 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The shelf ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getShelves(req.params.shelfId);
@@ -71,7 +89,7 @@ router.get("/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /shelves/{shelfId}:
  *    put:
- *      description: Update a shelf by it's ID
+ *      summary: Update a shelf by it's ID
  *      tags: [shelves]
  *      parameters:
  *        - in: path
@@ -80,11 +98,17 @@ router.get("/:shelfId", auth.restrict(["get_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The shelf ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put(
     "/:shelfId",
@@ -99,7 +123,7 @@ router.put(
  * @swagger
  * /shelves/{shelvesId}:
  *    delete:
- *      description: Delete a shelf by it's ID
+ *      summary: Delete a shelf by it's ID
  *      tags: [shelves]
  *      parameters:
  *        - in: path
@@ -108,11 +132,17 @@ router.put(
  *            type: string
  *          required: true
  *          description: The shelf ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.delete(
     "/:shelfId",

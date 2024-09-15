@@ -20,13 +20,19 @@ const getBooksNew = require("@services/books-get-new");
  * @swagger
  * /books:
  *    get:
- *      description: Get a list of all books
+ *      summary: Get a list of all books
  *      tags: [books]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getBooks();
@@ -37,13 +43,19 @@ router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /books/orphaned:
  *    get:
- *      description: Get a list of all books that don't have a shelf (Orphaned)
+ *      summary: Get a list of all books that don't have a shelf (Orphaned)
  *      tags: [books]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/orphaned", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getBooksOrphaned();
@@ -54,13 +66,19 @@ router.get("/orphaned", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /books/favourites:
  *    get:
- *      description: Get a list of all books that have been favourite'd
+ *      summary: Get a list of all books that have been favourite'd
  *      tags: [books]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get(
     "/favourites",
@@ -75,13 +93,19 @@ router.get(
  * @swagger
  * /books/progress:
  *    get:
- *      description: Get a list of all books that have been started (have progress)
+ *      summary: Get a list of all books that have been started (have progress)
  *      tags: [books]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/progress", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getBooksProgress();
@@ -92,13 +116,19 @@ router.get("/progress", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /books/new:
  *    get:
- *      description: Get a list of all books in order of newest
+ *      summary: Get a list of all books in order of newest
  *      tags: [books]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/new", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getBooksNew(req.body?.records);
@@ -109,7 +139,7 @@ router.get("/new", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /books/case/{caseId}:
  *    get:
- *      description: Get a list of all books in a case
+ *      summary: Get a list of all books in a case
  *      tags: [books]
  *      parameters:
  *        - in: path
@@ -118,11 +148,17 @@ router.get("/new", auth.restrict(["get_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The case ID string
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get(
     "/case/:caseId",
@@ -135,9 +171,9 @@ router.get(
 
 /**
  * @swagger
- * /books/shelf/{caseId}:
+ * /books/shelf/{shelfId}:
  *    get:
- *      description: Get a list of all books on a shelf
+ *      summary: Get a list of all books on a shelf
  *      tags: [books]
  *      parameters:
  *        - in: path
@@ -146,11 +182,17 @@ router.get(
  *            type: string
  *          required: true
  *          description: The shelf ID string
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get(
     "/shelf/:shelfId",
@@ -165,7 +207,7 @@ router.get(
  * @swagger
  * /books/cover/{bookId}:
  *    get:
- *      description: Get a book cover by it's ID
+ *      summary: Get a book cover by it's ID
  *      tags: [books]
  *      parameters:
  *        - in: path
@@ -174,11 +216,17 @@ router.get(
  *            type: string
  *          required: true
  *          description: The book ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get(
     "/cover/:bookId",
@@ -206,13 +254,19 @@ router.get(
  * @swagger
  * /books:
  *    post:
- *      description: Add a new book
+ *      summary: Add a new book
  *      tags: [books]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
     const data = await addBooks(req.body);
@@ -223,7 +277,7 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  * @swagger
  * /books/{bookId}:
  *    get:
- *      description: Get a book by it's ID
+ *      summary: Get a book by it's ID
  *      tags: [books]
  *      parameters:
  *        - in: path
@@ -232,11 +286,17 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The book ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getBooks(req.params.bookId);
@@ -247,7 +307,7 @@ router.get("/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /books/{bookId}:
  *    put:
- *      description: Update a book by it's ID
+ *      summary: Update a book by it's ID
  *      tags: [books]
  *      parameters:
  *        - in: path
@@ -256,11 +316,17 @@ router.get("/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The book ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put(
     "/:bookId",
@@ -275,7 +341,7 @@ router.put(
  * @swagger
  * /books/{bookId}:
  *    delete:
- *      description: Delete a book by it's ID
+ *      summary: Delete a book by it's ID
  *      tags: [books]
  *      parameters:
  *        - in: path
@@ -284,11 +350,17 @@ router.put(
  *            type: string
  *          required: true
  *          description: The book ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.delete(
     "/:bookId",

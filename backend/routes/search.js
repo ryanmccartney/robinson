@@ -6,15 +6,19 @@ const getSearch = require("@services/search-get");
  * @swagger
  * /search:
  *   get:
- *     description: Search books, shelves, libraries, cases
+ *     summary: Search books, shelves, libraries, cases
  *     tags: [search]
- *     produces:
- *       - application/json
  *     responses:
- *       200:
- *         description: Successfully logged the user out.
- *         schema:
- *           type: object
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/", async (req, res) => {
     const data = await getSearch(req?.query?.query);

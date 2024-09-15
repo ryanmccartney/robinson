@@ -13,13 +13,19 @@ const updateCases = require("@services/cases-update");
  * @swagger
  * /cases:
  *    get:
- *      description: Get a list of all cases
+ *      summary: Get a list of all cases
  *      tags: [cases]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getCases();
@@ -30,13 +36,19 @@ router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /cases:
  *    post:
- *      description: Add a new case
+ *      summary: Add a new case
  *      tags: [cases]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
     const data = await addCases(req.body);
@@ -47,7 +59,7 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  * @swagger
  * /cases/{casesId}:
  *    get:
- *      description: Get a case by it's ID
+ *      summary: Get a case by it's ID
  *      tags: [cases]
  *      parameters:
  *        - in: path
@@ -56,11 +68,17 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The case ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getCases(req.params.caseId);
@@ -71,7 +89,7 @@ router.get("/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /cases/{caseId}:
  *    put:
- *      description: Update a case by it's ID
+ *      summary: Update a case by it's ID
  *      tags: [cases]
  *      parameters:
  *        - in: path
@@ -80,11 +98,17 @@ router.get("/:caseId", auth.restrict(["get_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The case ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put(
     "/:caseId",
@@ -99,7 +123,7 @@ router.put(
  * @swagger
  * /cases/{casesId}:
  *    delete:
- *      description: Delete a case by it's ID
+ *      summary: Delete a case by it's ID
  *      tags: [cases]
  *      parameters:
  *        - in: path
@@ -108,11 +132,17 @@ router.put(
  *            type: string
  *          required: true
  *          description: The case ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.delete(
     "/:caseId",

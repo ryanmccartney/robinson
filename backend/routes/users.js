@@ -13,13 +13,19 @@ const updateUsers = require("@services/users-update");
  * @swagger
  * /users:
  *    get:
- *      description: Get a list of all users
+ *      summary: Get a list of all users
  *      tags: [users]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_user_data"]), async (req, res, next) => {
     const data = await getUsers();
@@ -30,13 +36,19 @@ router.get("/", auth.restrict(["get_user_data"]), async (req, res, next) => {
  * @swagger
  * /users:
  *    post:
- *      description: Add a new user
+ *      summary: Add a new user
  *      tags: [users]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", auth.restrict(["add_user_data"]), async (req, res, next) => {
     const data = await addUsers(req.body);
@@ -47,13 +59,19 @@ router.post("/", auth.restrict(["add_user_data"]), async (req, res, next) => {
  * @swagger
  * /users/current:
  *    get:
- *      description: Get the current user
+ *      summary: Get the current user
  *      tags: [users]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/current", async (req, res, next) => {
     const data = await getUsersCurrent(req.user);
@@ -64,7 +82,7 @@ router.get("/current", async (req, res, next) => {
  * @swagger
  * /users/{usersId}:
  *    get:
- *      description: Get a user by their ID
+ *      summary: Get a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -73,11 +91,17 @@ router.get("/current", async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The user ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get(
     "/:userId",
@@ -92,13 +116,19 @@ router.get(
  * @swagger
  * /users/current:
  *    put:
- *      description: Update the current user
+ *      summary: Update the current user
  *      tags: [users]
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put("/current", async (req, res, next) => {
     delete req.body?.roles;
@@ -112,7 +142,7 @@ router.put("/current", async (req, res, next) => {
  * @swagger
  * /users/{userId}:
  *    put:
- *      description: Update a user by their ID
+ *      summary: Update a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -121,11 +151,17 @@ router.put("/current", async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The user ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put(
     "/:userId",
@@ -140,7 +176,7 @@ router.put(
  * @swagger
  * /users/{usersId}:
  *    delete:
- *      description: Delete a user by their ID
+ *      summary: Delete a user by their ID
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -149,11 +185,17 @@ router.put(
  *            type: string
  *          required: true
  *          description: The user ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.delete(
     "/:userId",

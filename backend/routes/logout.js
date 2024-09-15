@@ -6,15 +6,19 @@ const getUsersCurrent = require("@services/users-get-current");
  * @swagger
  * /logout:
  *   post:
- *     description: Clears any session cookies to log a user out.
+ *     summary: Clears any session cookies to log a user out.
  *     tags: [auth]
- *     produces:
- *       - application/json
  *     responses:
- *       200:
- *         description: Successfully logged the user out.
- *         schema:
- *           type: object
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", async (req, res) => {
     const data = await getUsersCurrent(req?.user);

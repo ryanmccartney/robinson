@@ -12,7 +12,7 @@ const addMetadata = require("@services/metadata-add");
  * @swagger
  * /metadata/{isbn}:
  *    get:
- *      description: Get a list of all available metadata
+ *      summary: Get a list of all available metadata
  *      tags: [metadata]
  *      parameters:
  *        - in: path
@@ -21,11 +21,17 @@ const addMetadata = require("@services/metadata-add");
  *            type: string
  *          required: true
  *          description: ISBN of the book, should convert between any format
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getMetadata(req.params.isbn);
@@ -36,7 +42,7 @@ router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /metadata/{bookId}:
  *    put:
- *      description: Get a list of all available metadata and update existing records for an existing book
+ *      summary: Get a list of all available metadata and update existing records for an existing book
  *      tags: [metadata]
  *      parameters:
  *        - in: path
@@ -45,11 +51,17 @@ router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: Book ID as a string
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put(
     "/:bookId",
@@ -64,7 +76,7 @@ router.put(
  * @swagger
  * /metadata/{isbn}:
  *    post:
- *      description: Get a list of all available metadata and create a book with it
+ *      summary: Get a list of all available metadata and create a book with it
  *      tags: [metadata]
  *      parameters:
  *        - in: path
@@ -73,11 +85,17 @@ router.put(
  *            type: string
  *          required: true
  *          description: ISBN of the book, should convert between any format
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/:isbn", auth.restrict(["add_data"]), async (req, res, next) => {
     const data = await addMetadata(req.params.isbn);

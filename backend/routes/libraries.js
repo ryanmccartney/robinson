@@ -13,13 +13,19 @@ const updateLibraries = require("@services/libraries-update");
  * @swagger
  * /libraries:
  *    get:
- *      description: Get a list of all libraries
+ *      summary: Get a list of all libraries
  *      tags: [libraries]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
     const data = await getLibraries();
@@ -30,13 +36,19 @@ router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
  * @swagger
  * /libraries:
  *    post:
- *      description: Add a new library
+ *      summary: Add a new library
  *      tags: [libraries]
- *      produces:
- *        - application/json
  *      responses:
- *        '200':
- *          description: Success
+ *         '200':
+ *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
     const data = await addLibraries(req.body);
@@ -47,7 +59,7 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  * @swagger
  * /libraries/{librariesId}:
  *    get:
- *      description: Get a library by it's ID
+ *      summary: Get a library by it's ID
  *      tags: [libraries]
  *      parameters:
  *        - in: path
@@ -56,11 +68,17 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  *            type: string
  *          required: true
  *          description: The library ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.get(
     "/:libraryId",
@@ -75,7 +93,7 @@ router.get(
  * @swagger
  * /libraries/{libraryId}:
  *    put:
- *      description: Update a library by it's ID
+ *      summary: Update a library by it's ID
  *      tags: [libraries]
  *      parameters:
  *        - in: path
@@ -84,11 +102,17 @@ router.get(
  *            type: string
  *          required: true
  *          description: The library ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.put(
     "/:libraryId",
@@ -103,7 +127,7 @@ router.put(
  * @swagger
  * /libraries/{librariesId}:
  *    delete:
- *      description: Delete a library by it's ID
+ *      summary: Delete a library by it's ID
  *      tags: [libraries]
  *      parameters:
  *        - in: path
@@ -112,11 +136,17 @@ router.put(
  *            type: string
  *          required: true
  *          description: The library ID string
- *      produces:
- *         - application/json
  *      responses:
  *         '200':
  *           description: Success
+ *         '500':
+ *           description: Error
+ *         '401':
+ *           description: Unauthorized
+ *         '403':
+ *           description: Forbidden
+ *         '405':
+ *           description: Incorrect request data
  */
 router.delete(
     "/:libraryId",
