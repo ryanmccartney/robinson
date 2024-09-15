@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <i align="center">Self-hosted management of the books in your personal library</i>
+  <b align="center">Self-hosted management of the books in your personal library</b>
 </p>
 
 <h4 align="center">
@@ -38,6 +38,53 @@ Check your reading timeline and search your library. Easily add book by scanning
 
 ![](./docs/home.gif)
 
+# Installation
+
+If you're ready to self-host robinson yourself here's some steps to get started;
+
+Install the docker engine on your OS of choice.
+
+Create a `docker-compose.yml` file on your OS.
+
+Copy the following in it.
+
+```bash
+services:
+    mongo:
+        image: mongo:latest
+        restart: unless-stopped
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: robinson
+            MONGO_INITDB_ROOT_PASSWORD: robinson123
+            MONGO_INITDB_DATABASE: robinson
+        volumes:
+            - robinson-data:/data/db
+    robinson:
+        image: ghcr.io/ryanmccartney/robinson:latest
+        restart: unless-stopped
+        environment:
+            PORT: 80
+            NODE_ENV: production
+            DB_NAME: robinson
+            DB_USER: robinson
+            DB_PASSWORD: robinson123
+            SESSION_SECRET: pleaseChangeMe
+        depends_on:
+            - mongo
+        ports:
+            - 80:80
+volumes:
+    robinson-data:
+```
+
+Please change your `DB_PASSWORD` and `SESSION_SECRET` for your own instance. 
+
+Run `docker compose up -d`. 
+
+Access robinson at `http://localhost:80`
+
+Login with the default username `admin` and password `robinson123`
+
 # Development
 
 -   `git clone https://github.com/ryanmccartney/robinson`
@@ -50,44 +97,5 @@ Find the development frontend on `http://localhost:3000` and self-documenting AP
 # Technology
 
 -   React fronted rolled with Webpack.
--   Node.js Express Backend
+-   Node.js and Express.js Backend
 -   Docker-based for easy self-hosting
-
-# Installation
-
-```yml
-services:
-    mongo:
-        image: mongo:latest
-        restart: unless-stopped
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: robinson
-            MONGO_INITDB_ROOT_PASSWORD: robinson123
-            MONGO_INITDB_DATABASE: robinson
-        volumes:
-            - robinson-data:/data/db
-        ports:
-            - 27017:27017
-    backend:
-        image: ghcr.io/ryanmccartney/robinson-backend:latest
-        restart: unless-stopped
-        environment:
-            PORT: 3202
-            NODE_ENV: production
-        depends_on:
-            - mongo
-        ports:
-            - 3100:3100
-    frontend:
-        image: ghcr.io/ryanmccartney/robinson-frontend:latest
-        restart: unless-stopped
-        environment:
-            PORT: 3202
-            NODE_ENV: production
-        depends_on:
-            - backend
-        ports:
-            - 3000:3000
-volumes:
-    robinson-data:
-```

@@ -18,7 +18,7 @@ const defaultUser = {
     username: "admin",
     role: "librarian",
     enabled: true,
-    password: md5("admin123"),
+    password: md5("robinson123"),
 };
 
 const initUsers = async () => {
