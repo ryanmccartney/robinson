@@ -7,6 +7,9 @@ node_modules
 # testing
 /coverage
 
+# production
+/build
+
 # debug
 npm-debug.log*
 
