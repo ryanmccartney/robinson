@@ -78,8 +78,8 @@
     },
     "github": {
       "release": true,
-      "autoGenerate": true,
-      "releaseNotes": ""
+      "releaseName": "Release v${version}",
+      "autoGenerate": true
     },
     "npm": {
       "publish": false
