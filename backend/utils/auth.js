@@ -5,7 +5,6 @@ const md5 = require("md5");
 
 const usersModel = require("@models/users");
 const getError = require("@utils/error-get");
-const data = require("@utils/response");
 
 const authRestrict = require("@utils/auth-restrict");
 const authRoles = require("@utils/auth-roles");
