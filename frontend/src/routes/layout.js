@@ -14,7 +14,7 @@ const Layout = () => {
 
     return (
         <>
-            <TopNavBar user={user}/>
+            <TopNavBar user={user} />
 
             <Box sx={{ pb: 7, m: 0 }}>
                 <Grid container justify="flex-end" spacing={0}>

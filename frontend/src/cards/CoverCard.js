@@ -57,7 +57,6 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
 
     const handleUpload = async (event) => {
         const file = event.target.files[0];
-        console.log(file);
         const fileBody = await convertBase64(file);
         const response = await fetch(`/api/books/${data?.book?.bookId}`, {
             method: "PUT",

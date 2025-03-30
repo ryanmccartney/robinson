@@ -31,7 +31,6 @@ const Scan = ({ delay = 250 }) => {
             method: "POST",
         });
         const data = await response.json();
-        console.log(data);
         if (data.book) {
             enqueueSnackbar(`Created a book called ${data.book.title}`, {
                 variant: "info",
@@ -50,7 +49,6 @@ const Scan = ({ delay = 250 }) => {
                     canvas.toBlob(resolve)
                 );
                 const barcode = await barcodeDetector.detect(image);
-                console.log(barcode);
                 setData(barcode);
 
                 if (barcode.length > 0 && barcode[0].format == "ean_13") {

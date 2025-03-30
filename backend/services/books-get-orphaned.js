@@ -18,7 +18,6 @@ module.exports = async () => {
         }
 
         for (const book of books) {
-            console.log(book);
             if (shelvesId.includes(book.bookId)) {
                 orphanedBooks.push(book);
             }

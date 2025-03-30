@@ -80,11 +80,8 @@ const TopNavBar = ({ user }) => {
     const search = async (event) => {
         const data = await fetcher(`search?query=${event.target.value}`);
         setData(data);
-        console.log(data);
     };
 
-    console.log(user);
-    
     return (
         <Box sx={{ margin: 0, padding: 0, display: "flex" }}>
             <AppBar component="nav" position="sticky">

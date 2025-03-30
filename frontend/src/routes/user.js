@@ -28,7 +28,6 @@ const User = () => {
     const [theme, setTheme] = useState(null);
 
     const updateUser = async (key, data) => {
-        console.log(data);
         const response = await fetch(`/api/users/current`, {
             method: "PUT",
             headers: {
