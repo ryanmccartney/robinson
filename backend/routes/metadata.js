@@ -18,7 +18,7 @@ const addMetadata = require("@services/metadata-add");
  *        - in: path
  *          name: isbn
  *          schema:
- *            type: string
+ *            type: number
  *          required: true
  *          description: ISBN of the book, should convert between any format
  *      responses:
@@ -40,17 +40,17 @@ router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
 
 /**
  * @swagger
- * /metadata/{bookId}:
+ * /metadata/{isbn}:
  *    put:
  *      summary: Get a list of all available metadata and update existing records for an existing book
  *      tags: [metadata]
  *      parameters:
  *        - in: path
- *          name: bookId
+ *          name: isbn
  *          schema:
- *            type: string
+ *            type: number
  *          required: true
- *          description: Book ID as a string
+ *          description: ISBN of the book, should convert between any format
  *      responses:
  *         '200':
  *           description: Success
@@ -63,14 +63,10 @@ router.get("/:isbn", auth.restrict(["get_data"]), async (req, res, next) => {
  *         '405':
  *           description: Incorrect request data
  */
-router.put(
-    "/:bookId",
-    auth.restrict(["update_data"]),
-    async (req, res, next) => {
-        const data = await updateMetadata(req.params.bookId);
-        response(res, req, data);
-    }
-);
+router.put("/:isbn", auth.restrict(["update_data"]), async (req, res, next) => {
+    const data = await updateMetadata(req.params.isbn);
+    response(res, req, data);
+});
 
 /**
  * @swagger
@@ -82,7 +78,7 @@ router.put(
  *        - in: path
  *          name: isbn
  *          schema:
- *            type: string
+ *            type: number
  *          required: true
  *          description: ISBN of the book, should convert between any format
  *      responses:

@@ -278,7 +278,7 @@ Add a new case
 | 405 | Incorrect request data |
 | 500 | Error |
 
-### /cases/{casesId}
+### /cases/{caseId}
 
 #### GET
 ##### Summary
@@ -289,7 +289,28 @@ Get a case by it's ID
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| casesId | path | The case ID string | Yes | string |
+| caseId | path | The case ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a case by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| caseId | path | The case ID string | Yes | string |
 
 ##### Responses
 
@@ -305,29 +326,6 @@ Get a case by it's ID
 ##### Summary
 
 Delete a case by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| casesId | path | The case ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /cases/{caseId}
-
-#### PUT
-##### Summary
-
-Update a case by it's ID
 
 ##### Parameters
 
@@ -378,7 +376,7 @@ Add a new library
 | 405 | Incorrect request data |
 | 500 | Error |
 
-### /libraries/{librariesId}
+### /libraries/{libraryId}
 
 #### GET
 ##### Summary
@@ -389,7 +387,28 @@ Get a library by it's ID
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| librariesId | path | The library ID string | Yes | string |
+| libraryId | path | The library ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a library by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| libraryId | path | The library ID string | Yes | string |
 
 ##### Responses
 
@@ -405,29 +424,6 @@ Get a library by it's ID
 ##### Summary
 
 Delete a library by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| librariesId | path | The library ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /libraries/{libraryId}
-
-#### PUT
-##### Summary
-
-Update a library by it's ID
 
 ##### Parameters
 
@@ -492,7 +488,28 @@ Get a list of all available metadata
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| isbn | path | ISBN of the book, should convert between any format | Yes | string |
+| isbn | path | ISBN of the book, should convert between any format | Yes | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Get a list of all available metadata and update existing records for an existing book
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| isbn | path | ISBN of the book, should convert between any format | Yes | number |
 
 ##### Responses
 
@@ -513,30 +530,7 @@ Get a list of all available metadata and create a book with it
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| isbn | path | ISBN of the book, should convert between any format | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /metadata/{bookId}
-
-#### PUT
-##### Summary
-
-Get a list of all available metadata and update existing records for an existing book
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| bookId | path | Book ID as a string | Yes | string |
+| isbn | path | ISBN of the book, should convert between any format | Yes | number |
 
 ##### Responses
 
@@ -555,6 +549,12 @@ Get a list of all available metadata and update existing records for an existing
 ##### Summary
 
 Search books, shelves, libraries, cases
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| query | query | The query string to make a search against | Yes | string |
 
 ##### Responses
 
@@ -599,7 +599,7 @@ Add a new shelf
 | 405 | Incorrect request data |
 | 500 | Error |
 
-### /shelves/{shelvesId}
+### /shelves/{shelfId}
 
 #### GET
 ##### Summary
@@ -610,7 +610,28 @@ Get a shelf by it's ID
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| shelvesId | path | The shelf ID string | Yes | string |
+| shelfId | path | The shelf ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a shelf by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| shelfId | path | The shelf ID string | Yes | string |
 
 ##### Responses
 
@@ -626,29 +647,6 @@ Get a shelf by it's ID
 ##### Summary
 
 Delete a shelf by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| shelvesId | path | The shelf ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /shelves/{shelfId}
-
-#### PUT
-##### Summary
-
-Update a shelf by it's ID
 
 ##### Parameters
 
@@ -731,7 +729,7 @@ Update the current user
 | 405 | Incorrect request data |
 | 500 | Error |
 
-### /users/{usersId}
+### /users/{userId}
 
 #### GET
 ##### Summary
@@ -742,7 +740,28 @@ Get a user by their ID
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| usersId | path | The user ID string | Yes | string |
+| userId | path | The user ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a user by their ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| userId | path | The user ID string | Yes | string |
 
 ##### Responses
 
@@ -758,29 +777,6 @@ Get a user by their ID
 ##### Summary
 
 Delete a user by their ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| usersId | path | The user ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /users/{userId}
-
-#### PUT
-##### Summary
-
-Update a user by their ID
 
 ##### Parameters
 

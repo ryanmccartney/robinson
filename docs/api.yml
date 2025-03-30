@@ -97,6 +97,16 @@ paths:
       summary: Get a list of all books in order of newest
       tags:
         - books
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                records:
+                  type: number
+                  description: Number of records to return
       responses:
         "200":
           description: Success
@@ -264,6 +274,27 @@ paths:
       summary: Add a new case
       tags:
         - cases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Name of case
+                description:
+                  type: string
+                  description: Description of case
+                libraryId:
+                  type: string
+                  description: Library the case belongs in
+                order:
+                  type: number
+                  description: Display order of case
       responses:
         "200":
           description: Success
@@ -275,18 +306,59 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  "/cases/{casesId}":
+  "/cases/{caseId}":
     get:
       summary: Get a case by it's ID
       tags:
         - cases
       parameters:
         - in: path
-          name: casesId
+          name: caseId
           schema:
             type: string
           required: true
           description: The case ID string
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+    put:
+      summary: Update a case by it's ID
+      tags:
+        - cases
+      parameters:
+        - in: path
+          name: caseId
+          schema:
+            type: string
+          required: true
+          description: The case ID string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of case
+                description:
+                  type: string
+                  description: Description of case
+                libraryId:
+                  type: string
+                  description: Library the case belongs in
+                order:
+                  type: number
+                  description: Display order of case
       responses:
         "200":
           description: Success
@@ -300,29 +372,6 @@ paths:
           description: Error
     delete:
       summary: Delete a case by it's ID
-      tags:
-        - cases
-      parameters:
-        - in: path
-          name: casesId
-          schema:
-            type: string
-          required: true
-          description: The case ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-  "/cases/{caseId}":
-    put:
-      summary: Update a case by it's ID
       tags:
         - cases
       parameters:
@@ -374,14 +423,36 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  "/libraries/{librariesId}":
+  "/libraries/{libraryId}":
     get:
       summary: Get a library by it's ID
       tags:
         - libraries
       parameters:
         - in: path
-          name: librariesId
+          name: libraryId
+          schema:
+            type: string
+          required: true
+          description: The library ID string
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+    put:
+      summary: Update a library by it's ID
+      tags:
+        - libraries
+      parameters:
+        - in: path
+          name: libraryId
           schema:
             type: string
           required: true
@@ -399,29 +470,6 @@ paths:
           description: Error
     delete:
       summary: Delete a library by it's ID
-      tags:
-        - libraries
-      parameters:
-        - in: path
-          name: librariesId
-          schema:
-            type: string
-          required: true
-          description: The library ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-  "/libraries/{libraryId}":
-    put:
-      summary: Update a library by it's ID
       tags:
         - libraries
       parameters:
@@ -454,8 +502,8 @@ paths:
             schema:
               type: object
               required:
-                - type
-                - input
+                - username
+                - password
               properties:
                 username:
                   type: string
@@ -499,7 +547,30 @@ paths:
         - in: path
           name: isbn
           schema:
-            type: string
+            type: number
+          required: true
+          description: ISBN of the book, should convert between any format
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+    put:
+      summary: Get a list of all available metadata and update existing records for an
+        existing book
+      tags:
+        - metadata
+      parameters:
+        - in: path
+          name: isbn
+          schema:
+            type: number
           required: true
           description: ISBN of the book, should convert between any format
       responses:
@@ -521,33 +592,9 @@ paths:
         - in: path
           name: isbn
           schema:
-            type: string
+            type: number
           required: true
           description: ISBN of the book, should convert between any format
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-  "/metadata/{bookId}":
-    put:
-      summary: Get a list of all available metadata and update existing records for an
-        existing book
-      tags:
-        - metadata
-      parameters:
-        - in: path
-          name: bookId
-          schema:
-            type: string
-          required: true
-          description: Book ID as a string
       responses:
         "200":
           description: Success
@@ -564,6 +611,13 @@ paths:
       summary: Search books, shelves, libraries, cases
       tags:
         - search
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+          description: The query string to make a search against
       responses:
         "200":
           description: Success
@@ -606,14 +660,36 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  "/shelves/{shelvesId}":
+  "/shelves/{shelfId}":
     get:
       summary: Get a shelf by it's ID
       tags:
         - shelves
       parameters:
         - in: path
-          name: shelvesId
+          name: shelfId
+          schema:
+            type: string
+          required: true
+          description: The shelf ID string
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+    put:
+      summary: Update a shelf by it's ID
+      tags:
+        - shelves
+      parameters:
+        - in: path
+          name: shelfId
           schema:
             type: string
           required: true
@@ -631,29 +707,6 @@ paths:
           description: Error
     delete:
       summary: Delete a shelf by it's ID
-      tags:
-        - shelves
-      parameters:
-        - in: path
-          name: shelvesId
-          schema:
-            type: string
-          required: true
-          description: The shelf ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-  "/shelves/{shelfId}":
-    put:
-      summary: Update a shelf by it's ID
       tags:
         - shelves
       parameters:
@@ -736,14 +789,36 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  "/users/{usersId}":
+  "/users/{userId}":
     get:
       summary: Get a user by their ID
       tags:
         - users
       parameters:
         - in: path
-          name: usersId
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: The user ID string
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+    put:
+      summary: Update a user by their ID
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
           schema:
             type: string
           required: true
@@ -761,29 +836,6 @@ paths:
           description: Error
     delete:
       summary: Delete a user by their ID
-      tags:
-        - users
-      parameters:
-        - in: path
-          name: usersId
-          schema:
-            type: string
-          required: true
-          description: The user ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-  "/users/{userId}":
-    put:
-      summary: Update a user by their ID
       tags:
         - users
       parameters:

@@ -4,18 +4,21 @@ const logger = require("@utils/logger")(module);
 
 const getMetadata = require("@services/metadata-get");
 const updateBooks = require("@services/books-update");
-const getBooks = require("@services/books-get");
+const getBookByIsbn = require("@services/books-get-by-isbn");
 
-module.exports = async (bookId) => {
+module.exports = async (isbn) => {
     try {
-        let book = await getBooks(bookId);
-        const response = await getMetadata(book?.books?.isbn);
+        let data = await getBookByIsbn(isbn);
+        const response = await getMetadata(data?.book?.isbn);
 
         if (response.metadata.combined) {
-            book = await updateBooks(bookId, response.metadata.combined);
+            data = await updateBooks(
+                data?.book.bookId,
+                response.metadata.combined
+            );
         }
 
-        return { metadata: response.metadata, book: book?.books };
+        return { metadata: response.metadata, book: data?.book };
     } catch (error) {
         logger.warn(error);
         return { errors: error };
