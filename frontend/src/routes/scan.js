@@ -15,7 +15,7 @@ import { Opacity } from "@mui/icons-material";
 const Scan = ({ delay = 250 }) => {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
-    const [data, setData] = useState([]);
+    const [barcode, setBarcode] = useState("");
     const [windowSize, setWindowSize] = useState({
         width: undefined,
         height: undefined,
@@ -26,16 +26,29 @@ const Scan = ({ delay = 250 }) => {
         formats: ["ean_13", "qr_code"],
     });
 
-    const addBook = async (isbn) => {
-        const response = await fetch(`/api/metadata/${isbn}`, {
-            method: "POST",
-        });
-        const data = await response.json();
-        if (data.book) {
-            enqueueSnackbar(`Created a book called ${data.book.title}`, {
-                variant: "info",
+    const addBook = async (isbnObject) => {
+        if (isbnObject) {
+            enqueueSnackbar(
+                `ISBN is valid, searching for ${isbnObject.isbn13h}...`
+            );
+
+            const response = await fetch(`/api/metadata/${isbnObject.isbn13}`, {
+                method: "POST",
             });
-            navigate(`/book/${data.book.bookId}`);
+            const data = await response.json();
+            if (data.book) {
+                enqueueSnackbar(`Created a book called ${data.book.title}`, {
+                    variant: "info",
+                });
+                navigate(`/book/${data.book.bookId}`);
+            } else {
+                enqueueSnackbar(
+                    `Could not find a book for ${isbnObject.isbn13h}`,
+                    {
+                        variant: "error",
+                    }
+                );
+            }
         }
     };
 
@@ -49,16 +62,14 @@ const Scan = ({ delay = 250 }) => {
                     canvas.toBlob(resolve)
                 );
                 const barcode = await barcodeDetector.detect(image);
-                setData(barcode);
+                setBarcode(barcode);
 
-                if (barcode.length > 0 && barcode[0].format == "ean_13") {
-                    const isbnObject = isbn.parse(barcode[0].rawValue);
-                    if (isbnObject) {
-                        enqueueSnackbar(
-                            `Found an EAN-13 Barcode ${isbnObject.isbn13h}`
-                        );
-                        addBook(isbnObject.isbn13);
-                    }
+                if (
+                    barcode.length > 0 &&
+                    barcode[0].rawValue &&
+                    barcode[0].format == "ean_13"
+                ) {
+                    checkForIsbn(barcode[0].rawValue);
                 }
             }
         };
@@ -82,16 +93,12 @@ const Scan = ({ delay = 250 }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const getISBN = (hyphens = false) => {
-        if (data.length > 0 && data[0].rawValue) {
-            const isbnObject = isbn.parse(data[0].rawValue);
+    const checkForIsbn = (rawText) => {
+        if (rawText) {
+            const isbnObject = isbn.parse(rawText);
             if (isbnObject) {
-                if (hyphens) {
-                    return isbnObject.isbn10h;
-                }
-                return isbnObject.isbn10;
+                addBook(isbnObject);
             }
-            return isbnString;
         }
     };
 
@@ -120,11 +127,10 @@ const Scan = ({ delay = 250 }) => {
                 <EditableTypography
                     sx={{ opacity: 0.5 }}
                     align="center"
+                    onChange={({ data }) => checkForIsbn(data)}
                     variant="h4"
                     edit={true}
-                >
-                    {getISBN()}
-                </EditableTypography>
+                ></EditableTypography>
             </Box>
         </Box>
     );
