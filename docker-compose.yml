@@ -18,6 +18,7 @@ services:
         environment:
             PORT: 3100
             NODE_ENV: development
+            PROXY_ADDRESS: 1
         depends_on:
             - mongo
         ports:
