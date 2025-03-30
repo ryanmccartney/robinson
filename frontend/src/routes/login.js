@@ -35,7 +35,7 @@ const Root = () => {
                 `${user?.firstName} ${user?.lastName} logged in successfully`
             );
             setUser(data?.user);
-            navigate(-1);
+            navigate("/");
         }
     };
 
