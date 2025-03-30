@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import cookie from "cookie";
@@ -32,6 +32,7 @@ const MenuContents = () => {
             `${data?.user?.firstName} ${data?.user?.lastName} logged out.`
         );
         setUser(null);
+        navigate("/");
     };
 
     const login = async () => {

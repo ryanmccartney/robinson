@@ -8,12 +8,12 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import { Link } from "react-router-dom";
 
-import fetcher from "./utils/fetcher";
+import fetcher from "../utils/fetcher";
 
 import SearchIcon from "@mui/icons-material/Search";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 
-import UserMenu from "./components/UserMenu";
+import UserMenu from "./UserMenu";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -57,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function NavBar() {
+const TopNavBar = ({ user }) => {
     const searchRef = useRef(null);
     const [data, setData] = useState(null);
 
@@ -83,6 +83,8 @@ export default function NavBar() {
         console.log(data);
     };
 
+    console.log(user);
+    
     return (
         <Box sx={{ margin: 0, padding: 0, display: "flex" }}>
             <AppBar component="nav" position="sticky">
@@ -109,21 +111,27 @@ export default function NavBar() {
                         Robinson
                     </Typography>
 
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            inputRef={searchRef}
-                            placeholder="Press /"
-                            inputProps={{ "aria-label": "search" }}
-                            onChange={search}
-                        />
-                    </Search>
+                    {user ? (
+                        <>
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    inputRef={searchRef}
+                                    placeholder="Press /"
+                                    inputProps={{ "aria-label": "search" }}
+                                    onChange={search}
+                                />
+                            </Search>
 
-                    <UserMenu />
+                            <UserMenu />
+                        </>
+                    ) : null}
                 </Toolbar>
             </AppBar>
         </Box>
     );
-}
+};
+
+export default TopNavBar;

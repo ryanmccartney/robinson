@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Outlet } from "react-router-dom";
-import TopNavBar from "../TopNavBar";
-import BottomNavBar from "../BottomNavBar";
+import TopNavBar from "../components/TopNavBar";
+import BottomNavBar from "../components/BottomNavBar";
+import { UserContext } from "../contexts/user";
 
 import LayoutBreadcrumbs from "../components/LayoutBreadcrumbs";
 import LayoutButtons from "../components/LayoutButtons";
 
 const Layout = () => {
+    const { user } = useContext(UserContext);
+
     return (
         <>
-            <TopNavBar />
+            <TopNavBar user={user}/>
 
             <Box sx={{ pb: 7, m: 0 }}>
                 <Grid container justify="flex-end" spacing={0}>
@@ -31,7 +34,7 @@ const Layout = () => {
 
                 <Outlet />
             </Box>
-            <BottomNavBar />
+            {user ? <BottomNavBar /> : null}
         </>
     );
 };

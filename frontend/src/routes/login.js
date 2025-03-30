@@ -10,13 +10,20 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import { UserContext } from "../contexts/user";
-import fetcher from "./../utils/fetcher";
+import fetcher from "../utils/fetcher";
+import BreadcrumbsContext from "../contexts/breadcrumbs";
 
 const Root = () => {
     const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+
+    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+
+    const setContexts = () => {
+        setBreadcrumbs([{ title: "Login", link: `/login` }]);
+    };
 
     const login = async () => {
         const data = await fetcher(`login`, "POST", {
@@ -41,8 +48,10 @@ const Root = () => {
         };
 
         document.addEventListener("keydown", handleKeyDown);
+        setContexts();
 
         if (user) {
+            setBreadcrumbs([]);
             navigate(-1);
         }
 

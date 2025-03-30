@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, lazy, Suspense, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
@@ -9,7 +9,7 @@ import theme from "./theme";
 
 import BreadcrumbsContext from "./contexts/breadcrumbs";
 import ButtonsContext from "./contexts/buttons";
-import { UserProvider } from "./contexts/user";
+import { UserProvider, UserContext } from "./contexts/user";
 import Layout from "./routes/layout";
 import LoadingContent from "./components/LoadingContent";
 
@@ -32,6 +32,39 @@ const Users = lazy(() => import("./routes/users"));
 
 const Libraries = lazy(() => import("./routes/libraries"));
 const Library = lazy(() => import("./routes/library"));
+
+const AppRoutes = () => {
+    const { user } = useContext(UserContext);
+
+    return user ? (
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Root />} />
+                <Route path="login" element={<Login />} />
+                <Route path="scan" element={<Scan />} />
+                <Route path="shelves" element={<Shelves />} />
+                <Route path="shelf/:shelfId" element={<Shelf />} />
+                <Route path="books" element={<Books />} />
+                <Route path="book/:bookId" element={<Book />} />
+                <Route path="cases" element={<Cases />} />
+                <Route path="case/:caseId" element={<Case />} />
+                <Route path="libraries" element={<Libraries />} />
+                <Route path="library/:libraryId" element={<Library />} />
+                <Route path="users" element={<Users />} />
+                <Route path="user/:userId" element={<User />} />
+                <Route path="*" element={<Error />} />
+            </Route>
+        </Routes>
+    ) : (
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Login />} />
+                <Route path="login" element={<Login />} />
+                <Route path="*" element={<Error />} />
+            </Route>
+        </Routes>
+    );
+};
 
 const App = () => {
     const [breadcrumbs, setBreadcrumbs] = useState([
@@ -65,66 +98,7 @@ const App = () => {
                         >
                             <BrowserRouter>
                                 <Suspense fallback={<LoadingContent />}>
-                                    <Routes>
-                                        <Route path="/" element={<Layout />}>
-                                            <Route
-                                                path="/"
-                                                element={<Root />}
-                                            />
-                                            <Route
-                                                path="login"
-                                                element={<Login />}
-                                            />
-                                            <Route
-                                                path="scan"
-                                                element={<Scan />}
-                                            />
-                                            <Route
-                                                path="shelves"
-                                                element={<Shelves />}
-                                            />
-                                            <Route
-                                                path="shelf/:shelfId"
-                                                element={<Shelf />}
-                                            />
-                                            <Route
-                                                path="books"
-                                                element={<Books />}
-                                            />
-                                            <Route
-                                                path="book/:bookId"
-                                                element={<Book />}
-                                            />
-                                            <Route
-                                                path="cases"
-                                                element={<Cases />}
-                                            />
-                                            <Route
-                                                path="case/:caseId"
-                                                element={<Case />}
-                                            />
-                                            <Route
-                                                path="libraries"
-                                                element={<Libraries />}
-                                            />
-                                            <Route
-                                                path="library/:libraryId"
-                                                element={<Library />}
-                                            />
-                                            <Route
-                                                path="users"
-                                                element={<Users />}
-                                            />
-                                            <Route
-                                                path="user/:userId"
-                                                element={<User />}
-                                            />
-                                            <Route
-                                                path="*"
-                                                element={<Error />}
-                                            />
-                                        </Route>
-                                    </Routes>
+                                    <AppRoutes />
                                 </Suspense>
                             </BrowserRouter>
                         </ButtonsContext.Provider>

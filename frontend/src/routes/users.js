@@ -11,11 +11,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Checkbox from '@mui/material/Checkbox';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
+import Checkbox from "@mui/material/Checkbox";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 
 import LoadingContent from "../components/LoadingContent";
 import BreadcrumbsContext from "../contexts/breadcrumbs";
@@ -82,7 +82,6 @@ const User = () => {
                             <TableCell align="left">Role</TableCell>
                             <TableCell align="center">Enabled</TableCell>
                             <TableCell align="right">Actions</TableCell>
-
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -118,11 +117,17 @@ const User = () => {
                                     <Checkbox checked={row.enabled} />
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Stack direction="row" spacing={0.5} >
-                                        <IconButton aria-label="delete" size="medium">
+                                    <Stack direction="row" spacing={0.5}>
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="medium"
+                                        >
                                             <EditIcon fontSize="inherit" />
                                         </IconButton>
-                                        <IconButton aria-label="delete" size="medium">
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="medium"
+                                        >
                                             <DeleteIcon fontSize="inherit" />
                                         </IconButton>
                                     </Stack>
