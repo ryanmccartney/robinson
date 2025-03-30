@@ -36,6 +36,10 @@ const nodeEnv = process.env.NODE_ENV || "production";
 
 const app = express();
 
+if (process.env.PROXY_ADDRESS) {
+    app.set("trust proxy", process.env.PROXY_ADDRESS);
+}
+
 //File limits
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
