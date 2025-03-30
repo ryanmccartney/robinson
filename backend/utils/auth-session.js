@@ -23,7 +23,7 @@ const mongoSession = () => {
         secret: sessionSecret,
         cookie: {
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            secure: false,
+            secure: nodeEnv === "development" ? false : true,
         },
         store: store,
         resave: false,
