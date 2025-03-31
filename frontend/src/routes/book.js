@@ -8,7 +8,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useParams, useNavigate } from "react-router-dom";
-import QRCode from "react-qr-code";
 import * as dayjs from "dayjs";
 import fetcher from "./../utils/fetcher";
 
@@ -20,6 +19,7 @@ import BookProgress from "./../components/BookProgress";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
 import ButtonsContext from "./../contexts/buttons";
 import isbn from "isbn3";
+import QrDialog from "../dialogs/QrDialog";
 
 const Book = () => {
     const navigate = useNavigate();
@@ -371,7 +371,10 @@ const Book = () => {
                             ></Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <QRCode size={70} value={window.location.href} />
+                            <QrDialog
+                                url={window.location.href}
+                                label={data.book.title}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>

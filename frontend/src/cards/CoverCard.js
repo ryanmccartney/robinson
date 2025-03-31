@@ -6,6 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import useTheme from "@mui/material/styles/useTheme";
+
 import Barcode from "react-barcode";
 import isbn from "isbn3";
 
@@ -28,6 +30,7 @@ const convertBase64 = (file) => {
 };
 
 const BookCard = ({ edit, data, setData, opacity = "1" }) => {
+    const theme = useTheme();
     const [show, setShow] = useState(false);
     const [bookmarkOpener, setBookmarkOpener] = useState(false);
     const card = useRef(null);
@@ -76,7 +79,11 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                         fontSize={12}
                         value={getISBN(data.book.isbn, false)}
                         background=""
-                        lineColor="#1a1a1a"
+                        lineColor={
+                            theme.palette.mode === "light"
+                                ? "#1a1a1a"
+                                : "#ffffff"
+                        }
                         font="Moderustic"
                         displayValue={true}
                         marginLeft={10}
