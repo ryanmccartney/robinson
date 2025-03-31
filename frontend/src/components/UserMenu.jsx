@@ -20,7 +20,7 @@ import fetcher from "./../utils/fetcher";
 import { UserContext } from "../contexts/user";
 import UserAvatar from "./UserAvatar";
 
-const MenuContents = () => {
+const MenuContents = ({close}) => {
     const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
 
@@ -36,14 +36,17 @@ const MenuContents = () => {
     };
 
     const login = async () => {
+        close()
         navigate("/login");
     };
 
     const users = async () => {
+        close()
         navigate(`/users`);
     };
 
     const edit = async () => {
+        close()
         navigate(`/user/${user?.userId}`);
     };
 
@@ -97,6 +100,7 @@ const UserMenu = () => {
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+
     };
     const handleClose = () => {
         setAnchorEl(null);
@@ -181,7 +185,7 @@ const UserMenu = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuContents />
+                <MenuContents close={handleClose} />
             </Menu>
         </Box>
     );
