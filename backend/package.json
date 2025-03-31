@@ -69,7 +69,7 @@
       "requireBranch": "main",
       "requireCleanWorkingDir": false,
       "tagName": "v${version}",
-      "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+      "changelog": "npx auto-changelog --stdout --commit-limit false --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
     },
     "hooks": {
       "before:init": [
@@ -86,7 +86,7 @@
     "github": {
       "release": true,
       "releaseName": "Release v${version}",
-      "releaseNotes": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+      "releaseNotes": "npx auto-changelog --stdout --commit-limit false --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
     },
     "npm": {
       "publish": false
