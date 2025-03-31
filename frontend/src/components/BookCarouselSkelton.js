@@ -4,18 +4,20 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
+import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
+import AddIcon from "@mui/icons-material/Add";
 
 const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
     const carousel = useRef(null);
-    const [opacity, setOpacity] = useState(1.0);
+    const [hover, setHover] = useState(false);
 
     const getBookCards = () => {
         const bookCards = [];
         for (let book = 0; book < books; book++) {
             bookCards.push(
                 <Skeleton
-                    sx={{ opacity: opacity }}
+                    sx={{ opacity: hover ? 0.3 : 0.6 }}
                     variant="rectangular"
                     width="4rem"
                     height={height}
@@ -28,79 +30,107 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
     };
 
     return (
-        <Box
-            ref={carousel}
-            onMouseOver={() => {
-                setOpacity(0.4);
-            }}
-            onMouseOut={() => {
-                setOpacity(1.0);
-            }}
+        <div
             sx={{
-                width: "100%",
-                margin: 0.5,
-                padding: 1.5,
-                border: 1,
-                borderRadius: 1,
-                borderColor: grey[500],
+                position: "relative",
             }}
         >
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <Skeleton
-                        sx={{ opacity: opacity }}
-                        animation={false}
-                        height={40}
-                        width="18rem"
-                    />
-                </Grid>
-
-                <Grid item xs={6}>
-                    <Stack
-                        direction="row"
-                        spacing={1.5}
-                        sx={{
-                            paddingLeft: 1,
-                            paddingTop: 1,
-                            paddingBottom: 1,
-                            justifyContent: "end",
-                        }}
-                    >
-                        <Skeleton
-                            sx={{ opacity: opacity }}
-                            animation={false}
-                            variant="circular"
-                            width={30}
-                            height={30}
-                        />
-                        <Skeleton
-                            sx={{ opacity: opacity }}
-                            animation={false}
-                            variant="circular"
-                            width={30}
-                            height={30}
-                        />
-                        <Skeleton
-                            sx={{ opacity: opacity }}
-                            animation={false}
-                            variant="circular"
-                            width={30}
-                            height={30}
-                        />
-                    </Stack>
-                </Grid>
-            </Grid>
-
-            <Stack
-                sx={{
-                    overflowX: "hidden",
+            <Box
+                ref={carousel}
+                onMouseOver={() => {
+                    setHover(true);
                 }}
-                direction="row"
-                spacing={1.5}
+                onMouseOut={() => {
+                    setHover(false);
+                }}
+                sx={{
+                    width: "100%",
+                    margin: 0.5,
+                    padding: 1.5,
+                    border: 1,
+                    borderRadius: 1,
+                    borderColor: grey[500],
+                }}
             >
-                {getBookCards()}
-            </Stack>
-        </Box>
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <Skeleton
+                            sx={{ opacity: hover ? 0.3 : 0.6 }}
+                            animation={false}
+                            height={40}
+                            width="18rem"
+                        />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <Stack
+                            direction="row"
+                            spacing={1.5}
+                            sx={{
+                                paddingLeft: 1,
+                                paddingTop: 1,
+                                paddingBottom: 1,
+                                justifyContent: "end",
+                            }}
+                        >
+                            <Skeleton
+                                sx={{ opacity: hover ? 0.3 : 0.6 }}
+                                animation={false}
+                                variant="circular"
+                                width={30}
+                                height={30}
+                            />
+                            <Skeleton
+                                sx={{ opacity: hover ? 0.3 : 0.6 }}
+                                animation={false}
+                                variant="circular"
+                                width={30}
+                                height={30}
+                            />
+                            <Skeleton
+                                sx={{ opacity: hover ? 0.3 : 0.6 }}
+                                animation={false}
+                                variant="circular"
+                                width={30}
+                                height={30}
+                            />
+                        </Stack>
+                    </Grid>
+                </Grid>
+
+                <Stack
+                    sx={{
+                        overflowX: "hidden",
+                    }}
+                    direction="row"
+                    spacing={1.5}
+                >
+                    {getBookCards()}
+                </Stack>
+            </Box>
+            <Box
+                sx={{
+                    zIndex: "tooltip",
+                    top: "50%",
+                    position: "absolute",
+                    left: "50%",
+                    right: "0",
+                    opacity: hover ? 0.9 : 0.6,
+                }}
+                onMouseOver={() => {
+                    setHover(true);
+                }}
+                onMouseOut={() => {
+                    setHover(false);
+                }}
+            >
+                <AddIcon sx={{ fontSize: 50 }} />
+                <br></br>
+                <Typography variant="caption" align="center">
+                    Add Shelf
+                </Typography>
+            </Box>
+        </div>
     );
 };
 export default BookCarouselSkelton;
