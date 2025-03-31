@@ -89,6 +89,16 @@ const getTheme = (userMode = "auto") => {
                     },
                 },
             },
+            MuiTableCell: {
+                styleOverrides: {
+                    root: {
+                        fontFamily: "Moderustic",
+                    },
+                    body: {
+                        fontFamily: "Playfair Display",
+                    },
+                },
+            },
         },
     });
 

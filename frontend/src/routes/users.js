@@ -24,7 +24,6 @@ import ButtonsContext from "../contexts/buttons";
 import { UserContext } from "../contexts/user";
 
 import UserAvatar from "../components/UserAvatar";
-import EditableTypography from "../components/EditableTypography";
 
 const User = () => {
     const navigate = useNavigate();
@@ -98,26 +97,25 @@ const User = () => {
                                     <UserAvatar user={row} />
                                 </TableCell>
                                 <TableCell align="left">
-                                    <EditableTypography>
-                                        {row.firstName}
-                                    </EditableTypography>
+                                    {row.firstName}
                                 </TableCell>
                                 <TableCell align="left">
-                                    <EditableTypography>
-                                        {row.lastName}
-                                    </EditableTypography>
+                                    {row.lastName}
                                 </TableCell>
-                                <TableCell align="left">
-                                    <EditableTypography>
-                                        {row.email}
-                                    </EditableTypography>
-                                </TableCell>
+                                <TableCell align="left">{row.email}</TableCell>
                                 <TableCell align="left">{row.role}</TableCell>
                                 <TableCell align="center">
                                     <Checkbox checked={row.enabled} />
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Stack direction="row" spacing={0.5}>
+                                    <Stack
+                                        direction="row"
+                                        spacing={0.5}
+                                        sx={{
+                                            justifyContent: "flex-end",
+                                            alignItems: "center",
+                                        }}
+                                    >
                                         <IconButton
                                             aria-label="delete"
                                             size="medium"

@@ -81,11 +81,6 @@ const App = () => {
                         vertical: "bottom",
                         horizontal: "right",
                     }}
-                    sx={{
-                        "& .notistack-SnackbarContainer": {
-                            bottom: "6rem !important",
-                        },
-                    }}
                     maxSnack={4}
                     autoHideDuration={3000}
                     preventDuplicate

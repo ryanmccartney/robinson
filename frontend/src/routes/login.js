@@ -66,7 +66,7 @@ const Root = () => {
             direction="row"
             justifyContent="center"
             alignItems="center"
-            sx={{ m: 2, width: 1, height: "70vh" }}
+            sx={{ m: 2, height: "70vh" }}
         >
             <Card>
                 <Grid container sx={{ padding: 2 }} spacing={2}>

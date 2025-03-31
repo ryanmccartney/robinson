@@ -1,16 +1,13 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
-import EditableTypography from "../components/EditableTypography";
 import { BarcodeDetector } from "barcode-detector";
 import { enqueueSnackbar } from "notistack";
 import isbn from "isbn3";
-
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import { Opacity } from "@mui/icons-material";
+import EditableTypography from "../components/EditableTypography";
 
 const Scan = ({ delay = 250 }) => {
     const navigate = useNavigate();
