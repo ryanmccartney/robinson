@@ -94,7 +94,7 @@ const Case = () => {
         const shelves = [];
         for (const shelf of data?.shelves) {
             shelves.push(
-                <Grid key={shelf?.shelfId} item xs={12}>
+                <Grid key={shelf?.shelfId} item size={{ xs: 12 }}>
                     <BookCarousel title={shelf?.name} books={shelf?.books} />
                 </Grid>
             );
@@ -102,7 +102,7 @@ const Case = () => {
 
         if (edit) {
             shelves.push(
-                <Grid key="add" item xs={12}>
+                <Grid key="add" item size={{ xs: 12 }}>
                     <BookCarouselSkelton />
                 </Grid>
             );

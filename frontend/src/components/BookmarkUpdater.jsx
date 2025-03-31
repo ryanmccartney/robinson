@@ -4,8 +4,7 @@ import Stack from "@mui/material/Stack";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
 
-import NumberInput from "../components/NumberInput";
-import { Height } from "@mui/icons-material";
+import NumberInput from "@components/NumberInput/NumberInput";
 
 const style = {
     position: "absolute",
@@ -54,7 +53,12 @@ const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
                             />
                         }
                     >
-                        <Box sx={{ width: "100%" }}>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                transform: "translateY(30%)",
+                            }}
+                        >
                             <NumberInput
                                 onChange={updateBook}
                                 field="progress"
@@ -63,7 +67,12 @@ const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
                                 max={data.book.pages}
                             ></NumberInput>
                         </Box>
-                        <Box sx={{ width: "100%" }}>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                transform: "translateY(30%)",
+                            }}
+                        >
                             <NumberInput
                                 onChange={updateBook}
                                 field="pages"

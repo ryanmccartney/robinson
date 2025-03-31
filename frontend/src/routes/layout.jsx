@@ -18,12 +18,12 @@ const Layout = () => {
 
             <Box sx={{ pb: 7, m: 0 }}>
                 <Grid container justify="flex-end" spacing={0}>
-                    <Grid item xs={9}>
+                    <Grid item size={{ xs: 9 }}>
                         <LayoutBreadcrumbs />
                     </Grid>
                     <Grid
                         item
-                        xs={3}
+                        size={{ xs: 3 }}
                         alignItems="flex-end"
                         justify="flex-end"
                         sx={{ justifyContent: "end" }}

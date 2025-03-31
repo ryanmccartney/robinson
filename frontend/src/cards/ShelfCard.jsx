@@ -19,7 +19,7 @@ const ShelfCard = ({ shelf }) => {
     const card = React.useRef(null);
 
     return (
-        <Grid item xs={6} md={3} lg={2}>
+        <Grid item size={{ xs: 6, md: 3, lg: 2 }}>
             <Link
                 style={{ textDecoration: "none" }}
                 to={`/shelf/${shelf.shelfId}`}

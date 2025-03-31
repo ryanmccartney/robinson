@@ -19,7 +19,7 @@ const bookcaseCard = ({ bookcase }) => {
     const card = React.useRef(null);
 
     return (
-        <Grid item xs={6} md={3} lg={2}>
+        <Grid item size={{ xs: 12, md: 3, lg: 2 }}>
             <Link
                 style={{ textDecoration: "none" }}
                 to={`/case/${bookcase.caseId}`}

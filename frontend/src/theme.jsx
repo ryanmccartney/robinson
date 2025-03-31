@@ -79,13 +79,23 @@ const getTheme = (userMode = "auto") => {
         components: {
             MuiCssBaseline: {
                 styleOverrides: {
-                    "@font-face": {
-                        fontFamily: "Playfair Display",
-                        src: `url(${playfairDisplay}) format("truetype")`,
-                    },
-                    "@font-face": {
-                        fontFamily: "Moderustic",
-                        src: `url(${moderustic}) format("truetype")`,
+                    html: [
+                        {
+                            "@font-face": {
+                                fontFamily: "Playfair Display",
+                                src: `url(${playfairDisplay}) format("truetype")`,
+                            },
+                        },
+                        {
+                            "@font-face": {
+                                fontFamily: "Moderustic",
+                                src: `url(${moderustic}) format("truetype")`,
+                            },
+                        },
+                    ],
+                    "html, body": {
+                        padding: 0,
+                        scrollbarWidth: "thin",
                     },
                 },
             },

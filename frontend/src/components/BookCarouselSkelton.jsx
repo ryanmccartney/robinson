@@ -65,7 +65,7 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
                 }}
             >
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item size={{ xs: 6 }}>
                         <Skeleton
                             sx={{ opacity: hover ? 0.3 : 0.6 }}
                             animation={false}
@@ -74,7 +74,7 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item size={{ xs: 6 }}>
                         <Stack
                             direction="row"
                             spacing={1.5}

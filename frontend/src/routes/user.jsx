@@ -88,7 +88,7 @@ const User = () => {
                 justifyContent="center"
                 spacing={3}
             >
-                <Grid item xs={12} md={4} lg={6} xl={6}>
+                <Grid item size={{ xs: 12, md: 4, lg: 6, xl: 6 }}>
                     <Card
                         sx={{ marginTop: 6, padding: 3, overflow: "visible" }}
                     >
@@ -115,7 +115,7 @@ const User = () => {
                             justifyContent="center"
                             spacing={3}
                         >
-                            <Grid item xs={12} md={6}>
+                            <Grid item size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     fullWidth
                                     value={user?.firstName}
@@ -126,7 +126,7 @@ const User = () => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={6}>
+                            <Grid item size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     fullWidth
                                     value={user?.lastName}
@@ -137,7 +137,7 @@ const User = () => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} xl={12}>
+                            <Grid item size={{ xs: 12, xl: 12 }}>
                                 <TextField
                                     fullWidth
                                     value={user?.email}
@@ -148,7 +148,7 @@ const User = () => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} xl={12}>
+                            <Grid item size={{ xs: 12, xl: 12 }}>
                                 <TextField
                                     fullWidth
                                     value="12345678"
@@ -160,7 +160,7 @@ const User = () => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} xl={12}>
+                            <Grid item size={{ xs: 12, xl: 12 }}>
                                 <FormControl fullWidth>
                                     <InputLabel id="role-select-label">
                                         Role
@@ -192,7 +192,7 @@ const User = () => {
                                 </FormControl>
                             </Grid>
 
-                            <Grid item xs={12} xl={12}>
+                            <Grid item size={{ xs: 12, xl: 12 }}>
                                 <FormControl fullWidth>
                                     <InputLabel id="theme-select-label">
                                         Theme

@@ -70,10 +70,10 @@ const Root = () => {
         >
             <Card>
                 <Grid container sx={{ padding: 2 }} spacing={2}>
-                    <Grid item xs={12} md={12}>
+                    <Grid item size={{ xs: 12, md: 12 }}>
                         <Typography variant="h4">Login</Typography>
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item size={{ xs: 12, md: 12 }}>
                         <TextField
                             onChange={(event) => {
                                 setUsername(event.target.value);
@@ -84,7 +84,7 @@ const Root = () => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item size={{ xs: 12, md: 12 }}>
                         <TextField
                             onChange={(event) => {
                                 setPassword(event.target.value);
@@ -98,8 +98,7 @@ const Root = () => {
                     </Grid>
                     <Grid
                         item
-                        xs={12}
-                        md={12}
+                        size={{ xs: 12, md: 12 }}
                         direction="row"
                         alignItems="center"
                         justify="flex-end"

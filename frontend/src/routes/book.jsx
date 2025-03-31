@@ -179,16 +179,16 @@ const Book = () => {
                 setOpen={setOrganiserOpen}
             />
             <Grid container sx={{ paddingRight: { xs: 0, md: 2 } }} spacing={3}>
-                <Grid item align="center" xs={12} md={4} lg={6}>
+                <Grid item align="center" size={{ xs: 12, md: 4, lg: 6 }}>
                     <Grid container spacing={2}>
-                        <Grid item align="center" xs={12} lg={12}>
+                        <Grid item align="center" size={{ xs: 12, lg: 12 }}>
                             <CoverCard
                                 edit={edit}
                                 data={data}
                                 setData={setData}
                             />
                         </Grid>
-                        <Grid item align="center" xs={12} lg={12}>
+                        <Grid item align="center" size={{ xs: 12, lg: 12 }}>
                             <BookProgress
                                 progress={data.book.progress}
                                 total={data.book.pages}
@@ -197,9 +197,9 @@ const Book = () => {
                     </Grid>
                 </Grid>
 
-                <Grid item xs={12} md={8} lg={6}>
+                <Grid item size={{ xs: 12, md: 8, lg: 6 }}>
                     <Grid container spacing={0}>
-                        <Grid margin="0" item xs={12} lg={8}>
+                        <Grid margin="0" item size={{ xs: 12, lg: 8 }}>
                             <EditableTypography
                                 field="title"
                                 edit={edit}
@@ -214,8 +214,7 @@ const Book = () => {
                             margin="0"
                             paddingTop="5px"
                             align="right"
-                            xs={12}
-                            lg={4}
+                            size={{ xs: 12, lg: 4 }}
                         >
                             {getChips()}
                         </Grid>
@@ -272,7 +271,7 @@ const Book = () => {
                         justifyContent="flex-start"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
@@ -280,7 +279,7 @@ const Book = () => {
                                 Publisher
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <EditableTypography
                                 field="publisher"
                                 edit={edit}
@@ -290,7 +289,7 @@ const Book = () => {
                                 {data.book.publisher}
                             </EditableTypography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
@@ -298,7 +297,7 @@ const Book = () => {
                                 Published
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             {edit ? (
                                 <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
@@ -321,7 +320,7 @@ const Book = () => {
                                 </Typography>
                             )}
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
@@ -329,7 +328,7 @@ const Book = () => {
                                 Pages
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <EditableTypography
                                 field="pages"
                                 edit={edit}
@@ -339,7 +338,7 @@ const Book = () => {
                                 {data.book.pages}
                             </EditableTypography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
@@ -347,7 +346,7 @@ const Book = () => {
                                 ISBN-13
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <EditableTypography
                                 field="isbn"
                                 edit={edit}
@@ -358,19 +357,19 @@ const Book = () => {
                             </EditableTypography>
                         </Grid>
 
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
                             ></Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
                             ></Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item size={{ xs: 6 }}>
                             <QrDialog
                                 url={window.location.href}
                                 label={data.book.title}
