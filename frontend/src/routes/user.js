@@ -166,6 +166,7 @@ const User = () => {
                                         Role
                                     </InputLabel>
                                     <Select
+                                        label="Role"
                                         labelId="role-select-label"
                                         id="role-select"
                                         disabled={
@@ -197,6 +198,7 @@ const User = () => {
                                         Theme
                                     </InputLabel>
                                     <Select
+                                        label="Theme"
                                         labelId="theme-select-label"
                                         id="theme-select"
                                         value={theme}
