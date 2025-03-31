@@ -8,6 +8,7 @@ import BreadcrumbsContext from "./../contexts/breadcrumbs";
 import ButtonsContext from "./../contexts/buttons";
 import LoadingContent from "./../components/LoadingContent";
 import BookCarousel from "./../components/BookCarousel";
+import BookCarouselSkelton from "./../components/BookCarouselSkelton";
 
 const Case = () => {
     const navigate = useNavigate();
@@ -98,6 +99,15 @@ const Case = () => {
                 </Grid>
             );
         }
+
+        if (edit) {
+            shelves.push(
+                <Grid key="add" item xs={12}>
+                    <BookCarouselSkelton />
+                </Grid>
+            );
+        }
+
         return shelves;
     };
 

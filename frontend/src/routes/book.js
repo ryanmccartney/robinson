@@ -13,7 +13,7 @@ import fetcher from "./../utils/fetcher";
 
 import CoverCard from "./../cards/CoverCard";
 import EditableTypography from "../components/EditableTypography";
-import OrganiserModal from "./../components/OrganiserModal";
+import OrganiserDialog from "../dialogs/OrganiserDialog";
 import LoadingContent from "./../components/LoadingContent";
 import BookProgress from "./../components/BookProgress";
 import BreadcrumbsContext from "./../contexts/breadcrumbs";
@@ -172,7 +172,7 @@ const Book = () => {
 
     return (
         <Box sx={{ m: 2 }}>
-            <OrganiserModal
+            <OrganiserDialog
                 data={data}
                 setData={setData}
                 open={organiserOpen}

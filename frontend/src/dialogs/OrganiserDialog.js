@@ -171,15 +171,15 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
             <Modal
                 open={open}
                 onClose={() => setOpen(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
             >
                 <Card sx={style}>
                     <Typography
-                        gutterBottom
-                        id="modal-modal-title"
+                        id="modal-title"
                         variant="h5"
                         component="h2"
+                        mb={2}
                     >
                         Book Organiser
                     </Typography>
@@ -191,21 +191,21 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                     >
                         <Box sx={{ width: "100%" }}>
                             <Typography
-                                id="modal-modal-title"
+                                id="modal-title"
                                 variant="h6"
-                                component="h2"
+                                component="h6"
                             >
-                                Select Case
+                                Case
                             </Typography>
                             <List>{casesComponents}</List>
                         </Box>
                         <Box sx={{ width: "100%" }}>
                             <Typography
-                                id="modal-modal-title"
+                                id="modal-title"
                                 variant="h6"
-                                component="h2"
+                                component="h6"
                             >
-                                Select Shelf
+                                Shelf
                             </Typography>
                             <List>{shelvesComponents}</List>
                         </Box>
