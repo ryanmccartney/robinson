@@ -7,10 +7,17 @@ import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
+import ShelfDialog from "../dialogs/ShelfDialog";
 
 const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
     const carousel = useRef(null);
+
     const [hover, setHover] = useState(false);
+    const [newShelfDialogOpen, setNewShelfDialogOpen] = useState(false);
+
+    const handleNewShelf = (shelfId) => {
+        console.log(shelfId);
+    };
 
     const getBookCards = () => {
         const bookCards = [];
@@ -35,6 +42,11 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
                 position: "relative",
             }}
         >
+            <ShelfDialog
+                onShelfChange={handleNewShelf}
+                open={newShelfDialogOpen}
+                setOpen={setNewShelfDialogOpen}
+            />
             <Box
                 ref={carousel}
                 onMouseOver={() => {
@@ -110,7 +122,7 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
             </Box>
             <Box
                 sx={{
-                    zIndex: "tooltip",
+                    zIndex: "drawer",
                     top: "50%",
                     position: "absolute",
                     left: "50%",
@@ -123,6 +135,7 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
                 onMouseOut={() => {
                     setHover(false);
                 }}
+                onClick={() => setNewShelfDialogOpen(true)}
             >
                 <AddIcon sx={{ fontSize: 50 }} />
                 <br></br>

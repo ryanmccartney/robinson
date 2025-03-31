@@ -1,5 +1,6 @@
-import React, { useState, lazy, Suspense, useContext } from "react";
-import ReactDOM from "react-dom/client";
+import React, { StrictMode, useState, lazy, Suspense, useContext } from "react";
+import { createRoot } from "react-dom/client";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
@@ -104,8 +105,8 @@ const App = () => {
     );
 };
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-    <>
+createRoot(document.getElementById("root")).render(
+    <StrictMode>
         <App />
-    </>
+    </StrictMode>
 );

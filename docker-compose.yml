@@ -28,6 +28,7 @@ services:
         restart: unless-stopped
         volumes:
             - ./frontend:/home/node/app
+            - node_modules:/home/node/app/node_modules
         environment:
             PORT: 3000
             NODE_ENV: development
@@ -37,3 +38,4 @@ services:
             - 3000:3000
 volumes:
     robinson-data:
+    node_modules:

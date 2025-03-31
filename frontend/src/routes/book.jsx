@@ -8,7 +8,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useParams, useNavigate } from "react-router-dom";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import fetcher from "./../utils/fetcher";
 
 import CoverCard from "./../cards/CoverCard";
