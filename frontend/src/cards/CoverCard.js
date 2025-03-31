@@ -6,6 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import Barcode from "react-barcode";
+import isbn from "isbn3";
 
 import BookmarkUpdater from "../components/BookmarkUpdater";
 
@@ -32,6 +34,19 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
     const media = useRef(null);
     const coverRef = useRef(null);
 
+    const getISBN = (isbnString, hypens = true) => {
+        if (isbnString) {
+            const isbnObject = isbn.parse(isbnString);
+            if (isbnObject) {
+                if (hypens) {
+                    return isbnObject.isbn13h;
+                }
+                return isbnObject.isbn13;
+            }
+            return isbnString;
+        }
+    };
+
     const getOverlay = () => {
         if (edit) {
             return (
@@ -51,6 +66,23 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                 <Typography variant="caption" align="center">
                     Bookmark
                 </Typography>
+                <br></br>
+
+                <Box sx={{ marginTop: 20 }}>
+                    <Barcode
+                        format="EAN13"
+                        width={2}
+                        height={40}
+                        fontSize={12}
+                        value={getISBN(data.book.isbn, false)}
+                        background=""
+                        lineColor="#1a1a1a"
+                        font="Moderustic"
+                        displayValue={true}
+                        marginLeft={10}
+                        marginRight={20}
+                    />
+                </Box>
             </>
         );
     };

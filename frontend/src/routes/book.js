@@ -8,7 +8,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useParams, useNavigate } from "react-router-dom";
-import Barcode from "react-barcode";
 import QRCode from "react-qr-code";
 import * as dayjs from "dayjs";
 import fetcher from "./../utils/fetcher";
@@ -364,15 +363,6 @@ const Book = () => {
                                 fontWeight="fontWeightMedium"
                                 variant="body2"
                             ></Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Barcode
-                                format="EAN13"
-                                width={2}
-                                height={40}
-                                fontSize={12}
-                                value={getISBN(data.book.isbn, false)}
-                            />
                         </Grid>
                         <Grid item xs={6}>
                             <Typography
