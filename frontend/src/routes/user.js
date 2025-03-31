@@ -25,7 +25,7 @@ const User = () => {
     const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { buttons, setButtons } = useContext(ButtonsContext);
 
-    const [theme, setTheme] = useState(null);
+    const [theme, setTheme] = useState("auto");
 
     const updateUser = async (key, data) => {
         const response = await fetch(`/api/users/current`, {
