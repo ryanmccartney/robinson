@@ -1,4 +1,4 @@
-import React, { StrictMode, useState, lazy, Suspense, useContext } from "react";
+import { StrictMode, useState, lazy, Suspense, useContext } from "react";
 import { createRoot } from "react-dom/client";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";

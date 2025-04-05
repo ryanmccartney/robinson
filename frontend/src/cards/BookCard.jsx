@@ -8,10 +8,6 @@ import trimToLength from "@utils/trimToLength";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
-const options = {
-    shouldForwardProp: (prop) => prop !== "hoverShadow",
-};
-
 const BookCard = ({
     book,
     width = "100%",
