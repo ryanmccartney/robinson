@@ -11,7 +11,7 @@ const BookSpineCard = ({
     expandedWidth = "20rem",
     minHeight = "24rem",
 }) => {
-    const [setShow] = React.useState(false);
+    const [,setShow] = React.useState(false);
 
     const media = React.useRef(null);
     const card = React.useRef(null);

@@ -29,7 +29,7 @@ const style = {
 const OrganiserModal = ({ open, setOpen, data, setData }) => {
     const [shelves, setShelves] = useState(false);
     const [shelvesComponents, setShelvesComponents] = useState([]);
-    const [setCases] = useState(false);
+    const [,setCases] = useState(false);
     const [casesComponents, setCasesComponents] = useState([]);
 
     const fetchShelves = async () => {

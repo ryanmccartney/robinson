@@ -12,7 +12,7 @@ import EditableTypography from "@components/EditableTypography";
 const Scan = ({ delay = 250 }) => {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
-    const [setBarcode] = useState("");
+    const [,setBarcode] = useState("");
     const [windowSize, setWindowSize] = useState({
         width: undefined,
         height: undefined,

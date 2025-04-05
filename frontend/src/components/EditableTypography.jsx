@@ -37,6 +37,7 @@ const EditableTypography = ({
     field = "data",
     edit = false,
     onChange,
+    multiline = false,
     ...props
 }) => {
     const [internalValue, setInternalValue] = useState(props.children);
@@ -48,6 +49,7 @@ const EditableTypography = ({
         }
     };
 
+    props.multiline = multiline;
     delete props.children;
 
     if (edit) {
