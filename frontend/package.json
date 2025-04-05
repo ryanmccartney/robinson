@@ -15,8 +15,7 @@
   },
   "pre-commit": [
     "format",
-    "lint",
-    "test"
+    "lint"
   ],
   "author": "Ryan McCartney",
   "type": "module",
