@@ -59,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const TopNavBar = ({ user }) => {
     const searchRef = useRef(null);
-    const [,setData] = useState(null);
+    const [, setData] = useState(null);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
