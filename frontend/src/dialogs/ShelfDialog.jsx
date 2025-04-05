@@ -11,12 +11,14 @@ import Checkbox from "@mui/material/Checkbox";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
+import fetcher from "@utils/fetcher";
+
 const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
     const [data, setData] = useState(false);
 
     const fetchShelves = async () => {
-        const response = await fetch(`/api/shelves`);
-        setData(await response.json());
+        const response = await fetcher(`shelves`);
+        setData(response);
     };
 
     const getShelves = (shelves) => {

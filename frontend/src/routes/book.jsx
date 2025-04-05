@@ -70,32 +70,16 @@ const Book = () => {
     };
 
     const updateBook = async (bookData) => {
-        const response = await fetch(`/api/books/${bookId}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bookData),
-        });
-        const newData = await response.json();
+        const newData = await fetcher.put(`books/${bookId}`, bookData);
         setData(newData);
         setContexts(newData);
     };
 
     const favouriteBook = async (book) => {
         console.log(`Favourite book - ${bookId}`);
-        const response = await fetch(`/api/books/${bookId}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                favourite: !book?.favourite,
-            }),
+        const newData = await fetcher.put(`books/${bookId}`, {
+            favourite: !book?.favourite,
         });
-        const newData = await response.json();
         setData(newData);
         setContexts(newData);
     };
@@ -234,15 +218,8 @@ const Book = () => {
                         name="simple-controlled"
                         value={rating}
                         onChange={async (event, newRating) => {
-                            await fetch(`/api/books/${bookId}`, {
-                                method: "PUT",
-                                headers: {
-                                    Accept: "application/json",
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    rating: newRating,
-                                }),
+                            await fetcher.put(`books/${bookId}`, {
+                                rating: newRating,
                             });
                             setRating(newRating);
                         }}

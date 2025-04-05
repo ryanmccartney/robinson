@@ -26,7 +26,7 @@ const Case = () => {
     };
 
     const updateCase = async (caseData) => {
-        const newData = await fetcher.put(`/api/cases/${caseId}`, caseData);
+        const newData = await fetcher.put(`cases/${caseId}`, caseData);
         setData(newData);
         setContexts(newData);
     };
@@ -57,7 +57,7 @@ const Case = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const data = await fetcher(`/api/cases/${caseId}`);
+            const data = await fetcher(`cases/${caseId}`);
             setData(data);
             setContexts(data);
         };

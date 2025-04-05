@@ -10,7 +10,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import getInitials from "../utils/getInitials";
+import getInitials from "@utils/getInitials";
+import fetcher from "@utils/fetcher";
 
 const LibraryMenu = ({ libraries = {}, callback }) => {
     const getLibraryItems = () => {
@@ -85,8 +86,7 @@ const LibrarySelector = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/libraries`);
-            const data = await response.json();
+            const data = await fetcher(`libraries`);
             setData(data);
 
             const libraryId = localStorage.getItem("libraryId");

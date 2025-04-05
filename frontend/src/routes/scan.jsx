@@ -6,6 +6,7 @@ import { enqueueSnackbar } from "notistack";
 import isbn from "isbn3";
 import Box from "@mui/material/Box";
 
+import fetcher from "@utils/fetcher";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import EditableTypography from "@components/EditableTypography";
 
@@ -29,10 +30,7 @@ const Scan = ({ delay = 250 }) => {
                 `ISBN is valid, searching for ${isbnObject.isbn13h}...`
             );
 
-            const response = await fetch(`/api/metadata/${isbnObject.isbn13}`, {
-                method: "POST",
-            });
-            const data = await response.json();
+            const data = await fetcher.post(`metadata/${isbnObject.isbn13}`);
             if (data.book) {
                 enqueueSnackbar(`Created a book called ${data.book.title}`, {
                     variant: "info",

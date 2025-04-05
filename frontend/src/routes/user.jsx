@@ -17,6 +17,7 @@ import ButtonsContext from "@contexts/buttons";
 
 import { UserContext } from "@contexts/user";
 import UserAvatar from "@components/UserAvatar";
+import fetcher from "@utils/fetcher";
 
 const User = () => {
     const navigate = useNavigate();
@@ -28,15 +29,7 @@ const User = () => {
     const [theme, setTheme] = useState("auto");
 
     const updateUser = async (key, data) => {
-        const response = await fetch(`/api/users/current`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ [key]: data }),
-        });
-        const newData = await response.json();
+        const newData = await fetcher.put(`users/current`, { [key]: data });
         setUser(newData?.user);
     };
 

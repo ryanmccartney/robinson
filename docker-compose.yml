@@ -36,6 +36,26 @@ services:
             - backend
         ports:
             - 3000:3000
+    mongo-web:
+        image: mongo-express
+        restart: unless-stopped
+        ports:
+            - 3200:8081
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "1"
+        environment:
+            ME_CONFIG_OPTIONS_EDITORTHEME: "ambiance"
+            ME_CONFIG_MONGODB_SERVER: "mongo"
+            ME_CONFIG_BASICAUTH_USERNAME: robinson
+            ME_CONFIG_BASICAUTH_PASSWORD: robinson123
+            ME_CONFIG_MONGODB_AUTH_USERNAME: robinson
+            ME_CONFIG_MONGODB_AUTH_PASSWORD: robinson123
+        hostname: mongo-web
+        depends_on:
+            - mongo
 volumes:
     robinson-data:
     node_modules:

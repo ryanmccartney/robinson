@@ -21,20 +21,12 @@ const Shelf = () => {
 
     const deleteShelf = async () => {
         console.log(`Delete shelf - ${shelfId}`);
-        await fetch(`/api/shelves/${shelfId}`, { method: "DELETE" });
+        await fetcher.delete(`shelves/${shelfId}`);
         navigate(`/shelves`);
     };
 
     const updateShelf = async (shelfData) => {
-        const response = await fetch(`/api/shelves/${shelfId}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(shelfData),
-        });
-        const newData = await response.json();
+        const newData = await fetcher.put(`shelves/${shelfId}`, shelfData);
         setData(newData);
         setContexts(newData);
     };
