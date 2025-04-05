@@ -1,4 +1,8 @@
 import { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import isbn from "isbn3";
+
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -7,9 +11,6 @@ import Chip from "@mui/material/Chip";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useParams, useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
-import fetcher from "@utils/fetcher";
 
 import CoverCard from "@cards/CoverCard";
 import EditableTypography from "@components/EditableTypography";
@@ -18,13 +19,16 @@ import LoadingContent from "@components/LoadingContent";
 import BookProgress from "@components/BookProgress";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
-import isbn from "isbn3";
 import QrDialog from "@dialogs/QrDialog";
+import fetcher from "@utils/fetcher";
+import { useBook } from "@utils/data";
 
 const Book = () => {
     const navigate = useNavigate();
     const { bookId } = useParams();
-    const [data, setData] = useState(null);
+
+    const { book, isBookLoading, bookMutate } = useBook(bookId);
+
     const [edit, setEdit] = useState(false);
     const [organiserOpen, setOrganiserOpen] = useState(false);
     const [rating, setRating] = useState(0);
@@ -32,7 +36,6 @@ const Book = () => {
     const { setButtons } = useContext(ButtonsContext);
 
     const deleteBook = async () => {
-        console.log(`Delete book - ${bookId}`);
         await fetcher.delete(`books/${bookId}`);
         navigate(`/books`);
     };
@@ -53,7 +56,7 @@ const Book = () => {
     const getChips = () => {
         const chips = [];
 
-        if (!data.book.shelfId) {
+        if (!book.shelfId) {
             chips.push(
                 <Chip
                     sx={{ borderRadius: 1 }}
@@ -71,16 +74,15 @@ const Book = () => {
 
     const updateBook = async (bookData) => {
         const newData = await fetcher.put(`books/${bookId}`, bookData);
-        setData(newData);
+        bookMutate(newData);
         setContexts(newData);
     };
 
     const favouriteBook = async (book) => {
-        console.log(`Favourite book - ${bookId}`);
         const newData = await fetcher.put(`books/${bookId}`, {
             favourite: !book?.favourite,
         });
-        setData(newData);
+        bookMutate(newData);
         setContexts(newData);
     };
 
@@ -126,30 +128,19 @@ const Book = () => {
         }
     };
 
-    //On component Mount
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetcher(`books/${bookId}`);
-            setData(data);
-            setRating(data?.book?.rating);
-            setContexts(data);
-        };
-        fetchData();
-    }, []);
-
-    //On component Unmount (cleanup)
-    useEffect(() => {
+        setContexts(book);
         return () => {
             setBreadcrumbs([]);
             setButtons([]);
         };
     }, []);
 
-    if (!data) {
+    if (isBookLoading) {
         return <LoadingContent />;
     }
 
-    if (!data.book) {
+    if (!isBookLoading && !book) {
         navigate(`/books`);
         return <LoadingContent />;
     }
@@ -157,8 +148,8 @@ const Book = () => {
     return (
         <Box sx={{ m: 2 }}>
             <OrganiserDialog
-                data={data}
-                setData={setData}
+                book={book}
+                bookMutate={bookMutate}
                 open={organiserOpen}
                 setOpen={setOrganiserOpen}
             />
@@ -168,14 +159,14 @@ const Book = () => {
                         <Grid align="center" size={{ xs: 12, lg: 12 }}>
                             <CoverCard
                                 edit={edit}
-                                data={data}
-                                setData={setData}
+                                book={book}
+                                bookMutate={bookMutate}
                             />
                         </Grid>
                         <Grid align="center" size={{ xs: 12, lg: 12 }}>
                             <BookProgress
-                                progress={data.book.progress}
-                                total={data.book.pages}
+                                progress={book.progress}
+                                total={book.pages}
                             />
                         </Grid>
                     </Grid>
@@ -190,7 +181,7 @@ const Book = () => {
                                 onChange={updateBook}
                                 variant="h4"
                             >
-                                {data.book.title}
+                                {book.title}
                             </EditableTypography>
                         </Grid>
                         <Grid
@@ -210,7 +201,7 @@ const Book = () => {
                         gutterBottom
                         variant="subtitle1"
                     >
-                        {data.book.author}
+                        {book.author}
                     </EditableTypography>
 
                     <Rating
@@ -233,7 +224,7 @@ const Book = () => {
                         align="justify"
                         variant="body2"
                     >
-                        {data.book.description}
+                        {book.description}
                     </EditableTypography>
 
                     <Typography gutterBottom variant="h5">
@@ -262,7 +253,7 @@ const Book = () => {
                                 onChange={updateBook}
                                 variant="body2"
                             >
-                                {data.book.publisher}
+                                {book.publisher}
                             </EditableTypography>
                         </Grid>
                         <Grid size={{ xs: 6 }}>
@@ -280,7 +271,7 @@ const Book = () => {
                                 >
                                     <DatePicker
                                         sx={{ width: "100%" }}
-                                        value={dayjs(data.book.publishDate)}
+                                        value={dayjs(book.publishDate)}
                                         onChange={(newValue) =>
                                             updateBook({
                                                 publishDate: newValue,
@@ -290,7 +281,7 @@ const Book = () => {
                                 </LocalizationProvider>
                             ) : (
                                 <Typography variant="body2">
-                                    {dayjs(data.book.publishDate).format(
+                                    {dayjs(book.publishDate).format(
                                         "MMMM YYYY"
                                     )}
                                 </Typography>
@@ -311,7 +302,7 @@ const Book = () => {
                                 onChange={updateBook}
                                 variant="body2"
                             >
-                                {data.book.pages}
+                                {book.pages}
                             </EditableTypography>
                         </Grid>
                         <Grid size={{ xs: 6 }}>
@@ -329,7 +320,7 @@ const Book = () => {
                                 onChange={updateBook}
                                 variant="body2"
                             >
-                                {getISBN(data.book.isbn)}
+                                {getISBN(book.isbn)}
                             </EditableTypography>
                         </Grid>
 
@@ -348,7 +339,7 @@ const Book = () => {
                         <Grid size={{ xs: 6 }}>
                             <QrDialog
                                 url={window.location.href}
-                                label={data.book.title}
+                                label={book.title}
                             />
                         </Grid>
                     </Grid>

@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import fetcher from "@utils/fetcher";
+import { useCases, useShelves } from "@utils/data";
 
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -26,69 +27,48 @@ const style = {
     p: 2,
 };
 
-const OrganiserModal = ({ open, setOpen, data, setData }) => {
-    const [shelves, setShelves] = useState(false);
-    const [shelvesComponents, setShelvesComponents] = useState([]);
-    const [, setCases] = useState(false);
-    const [casesComponents, setCasesComponents] = useState([]);
+const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
+    const { cases, isCasesLoading } = useCases();
+    const { shelves, isShelvesLoading } = useShelves();
 
-    const fetchShelves = async () => {
-        const shelvesData = await fetcher(`shelves`);
-        await setShelves(shelvesData);
-        await getShelves(shelvesData, data?.case?.caseId, data?.shelf?.shelfId);
-    };
+    const [selectedCaseId, setSelectedCaseId] = useState(book?.case?.caseId);
+    const [selectedShelfId, setSelectedShelfId] = useState(
+        book?.shelf?.shelfId
+    );
 
-    const fetchCases = async () => {
-        const casesData = await fetcher(`cases`);
-        await setCases(casesData);
-        await getCases(casesData, data?.case?.caseId);
-    };
-
-    const updateShelf = async (shelves, shelfId) => {
-        const updatedData = await fetcher.put(`books/${data.book.bookId}`, {
+    const updateBook = async (shelfId) => {
+        const updatedBook = await fetcher.put(`books/${book.bookId}`, {
             shelfId,
         });
-        setData(updatedData);
-        getShelves(shelves, data.case.caseId, shelfId);
+        bookMutate(updatedBook);
     };
 
-    const getCases = (cases, selectedCase) => {
+    const getCases = () => {
         const casesItems = [];
 
-        const isChecked = (caseId) => {
-            if (selectedCase == caseId) {
-                return true;
-            }
-            return false;
-        };
-
-        if (cases) {
-            for (const bookcase of cases.cases) {
+        if (!isCasesLoading && cases) {
+            for (const bookcase of cases) {
                 casesItems.push(
                     <ListItem key={bookcase.caseId} disablePadding>
                         <ListItemButton
                             role={undefined}
                             onClick={() => {
-                                getCases(cases, bookcase.caseId);
-                                getShelves(
-                                    shelves,
-                                    bookcase.caseId,
-                                    data?.shelf?.shelfId
-                                );
+                                setSelectedCaseId(bookcase.caseId);
                             }}
                             dense
                         >
                             <ListItemIcon>
                                 <Checkbox
                                     edge="start"
-                                    checked={isChecked(bookcase.caseId)}
+                                    checked={
+                                        bookcase.caseId === selectedCaseId
+                                            ? true
+                                            : false
+                                    }
                                     icon={<RadioButtonUncheckedIcon />}
                                     checkedIcon={<RadioButtonCheckedIcon />}
                                     tabIndex={-1}
                                     disableRipple
-                                    inputProps={{
-                                        "aria-labelledby": bookcase.caseId,
-                                    }}
                                 />
                             </ListItemIcon>
                             <ListItemText
@@ -100,40 +80,36 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                 );
             }
         }
-        setCasesComponents(casesItems);
+        return casesItems;
     };
 
-    const getShelves = (shelves, caseId, selectedShelf) => {
-        const shelvesItem = [];
+    const getShelves = () => {
+        const shelvesItems = [];
 
-        const isChecked = (shelfId) => {
-            if (selectedShelf == shelfId) {
-                return true;
-            }
-            return false;
-        };
-
-        if (shelves) {
-            for (const shelf of shelves.shelves) {
-                if (shelf.caseId == caseId) {
-                    shelvesItem.push(
+        if (!isShelvesLoading && shelves) {
+            for (const shelf of shelves) {
+                if (shelf.caseId == selectedCaseId) {
+                    shelvesItems.push(
                         <ListItem key={shelf.shelfId} disablePadding>
                             <ListItemButton
                                 role={undefined}
-                                onClick={() =>
-                                    updateShelf(shelves, shelf.shelfId)
-                                }
+                                onClick={() => {
+                                    setSelectedShelfId(shelf.shelfId);
+                                    updateBook(shelf.shelfId);
+                                    setOpen(false);
+                                }}
                                 dense
                             >
                                 <ListItemIcon>
                                     <Checkbox
                                         edge="start"
-                                        checked={isChecked(shelf.shelfId)}
+                                        checked={
+                                            shelf.shelfId === selectedShelfId
+                                                ? true
+                                                : false
+                                        }
                                         tabIndex={-1}
                                         disableRipple
-                                        inputProps={{
-                                            "aria-labelledby": shelf.shelfId,
-                                        }}
                                         icon={<RadioButtonUncheckedIcon />}
                                         checkedIcon={<RadioButtonCheckedIcon />}
                                     />
@@ -148,14 +124,8 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                 }
             }
         }
-        setShelvesComponents(shelvesItem);
+        return shelvesItems;
     };
-
-    //On component Mount
-    useEffect(() => {
-        fetchShelves();
-        fetchCases();
-    }, []);
 
     return (
         <div>
@@ -186,9 +156,9 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                                 variant="h6"
                                 component="h6"
                             >
-                                Case
+                                Cases
                             </Typography>
-                            <List>{casesComponents}</List>
+                            <List>{getCases()}</List>
                         </Box>
                         <Box sx={{ width: "100%" }}>
                             <Typography
@@ -196,9 +166,9 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
                                 variant="h6"
                                 component="h6"
                             >
-                                Shelf
+                                Shelves
                             </Typography>
-                            <List>{shelvesComponents}</List>
+                            <List>{getShelves()}</List>
                         </Box>
                     </Stack>
                 </Card>
@@ -207,4 +177,4 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
     );
 };
 
-export default OrganiserModal;
+export default OrganiserDialog;

@@ -30,7 +30,7 @@ const convertBase64 = (file) => {
     });
 };
 
-const BookCard = ({ edit, data, setData, opacity = "1" }) => {
+const BookCard = ({ edit, book, bookMutate, opacity = "1" }) => {
     const theme = useTheme();
     const [show, setShow] = useState(false);
     const [bookmarkOpener, setBookmarkOpener] = useState(false);
@@ -78,7 +78,7 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                         width={2}
                         height={40}
                         fontSize={12}
-                        value={getISBN(data.book.isbn, false)}
+                        value={getISBN(book.isbn, false)}
                         background=""
                         lineColor={
                             theme.palette.mode === "light"
@@ -98,10 +98,10 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
     const handleUpload = async (event) => {
         const file = event.target.files[0];
         const fileBody = await convertBase64(file);
-        const updatedData = await fetcher.put(`books/${data?.book?.bookId}`, {
+        const updatedData = await fetcher.put(`books/${book?.bookId}`, {
             cover: fileBody,
         });
-        setData(updatedData);
+        bookMutate(updatedData);
     };
 
     const handleOpen = () => {
@@ -122,8 +122,8 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                 name="cover"
             />
             <BookmarkUpdater
-                data={data}
-                setData={setData}
+                book={book}
+                bookMutate={bookMutate}
                 open={bookmarkOpener}
                 setOpen={setBookmarkOpener}
             />
@@ -169,9 +169,9 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
                         width: "100%",
                         objectPosition: "50% 0%",
                     }}
-                    image={`/api/books/cover/${data.book.bookId}`}
+                    image={`/api/books/cover/${book.bookId}`}
                     component="img"
-                    title={data?.book?.title}
+                    title={book?.title}
                     loading="lazy"
                     alt=""
                 />

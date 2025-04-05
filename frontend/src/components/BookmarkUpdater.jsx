@@ -17,14 +17,14 @@ const style = {
     p: 2,
 };
 
-const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
+const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
     const updateBook = async (value) => {
         if (value) {
             const updatedData = await fetcher.put(
-                `books/${data?.book?.bookId}`,
+                `books/${book?.bookId}`,
                 value
             );
-            setData(updatedData);
+            bookMutate(updatedData);
         }
     };
 
@@ -56,9 +56,9 @@ const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
                             <NumberInput
                                 onChange={updateBook}
                                 field="progress"
-                                defaultValue={data.book.progress}
+                                defaultValue={book.progress}
                                 min={0}
-                                max={data.book.pages}
+                                max={book.pages}
                             ></NumberInput>
                         </Box>
                         <Box
@@ -70,7 +70,7 @@ const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
                             <NumberInput
                                 onChange={updateBook}
                                 field="pages"
-                                defaultValue={data.book.pages}
+                                defaultValue={book.pages}
                                 min={1}
                                 max={999}
                             ></NumberInput>

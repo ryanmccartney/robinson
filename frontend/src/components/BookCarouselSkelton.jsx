@@ -11,16 +11,22 @@ import ShelfDialog from "@dialogs/ShelfDialog";
 
 import fetcher from "@utils/fetcher";
 
-const BookCarouselSkelton = ({ caseId, books = 20, height = "16rem" }) => {
+const BookCarouselSkelton = ({
+    caseMutate = () => {},
+    caseId,
+    books = 20,
+    height = "16rem",
+}) => {
     const carousel = useRef(null);
 
     const [hover, setHover] = useState(false);
     const [newShelfDialogOpen, setNewShelfDialogOpen] = useState(false);
 
     const handleNewShelf = async (shelfId) => {
-        await fetcher.put(`shelves/${shelfId}`, {
+        const data = await fetcher.put(`shelves/${shelfId}`, {
             caseId,
         });
+        caseMutate({ shelves: [data.shelf] });
         setNewShelfDialogOpen(false);
     };
 

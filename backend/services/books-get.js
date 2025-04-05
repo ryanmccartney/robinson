@@ -13,11 +13,11 @@ module.exports = async (bookId) => {
             data.book =
                 (await booksModel.findOne({ bookId: bookId }))?.toJSON() ||
                 null;
-            data.shelf =
+            data.book.shelf =
                 (await shelvesModel.findOne({ shelfId: data.book?.shelfId })) ||
                 null;
-            data.case =
-                (await casesModel.findOne({ caseId: data.shelf?.caseId })) ||
+            data.book.case =
+                (await casesModel.findOne({ caseId: data.book.shelf?.caseId })) ||
                 null;
         } else {
             data.books = await booksModel.find({}, { cover: 0 });

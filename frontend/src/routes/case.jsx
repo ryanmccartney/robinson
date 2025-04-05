@@ -2,7 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { useParams, useNavigate } from "react-router-dom";
+
 import fetcher from "@utils/fetcher";
+import { useCase } from "@utils/data";
 
 import EditableTypography from "@components/EditableTypography";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
@@ -14,7 +16,8 @@ import BookCarouselSkelton from "@components/BookCarouselSkelton";
 const Case = () => {
     const navigate = useNavigate();
     const { caseId } = useParams();
-    const [data, setData] = useState(null);
+    const { case: bookcase, isCaseLoading, caseMutate } = useCase(caseId);
+
     const [edit, setEdit] = useState(false);
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
@@ -26,7 +29,7 @@ const Case = () => {
 
     const updateCase = async (caseData) => {
         const newData = await fetcher.put(`cases/${caseId}`, caseData);
-        setData(newData);
+        caseMutate(newData);
         setContexts(newData);
     };
 
@@ -55,12 +58,7 @@ const Case = () => {
 
     //On component Mount
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetcher(`cases/${caseId}`);
-            setData(data);
-            setContexts(data);
-        };
-        fetchData();
+        setContexts(bookcase);
     }, []);
 
     //On component Unmount (cleanup)
@@ -71,18 +69,18 @@ const Case = () => {
         };
     }, []);
 
-    if (!data) {
+    if (isCaseLoading) {
         return <LoadingContent />;
     }
 
-    if (!data.case) {
+    if (!isCaseLoading && !bookcase) {
         navigate(`/cases`);
         return <LoadingContent />;
     }
 
     const getShelves = () => {
         const shelves = [];
-        for (const shelf of data?.shelves || []) {
+        for (const shelf of bookcase?.shelves || []) {
             shelves.push(
                 <Grid key={shelf?.shelfId} size={{ xs: 12 }}>
                     <BookCarousel title={shelf?.name} books={shelf?.books} />
@@ -93,7 +91,10 @@ const Case = () => {
         if (edit) {
             shelves.push(
                 <Grid key="add" size={{ xs: 12 }}>
-                    <BookCarouselSkelton caseId={caseId} />
+                    <BookCarouselSkelton
+                        caseMutate={caseMutate}
+                        caseId={caseId}
+                    />
                 </Grid>
             );
         }
@@ -109,7 +110,7 @@ const Case = () => {
                 onChange={updateCase}
                 variant="h5"
             >
-                {data?.case?.name}
+                {bookcase?.name}
             </EditableTypography>
 
             <EditableTypography
@@ -118,7 +119,7 @@ const Case = () => {
                 onChange={updateCase}
                 variant="subtitle2"
             >
-                {data?.case?.description}
+                {bookcase?.description}
             </EditableTypography>
 
             <Grid container spacing={2}>

@@ -1,14 +1,15 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "@utils/fetcher";
+
+import { useBooks } from "@utils/data";
 
 import BookCard from "@cards/BookCard";
 import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const Books = () => {
-    const [data, setData] = useState(null);
+    const { books, isBooksLoading } = useBooks();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const setContexts = () => {
@@ -20,28 +21,18 @@ const Books = () => {
         ]);
     };
 
-    //On component Mount
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetcher(`books`);
-            setData(data);
-            setContexts();
-        };
-        fetchData();
-    }, []);
-
-    //On component Unmount (cleanup)
-    useEffect(() => {
+        setContexts();
         return () => {
             setBreadcrumbs([]);
         };
     }, []);
 
-    if (!data) {
+    if (isBooksLoading) {
         return <LoadingContent />;
     }
 
-    const getBookCards = (books = {}) => {
+    const getBookCards = () => {
         const bookCards = [];
         {
             Object.keys(books).forEach((bookId, index) => {
@@ -59,7 +50,7 @@ const Books = () => {
     return (
         <Box sx={{ m: 2 }}>
             <Grid container spacing={4}>
-                {getBookCards(data?.books)}
+                {getBookCards()}
             </Grid>
         </Box>
     );
