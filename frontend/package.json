@@ -12,7 +12,7 @@
     "lint:fix": "eslint --fix .",
     "build": "vite build",
     "test": "jest",
-    "prepare": "husky"
+    "prepare": "cd .. && husky frontend/.husky"
   },
   "author": "Ryan McCartney",
   "type": "module",
