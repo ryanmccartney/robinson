@@ -9,14 +9,19 @@ import { grey } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
 import ShelfDialog from "@dialogs/ShelfDialog";
 
-const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
+import fetcher from "@utils/fetcher";
+
+const BookCarouselSkelton = ({ caseId, books = 20, height = "16rem" }) => {
     const carousel = useRef(null);
 
     const [hover, setHover] = useState(false);
     const [newShelfDialogOpen, setNewShelfDialogOpen] = useState(false);
 
-    const handleNewShelf = (shelfId) => {
-        console.log(shelfId);
+    const handleNewShelf = async (shelfId) => {
+        await fetcher.put(`shelves/${shelfId}`, {
+            caseId,
+        });
+        setNewShelfDialogOpen(false);
     };
 
     const getBookCards = () => {

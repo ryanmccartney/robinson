@@ -20,7 +20,6 @@ const Case = () => {
     const { setButtons } = useContext(ButtonsContext);
 
     const deleteCase = async () => {
-        console.log(`Delete case - ${caseId}`);
         await fetcher.delete(`cases/${caseId}`);
         navigate(`/cases`);
     };
@@ -94,7 +93,7 @@ const Case = () => {
         if (edit) {
             shelves.push(
                 <Grid key="add" size={{ xs: 12 }}>
-                    <BookCarouselSkelton />
+                    <BookCarouselSkelton caseId={caseId} />
                 </Grid>
             );
         }
