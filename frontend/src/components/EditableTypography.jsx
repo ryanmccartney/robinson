@@ -49,7 +49,7 @@ const EditableTypography = ({
         }
     };
 
-    props.multiline = multiline;
+    props.multiline = multiline.toString();
     delete props.children;
 
     if (edit) {

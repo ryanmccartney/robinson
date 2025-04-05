@@ -88,14 +88,14 @@ const Shelf = () => {
     return (
         <Box sx={{ m: 2 }}>
             <Grid container spacing={4}>
-                <Grid item size={{ xs: 12 }}>
+                <Grid size={{ xs: 12 }}>
                     <BookCarousel
                         title={data?.shelf?.name}
                         books={data?.books}
                     />
                 </Grid>
 
-                <Grid item size={{ xs: 12, md: 12, lg: 12 }}>
+                <Grid size={{ xs: 12, md: 12, lg: 12 }}>
                     <EditableTypography
                         field="name"
                         edit={edit}

@@ -20,7 +20,7 @@ const Library = () => {
     return (
         <>
             <Grid container spacing={4}>
-                <Grid item align="center" size={{ xs: 12, md: 4, lg: 6 }}>
+                <Grid align="center" size={{ xs: 12, md: 4, lg: 6 }}>
                     <Box
                         component="img"
                         sx={{
@@ -32,7 +32,7 @@ const Library = () => {
                     />
                 </Grid>
 
-                <Grid item size={{ xs: 12, md: 8, lg: 6 }}>
+                <Grid size={{ xs: 12, md: 8, lg: 6 }}>
                     <Typography gutterBottom variant="h4">
                         {library.title}
                     </Typography>

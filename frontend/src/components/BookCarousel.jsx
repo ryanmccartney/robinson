@@ -106,11 +106,11 @@ const BookCarousel = ({ books = [], title, autoWidth }) => {
     return (
         <Box ref={component}>
             <Grid container spacing={2}>
-                <Grid item size={{ xs: 6 }}>
+                <Grid size={{ xs: 6 }}>
                     <Typography variant="h6">{title}</Typography>
                 </Grid>
 
-                <Grid item size={{ xs: 6 }}>
+                <Grid size={{ xs: 6 }}>
                     <Stack
                         direction="row"
                         spacing={0.1}

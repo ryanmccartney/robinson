@@ -14,7 +14,7 @@ const LibraryCard = ({ library }) => {
     const card = useRef(null);
 
     return (
-        <Grid item size={{ xs: 6, md: 3, lg: 2 }}>
+        <Grid size={{ xs: 6, md: 3, lg: 2 }}>
             <Link
                 style={{ textDecoration: "none" }}
                 to={`/library/${library.id}`}
