@@ -4,7 +4,8 @@ name: Release
 on: workflow_dispatch
 
 env:
-    regsitry: "ghcr.io"
+    REGISTRY: "ghcr.io"
+    HUSKY: 0
 
 jobs:
     release:
@@ -69,7 +70,7 @@ jobs:
         - name: Login to GHCR Registry
           uses: docker/login-action@v3
           with:
-              registry: ${{ env.regsitry }}
+              registry: ${{ env.REGISTRY }}
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }}
               logout: false
@@ -81,8 +82,8 @@ jobs:
               context: "./backend"
               push: ${{ github.event_name != 'pull_request' }}
               tags: |
-                  ${{env.regsitry}}/ryanmccartney/robinson:latest
-                  ${{env.regsitry}}/ryanmccartney/robinson:${{steps.version.outputs.current-version}}
+                  ${{env.REGISTRY}}/ryanmccartney/robinson:latest
+                  ${{env.REGISTRY}}/ryanmccartney/robinson:${{steps.version.outputs.current-version}}
               outputs: type=registry
               labels: |
                   author=${{github.actor}}
