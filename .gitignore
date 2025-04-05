@@ -2,7 +2,7 @@
 # misc
 .DS_Store
 *.pem
-.vscode/*
+.vscode
 
 # local env files
 .env*.local
