@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
-import cookie from "cookie";
 
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -16,18 +15,18 @@ import LoginIcon from "@mui/icons-material/Login";
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 
-import fetcher from "./../utils/fetcher";
-import { UserContext } from "../contexts/user";
-import UserAvatar from "./UserAvatar";
+import fetcher from "@utils/fetcher";
+import { UserContext } from "@contexts/user";
+import UserAvatar from "@components/UserAvatar";
 
-const MenuContents = ({close}) => {
+const MenuContents = ({ close }) => {
     const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
 
     const items = [];
 
     const logout = async () => {
-        const data = await fetcher("logout", "POST");
+        const data = await fetcher.post("logout");
         enqueueSnackbar(
             `${data?.user?.firstName} ${data?.user?.lastName} logged out.`
         );
@@ -36,23 +35,23 @@ const MenuContents = ({close}) => {
     };
 
     const login = async () => {
-        close()
+        close();
         navigate("/login");
     };
 
     const users = async () => {
-        close()
+        close();
         navigate(`/users`);
     };
 
     const edit = async () => {
-        close()
+        close();
         navigate(`/user/${user?.userId}`);
     };
 
     if (user) {
         items.push(
-            <MenuItem onClick={edit}>
+            <MenuItem key="edit-accounts" onClick={edit}>
                 <ListItemIcon>
                     <EditIcon fontSize="medium" />
                 </ListItemIcon>
@@ -62,7 +61,7 @@ const MenuContents = ({close}) => {
 
         if (user.role === "librarian") {
             items.push(
-                <MenuItem onClick={users}>
+                <MenuItem key="edit-users" onClick={users}>
                     <ListItemIcon>
                         <PeopleOutlineIcon fontSize="medium" />
                     </ListItemIcon>
@@ -72,7 +71,7 @@ const MenuContents = ({close}) => {
         }
 
         items.push(
-            <MenuItem onClick={logout}>
+            <MenuItem key="logout" onClick={logout}>
                 <ListItemIcon>
                     <LogoutIcon fontSize="medium" />
                 </ListItemIcon>
@@ -100,7 +99,6 @@ const UserMenu = () => {
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-
     };
     const handleClose = () => {
         setAnchorEl(null);

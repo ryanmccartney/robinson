@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
-import BookCard from "./../cards/BookCard";
-import LoadingContent from "./../components/LoadingContent";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
+import BookCard from "@cards/BookCard";
+import LoadingContent from "@components/LoadingContent";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const Books = () => {
     const [data, setData] = useState(null);

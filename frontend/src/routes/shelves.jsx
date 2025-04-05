@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
-import ShelfCard from "./../cards/ShelfCard";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import LoadingContent from "./../components/LoadingContent";
+import ShelfCard from "@cards/ShelfCard";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import LoadingContent from "@components/LoadingContent";
 
 const Shelves = () => {
     const [data, setData] = useState(null);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const setContexts = () => {
         setBreadcrumbs([

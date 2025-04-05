@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
 
 import NumberInput from "@components/NumberInput/NumberInput";
+import fetcher from "@utils/fetcher";
 
 const style = {
     position: "absolute",
@@ -19,15 +20,10 @@ const style = {
 const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
     const updateBook = async (value) => {
         if (value) {
-            const response = await fetch(`/api/books/${data?.book?.bookId}`, {
-                method: "PUT",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(value),
-            });
-            const updatedData = await response.json();
+            const updatedData = await fetcher.put(
+                `books/${data?.book?.bookId}`,
+                value
+            );
             setData(updatedData);
         }
     };

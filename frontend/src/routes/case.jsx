@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { useParams, useNavigate } from "react-router-dom";
+import fetcher from "@utils/fetcher";
 
-import EditableTypography from "../components/EditableTypography";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import ButtonsContext from "./../contexts/buttons";
-import LoadingContent from "./../components/LoadingContent";
-import BookCarousel from "./../components/BookCarousel";
-import BookCarouselSkelton from "./../components/BookCarouselSkelton";
+import EditableTypography from "@components/EditableTypography";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import ButtonsContext from "@contexts/buttons";
+import LoadingContent from "@components/LoadingContent";
+import BookCarousel from "@components/BookCarousel";
+import BookCarouselSkelton from "@components/BookCarouselSkelton";
 
 const Case = () => {
     const navigate = useNavigate();
@@ -20,20 +21,12 @@ const Case = () => {
 
     const deleteCase = async () => {
         console.log(`Delete case - ${caseId}`);
-        await fetch(`/api/cases/${caseId}`, { method: "DELETE" });
+        await fetcher.delete(`cases/${caseId}`);
         navigate(`/cases`);
     };
 
     const updateCase = async (caseData) => {
-        const response = await fetch(`/api/cases/${caseId}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(caseData),
-        });
-        const newData = await response.json();
+        const newData = await fetcher.put(`/api/cases/${caseId}`, caseData);
         //setData(newData);
         //setContexts(newData);
     };
@@ -64,9 +57,7 @@ const Case = () => {
     //On component Mount
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/cases/${caseId}`);
-            const data = await response.json();
-
+            const data = await fetcher(`/api/cases/${caseId}`);
             setData(data);
             setContexts(data);
         };

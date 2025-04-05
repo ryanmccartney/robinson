@@ -1,7 +1,7 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-import moderustic from "./fonts/moderustic.ttf";
-import playfairDisplay from "./fonts/playfair-display.ttf";
+import moderustic from "@fonts/moderustic.ttf";
+import playfairDisplay from "@fonts/playfair-display.ttf";
 
 const getTheme = (userMode = "auto") => {
     let setMode = "light";

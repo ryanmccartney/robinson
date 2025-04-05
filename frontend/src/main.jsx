@@ -8,31 +8,31 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 
-import BreadcrumbsContext from "./contexts/breadcrumbs";
-import ButtonsContext from "./contexts/buttons";
-import { UserProvider, UserContext } from "./contexts/user";
-import Layout from "./routes/layout";
-import LoadingContent from "./components/LoadingContent";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import ButtonsContext from "@contexts/buttons";
+import { UserProvider, UserContext } from "@contexts/user";
+import Layout from "@routes/layout";
+import LoadingContent from "@components/LoadingContent";
 
-const Error = lazy(() => import("./routes/error"));
-const Root = lazy(() => import("./routes/root"));
-const Scan = lazy(() => import("./routes/scan"));
-const Login = lazy(() => import("./routes/login"));
+const Error = lazy(() => import("@routes/error"));
+const Root = lazy(() => import("@routes/root"));
+const Scan = lazy(() => import("@routes/scan"));
+const Login = lazy(() => import("@routes/login"));
 
-const Shelves = lazy(() => import("./routes/shelves"));
-const Shelf = lazy(() => import("./routes/shelf"));
+const Shelves = lazy(() => import("@routes/shelves"));
+const Shelf = lazy(() => import("@routes/shelf"));
 
-const Books = lazy(() => import("./routes/books"));
-const Book = lazy(() => import("./routes/book"));
+const Books = lazy(() => import("@routes/books"));
+const Book = lazy(() => import("@routes/book"));
 
-const Cases = lazy(() => import("./routes/cases"));
-const Case = lazy(() => import("./routes/case"));
+const Cases = lazy(() => import("@routes/cases"));
+const Case = lazy(() => import("@routes/case"));
 
-const User = lazy(() => import("./routes/user"));
-const Users = lazy(() => import("./routes/users"));
+const User = lazy(() => import("@routes/user"));
+const Users = lazy(() => import("@routes/users"));
 
-const Libraries = lazy(() => import("./routes/libraries"));
-const Library = lazy(() => import("./routes/library"));
+const Libraries = lazy(() => import("@routes/libraries"));
+const Library = lazy(() => import("@routes/library"));
 
 const AppRoutes = () => {
     const { user } = useContext(UserContext);

@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 
-import getLoadingPhrase from "./../utils/getLoadingPhrase";
+import getLoadingPhrase from "@utils/getLoadingPhrase";
 
 const LoadingContent = ({ title, noTitle = false }) => {
     let message = "";

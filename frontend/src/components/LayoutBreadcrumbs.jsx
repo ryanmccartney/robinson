@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 
-import BreadcrumbsContext from "../contexts/breadcrumbs";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const sentenceCase = (str) => {
     return str

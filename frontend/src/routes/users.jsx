@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -17,21 +17,21 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 
-import LoadingContent from "../components/LoadingContent";
-import BreadcrumbsContext from "../contexts/breadcrumbs";
-import ButtonsContext from "../contexts/buttons";
+import LoadingContent from "@components/LoadingContent";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import ButtonsContext from "@contexts/buttons";
 
-import { UserContext } from "../contexts/user";
+import { UserContext } from "@contexts/user";
 
-import UserAvatar from "../components/UserAvatar";
+import UserAvatar from "@components/UserAvatar";
 
 const User = () => {
     const navigate = useNavigate();
     const [data, setData] = useState(null);
 
-    const { user, setUser } = useContext(UserContext);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
-    const { buttons, setButtons } = useContext(ButtonsContext);
+    const { user } = useContext(UserContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setButtons } = useContext(ButtonsContext);
 
     const setContexts = (user) => {
         if (user) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import LibraryCard from "../cards/LibraryCard";
-import fetcher from "./../utils/fetcher";
+import LibraryCard from "@cards/LibraryCard";
+import fetcher from "@utils/fetcher";
 
 const Libraries = () => {
     const [data, setData] = useState([]);

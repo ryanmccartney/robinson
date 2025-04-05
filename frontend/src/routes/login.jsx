@@ -9,9 +9,9 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import { UserContext } from "../contexts/user";
-import fetcher from "../utils/fetcher";
-import BreadcrumbsContext from "../contexts/breadcrumbs";
+import { UserContext } from "@contexts/user";
+import fetcher from "@utils/fetcher";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const Root = () => {
     const navigate = useNavigate();
@@ -26,9 +26,9 @@ const Root = () => {
     };
 
     const login = async () => {
-        const data = await fetcher(`login`, "POST", {
-            username: username,
-            password: password,
+        const data = await fetcher.post(`login`, {
+            username,
+            password,
         });
         if (data?.user) {
             enqueueSnackbar(

@@ -1,24 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
-import EditableTypography from "../components/EditableTypography";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import ButtonsContext from "./../contexts/buttons";
-import LoadingContent from "./../components/LoadingContent";
-import BookCarousel from "./../components/BookCarousel";
+import EditableTypography from "@components/EditableTypography";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import ButtonsContext from "@contexts/buttons";
+import LoadingContent from "@components/LoadingContent";
+import BookCarousel from "@components/BookCarousel";
 
 const Shelf = () => {
     const navigate = useNavigate();
     const { shelfId } = useParams();
     const [data, setData] = useState(null);
     const [edit, setEdit] = useState(false);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
-    const { buttons, setButtons } = useContext(ButtonsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setButtons } = useContext(ButtonsContext);
 
     const deleteShelf = async () => {
         console.log(`Delete shelf - ${shelfId}`);

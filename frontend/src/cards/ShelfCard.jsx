@@ -9,10 +9,6 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
-const options = {
-    shouldForwardProp: (prop) => prop !== "hoverShadow",
-};
-
 const ShelfCard = ({ shelf }) => {
     const [show, setShow] = React.useState(false);
     const media = React.useRef(null);

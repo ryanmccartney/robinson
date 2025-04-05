@@ -10,8 +10,9 @@ import { useTheme } from "@mui/material/styles";
 
 import Barcode from "react-barcode";
 import isbn from "isbn3";
+import fetcher from "@utils/fetcher";
 
-import BookmarkUpdater from "../components/BookmarkUpdater";
+import BookmarkUpdater from "@components/BookmarkUpdater";
 
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -97,15 +98,9 @@ const BookCard = ({ edit, data, setData, opacity = "1" }) => {
     const handleUpload = async (event) => {
         const file = event.target.files[0];
         const fileBody = await convertBase64(file);
-        const response = await fetch(`/api/books/${data?.book?.bookId}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ cover: fileBody }),
+        const updatedData = await fetcher.put(`books/${data?.book?.bookId}`, {
+            cover: fileBody,
         });
-        const updatedData = await response.json();
         setData(updatedData);
     };
 

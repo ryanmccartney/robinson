@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
+import fetcher from "@utils/fetcher";
 
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -13,23 +14,13 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import DensitySmallIcon from "@mui/icons-material/DensitySmall";
 import DensityLargeIcon from "@mui/icons-material/DensityLarge";
-import { Link } from "react-router-dom";
 
 export default function FixedBottomNavigation() {
     const navigate = useNavigate();
     const [value, setValue] = useState(0);
 
     const addBook = async () => {
-        const response = await fetch(`/api/books/`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ title: "A New Book" }),
-        });
-
-        const data = await response.json();
+        const data = await fetcher.post(`books`, { title: "A New Book" });
         if (data.book) {
             enqueueSnackbar(`Created a book called ${data.book.title}`);
             navigate(`/book/${data.book?.bookId}`);
@@ -37,16 +28,9 @@ export default function FixedBottomNavigation() {
     };
 
     const addShelf = async () => {
-        const response = await fetch(`/api/shelves/`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: "A New Shelf" }),
+        const data = await fetcher.post(`shelves`, {
+            name: "A New Shelf",
         });
-
-        const data = await response.json();
         if (data.shelf) {
             enqueueSnackbar(`Created a shelf called ${data.shelf.name}`);
             navigate(`/shelf/${data.shelf?.shelfId}`);
@@ -54,16 +38,7 @@ export default function FixedBottomNavigation() {
     };
 
     const addCase = async () => {
-        const response = await fetch(`/api/cases/`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: "A New Case" }),
-        });
-
-        const data = await response.json();
+        const data = await fetcher.post(`cases`, { name: "A New Case" });
         if (data.case) {
             enqueueSnackbar(`Created a case called ${data.case.name}`);
             navigate(`/case/${data.case?.caseId}`);

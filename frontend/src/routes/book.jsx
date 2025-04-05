@@ -9,17 +9,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useParams, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
-import CoverCard from "./../cards/CoverCard";
-import EditableTypography from "../components/EditableTypography";
-import OrganiserDialog from "../dialogs/OrganiserDialog";
-import LoadingContent from "./../components/LoadingContent";
-import BookProgress from "./../components/BookProgress";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import ButtonsContext from "./../contexts/buttons";
+import CoverCard from "@cards/CoverCard";
+import EditableTypography from "@components/EditableTypography";
+import OrganiserDialog from "@dialogs/OrganiserDialog";
+import LoadingContent from "@components/LoadingContent";
+import BookProgress from "@components/BookProgress";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import ButtonsContext from "@contexts/buttons";
 import isbn from "isbn3";
-import QrDialog from "../dialogs/QrDialog";
+import QrDialog from "@dialogs/QrDialog";
 
 const Book = () => {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ const Book = () => {
 
     const deleteBook = async () => {
         console.log(`Delete book - ${bookId}`);
-        await fetch(`/api/books/${bookId}`, { method: "DELETE" });
+        await fetcher.delete(`books/${bookId}`);
         navigate(`/books`);
     };
 

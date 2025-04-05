@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { BarcodeDetector } from "barcode-detector";
@@ -6,18 +6,18 @@ import { enqueueSnackbar } from "notistack";
 import isbn from "isbn3";
 import Box from "@mui/material/Box";
 
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import EditableTypography from "../components/EditableTypography";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import EditableTypography from "@components/EditableTypography";
 
 const Scan = ({ delay = 250 }) => {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
-    const [barcode, setBarcode] = useState("");
+    const [setBarcode] = useState("");
     const [windowSize, setWindowSize] = useState({
         width: undefined,
         height: undefined,
     });
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const barcodeDetector = new BarcodeDetector({
         formats: ["ean_13", "qr_code"],

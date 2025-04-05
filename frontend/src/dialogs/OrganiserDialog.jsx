@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import fetcher from "@utils/fetcher";
+
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -32,31 +33,21 @@ const OrganiserModal = ({ open, setOpen, data, setData }) => {
     const [casesComponents, setCasesComponents] = useState([]);
 
     const fetchShelves = async () => {
-        const response = await fetch(`/api/shelves`);
-        const shelvesData = await response.json();
+        const shelvesData = await fetcher(`shelves`);
         await setShelves(shelvesData);
         await getShelves(shelvesData, data?.case?.caseId, data?.shelf?.shelfId);
     };
 
     const fetchCases = async () => {
-        const response = await fetch(`/api/cases`);
-        const casesData = await response.json();
+        const casesData = await fetcher(`cases`);
         await setCases(casesData);
         await getCases(casesData, data?.case?.caseId);
     };
 
     const updateShelf = async (shelves, shelfId) => {
-        const response = await fetch(`/api/books/${data.book.bookId}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                shelfId: shelfId,
-            }),
+        const updatedData = await fetcher.put(`books/${data.book.bookId}`, {
+            shelfId,
         });
-        const updatedData = await response.json();
         setData(updatedData);
         getShelves(shelves, data.case.caseId, shelfId);
     };

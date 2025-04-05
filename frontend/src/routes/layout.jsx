@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Outlet } from "react-router-dom";
-import TopNavBar from "../components/TopNavBar";
-import BottomNavBar from "../components/BottomNavBar";
-import { UserContext } from "../contexts/user";
+import TopNavBar from "@components/TopNavBar";
+import BottomNavBar from "@components/BottomNavBar";
+import { UserContext } from "@contexts/user";
 
-import LayoutBreadcrumbs from "../components/LayoutBreadcrumbs";
-import LayoutButtons from "../components/LayoutButtons";
+import LayoutBreadcrumbs from "@components/LayoutBreadcrumbs";
+import LayoutButtons from "@components/LayoutButtons";
 
 const Layout = () => {
     const { user } = useContext(UserContext);

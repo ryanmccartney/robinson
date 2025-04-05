@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
 export const UserContext = createContext();
 

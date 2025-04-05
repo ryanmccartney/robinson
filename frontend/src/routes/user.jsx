@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
@@ -11,19 +11,19 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate } from "react-router-dom";
 
-import LoadingContent from "../components/LoadingContent";
-import BreadcrumbsContext from "../contexts/breadcrumbs";
-import ButtonsContext from "../contexts/buttons";
+import LoadingContent from "@components/LoadingContent";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import ButtonsContext from "@contexts/buttons";
 
-import { UserContext } from "../contexts/user";
-import UserAvatar from "../components/UserAvatar";
+import { UserContext } from "@contexts/user";
+import UserAvatar from "@components/UserAvatar";
 
 const User = () => {
     const navigate = useNavigate();
 
     const { user, setUser } = useContext(UserContext);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
-    const { buttons, setButtons } = useContext(ButtonsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setButtons } = useContext(ButtonsContext);
 
     const [theme, setTheme] = useState("auto");
 
@@ -53,8 +53,9 @@ const User = () => {
                 { title: "Users", link: `/users` },
                 {
                     title:
-                        `${user?.firstName} ${user?.lastName}` ||
-                        user?.username,
+                        user?.firstName && user?.lastName
+                            ? `${user?.firstName} ${user?.lastName}`
+                            : user?.username,
                     link: `/user/${user?.userId}`,
                 },
             ]);

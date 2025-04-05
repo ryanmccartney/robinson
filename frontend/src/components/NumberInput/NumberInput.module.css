@@ -12,7 +12,7 @@
   }
   
   .ScrubAreaCursor {
-    filter: drop-shadow(0 1px 1px #0008);
+    filter: drop-shadow(0 0px 1px #0008);
   }
   
   .Label {
@@ -45,7 +45,6 @@
     &:focus {
       z-index: 1;
       outline: 2px solid var(--color-blue);
-      outline-offset: -1px;
     }
   }
   

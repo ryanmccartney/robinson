@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 
-import ButtonsContext from "../contexts/buttons";
+import ButtonsContext from "@contexts/buttons";
 import IconResolver from "./IconResolver";
 
 const sentenceCase = (str) => {

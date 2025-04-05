@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
-import CaseCard from "../cards/CaseCard";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import LoadingContent from "./../components/LoadingContent";
+import CaseCard from "@cards/CaseCard";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import LoadingContent from "@components/LoadingContent";
 
 const Cases = () => {
     const [data, setData] = useState(null);

@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
 import { grey } from "@mui/material/colors";
 
 const Error = () => {

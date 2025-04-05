@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
-import BreadcrumbsContext from "./../contexts/breadcrumbs";
-import BookCarousel from "./../components/BookCarousel";
+import BreadcrumbsContext from "@contexts/breadcrumbs";
+import BookCarousel from "@components/BookCarousel";
 
 const Root = () => {
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const [favourites, setFavourites] = useState(null);
     const [reading, setReading] = useState(null);
     const [recently, setRecently] = useState(null);

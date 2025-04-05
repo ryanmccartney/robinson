@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Component } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -8,8 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 import IconResolver from "./IconResolver";
-import BookSpineCard from "./../cards/BookSpineCard";
-import BookCard from "./../cards/BookCard";
+import BookSpineCard from "@cards/BookSpineCard";
+import BookCard from "@cards/BookCard";
 
 const BookCarousel = ({ books = [], title, autoWidth }) => {
     const carousel = useRef(null);

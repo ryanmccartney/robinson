@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
-import fetcher from "./../utils/fetcher";
+import fetcher from "@utils/fetcher";
 
 const Library = () => {
     const { libraryId } = useParams();
@@ -12,7 +12,7 @@ const Library = () => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetcher(`libraries/${libraryId}`);
-            setData(data);
+            setLibrary(data);
             setContexts();
         };
         fetchData();

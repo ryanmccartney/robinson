@@ -7,7 +7,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
-import ShelfDialog from "../dialogs/ShelfDialog";
+import ShelfDialog from "@dialogs/ShelfDialog";
 
 const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
     const carousel = useRef(null);
