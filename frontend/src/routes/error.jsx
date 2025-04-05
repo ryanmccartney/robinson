@@ -6,7 +6,7 @@ import BreadcrumbsContext from "@contexts/breadcrumbs";
 import { grey } from "@mui/material/colors";
 
 const Error = () => {
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     //const error = useRouteError();
 
     const setContexts = () => {
@@ -50,7 +50,7 @@ const Error = () => {
                 Error
             </Typography>
             <Typography sx={{ margin: 1 }} color={grey[500]} variant="h4">
-                Page can't be found
+                {"Page can't be found"}
             </Typography>
 
             <Typography sx={{ margin: 1 }} color={grey[500]} variant="subtitle">

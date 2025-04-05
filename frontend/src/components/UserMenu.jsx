@@ -94,7 +94,7 @@ const MenuContents = ({ close }) => {
 
 const UserMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {

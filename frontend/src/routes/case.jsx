@@ -16,8 +16,8 @@ const Case = () => {
     const { caseId } = useParams();
     const [data, setData] = useState(null);
     const [edit, setEdit] = useState(false);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
-    const { buttons, setButtons } = useContext(ButtonsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setButtons } = useContext(ButtonsContext);
 
     const deleteCase = async () => {
         console.log(`Delete case - ${caseId}`);
@@ -27,8 +27,8 @@ const Case = () => {
 
     const updateCase = async (caseData) => {
         const newData = await fetcher.put(`/api/cases/${caseId}`, caseData);
-        //setData(newData);
-        //setContexts(newData);
+        setData(newData);
+        setContexts(newData);
     };
 
     const setContexts = (data) => {
@@ -83,7 +83,7 @@ const Case = () => {
 
     const getShelves = () => {
         const shelves = [];
-        for (const shelf of data?.shelves) {
+        for (const shelf of data?.shelves || []) {
             shelves.push(
                 <Grid key={shelf?.shelfId} item size={{ xs: 12 }}>
                     <BookCarousel title={shelf?.name} books={shelf?.books} />

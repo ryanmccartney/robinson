@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -8,14 +8,10 @@ import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
-const options = {
-    shouldForwardProp: (prop) => prop !== "hoverShadow",
-};
-
 const LibraryCard = ({ library }) => {
-    const [show, setShow] = React.useState(false);
-    const media = React.useRef(null);
-    const card = React.useRef(null);
+    const [show, setShow] = useState(false);
+    const media = useRef(null);
+    const card = useRef(null);
 
     return (
         <Grid item size={{ xs: 6, md: 3, lg: 2 }}>
@@ -86,18 +82,7 @@ const LibraryCard = ({ library }) => {
                                 variant="masonry"
                                 cols={3}
                                 gap={8}
-                            >
-                                {/* {library.books.map((book) => (
-                                    <ImageListItem key={book}>
-                                        <img
-                                            srcSet={books[book].cover}
-                                            src={books[book].cover}
-                                            alt={books[book].title}
-                                            loading="lazy"
-                                        />
-                                    </ImageListItem>
-                                ))} */}
-                            </ImageList>
+                            ></ImageList>
 
                             <CardContent>
                                 <Typography variant="h6">

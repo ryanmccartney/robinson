@@ -14,7 +14,7 @@ const sentenceCase = (str) => {
 };
 
 const LayoutBreadcrumbs = () => {
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { breadcrumbs } = useContext(BreadcrumbsContext);
     const getBreadcrumbs = () => {
         const breadcrumbsItems = [];
 

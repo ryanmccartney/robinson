@@ -42,11 +42,9 @@ const BookmarkUpdater = ({ open, setOpen, data, setData }) => {
                         direction="row"
                         spacing={2}
                         divider={
-                            <Divider
-                                orientation="vertical"
-                                flexItem
-                                children="of"
-                            />
+                            <Divider orientation="vertical" flexItem>
+                                of
+                            </Divider>
                         }
                     >
                         <Box

@@ -9,14 +9,6 @@ test("Renders the component", () => {
             <BookCard key="LeRokD4E2zRXdjw" book={books["LeRokD4E2zRXdjw"]} />
         </MemoryRouter>
     );
-});
-
-test("Renders the component", () => {
-    const component = renderer.create(
-        <MemoryRouter>
-            <BookCard key="LeRokD4E2zRXdjw" book={books["LeRokD4E2zRXdjw"]} />
-        </MemoryRouter>
-    );
 
     const value = component.toJSON().find("h6").text();
     expect(value).toEqual(books["LeRokD4E2zRXdjw"].title);

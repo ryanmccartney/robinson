@@ -9,7 +9,7 @@ import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const Books = () => {
     const [data, setData] = useState(null);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const setContexts = () => {
         setBreadcrumbs([

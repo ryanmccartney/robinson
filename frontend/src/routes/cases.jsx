@@ -9,7 +9,7 @@ import LoadingContent from "@components/LoadingContent";
 
 const Cases = () => {
     const [data, setData] = useState(null);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const setContexts = () => {
         setBreadcrumbs([
@@ -42,7 +42,7 @@ const Cases = () => {
     const getCaseCards = (cases = {}) => {
         const caseCards = [];
         {
-            Object.keys(cases).forEach((id, index) => {
+            Object.keys(cases).forEach((id) => {
                 caseCards.push(<CaseCard key={id} bookcase={cases[id]} />);
             });
         }

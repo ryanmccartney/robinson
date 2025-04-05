@@ -16,7 +16,7 @@ const LibraryMenu = ({ libraries = {}, callback }) => {
     const getLibraryItems = () => {
         const menuItems = [];
 
-        Object.keys(libraries).forEach((id, index) => {
+        Object.keys(libraries).forEach((id) => {
             menuItems.push(
                 <MenuItem
                     onClick={() => callback(libraries[id].libraryId)}

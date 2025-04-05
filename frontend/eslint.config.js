@@ -5,6 +5,7 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import unusedImports from "eslint-plugin-unused-imports";
+import pluginJest from "eslint-plugin-jest";
 
 export default defineConfig([
     { ignores: ["build", "vite.config.js"] },
@@ -13,6 +14,7 @@ export default defineConfig([
         languageOptions: {
             globals: {
                 ...globals.browser,
+                ...pluginJest.environments.globals.globals,
             },
             ecmaVersion: 2020,
             parserOptions: {
@@ -21,11 +23,17 @@ export default defineConfig([
                 sourceType: "module",
             },
         },
+        settings: {
+            react: {
+                version: "detect",
+            },
+        },
         plugins: {
             react,
             "react-hooks": reactHooks,
             "react-refresh": reactRefresh,
             "unused-imports": unusedImports,
+            jest: pluginJest,
         },
         rules: {
             semi: "error",
@@ -34,10 +42,12 @@ export default defineConfig([
             ...react.configs.recommended.rules,
             ...react.configs["jsx-runtime"].rules,
             ...reactHooks.configs.recommended.rules,
+            "react/prop-types": 0,
+            "react-hooks/exhaustive-deps": "off",
             "no-unused-vars": "off",
             "unused-imports/no-unused-imports": "error",
             "unused-imports/no-unused-vars": [
-                "warn",
+                "error",
                 {
                     vars: "all",
                     varsIgnorePattern: "^_",
@@ -45,6 +55,11 @@ export default defineConfig([
                     argsIgnorePattern: "^_",
                 },
             ],
+            "jest/no-disabled-tests": "warn",
+            "jest/no-focused-tests": "error",
+            "jest/no-identical-title": "error",
+            "jest/prefer-to-have-length": "warn",
+            "jest/valid-expect": "error",
         },
     },
 ]);

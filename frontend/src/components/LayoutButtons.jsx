@@ -16,7 +16,7 @@ const sentenceCase = (str) => {
 };
 
 const ButtonsLayout = () => {
-    const { buttons, setButtons } = useContext(ButtonsContext);
+    const { buttons } = useContext(ButtonsContext);
 
     const getButtons = () => {
         const buttonItems = [];

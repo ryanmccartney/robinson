@@ -38,7 +38,7 @@ const BookCarouselSkelton = ({ books = 20, height = "16rem" }) => {
 
     return (
         <div
-            sx={{
+            style={{
                 position: "relative",
             }}
         >

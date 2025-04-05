@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useRef } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -8,14 +8,10 @@ import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
-const options = {
-    shouldForwardProp: (prop) => prop !== "hoverShadow",
-};
-
-const bookcaseCard = ({ bookcase }) => {
-    const [show, setShow] = React.useState(false);
-    const media = React.useRef(null);
-    const card = React.useRef(null);
+const BookcaseCard = ({ bookcase }) => {
+    const [show, setShow] = useState(false);
+    const media = useRef(null);
+    const card = useRef(null);
 
     return (
         <Grid item size={{ xs: 12, md: 3, lg: 2 }}>
@@ -115,4 +111,4 @@ const bookcaseCard = ({ bookcase }) => {
     );
 };
 
-export default bookcaseCard;
+export default BookcaseCard;

@@ -6,7 +6,7 @@
   "scripts": {
     "development": "vite",
     "production": "serve -l 3001 -s build",
-    "format": "prettier --write '**/*.jsx'",
+    "format": "prettier --check '**/*.jsx'",
     "format:fix": "prettier --write '**/*.jsx' '**/*.js'",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -45,6 +45,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "css-loader": "^7.1.2",
     "eslint": "^9.10.0",
+    "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",

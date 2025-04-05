@@ -48,18 +48,21 @@ const EditableTypography = ({
         }
     };
 
+    delete props.children;
+
     if (edit) {
         return (
             <Typography
                 {...props}
-                children={internalValue}
                 component={InputBaseWithChildren}
                 onChange={handleChange}
-            />
+            >
+                {internalValue}
+            </Typography>
         );
     }
 
-    return <Typography {...props} children={internalValue} />;
+    return <Typography {...props}>{internalValue}</Typography>;
 };
 
 export default EditableTypography;

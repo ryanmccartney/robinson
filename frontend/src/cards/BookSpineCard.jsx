@@ -5,17 +5,13 @@ import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
-const options = {
-    shouldForwardProp: (prop) => prop !== "hoverShadow",
-};
-
 const BookSpineCard = ({
     book,
     spineWidth = "4rem",
     expandedWidth = "20rem",
     minHeight = "24rem",
 }) => {
-    const [show, setShow] = React.useState(false);
+    const [setShow] = React.useState(false);
 
     const media = React.useRef(null);
     const card = React.useRef(null);

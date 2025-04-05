@@ -28,8 +28,8 @@ const Book = () => {
     const [edit, setEdit] = useState(false);
     const [organiserOpen, setOrganiserOpen] = useState(false);
     const [rating, setRating] = useState(0);
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
-    const { buttons, setButtons } = useContext(ButtonsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setButtons } = useContext(ButtonsContext);
 
     const deleteBook = async () => {
         console.log(`Delete book - ${bookId}`);

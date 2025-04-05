@@ -19,7 +19,7 @@ const Root = () => {
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
 
-    const { breadcrumbs, setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     const setContexts = () => {
         setBreadcrumbs([{ title: "Login", link: `/login` }]);

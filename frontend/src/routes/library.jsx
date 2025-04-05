@@ -13,7 +13,6 @@ const Library = () => {
         const fetchData = async () => {
             const data = await fetcher(`libraries/${libraryId}`);
             setLibrary(data);
-            setContexts();
         };
         fetchData();
     }, []);
