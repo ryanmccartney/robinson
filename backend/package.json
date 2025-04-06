@@ -1,6 +1,6 @@
 {
   "name": "robinson-backend",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Backend for Robinson project",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,6 @@
     "changelog": "auto-changelog -p --output './../CHANGELOG.md' --commit-limit false",
     "format:fix": "prettier --write '**/*.js'",
     "format": "prettier --check '**/*.js'"
-
   },
   "author": "Ryan McCartney",
   "license": "GPLv3",
