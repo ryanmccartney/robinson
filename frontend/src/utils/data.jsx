@@ -48,8 +48,8 @@ const useCase = (caseId) => {
     return useData("cases", caseId, "case");
 };
 
-const useUser = (userId) => {
-    return useData("users", userId, "user");
+const useUser = () => {
+    return useData("users", "current", "user");
 };
 
 export {

@@ -1,25 +1,13 @@
-import { createContext, useState, useEffect } from "react";
-import fetcher from "@utils/fetcher";
+import { createContext } from "react";
+import { useUser } from "@utils/data";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-
-    const fetchData = async () => {
-        const data = await fetcher("users/current");
-        if (data.user) {
-            setUser(data.user);
-        }
-    };
-
-    //On component Mount
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const { user, isUserLoading, userMutate } = useUser();
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, isUserLoading, userMutate }}>
             {children}
         </UserContext.Provider>
     );

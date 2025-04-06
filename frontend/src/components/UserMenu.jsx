@@ -21,7 +21,7 @@ import UserAvatar from "@components/UserAvatar";
 
 const MenuContents = ({ close }) => {
     const navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
+    const { user, userMutate } = useContext(UserContext);
 
     const items = [];
 
@@ -30,7 +30,7 @@ const MenuContents = ({ close }) => {
         enqueueSnackbar(
             `${data?.user?.firstName} ${data?.user?.lastName} logged out.`
         );
-        setUser(null);
+        userMutate(null);
         navigate("/");
     };
 
@@ -46,7 +46,7 @@ const MenuContents = ({ close }) => {
 
     const edit = async () => {
         close();
-        navigate(`/user/${user?.userId}`);
+        navigate(`/user`);
     };
 
     if (user) {

@@ -1,36 +1,44 @@
 import { useState, useEffect, useContext } from "react";
+import { useForm, Controller } from "react-hook-form";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-
+import Stack from "@mui/material/Stack";
 import Select from "@mui/material/Select";
-import { useNavigate } from "react-router-dom";
 
 import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
-
 import { UserContext } from "@contexts/user";
 import UserAvatar from "@components/UserAvatar";
 import fetcher from "@utils/fetcher";
 
 const User = () => {
-    const navigate = useNavigate();
-
-    const { user, setUser } = useContext(UserContext);
+    const { user, userMutate, isUserLoading } = useContext(UserContext);
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
 
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { errors },
+        reset,
+    } = useForm({ defaultValues: user });
+
     const [theme, setTheme] = useState("auto");
 
-    const updateUser = async (key, data) => {
-        const newData = await fetcher.put(`users/current`, { [key]: data });
-        setUser(newData?.user);
+    const updateUser = async (updatedUser) => {
+        const newData = await fetcher.put(`users/current`, updatedUser);
+        userMutate(newData?.user);
     };
 
     const handleTheme = (event) => {
@@ -49,7 +57,7 @@ const User = () => {
                         user?.firstName && user?.lastName
                             ? `${user?.firstName} ${user?.lastName}`
                             : user?.username,
-                    link: `/user/${user?.userId}`,
+                    link: `/user`,
                 },
             ]);
         }
@@ -65,12 +73,7 @@ const User = () => {
         };
     }, [user]);
 
-    if (!user) {
-        return <LoadingContent />;
-    }
-
-    if (!user.userId) {
-        navigate(`/`);
+    if (isUserLoading) {
         return <LoadingContent />;
     }
 
@@ -112,45 +115,47 @@ const User = () => {
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     fullWidth
-                                    value={user?.firstName}
+                                    {...register("firstName", {
+                                        required: true,
+                                    })}
                                     label="First Name"
-                                    onChange={(e) =>
-                                        updateUser("firstName", e.target.value)
-                                    }
+                                    // error={errors.firstName}
+                                    // helperText={errors.firstName}
                                 />
                             </Grid>
 
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     fullWidth
-                                    value={user?.lastName}
+                                    {...register("lastName", {
+                                        required: true,
+                                    })}
                                     label="Last Name"
-                                    onChange={(e) =>
-                                        updateUser("lastName", e.target.value)
-                                    }
+                                    // error={errors.lastName}
+                                    // helperText={errors.lastName}
                                 />
                             </Grid>
 
                             <Grid size={{ xs: 12, xl: 12 }}>
                                 <TextField
                                     fullWidth
-                                    value={user?.email}
+                                    {...register("email", {
+                                        required: true,
+                                    })}
                                     label="Email"
-                                    onChange={(e) =>
-                                        updateUser("email", e.target.value)
-                                    }
+                                    // error={errors.email}
+                                    // helperText={errors.email}
                                 />
                             </Grid>
 
                             <Grid size={{ xs: 12, xl: 12 }}>
                                 <TextField
                                     fullWidth
-                                    value="12345678"
+                                    {...register("password")}
                                     type="password"
                                     label="Password"
-                                    onChange={(e) =>
-                                        updateUser("password", e.target.value)
-                                    }
+                                    // error={errors.password}
+                                    // helperText={errors.password}
                                 />
                             </Grid>
 
@@ -159,30 +164,33 @@ const User = () => {
                                     <InputLabel id="role-select-label">
                                         Role
                                     </InputLabel>
-                                    <Select
-                                        label="Role"
-                                        labelId="role-select-label"
-                                        id="role-select"
-                                        disabled={
-                                            user?.role === "librarian"
-                                                ? false
-                                                : true
-                                        }
-                                        value={user?.role}
-                                        onChange={(e) =>
-                                            updateUser("role", e.target.value)
-                                        }
-                                    >
-                                        <MenuItem value={"librarian"}>
-                                            Librarian
-                                        </MenuItem>
-                                        <MenuItem value={"curator"}>
-                                            Curator
-                                        </MenuItem>
-                                        <MenuItem value={"member"}>
-                                            Member
-                                        </MenuItem>
-                                    </Select>
+
+                                    <Controller
+                                        render={({
+                                            field: { onChange, value },
+                                        }) => (
+                                            <Select
+                                                onChange={onChange}
+                                                value={value}
+                                                label="Role"
+                                                labelId="role-select-label"
+                                                id="role-select"
+                                                disabled={value !== "librarian"}
+                                            >
+                                                <MenuItem value={"librarian"}>
+                                                    Librarian
+                                                </MenuItem>
+                                                <MenuItem value={"curator"}>
+                                                    Curator
+                                                </MenuItem>
+                                                <MenuItem value={"member"}>
+                                                    Member
+                                                </MenuItem>
+                                            </Select>
+                                        )}
+                                        control={control}
+                                        name={"role"}
+                                    />
                                 </FormControl>
                             </Grid>
 
@@ -209,6 +217,30 @@ const User = () => {
                                 </FormControl>
                             </Grid>
                         </Grid>
+
+                        <CardActions sx={{ mt: 3, p: 0 }} disableSpacing>
+                            <Stack
+                                sx={{ ml: "auto" }}
+                                direction="row"
+                                spacing={2}
+                            >
+                                <Button
+                                    onClick={() =>
+                                        reset({}, { keepDefaultValues: true })
+                                    }
+                                    color="error"
+                                    variant="outlined"
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    onClick={handleSubmit(updateUser)}
+                                    variant="outlined"
+                                >
+                                    Save Changes
+                                </Button>
+                            </Stack>
+                        </CardActions>
                     </Card>
                 </Grid>
             </Grid>

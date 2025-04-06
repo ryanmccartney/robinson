@@ -15,7 +15,7 @@ import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const Root = () => {
     const navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
+    const { user, userMutate } = useContext(UserContext);
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
 
@@ -34,7 +34,7 @@ const Root = () => {
             enqueueSnackbar(
                 `${user?.firstName} ${user?.lastName} logged in successfully`
             );
-            setUser(data?.user);
+            userMutate(data?.user);
             navigate("/");
         }
     };

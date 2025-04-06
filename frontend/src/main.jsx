@@ -52,7 +52,7 @@ const AppRoutes = () => {
                 <Route path="libraries" element={<Libraries />} />
                 <Route path="library/:libraryId" element={<Library />} />
                 <Route path="users" element={<Users />} />
-                <Route path="user/:userId" element={<User />} />
+                <Route path="user" element={<User />} />
                 <Route path="*" element={<Error />} />
             </Route>
         </Routes>
