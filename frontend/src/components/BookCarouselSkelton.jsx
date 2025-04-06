@@ -7,26 +7,39 @@ import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
-import ShelfDialog from "@dialogs/ShelfDialog";
+import DeleteIcon from "@mui/icons-material/Delete";
 
+import ShelfDialog from "@dialogs/ShelfDialog";
 import fetcher from "@utils/fetcher";
 
 const BookCarouselSkelton = ({
     caseMutate = () => {},
     caseId,
-    books = 20,
-    height = "16rem",
+    shelfId,
+    title,
+    books = 13,
+    height = "14rem",
 }) => {
     const carousel = useRef(null);
 
     const [hover, setHover] = useState(false);
     const [newShelfDialogOpen, setNewShelfDialogOpen] = useState(false);
 
+    const handleClick = async () => {
+        if (shelfId) {
+            await fetcher.put(`shelves/${shelfId}`, {
+                caseId: "",
+            });
+            caseMutate();
+        } else {
+            setNewShelfDialogOpen(true);
+        }
+    };
     const handleNewShelf = async (shelfId) => {
-        const data = await fetcher.put(`shelves/${shelfId}`, {
+        await fetcher.put(`shelves/${shelfId}`, {
             caseId,
         });
-        caseMutate({ shelves: [data.shelf] });
+        caseMutate();
         setNewShelfDialogOpen(false);
     };
 
@@ -73,16 +86,23 @@ const BookCarouselSkelton = ({
                     border: 1,
                     borderRadius: 1,
                     borderColor: grey[500],
+                    minHeight: height,
                 }}
             >
                 <Grid container spacing={2}>
                     <Grid size={{ xs: 6 }}>
-                        <Skeleton
-                            sx={{ opacity: hover ? 0.3 : 0.6 }}
-                            animation={false}
-                            height={40}
-                            width="18rem"
-                        />
+                        {title ? (
+                            <Typography sx={{ opacity: hover ? 0.3 : 0.6 }}>
+                                {title}
+                            </Typography>
+                        ) : (
+                            <Skeleton
+                                sx={{ opacity: hover ? 0.3 : 0.6 }}
+                                animation={false}
+                                height={40}
+                                width="18rem"
+                            />
+                        )}
                     </Grid>
 
                     <Grid size={{ xs: 6 }}>
@@ -134,10 +154,10 @@ const BookCarouselSkelton = ({
             <Box
                 sx={{
                     zIndex: "drawer",
-                    top: "50%",
                     position: "absolute",
+                    top: "50%",
                     left: "50%",
-                    right: "0",
+                    transform: "translate(-50%, -50%)",
                     opacity: hover ? 0.9 : 0.6,
                 }}
                 onMouseOver={() => {
@@ -146,13 +166,21 @@ const BookCarouselSkelton = ({
                 onMouseOut={() => {
                     setHover(false);
                 }}
-                onClick={() => setNewShelfDialogOpen(true)}
+                onClick={handleClick}
             >
-                <AddIcon sx={{ fontSize: 50 }} />
-                <br></br>
-                <Typography variant="caption" align="center">
-                    Add Shelf
-                </Typography>
+                {shelfId ? (
+                    <Stack>
+                        <DeleteIcon
+                            sx={{ margin: "auto", fontSize: 50, mb: 2 }}
+                        />
+                        <Typography variant="caption">Remove Shelf</Typography>
+                    </Stack>
+                ) : (
+                    <Stack>
+                        <AddIcon sx={{ margin: "auto", fontSize: 50, mb: 2 }} />
+                        <Typography variant="caption">Add Shelf</Typography>
+                    </Stack>
+                )}
             </Box>
         </div>
     );

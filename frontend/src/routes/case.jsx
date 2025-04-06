@@ -1,10 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import { useParams, useNavigate } from "react-router-dom";
 
-import fetcher from "@utils/fetcher";
-import { useCase } from "@utils/data";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 import EditableTypography from "@components/EditableTypography";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
@@ -12,6 +10,8 @@ import ButtonsContext from "@contexts/buttons";
 import LoadingContent from "@components/LoadingContent";
 import BookCarousel from "@components/BookCarousel";
 import BookCarouselSkelton from "@components/BookCarouselSkelton";
+import fetcher from "@utils/fetcher";
+import { useCase } from "@utils/data";
 
 const Case = () => {
     const navigate = useNavigate();
@@ -33,18 +33,16 @@ const Case = () => {
         setContexts(newData);
     };
 
-    const setContexts = (data) => {
-        if (data) {
+    const setContexts = () => {
+        if (bookcase) {
             setBreadcrumbs([
                 { title: "Home", link: `/` },
                 {
-                    title: data?.case?.name || "Case",
-                    link: `/case/${data?.case?.caseId}`,
+                    title: bookcase?.name || "Case",
+                    link: `/case/${bookcase?.caseId}`,
                 },
             ]);
-        }
 
-        if (data) {
             setButtons([
                 {
                     label: "Edit",
@@ -58,7 +56,7 @@ const Case = () => {
 
     //On component Mount
     useEffect(() => {
-        setContexts(bookcase);
+        setContexts();
     }, [bookcase]);
 
     //On component Unmount (cleanup)
@@ -83,7 +81,20 @@ const Case = () => {
         for (const shelf of bookcase?.shelves || []) {
             shelves.push(
                 <Grid key={shelf?.shelfId} size={{ xs: 12 }}>
-                    <BookCarousel title={shelf?.name} books={shelf?.books} />
+                    {edit ? (
+                        <BookCarouselSkelton
+                            caseMutate={caseMutate}
+                            shelfId={shelf?.shelfId}
+                            title={shelf?.name}
+                            caseId={caseId}
+                            books={shelf?.books.length}
+                        />
+                    ) : (
+                        <BookCarousel
+                            title={shelf?.name}
+                            books={shelf?.books}
+                        />
+                    )}
                 </Grid>
             );
         }

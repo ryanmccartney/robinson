@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -11,18 +10,17 @@ import Checkbox from "@mui/material/Checkbox";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
-import fetcher from "@utils/fetcher";
+import { useShelves } from "@utils/data";
 
 const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
-    const [data, setData] = useState(false);
+    const { shelves, isShelvesLoading } = useShelves();
 
-    const fetchShelves = async () => {
-        const response = await fetcher(`shelves`);
-        setData(response);
-    };
-
-    const getShelves = (shelves) => {
+    const getShelves = () => {
         const shelvesItem = [];
+
+        if (isShelvesLoading) {
+            return null;
+        }
 
         for (const shelf of shelves) {
             shelvesItem.push(
@@ -40,9 +38,6 @@ const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
                                 edge="start"
                                 tabIndex={-1}
                                 disableRipple
-                                inputProps={{
-                                    "aria-labelledby": shelf.shelfId,
-                                }}
                                 icon={<RadioButtonUncheckedIcon />}
                                 checkedIcon={<RadioButtonCheckedIcon />}
                             />
@@ -54,11 +49,6 @@ const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
         }
         return shelvesItem;
     };
-
-    //On component Mount
-    useEffect(() => {
-        fetchShelves();
-    }, []);
 
     return (
         <div>
@@ -88,11 +78,7 @@ const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
                         Select Shelf
                     </Typography>
 
-                    <List>
-                        {data.shelves && data.shelves.length > 0
-                            ? getShelves(data.shelves)
-                            : []}
-                    </List>
+                    <List>{getShelves()}</List>
                 </Card>
             </Modal>
         </div>
