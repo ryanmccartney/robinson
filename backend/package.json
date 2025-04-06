@@ -8,10 +8,12 @@
     "development": "nodemon index",
     "production": "node index",
     "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ./../docs/api.yml  -o ./../docs/api.md",
-    "lint": "eslint",
+    "lint": "eslint .",
     "release": "release-it --verbose",
     "changelog": "auto-changelog -p --output './../CHANGELOG.md' --commit-limit false",
-    "format": "prettier --write '**/*.js'"
+    "format:fix": "prettier --write '**/*.js'",
+    "format": "prettier --check '**/*.js'"
+
   },
   "author": "Ryan McCartney",
   "license": "GPLv3",

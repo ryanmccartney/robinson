@@ -9,14 +9,15 @@ module.exports = async (caseId) => {
     try {
         const data = {};
         if (caseId) {
-            data.case = (await casesModel.findOne({ caseId: caseId })) || null;
-            data.shelves =
-                (await shelvesModel.find({ caseId: caseId })) || null;
-            if (data.shelves) {
-                for (const i in data.shelves) {
-                    data.shelves[i]._doc.books =
+            data.case =
+                (await casesModel.findOne({ caseId: caseId }).lean()) || null;
+            data.case.shelves =
+                (await shelvesModel.find({ caseId: caseId }).lean()) || null;
+            if (data.case.shelves) {
+                for (const i in data.case.shelves) {
+                    data.case.shelves[i].books =
                         (await booksModel.find({
-                            shelfId: data.shelves[i].shelfId,
+                            shelfId: data.case.shelves[i].shelfId,
                         })) || null;
                 }
             }

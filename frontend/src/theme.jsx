@@ -79,6 +79,9 @@ const getTheme = (userMode = "auto") => {
         components: {
             MuiCssBaseline: {
                 styleOverrides: {
+                    ".snackbar-container": {
+                        bottom: "4rem",
+                    },
                     html: [
                         {
                             "@font-face": {

@@ -143,8 +143,11 @@ const User = () => {
                                         checked={row.enabled}
                                         onClick={(event) => {
                                             handleUpdatedUser({
-                                                enabled: event.target.checked,
-                                                userId: row.userId,
+                                                ...row,
+                                                ...{
+                                                    enabled:
+                                                        event.target.checked,
+                                                },
                                             });
                                         }}
                                     />

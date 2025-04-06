@@ -78,10 +78,7 @@ const App = () => {
             <CssBaseline />
             <UserProvider>
                 <SnackbarProvider
-                    anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right",
-                    }}
+                    classes={{ containerRoot: "snackbar-container" }}
                     maxSnack={4}
                     autoHideDuration={3000}
                     preventDuplicate

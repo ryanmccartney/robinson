@@ -125,6 +125,7 @@ const Scan = ({ delay = 250 }) => {
                     onChange={({ data }) => checkForIsbn(data)}
                     variant="h4"
                     edit={true}
+                    multiline={false}
                 ></EditableTypography>
             </Box>
         </Box>

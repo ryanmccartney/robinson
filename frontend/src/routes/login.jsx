@@ -32,7 +32,7 @@ const Root = () => {
         });
         if (data?.user) {
             enqueueSnackbar(
-                `${user?.firstName} ${user?.lastName} logged in successfully`
+                `${data?.user?.firstName} ${data?.user?.lastName} logged in successfully`
             );
             userMutate(data?.user);
             navigate("/");

@@ -59,7 +59,7 @@ const Case = () => {
     //On component Mount
     useEffect(() => {
         setContexts(bookcase);
-    }, []);
+    }, [bookcase]);
 
     //On component Unmount (cleanup)
     useEffect(() => {

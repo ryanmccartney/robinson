@@ -99,8 +99,8 @@ const Book = () => {
                     link: `/shelf/${data?.shelf?.shelfId}`,
                 },
                 {
-                    title: data?.book?.title || "Book",
-                    link: `/book/${data?.book?.bookId}`,
+                    title: data?.title || "Book",
+                    link: `/book/${data?.bookId}`,
                 },
             ]);
         }
@@ -134,7 +134,7 @@ const Book = () => {
             setBreadcrumbs([]);
             setButtons([]);
         };
-    }, []);
+    }, [book]);
 
     if (isBookLoading) {
         return <LoadingContent />;

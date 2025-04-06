@@ -33,7 +33,7 @@ const UserDialog = ({ onUserNew, onUserUpdate, open, setOpen, user }) => {
     useEffect(() => {
         if (user) {
             for (const [key, value] of Object.entries(user)) {
-                setValue(key,value);
+                setValue(key, value);
             }
         }
     }, [user]);
