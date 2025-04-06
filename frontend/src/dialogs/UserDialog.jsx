@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import Backdrop from "@mui/material/Backdrop";
@@ -22,11 +23,20 @@ const UserDialog = ({ onUserNew, onUserUpdate, open, setOpen, user }) => {
         control,
         formState: { errors },
         reset,
+        setValue,
     } = useForm({ defaultValues: user });
 
     const submitForm = (data) => {
         user ? onUserUpdate(data) : onUserNew(data);
     };
+
+    useEffect(() => {
+        if (user) {
+            for (const [key, value] of Object.entries(user)) {
+                setValue(key,value);
+            }
+        }
+    }, [user]);
 
     return (
         <Modal
@@ -57,7 +67,7 @@ const UserDialog = ({ onUserNew, onUserUpdate, open, setOpen, user }) => {
                     }}
                 >
                     <Typography align="center" variant="h5" gutterBottom>
-                        Add User
+                        {user ? "Edit " : "Add "} User
                     </Typography>
 
                     <Grid

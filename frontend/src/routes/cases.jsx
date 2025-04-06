@@ -18,13 +18,8 @@ const Cases = () => {
         ]);
     };
 
-    //On component Mount
     useEffect(() => {
         setContexts();
-    }, []);
-
-    //On component Unmount (cleanup)
-    useEffect(() => {
         return () => {
             setBreadcrumbs([]);
         };
