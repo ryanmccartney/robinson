@@ -119,8 +119,8 @@ const User = () => {
                                         required: true,
                                     })}
                                     label="First Name"
-                                    // error={errors.firstName}
-                                    // helperText={errors.firstName}
+                                    error={errors?.firstName}
+                                    helperText={errors?.firstName?.message}
                                 />
                             </Grid>
 
@@ -131,8 +131,8 @@ const User = () => {
                                         required: true,
                                     })}
                                     label="Last Name"
-                                    // error={errors.lastName}
-                                    // helperText={errors.lastName}
+                                    error={errors?.lastName}
+                                    helperText={errors?.lastName?.message}
                                 />
                             </Grid>
 
@@ -143,19 +143,25 @@ const User = () => {
                                         required: true,
                                     })}
                                     label="Email"
-                                    // error={errors.email}
-                                    // helperText={errors.email}
+                                    error={errors?.email}
+                                    helperText={errors?.email?.message}
                                 />
                             </Grid>
 
                             <Grid size={{ xs: 12, xl: 12 }}>
                                 <TextField
                                     fullWidth
-                                    {...register("password")}
+                                    {...register("password", {
+                                        minLength: {
+                                            value: 8,
+                                            message:
+                                                "Password must be at least 8 characters",
+                                        },
+                                    })}
                                     type="password"
                                     label="Password"
-                                    // error={errors.password}
-                                    // helperText={errors.password}
+                                    error={errors?.password}
+                                    helperText={errors?.password?.message}
                                 />
                             </Grid>
 
