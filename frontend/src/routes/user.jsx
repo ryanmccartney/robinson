@@ -37,8 +37,8 @@ const User = () => {
     const [theme, setTheme] = useState("auto");
 
     const updateUser = async (updatedUser) => {
-        const newData = await fetcher.put(`users/current`, updatedUser);
-        userMutate(newData?.user);
+        await fetcher.put(`users/current`, updatedUser);
+        userMutate();
     };
 
     const handleTheme = (event) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import fetcher from "@utils/fetcher";
+import { enqueueSnackbar } from "notistack";
 
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -16,56 +16,90 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
+import UserDialog from "@dialogs/UserDialog";
+import UserAvatar from "@components/UserAvatar";
 import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
-
+import fetcher from "@utils/fetcher";
+import { useUsers } from "@utils/data";
 import { UserContext } from "@contexts/user";
-
-import UserAvatar from "@components/UserAvatar";
 
 const User = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState(null);
+    const [userDialogOpen, setUserDialogOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
-    const { user } = useContext(UserContext);
+    const { users, isUsersLoading, usersMutate } = useUsers();
+    const { user, isUserLoading } = useContext(UserContext);
+
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
 
-    const setContexts = (user) => {
-        if (user) {
-            setBreadcrumbs([
-                { title: "Home", link: `/` },
-                { title: "Users", link: `/users` },
-            ]);
+    const handleNewUser = async (data) => {
+        const response = await fetcher.post(`users`, data);
+        if (response.user) {
+            enqueueSnackbar(
+                `Created a new user ${data.firstName} ${data.lastName}`
+            );
+            setUserDialogOpen(false);
+            usersMutate();
         }
     };
 
-    //On component Mount
+    const handleUpdatedUser = async (data) => {
+        const response = await fetcher.put(`users/${data.userId}`, data);
+        if (response.user) {
+            enqueueSnackbar(`Updated ${data.firstName} ${data.lastName}`);
+            setUserDialogOpen(false);
+            usersMutate();
+        }
+    };
+
+    const handleDeleteUser = async (data) => {
+        const response = await fetcher.delete(`users/${data.userId}`);
+        if (response.user) {
+            enqueueSnackbar(`Deleted ${data.firstName} ${data.lastName}`);
+            usersMutate();
+        }
+    };
+
+    const setContexts = () => {
+        setBreadcrumbs([
+            { title: "Home", link: `/` },
+            { title: "Users", link: `/users` },
+        ]);
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            setData(await fetcher(`users`));
-            setContexts(user);
-        };
-        fetchData();
+        setContexts();
         return () => {
             setBreadcrumbs([]);
             setButtons([]);
         };
     }, [user]);
 
-    if (!user || !data) {
+    if (isUsersLoading || isUserLoading) {
         return <LoadingContent />;
     }
 
-    if (!data?.users || user?.role !== "librarian") {
+    if (user?.role !== "librarian") {
         navigate(`/`);
         return <LoadingContent />;
     }
 
     return (
         <Box sx={{ m: 2 }}>
+            <UserDialog
+                onUserNew={handleNewUser}
+                onUserUpdate={handleUpdatedUser}
+                setOpen={setUserDialogOpen}
+                open={userDialogOpen}
+                user={selectedUser}
+            />
+
             <Typography gutterBottom variant="h4">
                 Users
             </Typography>
@@ -84,7 +118,7 @@ const User = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.users.map((row) => (
+                        {users.map((row) => (
                             <TableRow
                                 key={row.userId}
                                 sx={{
@@ -105,7 +139,15 @@ const User = () => {
                                 <TableCell align="left">{row.email}</TableCell>
                                 <TableCell align="left">{row.role}</TableCell>
                                 <TableCell align="center">
-                                    <Checkbox checked={row.enabled} />
+                                    <Checkbox
+                                        checked={row.enabled}
+                                        onClick={(event) => {
+                                            handleUpdatedUser({
+                                                enabled: event.target.checked,
+                                                userId: row.userId,
+                                            });
+                                        }}
+                                    />
                                 </TableCell>
                                 <TableCell align="right">
                                     <Stack
@@ -119,12 +161,19 @@ const User = () => {
                                         <IconButton
                                             aria-label="delete"
                                             size="medium"
+                                            onClick={() => {
+                                                setSelectedUser(row);
+                                                setUserDialogOpen(true);
+                                            }}
                                         >
                                             <EditIcon fontSize="inherit" />
                                         </IconButton>
                                         <IconButton
                                             aria-label="delete"
                                             size="medium"
+                                            onClick={() => {
+                                                handleDeleteUser(row);
+                                            }}
                                         >
                                             <DeleteIcon fontSize="inherit" />
                                         </IconButton>
@@ -135,6 +184,17 @@ const User = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <Button
+                sx={{ ml: "auto", mt: 3 }}
+                onClick={() => {
+                    setSelectedUser(null);
+                    setUserDialogOpen(true);
+                }}
+                variant="outlined"
+            >
+                Add User
+            </Button>
         </Box>
     );
 };
