@@ -17,16 +17,6 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import Divider from "@mui/material/Divider";
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "40%",
-    boxShadow: 24,
-    p: 2,
-};
-
 const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
     const { cases, isCasesLoading } = useCases();
     const { shelves, isShelvesLoading } = useShelves();
@@ -72,6 +62,7 @@ const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
                                 />
                             </ListItemIcon>
                             <ListItemText
+                                sx={{ textWrap: "nowrap" }}
                                 id={bookcase.caseId}
                                 primary={bookcase.name}
                             />
@@ -115,6 +106,7 @@ const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
                                     />
                                 </ListItemIcon>
                                 <ListItemText
+                                    sx={{ textWrap: "nowrap" }}
                                     id={shelf.shelfId}
                                     primary={shelf.name}
                                 />
@@ -135,7 +127,16 @@ const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
                 aria-labelledby="modal-title"
                 aria-describedby="modal-description"
             >
-                <Card sx={style}>
+                <Card
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        boxShadow: 24,
+                        p: 2,
+                    }}
+                >
                     <Typography
                         id="modal-title"
                         variant="h5"
