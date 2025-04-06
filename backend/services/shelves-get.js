@@ -34,6 +34,17 @@ module.exports = async (shelfId) => {
                     return await getBooksOnShelf(shelf);
                 })
             );
+
+            data.shelves = await Promise.all(
+                data.shelves.map(async (shelf) => {
+                    if (shelf.caseId) {
+                        shelf.case = await casesModel.findOne({
+                            caseId: shelf.caseId,
+                        });
+                    }
+                    return shelf;
+                })
+            );
         }
 
         return data;

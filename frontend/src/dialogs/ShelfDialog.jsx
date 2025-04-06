@@ -15,6 +15,15 @@ import { useShelves } from "@utils/data";
 const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
     const { shelves, isShelvesLoading } = useShelves();
 
+    const getText = (shelf) => {
+        return (
+            <>
+                <b>{shelf.name}</b>&nbsp;&nbsp;
+                {shelf.case ? `(${shelf.case.name})` : ""}
+            </>
+        );
+    };
+
     const getShelves = () => {
         const shelvesItem = [];
 
@@ -42,7 +51,10 @@ const ShelfDialog = ({ open, setOpen, onShelfChange }) => {
                                 checkedIcon={<RadioButtonCheckedIcon />}
                             />
                         </ListItemIcon>
-                        <ListItemText id={shelf.shelfId} primary={shelf.name} />
+                        <ListItemText
+                            id={shelf.shelfId}
+                            primary={getText(shelf)}
+                        />
                     </ListItemButton>
                 </ListItem>
             );
