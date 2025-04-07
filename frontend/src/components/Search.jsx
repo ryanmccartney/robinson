@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import Autocomplete from "@mui/material/Autocomplete";
+import Grid from "@mui/material/Grid";
 
 import fetcher from "@utils/fetcher";
 
@@ -15,7 +16,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: "100%",
     "& .MuiInputBase-input": {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create("width"),
         [theme.breakpoints.up("sm")]: {
@@ -52,15 +52,58 @@ const SearchStyled = styled("div")(({ theme }) => ({
     },
 }));
 
-const SearchResult = ({ optionProps, result }) => {
+const SearchResult = ({ result }) => {
     const navigate = useNavigate();
+    return (
+        <Paper
+            elevation={2}
+            onClick={() => {
+                navigate(`/book/${result.bookId}`);
+            }}
+            sx={{ mb: 1, p: 2 }}
+            onMouseOver={(e) => {
+                console.log(e);
+                e.target.style.opacity = "0.5";
+            }}
+            onMouseOut={(e) => {
+                e.target.style.opacity = "1";
+            }}
+        >
+            <Grid container spacing={1}>
+                <Grid size={2}>
+                    <img
+                        src={`/api/books/cover/${result.bookId}`}
+                        alt="Cover"
+                        width={"50rem"}
+                        height={"80rem"}
+                    />
+                    ;
+                </Grid>
+                <Grid size={10}>
+                    <Typography gutterBottom sx={{ fontSize: 16 }}>
+                        {result.title}
+                    </Typography>
+                    <Typography
+                        gutterBottom
+                        sx={{ color: "text.secondary", fontSize: 12 }}
+                    >
+                        {result.author}
+                    </Typography>
 
-    console.log(result);
-    return <>{result.name}</>;
+                    <Typography
+                        gutterBottom
+                        sx={{ color: "text.secondary", fontSize: 10 }}
+                    >
+                        {`${result.pages} pages`}
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Paper>
+    );
 };
 
 const Search = () => {
-    const inputRef = useRef(null);
+    const searchRef = useRef(null);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [options, setOptions] = useState([]);
@@ -74,7 +117,7 @@ const Search = () => {
                     `search?query=${encodeURIComponent(searchTerm)}`
                 );
                 if (data.results) {
-                    setOptions(data.results || []);
+                    setOptions(data.results);
                 }
                 setLoading(false);
             } else {
@@ -88,7 +131,11 @@ const Search = () => {
         const handleKeyDown = (e) => {
             if (e.keyCode === 191) {
                 e.preventDefault();
-                inputRef.current.focus();
+                searchRef.current.focus();
+            }
+            if (e.keyCode === 27) {
+                e.preventDefault();
+                searchRef.current.blur();
             }
         };
         document.addEventListener("keydown", handleKeyDown);
@@ -99,19 +146,17 @@ const Search = () => {
 
     return (
         <Autocomplete
-            ref={inputRef}
-            freeSolo
             disableClearable
+            autoHighlight
             options={options}
             loading={loading}
-            onInputChange={(e, newInputValue) => {
+            onInputChange={(_, newInputValue) => {
                 setSearchTerm(newInputValue);
             }}
             getOptionLabel={(result) => {
                 return result.title;
             }}
             renderOption={(props, result) => {
-                console.log(result);
                 const { key, ...optionProps } = props;
                 return (
                     <SearchResult
@@ -122,22 +167,19 @@ const Search = () => {
                 );
             }}
             renderInput={(params) => {
-                delete params.InputLabelProps;
-                delete params.InputProps;
-
                 return (
                     <SearchStyled>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
-                            placeholder="Press /"
-                            inputRef={params.inputRef}
+                            ref={params.InputProps.ref}
+                            inputRef={searchRef}
                             inputProps={{
                                 ...params.inputProps,
                                 type: "search",
                             }}
-                            {...params}
+                            placeholder="Press  /"
                         />
                     </SearchStyled>
                 );
