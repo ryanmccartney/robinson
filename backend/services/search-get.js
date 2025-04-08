@@ -16,7 +16,7 @@ module.exports = async (
                         await booksModel.find(
                             { title: { $regex: query, $options : 'i' } },
                             { cover: 0 }
-                        ).lean()
+                        )
                     );
                 }
                 if (fields.includes("author")) {
@@ -24,7 +24,7 @@ module.exports = async (
                         await booksModel.find(
                             { author: { $regex: query , $options : 'i'} },
                             { cover: 0 }
-                        ).lean()
+                        )
                     );
                 }
                 if (fields.includes("description")) {
@@ -34,9 +34,18 @@ module.exports = async (
                                 description: { $regex: query, $options : 'i' },
                             },
                             { cover: 0 }
-                        ).lean()
+                        )
                     );
                 }
+
+                data.results = data.results.reduce((acc, current) => {
+                    const x = acc.find(item => item.bookId === current.bookId);
+                    if (!x) {
+                      return acc.concat([current]);
+                    } else {
+                      return acc;
+                    }
+                  }, []);
             }
         }
         return data;
