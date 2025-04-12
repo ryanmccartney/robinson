@@ -20,19 +20,19 @@ const style = {
 const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
     const updateBookProgress = async (value) => {
         if (value) {
-            const updatedData = await fetcher.put(`books/${book?.bookId}`, {
+            await fetcher.put(`books/${book?.bookId}`, {
                 progress: parseInt(value),
             });
-            bookMutate(updatedData);
+            bookMutate();
         }
     };
 
     const updateBookTotal = async (value) => {
         if (value) {
-            const updatedData = await fetcher.put(`books/${book?.bookId}`, {
+            await fetcher.put(`books/${book?.bookId}`, {
                 pages: parseInt(value),
             });
-            bookMutate(updatedData);
+            bookMutate();
         }
     };
 
