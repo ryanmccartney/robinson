@@ -18,12 +18,21 @@ const style = {
 };
 
 const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
-    const updateBook = async (value) => {
+
+    const updateBookProgress = async (value) => {
         if (value) {
-            const updatedData = await fetcher.put(
-                `books/${book?.bookId}`,
-                value
-            );
+            const updatedData = await fetcher.put(`books/${book?.bookId}`, {
+                progress: parseInt(value),
+            });
+            bookMutate(updatedData);
+        }
+    };
+
+    const updateBookTotal = async (value) => {
+        if (value) {
+            const updatedData = await fetcher.put(`books/${book?.bookId}`, {
+                pages: parseInt(value),
+            });
             bookMutate(updatedData);
         }
     };
@@ -54,8 +63,7 @@ const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
                             }}
                         >
                             <NumberInput
-                                onChange={updateBook}
-                                field="progress"
+                                onChange={updateBookProgress}
                                 defaultValue={book.progress}
                                 min={0}
                                 max={book.pages}
@@ -68,8 +76,7 @@ const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
                             }}
                         >
                             <NumberInput
-                                onChange={updateBook}
-                                field="pages"
+                                onChange={updateBookTotal}
                                 defaultValue={book.pages}
                                 min={1}
                                 max={999}

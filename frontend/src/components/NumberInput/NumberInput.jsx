@@ -1,11 +1,20 @@
-import * as React from "react";
+import { useId } from "react";
 import { NumberField } from "@base-ui-components/react/number-field";
 import styles from "./NumberInput.module.css";
 
-export default function NumberInput() {
-    const id = React.useId();
+const NumberInput = ({ defaultValue, min = 0, max, onChange = () => {} }) => {
+    const id = useId();
     return (
-        <NumberField.Root id={id} defaultValue={100} className={styles.Field}>
+        <NumberField.Root
+            onValueChange={onChange}
+            smallStep={1}
+            allowWheelScrub
+            id={id}
+            min={min}
+            max={max}
+            defaultValue={defaultValue}
+            className={styles.Field}
+        >
             <NumberField.ScrubArea className={styles.ScrubArea}>
                 <NumberField.ScrubAreaCursor className={styles.ScrubAreaCursor}>
                     <CursorGrowIcon />
@@ -23,9 +32,9 @@ export default function NumberInput() {
             </NumberField.Group>
         </NumberField.Root>
     );
-}
+};
 
-function CursorGrowIcon(props) {
+const CursorGrowIcon = (props) => {
     return (
         <svg
             width="26"
@@ -39,9 +48,9 @@ function CursorGrowIcon(props) {
             <path d="M19.5 5.5L6.49737 5.51844V2L1 6.9999L6.5 12L6.49737 8.5L19.5 8.5V12L25 6.9999L19.5 2V5.5Z" />
         </svg>
     );
-}
+};
 
-function PlusIcon(props) {
+const PlusIcon = (props) => {
     return (
         <svg
             width="10"
@@ -56,9 +65,9 @@ function PlusIcon(props) {
             <path d="M0 5H5M10 5H5M5 5V0M5 5V10" />
         </svg>
     );
-}
+};
 
-function MinusIcon(props) {
+const MinusIcon = (props) => {
     return (
         <svg
             width="10"
@@ -73,4 +82,6 @@ function MinusIcon(props) {
             <path d="M0 5H10" />
         </svg>
     );
-}
+};
+
+export default NumberInput;
