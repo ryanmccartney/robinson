@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -18,8 +19,16 @@ const style = {
 };
 
 const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
+    const [lastUpdate, setLastUpdate] = useState(new Date());
+    const debounceTime = 250;
+
     const updateBookProgress = async (value) => {
-        if (value) {
+        const currentTime = new Date();
+        if (
+            value &&
+            lastUpdate.getTime() + debounceTime < currentTime.getTime()
+        ) {
+            setLastUpdate(currentTime);
             await fetcher.put(`books/${book?.bookId}`, {
                 progress: parseInt(value),
             });
@@ -28,7 +37,12 @@ const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
     };
 
     const updateBookTotal = async (value) => {
-        if (value) {
+        const currentTime = new Date();
+        if (
+            value &&
+            lastUpdate.getTime() + debounceTime < currentTime.getTime()
+        ) {
+            setLastUpdate(currentTime);
             await fetcher.put(`books/${book?.bookId}`, {
                 pages: parseInt(value),
             });
