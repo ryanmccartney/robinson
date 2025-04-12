@@ -18,7 +18,6 @@ const style = {
 };
 
 const BookmarkUpdater = ({ open, setOpen, book, bookMutate }) => {
-
     const updateBookProgress = async (value) => {
         if (value) {
             const updatedData = await fetcher.put(`books/${book?.bookId}`, {
