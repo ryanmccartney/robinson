@@ -9,7 +9,7 @@ nav_order: 1
 
 | Variable       | Default        | Type    | Description |
 |----------------|----------------|---------|-------------|
-| PORT           | 80             | Integar |             |
+| PORT           | 80             | Integer |             |
 | NODE_ENV       | production     | String  |             |
 | DB_NAME        | robinson       | String  |             |
 | DB_USER        | robinson       | String  |             |
@@ -21,4 +21,4 @@ nav_order: 1
 | LOG_NAME       | robinson       | String  |             |
 | LOG_LEVEL      | info           | String  |             |
 | PROXY_ADDRESS  | undefined      | String  |             |
-| RATE_LIMIT     | 1000           | Integar |             |
+| RATE_LIMIT     | 1000           | Integer |             |
