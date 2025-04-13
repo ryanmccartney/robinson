@@ -6,7 +6,7 @@ nav_order: 1
 ---
 
 <!-- omit in toc -->
-# Contributing to Robinson
+# Contributing
 
 First off, thanks for taking the time to contribute! ❤️
 
@@ -36,7 +36,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[Robinson Code of Conduct](https://github.com/ryanmccartney/robinson/blob/main/CODE_OF_CONDUCT.md).
+[Robinson Code of Conduct](https://ryan.mccartney.info/robinson/pages/development/code_of_conduct.html).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to <hello@mccartney.info>.
 

@@ -5,7 +5,7 @@ parent: Development
 nav_order: 2
 ---
 
-# Robinson - Code of Conduct
+# Code of Conduct
 
 ## Our Pledge
 
