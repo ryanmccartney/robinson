@@ -13,7 +13,7 @@ Robinson RESTful API
 **Contact information:**  
 Ryan McCartney  
 https://ryan.mccartney.info/robinson  
-ryan@mccartney.info  
+hello@mccartney.info  
 
 **License:** [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 

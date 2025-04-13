@@ -9,7 +9,7 @@ const path = require("path");
 
 const main = async () => {
     const swaggerYamlSpec = YAML.stringify(documentation.spec);
-    fs.writeFileSync(path.join("..", "docs", "api.yml"), swaggerYamlSpec);
+    fs.writeFileSync(path.join("..", "docs","assets", "api.yml"), swaggerYamlSpec);
 };
 
 main();

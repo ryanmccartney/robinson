@@ -24,7 +24,7 @@ const swaggerOptions = {
             contact: {
                 name: "Ryan McCartney",
                 url: "https://ryan.mccartney.info/robinson",
-                email: "ryan@mccartney.info",
+                email: "hello@mccartney.info",
             },
         },
         servers: [
