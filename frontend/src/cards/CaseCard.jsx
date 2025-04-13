@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import trimToLength from "@utils/trimToLength";
 import formatQuantity from "@utils/formatQuantity";
 
-const CaseCard = ({ bookcase, maxBooks = 8 }) => {
+const CaseCard = ({ bookcase, maxBooks = 9 }) => {
     const [show, setShow] = useState(false);
     const [books, setBooks] = useState([]);
 
@@ -24,7 +24,7 @@ const CaseCard = ({ bookcase, maxBooks = 8 }) => {
         for (const shelf of bookcase.shelves) {
             for (const bookId of shelf.books) {
                 bookIds.push(bookId);
-                if (bookIds > maxBooks) {
+                if (bookIds.length >= maxBooks) {
                     break;
                 }
             }

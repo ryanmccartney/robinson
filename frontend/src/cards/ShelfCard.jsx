@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import trimToLength from "@utils/trimToLength";
 import formatQuantity from "@utils/formatQuantity";
 
-const ShelfCard = ({ shelf }) => {
+const ShelfCard = ({ shelf, maxBooks = 9 }) => {
     const [show, setShow] = React.useState(false);
     const media = React.useRef(null);
     const card = React.useRef(null);
@@ -97,16 +97,20 @@ const ShelfCard = ({ shelf }) => {
                                     cols={3}
                                     gap={4}
                                 >
-                                    {shelf.books.map((bookId) => (
-                                        <ImageListItem key={bookId}>
-                                            <img
-                                                srcSet={`/api/books/cover/${bookId}`}
-                                                src={`/api/books/cover/${bookId}`}
-                                                loading="lazy"
-                                                alt=""
-                                            />
-                                        </ImageListItem>
-                                    ))}
+                                    {shelf.books.map((bookId, index) => {
+                                        if (index < maxBooks) {
+                                            return (
+                                                <ImageListItem key={bookId}>
+                                                    <img
+                                                        srcSet={`/api/books/cover/${bookId}`}
+                                                        src={`/api/books/cover/${bookId}`}
+                                                        loading="lazy"
+                                                        alt=""
+                                                    />
+                                                </ImageListItem>
+                                            );
+                                        }
+                                    })}
                                 </ImageList>
                             </Box>
 
