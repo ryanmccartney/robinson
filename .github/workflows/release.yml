@@ -25,7 +25,11 @@ jobs:
             git config --global user.name "Release Workflow"
         - name: Log git status
           run: git status
-        - name: Install the dependencies
+        - name: Install the frontend dependencies
+          run: cd ./frontend && npm ci
+        - name: Run release
+          run: cd ./frontend && npm run release --ci
+        - name: Install the backend dependencies
           run: cd ./backend && npm ci
         - name: Run release
           run: cd ./backend && npm run release --ci
