@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import { useBooks } from "@utils/data";
-
 import BookCard from "@cards/BookCard";
 import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
@@ -12,17 +11,13 @@ const Books = () => {
     const { books, isBooksLoading } = useBooks();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
-    const setContexts = () => {
+    useEffect(() => {
         setBreadcrumbs([
             { title: "Home", link: `/` },
             { title: "Cases", link: `/cases` },
             { title: "Shelves", link: `/shelves` },
             { title: "Books", link: `/books` },
         ]);
-    };
-
-    useEffect(() => {
-        setContexts();
         return () => {
             setBreadcrumbs([]);
         };
@@ -49,7 +44,7 @@ const Books = () => {
 
     return (
         <Box sx={{ m: 2 }}>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
                 {getBookCards()}
             </Grid>
         </Box>

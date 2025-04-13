@@ -1,20 +1,39 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ImageList from "@mui/material/ImageList";
-
+import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
 
-const BookcaseCard = ({ bookcase }) => {
+import trimToLength from "@utils/trimToLength";
+import formatQuantity from "@utils/formatQuantity";
+
+const CaseCard = ({ bookcase, maxBooks = 8 }) => {
     const [show, setShow] = useState(false);
+    const [books, setBooks] = useState([]);
+
     const media = useRef(null);
     const card = useRef(null);
 
+    useEffect(() => {
+        const bookIds = [];
+        for (const shelf of bookcase.shelves) {
+            for (const bookId of shelf.books) {
+                bookIds.push(bookId);
+                if (bookIds > maxBooks) {
+                    break;
+                }
+            }
+        }
+        setBooks(bookIds);
+    }, [bookcase]);
+
     return (
-        <Grid size={{ xs: 12, md: 3, lg: 2 }}>
+        <Grid size={{ xs: 6, md: 3, lg: 2 }}>
             <Link
                 style={{ textDecoration: "none" }}
                 to={`/case/${bookcase.caseId}`}
@@ -60,47 +79,65 @@ const BookcaseCard = ({ bookcase }) => {
                                     top: 0,
                                     left: 0,
                                 }}
-                            ></Box>
+                            >
+                                <Typography variant="subtitle1">
+                                    {trimToLength(bookcase.description, 20)}
+                                </Typography>
+                            </Box>
                         )}
                         <Box
                             sx={{
-                                height: 300,
+                                height: "100%",
                                 width: "100%",
                                 zIndex: "modal",
                                 position: "absolute",
+                                overflow: "hidden",
                                 top: 0,
                                 left: 0,
                             }}
                         >
-                            <ImageList
-                                ref={media}
+                            <Box
                                 sx={{
-                                    align: "center",
-                                    height: 250,
-                                    width: "90%",
+                                    height: "75%",
+                                    zIndex: "modal",
+                                    overflow: "hidden",
+                                    top: 0,
+                                    left: 0,
                                 }}
-                                variant="masonry"
-                                cols={3}
-                                gap={8}
                             >
-                                {/* {bookcase.books.map((book) => (
-                                    <ImageListItem key={book}>
-                                        <img
-                                            srcSet={books[book].cover}
-                                            src={books[book].cover}
-                                            alt={books[book].title}
-                                            loading="lazy"
-                                        />
-                                    </ImageListItem>
-                                ))} */}
-                            </ImageList>
+                                <ImageList
+                                    ref={media}
+                                    sx={{ margin: 0.1, overflow: "none" }}
+                                    variant="masonry"
+                                    cols={3}
+                                    gap={4}
+                                >
+                                    {books.map((bookId) => (
+                                        <ImageListItem key={bookId}>
+                                            <img
+                                                srcSet={`/api/books/cover/${bookId}`}
+                                                src={`/api/books/cover/${bookId}`}
+                                                loading="lazy"
+                                                alt=""
+                                            />
+                                        </ImageListItem>
+                                    ))}
+                                </ImageList>
+                            </Box>
 
                             <CardContent>
                                 <Typography variant="h6">
                                     {bookcase.name}
                                 </Typography>
-                                <Typography variant="subtitle2">
-                                    {bookcase.description}
+                                <Typography gutterBottom variant="subtitle2">
+                                    {`${formatQuantity(
+                                        bookcase.shelves.length,
+                                        "shelf",
+                                        "shelves"
+                                    )},  ${formatQuantity(
+                                        books.length,
+                                        "book"
+                                    )}`}
                                 </Typography>
                             </CardContent>
                         </Box>
@@ -110,5 +147,4 @@ const BookcaseCard = ({ bookcase }) => {
         </Grid>
     );
 };
-
-export default BookcaseCard;
+export default CaseCard;

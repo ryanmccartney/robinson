@@ -1,45 +1,32 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "@utils/fetcher";
 
+import { useShelves } from "@utils/data";
 import ShelfCard from "@cards/ShelfCard";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import LoadingContent from "@components/LoadingContent";
 
 const Shelves = () => {
-    const [data, setData] = useState(null);
+    const { shelves, isShelvesLoading } = useShelves();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
-    const setContexts = () => {
+    useEffect(() => {
         setBreadcrumbs([
             { title: "Home", link: `/` },
             { title: "Cases", link: `/cases` },
             { title: "Shelves", link: `/shelves` },
         ]);
-    };
-
-    //On component Mount
-    useEffect(() => {
-        const fetchData = async () => {
-            setData(await fetcher(`shelves`));
-            setContexts();
-        };
-        fetchData();
-    }, []);
-
-    //On component Unmount (cleanup)
-    useEffect(() => {
         return () => {
             setBreadcrumbs([]);
         };
     }, []);
 
-    if (!data) {
+    if (isShelvesLoading) {
         return <LoadingContent />;
     }
 
-    const getShelfCards = (shelves = {}) => {
+    const getShelfCards = () => {
         const shelfCards = [];
         {
             Object.keys(shelves).forEach((id, index) => {
@@ -53,7 +40,7 @@ const Shelves = () => {
     return (
         <Box sx={{ m: 2 }}>
             <Grid container spacing={2}>
-                {getShelfCards(data?.shelves)}
+                {getShelfCards()}
             </Grid>
         </Box>
     );

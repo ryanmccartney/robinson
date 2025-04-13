@@ -1,12 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
+
 import trimToLength from "@utils/trimToLength";
-import { Link } from "react-router-dom";
-import dayjs from "dayjs";
+import formatQuantity from "@utils/formatQuantity";
 
 const BookCard = ({
     book,
@@ -78,7 +81,9 @@ const BookCard = ({
                                 variant="overline"
                                 display="block"
                                 gutterBottom
-                            >{`${book.pages} pages`}</Typography>
+                            >
+                                {formatQuantity(book.pages, "page")}
+                            </Typography>
                         </Box>
                     )}
                     <Box

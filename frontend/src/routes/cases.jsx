@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { useCases } from "@utils/data";
 
+import { useCases } from "@utils/data";
 import CaseCard from "@cards/CaseCard";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import LoadingContent from "@components/LoadingContent";
@@ -11,15 +11,11 @@ const Cases = () => {
     const { cases, isCasesLoading } = useCases();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
-    const setContexts = () => {
+    useEffect(() => {
         setBreadcrumbs([
             { title: "Home", link: `/` },
             { title: "Cases", link: `/cases` },
         ]);
-    };
-
-    useEffect(() => {
-        setContexts();
         return () => {
             setBreadcrumbs([]);
         };
@@ -39,7 +35,7 @@ const Cases = () => {
 
     return (
         <Box sx={{ m: 2 }}>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
                 {getCaseCards()}
             </Grid>
         </Box>

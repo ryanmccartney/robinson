@@ -1,13 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
+
+import trimToLength from "@utils/trimToLength";
+import formatQuantity from "@utils/formatQuantity";
 
 const ShelfCard = ({ shelf }) => {
     const [show, setShow] = React.useState(false);
@@ -63,54 +66,56 @@ const ShelfCard = ({ shelf }) => {
                                 }}
                             >
                                 <Typography variant="subtitle1">
-                                    {shelf.books.length} books
+                                    {trimToLength(shelf.description, 20)}
                                 </Typography>
                             </Box>
                         )}
                         <Box
                             sx={{
-                                height: 300,
+                                height: "100%",
                                 width: "100%",
                                 zIndex: "modal",
                                 position: "absolute",
+                                overflow: "hidden",
                                 top: 0,
                                 left: 0,
                             }}
                         >
-                            <ImageList
-                                ref={media}
-                                sx={{ margin: 1, overflow: "none" }}
-                                variant="masonry"
-                                cols={3}
-                                gap={4}
-                            >
-                                {shelf.books.map((bookId) => (
-                                    <ImageListItem key={bookId}>
-                                        <img
-                                            srcSet={`/api/books/cover/${bookId}`}
-                                            src={`/api/books/cover/${bookId}`}
-                                            loading="lazy"
-                                            alt=""
-                                        />
-                                    </ImageListItem>
-                                ))}
-                            </ImageList>
-
-                            <CardContent
+                            <Box
                                 sx={{
-                                    m: 4,
-                                    zIndex: "tooltip",
-                                    position: "absolute",
-                                    bottom: "-8.2rem",
-                                    left: "-1.5rem",
-                                    width: "100%",
+                                    height: "75%",
+                                    zIndex: "modal",
+                                    overflow: "hidden",
+                                    top: 0,
+                                    left: 0,
                                 }}
                             >
+                                <ImageList
+                                    ref={media}
+                                    sx={{ margin: 0.1, overflow: "none" }}
+                                    variant="masonry"
+                                    cols={3}
+                                    gap={4}
+                                >
+                                    {shelf.books.map((bookId) => (
+                                        <ImageListItem key={bookId}>
+                                            <img
+                                                srcSet={`/api/books/cover/${bookId}`}
+                                                src={`/api/books/cover/${bookId}`}
+                                                loading="lazy"
+                                                alt=""
+                                            />
+                                        </ImageListItem>
+                                    ))}
+                                </ImageList>
+                            </Box>
+
+                            <CardContent>
                                 <Typography variant="h6">
                                     {shelf.name}
                                 </Typography>
                                 <Typography gutterBottom variant="subtitle2">
-                                    {shelf.books.length} books
+                                    {formatQuantity(shelf.books.length, "book")}
                                 </Typography>
                             </CardContent>
                         </Box>
