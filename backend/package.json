@@ -7,7 +7,7 @@
     "test": "jest",
     "development": "nodemon index",
     "production": "node index",
-    "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ./../docs/api.yml  -o ./../docs/api.md",
+    "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ./../docs/assets/api.yml  -o ./../docs/pages/api/api.md",
     "lint": "eslint .",
     "release": "release-it --verbose",
     "changelog": "auto-changelog -p --output './../CHANGELOG.md' --commit-limit false",

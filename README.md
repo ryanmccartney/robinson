@@ -32,7 +32,7 @@ Add your bookcases, shelves and books. Track where they're stored, who they're l
 
 Check your reading timeline and search your library. Easily add book by scanning they're ISBN.
 
-![](./docs/home.gif)
+![](./docs/assets/home.gif)
 
 # Installation
 

@@ -1,0 +1,23 @@
+---
+---
+{% if site.color_scheme and site.color_scheme != "nil" %}
+  {% assign color_scheme = site.color_scheme %}
+{% else %}
+  {% assign color_scheme = "light" %}
+{% endif %}
+{% include css/just-the-docs.scss.liquid color_scheme=color_scheme %}
+
+a {
+    color: #7EC77F;
+}
+
+.main-content {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #7EC77F;
+    }
+}
