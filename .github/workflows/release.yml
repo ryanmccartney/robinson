@@ -1,7 +1,10 @@
 # .github/workflows/release.yml
-name: Release
+name: Build and Release
 
-on: workflow_dispatch
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
 
 env:
     REGISTRY: "ghcr.io"

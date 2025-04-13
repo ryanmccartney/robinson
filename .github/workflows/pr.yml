@@ -1,0 +1,47 @@
+# .github/workflows/pr.yml
+name: Pull Request Checks
+
+on:
+  pull_request
+
+env:
+    HUSKY: 0
+
+jobs:
+    check-frontend:
+      runs-on: ubuntu-latest
+      name: Check Frontend
+      steps:
+        - name: Checkout source code
+          uses: actions/checkout@v4
+
+        - name: Install dependencies
+          run: cd ./frontend && npm ci
+
+        - name: Check the formatting
+          run: cd ./frontend && npm run format
+
+        - name: Check the linting
+          run: cd ./frontend && npm run lint
+
+        - name: Run tests
+          run: cd ./frontend && npm run test
+          
+    check-backend:
+      runs-on: ubuntu-latest
+      name: Check Backend
+      steps:
+        - name: Checkout source code
+          uses: actions/checkout@v4
+
+        - name: Install dependencies
+          run: cd ./backend && npm ci
+
+        - name: Check the formatting
+          run: cd ./backend && npm run format
+
+        - name: Check the linting
+          run: cd ./backend && npm run lint
+
+        - name: Run tests
+          run: cd ./backend && npm run test
