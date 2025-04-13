@@ -26,12 +26,10 @@ import { useBook } from "@utils/data";
 const Book = () => {
     const navigate = useNavigate();
     const { bookId } = useParams();
-
     const { book, isBookLoading, bookMutate } = useBook(bookId);
 
     const [edit, setEdit] = useState(false);
     const [organiserOpen, setOrganiserOpen] = useState(false);
-    const [rating, setRating] = useState(0);
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
 
@@ -73,63 +71,55 @@ const Book = () => {
     };
 
     const updateBook = async (bookData) => {
-        const newData = await fetcher.put(`books/${bookId}`, bookData);
-        bookMutate(newData);
-        setContexts(newData);
+        await fetcher.put(`books/${bookId}`, bookData);
+        bookMutate();
     };
 
-    const favouriteBook = async (book) => {
-        const newData = await fetcher.put(`books/${bookId}`, {
+    const favouriteBook = async () => {
+        console.log("HERE");
+        await fetcher.put(`books/${bookId}`, {
             favourite: !book?.favourite,
         });
-        bookMutate(newData);
-        setContexts(newData);
-    };
-
-    const setContexts = (data) => {
-        if (data) {
-            setBreadcrumbs([
-                { title: "Home", link: `/` },
-                {
-                    title: data?.case?.name || "Case",
-                    link: `/case/${data?.case?.caseId}`,
-                },
-                {
-                    title: data?.shelf?.name || "Shelf",
-                    link: `/shelf/${data?.shelf?.shelfId}`,
-                },
-                {
-                    title: data?.title || "Book",
-                    link: `/book/${data?.bookId}`,
-                },
-            ]);
-        }
-
-        if (data) {
-            setButtons([
-                {
-                    label: "Edit",
-                    icon: "Edit",
-                    callback: () => setEdit((s) => !s),
-                },
-                { label: "Delete", icon: "Delete", callback: deleteBook },
-
-                {
-                    label: "Favourite",
-                    icon: data?.book?.favourite ? "Favorite" : "FavoriteBorder",
-                    callback: () => favouriteBook(data?.book),
-                },
-                {
-                    label: "Change Location",
-                    icon: "DensityLarge",
-                    callback: () => setOrganiserOpen(true),
-                },
-            ]);
-        }
+        bookMutate();
     };
 
     useEffect(() => {
-        setContexts(book);
+        setBreadcrumbs([
+            { title: "Home", link: `/` },
+            {
+                title: book?.case?.name || "Case",
+                link: `/case/${book?.case?.caseId}`,
+            },
+            {
+                title: book?.shelf?.name || "Shelf",
+                link: `/shelf/${book?.shelf?.shelfId}`,
+            },
+            {
+                title: book?.title || "Book",
+                link: `/book/${book?.bookId}`,
+            },
+        ]);
+
+        setButtons([
+            {
+                label: "Edit",
+                icon: "Edit",
+                callback: () => setEdit((s) => !s),
+            },
+            { label: "Delete", icon: "Delete", callback: deleteBook },
+
+            {
+                label: "Favourite",
+                icon: book?.favourite ? "Favorite" : "FavoriteBorder",
+                callback: favouriteBook,
+            },
+            {
+                label: "Change Location",
+                icon: "DensityLarge",
+                callback: () => setOrganiserOpen(true),
+            },
+        ]);
+
         return () => {
             setBreadcrumbs([]);
             setButtons([]);
@@ -206,12 +196,12 @@ const Book = () => {
 
                     <Rating
                         name="simple-controlled"
-                        value={rating}
-                        onChange={async (event, newRating) => {
+                        value={book.rating}
+                        onChange={async (_, rating) => {
                             await fetcher.put(`books/${bookId}`, {
-                                rating: newRating,
+                                rating,
                             });
-                            setRating(newRating);
+                            bookMutate();
                         }}
                     />
 
