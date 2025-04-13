@@ -6,7 +6,7 @@ nav_order: 1
 
 # Robinson
 
-<h4 align="center">
+<h4>
  <a href="https://github.com/ryanmccartney/robinson/actions/workflows/release.yml">
     <img src="https://github.com/ryanmccartney/robinson/actions/workflows/release.yml/badge.svg" alt="continuous integration">
   </a>
@@ -34,6 +34,6 @@ Check your reading timeline and search your library. Easily add book by scanning
 
 # Technology
 
--   React fronted rolled with Webpack.
+-   React fronted rolled with Vite.
 -   Node.js and Express.js Backend
 -   Docker-based for easy self-hosting

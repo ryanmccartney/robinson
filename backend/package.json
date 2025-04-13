@@ -10,7 +10,7 @@
     "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ../docs/assets/api.yml  -o ./../docs/pages/api/index.md && ../utils/api-page.sh",
     "lint": "eslint .",
     "release": "release-it --verbose",
-    "changelog": "auto-changelog -p --output './../CHANGELOG.md' --commit-limit false",
+    "changelog": "auto-changelog -p --output '../CHANGELOG.md' --commit-limit false && cp ../CHANGELOG.md ../docs/pages/changelog/index.md  && ../utils/changelog-page.sh",
     "format:fix": "prettier --write '**/*.js'",
     "format": "prettier --check '**/*.js'"
   },

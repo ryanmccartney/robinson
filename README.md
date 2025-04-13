@@ -92,6 +92,7 @@ Find the development frontend on `http://localhost:3000` and self-documenting AP
 
 # Technology
 
--   React fronted rolled with Webpack.
+-   React fronted rolled with Vite
+-   Material UI components
 -   Node.js and Express.js Backend
 -   Docker-based for easy self-hosting
