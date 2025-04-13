@@ -30,7 +30,7 @@ Self-hosted Book management for your personal library.
 
 Add your bookcases, shelves and books. Track where they're stored, who they're loaned to and where you are.
 
-Check your reading timeline and search your library. Easily add book by scanning they're ISBN.
+Check your reading timeline and search your library. Easily add book by scanning their ISBN.
 
 ![](./docs/assets/home.gif)
 

@@ -1,3 +1,10 @@
+---
+layout: page
+title: Contributing
+parent: Development
+nav_order: 1
+---
+
 <!-- omit in toc -->
 # Contributing to Robinson
 

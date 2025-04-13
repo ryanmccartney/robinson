@@ -1,4 +1,11 @@
-# Code of Conduct - Robinson
+---
+layout: page
+title: Code of Conduct
+parent: Development
+nav_order: 2
+---
+
+# Robinson - Code of Conduct
 
 ## Our Pledge
 
