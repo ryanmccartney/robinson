@@ -65,7 +65,7 @@ const ShelfCard = ({ shelf, maxBooks = 9 }) => {
                                     left: 0,
                                 }}
                             >
-                                <Typography variant="subtitle1">
+                                <Typography gutterBottom variant="subtitle2">
                                     {trimToLength(shelf.description, 20)}
                                 </Typography>
                             </Box>
@@ -115,10 +115,19 @@ const ShelfCard = ({ shelf, maxBooks = 9 }) => {
                             </Box>
 
                             <CardContent>
-                                <Typography variant="h6">
+                                <Typography
+                                    sx={{ fontSize: "1.1rem", fontWeight: 400 }}
+                                    variant="h6"
+                                >
                                     {shelf.name}
                                 </Typography>
-                                <Typography gutterBottom variant="subtitle2">
+                                <Typography
+                                    sx={{
+                                        paddingTop: "0.2rem",
+                                        fontWeight: 200,
+                                    }}
+                                    variant="subtitle1"
+                                >
                                     {formatQuantity(shelf.books.length, "book")}
                                 </Typography>
                             </CardContent>
