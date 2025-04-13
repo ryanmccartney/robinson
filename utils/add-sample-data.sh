@@ -17,7 +17,7 @@ curl -c "$COOKIE_JAR" -X POST "$BACKEND_URL/api/login" \
      -H "Content-Type: application/json" \
      -d "$DATA"
 
-for ISBN in $(jq -r '.isbns[]' sample.json); do
+for ISBN in $(jq -r '.isbns[]' sample-data.json); do
     HTTP_STATUS=$(curl -b "$COOKIE_JAR" -o /dev/null -w "%{http_code}" -X POST "$BACKEND_URL/api/metadata/$ISBN")
     if [ "$HTTP_STATUS" -eq 200 ]; then
         echo "✅ $ISBN: added"
