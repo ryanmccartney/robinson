@@ -52,17 +52,17 @@ const SearchStyled = styled("div")(({ theme }) => ({
     },
 }));
 
-const SearchResult = ({ result }) => {
+const SearchResult = ({ result, close }) => {
     const navigate = useNavigate();
     return (
         <Paper
             elevation={2}
             onClick={() => {
                 navigate(`/book/${result.bookId}`);
+                close();
             }}
             sx={{ mb: 1, p: 2 }}
             onMouseOver={(e) => {
-                console.log(e);
                 e.target.style.opacity = "0.5";
             }}
             onMouseOut={(e) => {
@@ -77,7 +77,6 @@ const SearchResult = ({ result }) => {
                         width={"50rem"}
                         height={"80rem"}
                     />
-                    ;
                 </Grid>
                 <Grid size={10}>
                     <Typography gutterBottom sx={{ fontSize: 16 }}>
@@ -157,12 +156,15 @@ const Search = () => {
                 return result.title;
             }}
             renderOption={(props, result) => {
-                const { key, ...optionProps } = props;
+                const { ...optionProps } = props;
                 return (
                     <SearchResult
-                        key={key}
+                        key={result.bookId}
                         optionProps={optionProps}
                         result={result}
+                        close={() => {
+                            searchRef.current.blur();
+                        }}
                     />
                 );
             }}

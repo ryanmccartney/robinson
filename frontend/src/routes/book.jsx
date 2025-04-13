@@ -76,7 +76,6 @@ const Book = () => {
     };
 
     const favouriteBook = async () => {
-        console.log("HERE");
         await fetcher.put(`books/${bookId}`, {
             favourite: !book?.favourite,
         });
