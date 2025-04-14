@@ -78,8 +78,9 @@
         "npm run lint",
         "npm run test"
       ],
-      "before:git:push": [
+      "after:bump": [
         "npm run changelog",
+        "ls -l",
         "git add ../frontend/package.json",
         "git add ../frontend/package-lock.json",
         "git add ../CHANGELOG.md",
