@@ -46,7 +46,7 @@
     "jest": "^29.7.0",
     "nodemon": "^2.0.22",
     "prettier": "^3.3.3",
-    "release-it": "^17.6.0",
+    "release-it": "^18.1.2",
     "swagger-markdown": "^2.3.0"
   },
   "nodemonConfig": {
@@ -71,7 +71,7 @@
       "requireCleanWorkingDir": false,
       "tagName": "v${version}"
     },
-    "c": {
+    "hooks": {
       "before:init": [
         "git pull",
         "npm run format",
