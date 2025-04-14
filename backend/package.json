@@ -1,6 +1,6 @@
 {
   "name": "robinson-backend",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Backend for Robinson project",
   "main": "index.js",
   "scripts": {
@@ -78,7 +78,7 @@
         "npm run lint",
         "npm run test"
       ],
-      "before:bump":[
+      "before:bump": [
         "npm run changelog"
       ],
       "after:bump": [
