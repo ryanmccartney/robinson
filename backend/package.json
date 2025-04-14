@@ -1,6 +1,6 @@
 {
   "name": "robinson-backend",
-  "version": "0.0.34",
+  "version": "0.0.33",
   "description": "Backend for Robinson project",
   "main": "index.js",
   "scripts": {
@@ -69,8 +69,7 @@
     "git": {
       "requireBranch": "main",
       "requireCleanWorkingDir": false,
-      "tagName": "v${version}",
-      "changelog": "npm run changelog"
+      "tagName": "v${version}"
     },
     "hooks": {
       "before:init": [
@@ -78,6 +77,9 @@
         "npm run format",
         "npm run lint",
         "npm run test"
+      ],
+      "before:bump":[
+        "npm run changelog"
       ],
       "after:bump": [
         "npm run changelog",
