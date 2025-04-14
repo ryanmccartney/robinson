@@ -71,18 +71,17 @@
       "requireCleanWorkingDir": false,
       "tagName": "v${version}"
     },
-    "hooks": {
+    "c": {
       "before:init": [
         "git pull",
         "npm run format",
         "npm run lint",
         "npm run test"
       ],
-      "before:bump":[
-        "npm run changelog"
-      ],
-      "after:bump": [
+      "before:git:push": [
         "npm run changelog",
+        "git add ../frontend/package.json",
+        "git add ../frontend/package-lock.json",
         "git add ../CHANGELOG.md",
         "git add ../docs/pages/changelog/index.md"
       ]
