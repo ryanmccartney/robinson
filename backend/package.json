@@ -74,12 +74,9 @@
     },
     "hooks": {
       "before:init": [
-        "git pull",
-        "npm run format",
-        "npm run lint",
-        "npm run test"
+        "git pull"
       ],
-      "before:git:push": [
+      "after:bump": [
         "npm run changelog",
         "ls -l",
         "git add ../frontend/package.json",
