@@ -8,7 +8,9 @@ import unusedImports from "eslint-plugin-unused-imports";
 import pluginJest from "eslint-plugin-jest";
 
 export default defineConfig([
-    { ignores: ["build", "vite.config.js"] },
+    {
+        ignores: ["build", "vite.config.js"],
+    },
     {
         files: ["**/*.{js,jsx}"],
         languageOptions: {

@@ -12,6 +12,7 @@
     "lint:fix": "eslint --fix .",
     "build": "vite build",
     "test": "jest",
+    "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
     "release": "release-it --verbose",
     "prepare": "cd .. && husky frontend/.husky"
   },
@@ -44,8 +45,15 @@
     "swr": "^2.3.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
     "@eslint/js": "^9.23.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "babel-jest": "^29.7.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.10.0",
     "eslint-plugin-jest": "^28.11.0",
@@ -56,7 +64,9 @@
     "file-loader": "^6.2.0",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.3.3",
     "release-it": "^18.1.2",
     "style-loader": "^4.0.0",
