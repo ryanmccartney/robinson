@@ -16,6 +16,7 @@ export default defineConfig([
         languageOptions: {
             globals: {
                 ...globals.browser,
+                ...globals.node,
                 ...pluginJest.environments.globals.globals,
             },
             ecmaVersion: 2020,
