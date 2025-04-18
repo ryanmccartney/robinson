@@ -14,14 +14,14 @@ Follow the steps below to get a local development environment up and running
 -   `cd ./frontend && npm i`
 -   `docker compose up -d`
 
-Find the development frontend on `http://localhost:3000` and self-documenting API backend at `http://localhost:3100/api`
+Find the development frontend on `http://localhost:3000` and self-documenting API backend at `http://localhost:3100/api/documentation`
 
 # Before opening a Pull Request
 
 * Do tests pass?
-* Is formatting correct (`npm run format:fix`)?
-* Any linting errors (`npm run lint`)?
-* If your PR fixes a bug, is their an issue for it?
+* Is formatting correct? Test this using `npm run format:fix`.
+* Any linting errors? Test this using `npm run lint`.
+* If your PR fixes a bug, is their an issue for it? If not, please open one before raising a PR.
 
 # Opening a Pull Request
 
