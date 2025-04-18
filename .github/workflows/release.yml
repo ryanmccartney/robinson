@@ -3,7 +3,10 @@ name: Build and Release
 
 on:
   push:
-    branches: ["main"]
+    branches:
+    - main
+    paths-ignore:
+      - 'docs/**'
   workflow_dispatch:
 
 env:
