@@ -32,8 +32,20 @@ Check your reading timeline and search your library. Easily add book by scanning
 
 ![](assets/home.gif)
 
+# Features
+
+* Organizes books into, shelves and bookcase
+* Add books by scanning ISBN barcodes with your phone
+* Uses multiple sources to pull book information from ISBN
+* Bookmarking, keep your place
+* Search across all books
+
 # Technology
 
 -   React fronted rolled with Vite.
 -   Node.js and Express.js Backend
 -   Docker-based for easy self-hosting
+
+# Overview
+
+![](assets/overview.png)
