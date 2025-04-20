@@ -1,0 +1,74 @@
+# .github/workflows/release.yml
+name: Deploy
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+    REGISTRY: "ghcr.io"
+
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      name: Build Image and Push to GHCR
+      needs: release
+      steps:
+        - name: Checkout source code
+          uses: actions/checkout@v4
+
+        - name: Install the backend dependencies
+          run: cd ./backend && npm ci
+        - name: Install the frontend dependencies
+          run: cd ./frontend && npm ci
+
+        - name: Set current date and time as an environment variable
+          run: echo "timestamp=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+        - name: Print current date and time
+          run: echo ${{ env.timestamp }}
+
+        - uses: martinbeentjes/npm-get-version-action@master
+          name: Get Version Number
+          id: version
+          with:
+              path: ./backend
+        - name: Print Current Version
+          run: echo Building with version ${{ steps.version.outputs.current-version }}
+
+        - name: Build the frontend
+          run: cd ./frontend && npm run build
+        - name: Move build files to the backend folder
+          run: mkdir ./backend/build && mv ./frontend/build/* ./backend/build/
+        - name: Check contents of build folder
+          run: ls -l ./backend/build
+          
+        - name: Login to GHCR Registry
+          uses: docker/login-action@v3
+          with:
+              registry: ${{ env.REGISTRY }}
+              username: ${{ github.actor }}
+              password: ${{ secrets.GITHUB_TOKEN }}
+              logout: false
+        
+        - name: Build and push to registry
+          uses: docker/build-push-action@v6
+          with:
+              context: "./backend"
+              push: ${{ github.event_name != 'pull_request' }}
+              tags: |
+                  ${{env.REGISTRY}}/ryanmccartney/robinson:latest
+                  ${{env.REGISTRY}}/ryanmccartney/robinson:${{steps.version.outputs.current-version}}
+              outputs: type=registry
+              labels: |
+                  author=${{github.actor}}
+                  version=${{steps.version.outputs.current-version}}
+                  org.opencontainers.image.licenses=GPLv3
+                  org.opencontainers.image.url=${{github.server_url}}/${{github.repository}}
+                  org.opencontainers.image.source=${{github.server_url}}/${{github.repository}}
+                  info.mccartney.ryan.build.timestamp=${{env.timestamp}}
+                  info.mccartney.ryan.build.number=${{github.run_number}}
+                  info.mccartney.ryan.build.id=${{github.run_id}}
+                  info.mccartney.ryan.build.branch=${{github.ref_name}}
+                  info.mccartney.ryan.build.commit=${{github.sha}}
+                  info.mccartney.ryan.build.repository=${{github.server_url}}/${{github.repository}}
