@@ -61,18 +61,22 @@ jobs:
       steps:
         - name: Checkout source code
           uses: actions/checkout@v4
-        - name: Show contents of directory
-          run: ls
+          with:
+            fetch-depth: 0
+
         - name: Initialize Git user
           run: |
             git config --global user.email "ryan@mccartney.info"
             git config --global user.name "Release Workflow"
+
         - name: Log git status
           run: git status
+
         - name: Install the frontend dependencies
           run: cd ./frontend && npm ci
         - name: Update frontend version number
           run: cd ./frontend && npm run release --ci
+
         - name: Install the backend dependencies
           run: cd ./backend && npm ci
         - name: Run release
@@ -84,23 +88,21 @@ jobs:
       name: Build and Push Image
       needs: release
       steps:
-        #Get the repository
         - name: Checkout source code
           uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
 
-        #Install dependencies
         - name: Install the backend dependencies
           run: cd ./backend && npm ci
         - name: Install the frontend dependencies
           run: cd ./frontend && npm ci
 
-        #Get the build time
         - name: Set current date and time as an environment variable
           run: echo "timestamp=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
         - name: Print current date and time
           run: echo ${{ env.timestamp }}
 
-        #Get the package.json version
         - uses: martinbeentjes/npm-get-version-action@master
           name: Get Version Number
           id: version
@@ -109,7 +111,6 @@ jobs:
         - name: Print Current Version
           run: echo Building with version ${{ steps.version.outputs.current-version }}
 
-        #Build and move the frontend
         - name: Build the frontend
           run: cd ./frontend && npm run build
         - name: Move build files to the backend folder
@@ -117,7 +118,6 @@ jobs:
         - name: Check contents of build folder
           run: ls -l ./backend/build
           
-        #Login to GHCR
         - name: Login to GHCR Registry
           uses: docker/login-action@v3
           with:
@@ -126,7 +126,6 @@ jobs:
               password: ${{ secrets.GITHUB_TOKEN }}
               logout: false
         
-        #Build and push the image
         - name: Build and push to registry
           uses: docker/build-push-action@v6
           with:
