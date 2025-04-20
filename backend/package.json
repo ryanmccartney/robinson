@@ -7,7 +7,7 @@
     "test": "jest",
     "development": "nodemon index",
     "production": "node index",
-    "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ../docs/assets/api.yml  -o ./../docs/pages/api/index.md && ../utils/api-page.sh",
+    "docs": "node ./utils/markdown && swagger-markdown --force-version 2 -i ../docs/assets/api.yml  -o ../docs/pages/api/index.md && ../utils/api-page.sh",
     "lint": "eslint .",
     "release": "release-it --verbose",
     "changelog": "auto-changelog -p --output '../CHANGELOG.md' --commit-limit false && cp ../CHANGELOG.md ../docs/pages/changelog/index.md  && ../utils/changelog-page.sh",
@@ -78,7 +78,6 @@
       ],
       "after:bump": [
         "npm run changelog",
-        "ls -l",
         "git add ../frontend/package.json",
         "git add ../frontend/package-lock.json",
         "git add ../CHANGELOG.md",

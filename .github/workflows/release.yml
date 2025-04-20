@@ -74,11 +74,16 @@ jobs:
 
         - name: Install the frontend dependencies
           run: cd ./frontend && npm ci
+      
         - name: Update frontend version number
           run: cd ./frontend && npm run release --ci
 
         - name: Install the backend dependencies
           run: cd ./backend && npm ci
+
+        - name: Update the docs
+          run: cd ./backend && npm run docs && git add ../docs/assets/api.yml ../docs/pages/api/index.md
+
         - name: Run release
           run: cd ./backend && npm run release --ci
           env:
