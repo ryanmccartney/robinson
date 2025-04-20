@@ -27,7 +27,6 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "isbn3": "^1.1.51",
-    "md5": "^2.3.0",
     "module-alias": "^2.2.3",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.3",

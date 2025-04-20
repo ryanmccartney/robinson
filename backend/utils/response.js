@@ -1,11 +1,11 @@
 "use strict";
 
-const md5 = require("md5");
+const crypto = require("crypto");
 
 module.exports = (res, req, contents) => {
     const data = contents;
     const meta = {
-        hash: md5(res),
+        hash: crypto.createHash("md5").update(res).digest("hex"),
         request_url: `${req.protocol}://${req.hostname}${req.originalUrl}`,
         request_method: req.method,
         request_body: req.body,

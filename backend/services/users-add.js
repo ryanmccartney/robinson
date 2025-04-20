@@ -2,11 +2,15 @@
 
 const logger = require("@utils/logger")(module);
 const usersModel = require("@models/users");
-const md5 = require("md5");
+const crypto = require("crypto");
 
 module.exports = async (newUser) => {
     try {
-        newUser.password = md5(newUser.password);
+        newUser.password = crypto
+            .createHash("md5")
+            .update(newUser.password)
+            .digest("hex");
+
         const user = new usersModel(newUser);
         await user.save();
         logger.info(

@@ -2,14 +2,20 @@
 
 const logger = require("@utils/logger")(module);
 const usersModel = require("@models/users");
-const md5 = require("md5");
+const crypto = require("crypto");
 
 module.exports = async (userId, update) => {
     try {
         if (userId) {
             if (update.password) {
-                update.password = md5(update.password);
+                update.password = crypto
+                    .createHash("md5")
+                    .update(update.password)
+                    .digest("hex");
+            } else {
+                delete update.password;
             }
+
             const user = await usersModel.findOneAndUpdate(
                 { userId: userId },
                 update

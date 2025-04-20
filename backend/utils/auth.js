@@ -1,7 +1,7 @@
 const logger = require("@utils/logger")(module);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const md5 = require("md5");
+const crypto = require("crypto");
 
 const usersModel = require("@models/users");
 const getError = require("@utils/error-get");
@@ -17,7 +17,7 @@ const defaultUser = {
     username: "admin",
     role: "librarian",
     enabled: true,
-    password: md5("robinson123"),
+    password: crypto.createHash("md5").update("robinson123").digest("hex"),
 };
 
 const initUsers = async () => {
@@ -52,7 +52,9 @@ const strategy = new LocalStrategy(async (username, password, done) => {
         return done(new Error(`User is not enabled.`), false);
     }
 
-    if (user.password != md5(password)) {
+    if (
+        user.password != crypto.createHash("md5").update(password).digest("hex")
+    ) {
         logger.info(`[auth] Passport is incorrect`);
         return done(new Error(`Password incorrect`), false);
     }
