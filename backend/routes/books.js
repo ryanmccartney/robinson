@@ -84,7 +84,7 @@ router.get(
     "/favourites",
     auth.restrict(["get_data"]),
     async (req, res, next) => {
-        const data = await getBooksFavourites();
+        const data = await getBooksFavourites(req.user);
         response(res, req, data);
     }
 );
@@ -108,7 +108,7 @@ router.get(
  *           description: Incorrect request data
  */
 router.get("/progress", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getBooksProgress();
+    const data = await getBooksProgress(req.user);
     response(res, req, data);
 });
 
@@ -309,7 +309,7 @@ router.post("/", auth.restrict(["add_data"]), async (req, res, next) => {
  *           description: Incorrect request data
  */
 router.get("/:bookId", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getBooks(req.params.bookId);
+    const data = await getBooks(req.params.bookId, req.user);
     response(res, req, data);
 });
 
@@ -342,7 +342,7 @@ router.put(
     "/:bookId",
     auth.restrict(["update_data"]),
     async (req, res, next) => {
-        const data = await updateBooks(req.params.bookId, req.body);
+        const data = await updateBooks(req.params.bookId, req.body, req.user);
         response(res, req, data);
     }
 );
