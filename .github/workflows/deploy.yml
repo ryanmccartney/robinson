@@ -14,7 +14,6 @@ jobs:
     deploy:
       runs-on: ubuntu-latest
       name: Build Image and Push to GHCR
-      needs: release
       steps:
         - name: Checkout source code
           uses: actions/checkout@v4
