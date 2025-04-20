@@ -87,8 +87,7 @@
     },
     "github": {
       "release": true,
-      "releaseName": "Release v${version}",
-      "releaseNotes": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+      "releaseName": "Release v${version}"
     },
     "npm": {
       "publish": false
