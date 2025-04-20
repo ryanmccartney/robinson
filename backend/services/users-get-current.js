@@ -9,8 +9,8 @@ module.exports = async (userId) => {
         if (userId) {
             const user = await usersModel.findOne(
                 { userId: userId },
-                { password: 0 , _id: 0, __v: 0 }
-            )
+                { password: 0, _id: 0, __v: 0 }
+            );
             return { user: user };
         } else {
             throw new Error("No user");
