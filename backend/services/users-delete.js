@@ -8,8 +8,9 @@ module.exports = async (userId) => {
         if (userId) {
             const user = await usersModel.findOneAndDelete(
                 { userId: userId },
-                { password: 0 }
+                { password: 0 , _id: 0, __v: 0 }
             );
+            
             if (user) {
                 logger.info(
                     `Deleted user with name '${user.firstName} ${user.lastName}' and ID ${userId}`

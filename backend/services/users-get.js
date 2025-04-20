@@ -10,7 +10,7 @@ module.exports = async (userId) => {
         if (userId) {
             data.user = await usersModel.findOne(
                 { userId: userId },
-                { password: 0 }
+                { password: 0 , _id: 0, __v: 0 }
             );
         } else {
             data.users = await usersModel.find({}, { password: 0 });
