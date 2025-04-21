@@ -2,7 +2,7 @@
 
 const logger = require("@utils/logger")(module);
 const getError = require("@utils/error-get");
-const preferences = require("@utils/preferences");
+const preferences = require("@models/preferences");
 const booksModel = require("@models/books");
 const shelvesModel = require("@models/shelves");
 const casesModel = require("@models/cases");
@@ -20,7 +20,11 @@ module.exports = async (bookId, update = {}, userId) => {
 
             data.book = {
                 ...book,
-                ...(await preferences.update(bookId, userId, update)),
+                ...(await preferences.findOneAndUpdate(
+                    userId,
+                    { bookId: bookId },
+                    update
+                )),
             };
 
             data.shelf =

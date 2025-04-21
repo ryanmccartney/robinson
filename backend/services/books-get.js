@@ -4,7 +4,7 @@ const getError = require("@utils/error-get");
 const booksModel = require("@models/books");
 const shelvesModel = require("@models/shelves");
 const casesModel = require("@models/cases");
-const preferences = require("@utils/preferences");
+const preferences = require("@models/preferences");
 
 module.exports = async (bookId, userId) => {
     try {
@@ -36,7 +36,7 @@ module.exports = async (bookId, userId) => {
             if (userId) {
                 data.book = {
                     ...data.book,
-                    ...(await preferences.get(bookId, userId)),
+                    ...(await preferences.findOne(userId, { bookId: bookId })),
                 };
             }
         } else {
