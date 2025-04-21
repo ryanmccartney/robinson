@@ -10,28 +10,24 @@ module.exports = async (bookId, userId) => {
     try {
         const data = {};
         if (bookId) {
-            data.book =
-                (await booksModel
-                    .findOne({ bookId: bookId }, { _id: 0, __v: 0 })
-                    .lean()) || {};
+            const book = await booksModel.findOne(
+                { bookId: bookId },
+                { _id: 0, __v: 0 }
+            );
+            data.book = book ? book.toObject() : {};
 
-            data.book.shelf =
-                (await shelvesModel
-                    .findOne(
-                        { shelfId: data.book?.shelfId },
-                        { _id: 0, __v: 0 }
-                    )
-                    .lean()) || null;
+            const shelf = await shelvesModel.findOne(
+                { shelfId: data.book?.shelfId },
+                { _id: 0, __v: 0 }
+            );
+            data.book.shelf = shelf ? shelf.toObject() : null;
 
-            data.book.case =
-                (await casesModel
-                    .findOne(
-                        {
-                            caseId: data.book.shelf?.caseId,
-                        },
-                        { _id: 0, __v: 0 }
-                    )
-                    .lean()) || null;
+            const bookcase = await casesModel.findOne(
+                { caseId: data.book.shelf?.caseId },
+                { _id: 0, __v: 0 }
+            );
+
+            data.book.case = bookcase ? bookcase.toObject() : null;
 
             if (userId) {
                 data.book = {
@@ -40,7 +36,8 @@ module.exports = async (bookId, userId) => {
                 };
             }
         } else {
-            data.books = await booksModel.find({}, { cover: 0 });
+            const books = await booksModel.find({}, { cover: 0 });
+            data.books = books ? books.map((book) => book.toObject()) : [];
         }
         return data;
     } catch (error) {

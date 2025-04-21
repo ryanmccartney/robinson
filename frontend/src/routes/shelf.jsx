@@ -3,98 +3,82 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import fetcher from "@utils/fetcher";
 
 import EditableTypography from "@components/EditableTypography";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
 import LoadingContent from "@components/LoadingContent";
 import BookCarousel from "@components/BookCarousel";
+import ShelfCapacity from "@components/ShelfCapacity";
+import fetcher from "@utils/fetcher";
+import { useShelf } from "@utils/data";
 
 const Shelf = () => {
     const navigate = useNavigate();
     const { shelfId } = useParams();
-    const [data, setData] = useState(null);
+    const { shelf, isShelfLoading, shelfMutate } = useShelf(shelfId);
+
     const [edit, setEdit] = useState(false);
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
 
     const deleteShelf = async () => {
-        console.log(`Delete shelf - ${shelfId}`);
         await fetcher.delete(`shelves/${shelfId}`);
         navigate(`/shelves`);
     };
 
     const updateShelf = async (shelfData) => {
-        const newData = await fetcher.put(`shelves/${shelfId}`, shelfData);
-        setData(newData);
-        setContexts(newData);
+        await fetcher.put(`shelves/${shelfId}`, shelfData);
+        shelfMutate();
     };
 
-    const setContexts = (data) => {
-        if (data) {
-            setBreadcrumbs([
-                { title: "Home", link: `/` },
-                {
-                    title: data?.case?.name || "Case",
-                    link: `/case/${data?.case?.caseId}`,
-                },
-                {
-                    title: data?.shelf?.name || "Shelf",
-                    link: `/shelf/${data?.shelf?.shelfId}`,
-                },
-            ]);
-        }
-
-        if (data) {
-            setButtons([
-                {
-                    label: "Edit",
-                    icon: "Edit",
-                    callback: () => setEdit((s) => !s),
-                },
-                { label: "Delete", icon: "Delete", callback: deleteShelf },
-            ]);
-        }
-    };
-
-    //On component Mount
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetcher(`shelves/${shelfId}`);
-            setData(data);
-            setContexts(data);
-        };
-        fetchData();
-    }, []);
+        setBreadcrumbs([
+            { title: "Home", link: `/` },
+            {
+                title: shelf?.case?.name || "Case",
+                link: `/case/${shelf?.case?.caseId}`,
+            },
+            {
+                title: shelf?.name || "Shelf",
+                link: `/shelf/${shelf?.shelfId}`,
+            },
+        ]);
+        setButtons([
+            {
+                label: "Edit",
+                icon: "Edit",
+                callback: () => setEdit((s) => !s),
+            },
+            { label: "Delete", icon: "Delete", callback: deleteShelf },
+        ]);
 
-    //On component Unmount (cleanup)
-    useEffect(() => {
         return () => {
             setBreadcrumbs([]);
             setButtons([]);
         };
-    }, []);
+    }, [shelf]);
 
-    if (!data) {
+    if (isShelfLoading) {
         return <LoadingContent />;
     }
 
-    if (!data.shelf) {
+    if (!isShelfLoading && !shelf) {
         navigate(`/shelves`);
         return <LoadingContent />;
     }
 
     return (
         <Box sx={{ m: 2 }}>
-            <Grid container spacing={4}>
-                <Grid size={{ xs: 12 }}>
-                    <BookCarousel
-                        title={data?.shelf?.name}
-                        books={data?.books}
-                    />
-                </Grid>
-
+            <Grid
+                container
+                direction="column"
+                sx={{
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                }}
+                spacing={0}
+            >
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}>
                     <EditableTypography
                         field="name"
@@ -102,18 +86,28 @@ const Shelf = () => {
                         onChange={updateShelf}
                         variant="h5"
                     >
-                        {data?.shelf?.name}
+                        {shelf?.name}
                     </EditableTypography>
 
                     <EditableTypography
-                        gutterBottom
                         field="description"
                         edit={edit}
                         onChange={updateShelf}
                         variant="subtitle2"
                     >
-                        {data?.shelf?.description}
+                        {shelf?.description}
                     </EditableTypography>
+                </Grid>
+
+                <Grid size={{ xs: 12 }}>
+                    <BookCarousel books={shelf?.books} />
+                </Grid>
+
+                <Grid align="center" sx={{ pt: 2 }} size={{ xs: 12, lg: 12 }}>
+                    <ShelfCapacity
+                        current={shelf?.current}
+                        capacity={shelf?.length}
+                    />
                 </Grid>
             </Grid>
         </Box>

@@ -11,7 +11,7 @@ const schema = mongoose.Schema({
     },
     caseId: { type: String },
     description: { type: String },
-    length: { type: Number },
+    length: { type: Number, min: 0, default: 0 },
     order: { type: Number, required: true, default: 0 },
 });
 

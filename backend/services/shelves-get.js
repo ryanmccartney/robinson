@@ -22,11 +22,22 @@ module.exports = async (shelfId) => {
         const data = {};
 
         if (shelfId) {
-            data.shelf = await shelvesModel.findOne({ shelfId: shelfId });
-            data.books = (await booksModel.find({ shelfId: shelfId })) || null;
-            data.case =
-                (await casesModel.findOne({ caseId: data.shelf?.caseId })) ||
-                null;
+            const shelf = await shelvesModel.findOne({ shelfId: shelfId });
+            data.shelf = shelf ? shelf.toObject() : {};
+
+            const books = await booksModel.find({ shelfId: shelfId });
+            data.shelf.books = books
+                ? books.map((book) => book.toObject())
+                : [];
+
+            data.shelf.current = data.shelf.books.reduce(
+                (accumulator, current) =>
+                    accumulator + (isNaN(current.width) ? 0 : current.width),
+                0
+            );
+
+            const bookcase = await booksModel.findOne({ shelfId: shelfId });
+            data.shelf.case = bookcase ? bookcase.toObject() : null;
         } else {
             data.shelves = await shelvesModel.find();
             data.shelves = await Promise.all(
