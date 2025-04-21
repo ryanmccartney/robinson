@@ -9,7 +9,7 @@ const parsePreference = (preferences) => {
 
 const makeQueryObject = (update = {}) => {
     const updateObject = {};
-    for (let [key, value] of Object.entries(update)) {
+    for (const [key, value] of Object.entries(update)) {
         updateObject[key] = value;
     }
     return updateObject;
@@ -17,7 +17,7 @@ const makeQueryObject = (update = {}) => {
 
 const makePreferencesQueryObject = (update = {}) => {
     const updateObject = { preferences: { $elemMatch: {} } };
-    for (let [key, value] of Object.entries(update)) {
+    for (const [key, value] of Object.entries(update)) {
         updateObject.preferences.$elemMatch[key] = value;
     }
     return updateObject;
@@ -25,7 +25,7 @@ const makePreferencesQueryObject = (update = {}) => {
 
 const makePreferencesUpdateObject = (update = {}) => {
     const updateObject = {};
-    for (let [key, value] of Object.entries(update)) {
+    for (const [key, value] of Object.entries(update)) {
         updateObject[`preferences.${key}`] = value;
     }
     return updateObject;
