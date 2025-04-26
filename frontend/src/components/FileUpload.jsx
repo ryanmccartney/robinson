@@ -9,10 +9,11 @@ const FileUpload = ({ onUpload = () => {}, fileName, fileType = "ebook" }) => {
     const [file, setFile] = useState(null);
 
     const handleUpload = async () => {
-        const formData = new FormData();
-        formData.append(fileType, file, fileName);
-
-        onUpload(formData);
+        if (file) {
+            const formData = new FormData();
+            formData.append(fileType, file, fileName);
+            onUpload(formData);
+        }
     };
 
     const handleClick = () => {
@@ -35,6 +36,7 @@ const FileUpload = ({ onUpload = () => {}, fileName, fileType = "ebook" }) => {
                 }}
                 onFocus={(e) => e.target.blur()}
                 focused={false}
+                f
             />
             <input
                 type="file"

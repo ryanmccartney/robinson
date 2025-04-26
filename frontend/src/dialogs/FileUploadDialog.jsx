@@ -30,6 +30,30 @@ const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
         }
     };
 
+    const existingEbookInfo = (
+        <>
+            <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={() => navigate(`/reader/${book.bookId}`)}
+            >
+                View Ebook
+            </Button>
+
+            <Typography
+                id="transition-modal-title"
+                variant="body"
+                component="div"
+                mt={2}
+            >
+                {metadata?.description}
+            </Typography>
+
+            <Divider sx={{ mb: 2, mt: 2 }} />
+        </>
+    );
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -64,36 +88,26 @@ const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
                         component="h5"
                         mb={2}
                     >
-                        Upload EPub File
+                        {book?.ebook ? "Upload an eBook" : ""}
                     </Typography>
 
-                    {book?.ebook ? (
-                        <>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                onClick={() =>
-                                    navigate(`/reader/${book.bookId}`)
-                                }
-                            >
-                                View Ebook
-                            </Button>
+                    <Typography
+                        id="transition-modal-title"
+                        variant="caption"
+                        component="div"
+                        mb={2}
+                    >
+                        {book?.ebook
+                            ? "Add an eBook for this title, upload an ePUB or PDF file"
+                            : ""}
+                    </Typography>
 
-                            <Typography
-                                id="transition-modal-title"
-                                variant="body"
-                                component="div"
-                                mt={2}
-                            >
-                                {metadata?.description}
-                            </Typography>
+                    {book?.ebook ? existingEbookInfo : null}
 
-                            <Divider sx={{ mb: 1, mt: 1 }} />
-                        </>
-                    ) : null}
-
-                    <FileUpload onUpload={onUpload}></FileUpload>
+                    <FileUpload
+                        fileName={`${book.bookId}.epub`}
+                        onUpload={onUpload}
+                    ></FileUpload>
                 </Box>
             </Fade>
         </Modal>
