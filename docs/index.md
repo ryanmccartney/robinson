@@ -40,6 +40,8 @@ Check your reading timeline and search your library. Easily add book by scanning
 * Bookmarking, keep your place
 * Search across all books
 * Favorites, bookmarking and ratings are kept on a per-user basis
+* Organize physical books and eBooks
+* Built in eBook reader
 
 # Technology
 
