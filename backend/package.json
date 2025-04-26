@@ -25,6 +25,7 @@
     "express-rate-limit": "^7.1.5",
     "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
+    "fast-xml-parser": "^5.2.1",
     "helmet": "^7.1.0",
     "isbn3": "^1.1.51",
     "module-alias": "^2.2.3",

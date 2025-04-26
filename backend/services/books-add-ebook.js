@@ -5,11 +5,14 @@ const booksModel = require("@models/books");
 const uploadsModel = require("@models/uploads");
 const { finished } = require("stream/promises");
 const deleteEbook = require("@services/books-delete-ebook");
+const epub = require("@utils/epub");
 
 module.exports = async (bookId, userId, file) => {
     try {
         if (bookId && file && file.mimetype === "application/epub+zip") {
             await deleteEbook(bookId);
+
+            const metadata = await epub.metadata(file.buffer);
 
             const uploadStream = uploadsModel.bucket.openUploadStream(
                 `${bookId}.epub`,
@@ -30,6 +33,7 @@ module.exports = async (bookId, userId, file) => {
                     originalname: file?.originalname,
                     encoding: file?.encoding,
                     mimetype: file?.mimetype,
+                    ...metadata,
                 },
             };
 
