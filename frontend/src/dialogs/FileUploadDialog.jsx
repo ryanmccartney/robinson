@@ -6,18 +6,18 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import { useMetadata } from "@utils/metadata";
+import Divider from "@mui/material/Divider";
+
+import FileUpload from "@components/FileUpload";
 
 const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
     const navigate = useNavigate();
+    const { metadata } = useMetadata(
+        book.ebook ? `/api/books/ebook/${book.bookId}.epub` : ""
+    );
 
-    const handleFileUpload = async (event) => {
-        event.preventDefault();
-
-        const formData = new FormData();
-        const file = event.target[0].files[0];
-        formData.append("ebook", file, `${book.bookId}.epub`);
-
+    const onUpload = async (formData) => {
         const response = await fetch(`/api/books/ebook/${book.bookId}`, {
             method: "POST",
             body: formData,
@@ -68,32 +68,32 @@ const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
                     </Typography>
 
                     {book?.ebook ? (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            onClick={() => navigate(`/reader/${book.bookId}`)}
-                        >
-                            View Ebook
-                        </Button>
+                        <>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                onClick={() =>
+                                    navigate(`/reader/${book.bookId}`)
+                                }
+                            >
+                                View Ebook
+                            </Button>
+
+                            <Typography
+                                id="transition-modal-title"
+                                variant="body"
+                                component="div"
+                                mt={2}
+                            >
+                                {metadata?.description}
+                            </Typography>
+
+                            <Divider sx={{ mb: 1, mt: 1 }} />
+                        </>
                     ) : null}
 
-                    <form onSubmit={handleFileUpload}>
-                        <TextField
-                            type="file"
-                            variant="outlined"
-                            inputProps={{ accept: ".epub, .pdf" }}
-                            fullWidth
-                            margin="normal"
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            Upload .epub
-                        </Button>
-                    </form>
+                    <FileUpload onUpload={onUpload}></FileUpload>
                 </Box>
             </Fade>
         </Modal>
