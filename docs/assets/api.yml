@@ -277,14 +277,13 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  "/books/ebook/{filename}.epub":
     get:
       summary: Download an ebook
       tags:
         - books
       parameters:
         - in: path
-          name: filename
+          name: bookId
           schema:
             type: string
           required: true

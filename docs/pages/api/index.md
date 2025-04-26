@@ -275,8 +275,6 @@ Upload an ebook
 | 405 | Incorrect request data |
 | 500 | Error |
 
-### /books/ebook/{filename}.epub
-
 #### GET
 ##### Summary
 
@@ -286,7 +284,7 @@ Download an ebook
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| filename | path | The book ID string followed by .epub | Yes | string |
+| bookId | path | The book ID string followed by .epub | Yes | string |
 
 ##### Responses
 
