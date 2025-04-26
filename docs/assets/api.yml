@@ -254,6 +254,52 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
+  "/books/ebook/{bookId}":
+    post:
+      summary: Upload an ebook
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: string
+          required: true
+          description: The book ID string
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+  "/books/ebook/{filename}.epub":
+    get:
+      summary: Download an ebook
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: filename
+          schema:
+            type: string
+          required: true
+          description: The book ID string followed by .epub
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
   /cases:
     get:
       summary: Get a list of all cases
@@ -392,104 +438,6 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  /libraries:
-    get:
-      summary: Get a list of all libraries
-      tags:
-        - libraries
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-    post:
-      summary: Add a new library
-      tags:
-        - libraries
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-  "/libraries/{libraryId}":
-    get:
-      summary: Get a library by it's ID
-      tags:
-        - libraries
-      parameters:
-        - in: path
-          name: libraryId
-          schema:
-            type: string
-          required: true
-          description: The library ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-    put:
-      summary: Update a library by it's ID
-      tags:
-        - libraries
-      parameters:
-        - in: path
-          name: libraryId
-          schema:
-            type: string
-          required: true
-          description: The library ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
-    delete:
-      summary: Delete a library by it's ID
-      tags:
-        - libraries
-      parameters:
-        - in: path
-          name: libraryId
-          schema:
-            type: string
-          required: true
-          description: The library ID string
-      responses:
-        "200":
-          description: Success
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "405":
-          description: Incorrect request data
-        "500":
-          description: Error
   /login:
     post:
       summary: Creates a login session
@@ -608,7 +556,7 @@ paths:
           description: Error
   /search:
     get:
-      summary: Search books, shelves, libraries, cases
+      summary: Search books, shelves, cases
       tags:
         - search
       parameters:

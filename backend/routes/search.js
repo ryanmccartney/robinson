@@ -6,7 +6,7 @@ const getSearch = require("@services/search-get");
  * @swagger
  * /search:
  *   get:
- *     summary: Search books, shelves, libraries, cases
+ *     summary: Search books, shelves, cases
  *     tags: [search]
  *     parameters:
  *       - in: query

@@ -18,6 +18,7 @@ const Error = lazy(() => import("@routes/error"));
 const Root = lazy(() => import("@routes/root"));
 const Scan = lazy(() => import("@routes/scan"));
 const Login = lazy(() => import("@routes/login"));
+const Reader = lazy(() => import("@routes/reader"));
 
 const Shelves = lazy(() => import("@routes/shelves"));
 const Shelf = lazy(() => import("@routes/shelf"));
@@ -30,9 +31,6 @@ const Case = lazy(() => import("@routes/case"));
 
 const User = lazy(() => import("@routes/user"));
 const Users = lazy(() => import("@routes/users"));
-
-const Libraries = lazy(() => import("@routes/libraries"));
-const Library = lazy(() => import("@routes/library"));
 
 const AppRoutes = () => {
     const { user } = useContext(UserContext);
@@ -47,10 +45,9 @@ const AppRoutes = () => {
                 <Route path="shelf/:shelfId" element={<Shelf />} />
                 <Route path="books" element={<Books />} />
                 <Route path="book/:bookId" element={<Book />} />
+                <Route path="reader/:bookId" element={<Reader />} />
                 <Route path="cases" element={<Cases />} />
                 <Route path="case/:caseId" element={<Case />} />
-                <Route path="libraries" element={<Libraries />} />
-                <Route path="library/:libraryId" element={<Library />} />
                 <Route path="users" element={<Users />} />
                 <Route path="user" element={<User />} />
                 <Route path="*" element={<Error />} />

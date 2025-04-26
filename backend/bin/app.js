@@ -18,7 +18,6 @@ const documentation = require("@utils/documentation");
 const books = require("@routes/books");
 const shelves = require("@routes/shelves");
 const cases = require("@routes/cases");
-const libraries = require("@routes/libraries");
 const users = require("@routes/users");
 const metadata = require("@routes/metadata");
 const search = require("@routes/search");
@@ -97,7 +96,6 @@ app.use(
 app.use("/api/books", books);
 app.use("/api/shelves", shelves);
 app.use("/api/cases", cases);
-app.use("/api/libraries", libraries);
 app.use("/api/users", users);
 app.use("/api/metadata", metadata);
 app.use("/api/login", login);

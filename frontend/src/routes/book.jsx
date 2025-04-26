@@ -13,13 +13,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import CoverCard from "@cards/CoverCard";
-import EditableTypography from "@components/EditableTypography";
+import QrDialog from "@dialogs/QrDialog";
 import OrganiserDialog from "@dialogs/OrganiserDialog";
+import FileUploadDialog from "@dialogs/FileUploadDialog";
+import EditableTypography from "@components/EditableTypography";
 import LoadingContent from "@components/LoadingContent";
 import BookProgress from "@components/BookProgress";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
-import QrDialog from "@dialogs/QrDialog";
 import fetcher from "@utils/fetcher";
 import { useBook } from "@utils/data";
 
@@ -29,7 +30,9 @@ const Book = () => {
     const { book, isBookLoading, bookMutate } = useBook(bookId);
 
     const [edit, setEdit] = useState(false);
+    const [fileUploadOpen, setFileUploadOpen] = useState(false);
     const [organiserOpen, setOrganiserOpen] = useState(false);
+
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
 
@@ -117,6 +120,12 @@ const Book = () => {
                 icon: "DensityLarge",
                 callback: () => setOrganiserOpen(true),
             },
+
+            {
+                label: "eBook",
+                icon: "MenuBook",
+                callback: () => setFileUploadOpen(true),
+            },
         ]);
 
         return () => {
@@ -141,6 +150,12 @@ const Book = () => {
                 bookMutate={bookMutate}
                 open={organiserOpen}
                 setOpen={setOrganiserOpen}
+            />
+            <FileUploadDialog
+                book={book}
+                bookMutate={bookMutate}
+                open={fileUploadOpen}
+                setOpen={setFileUploadOpen}
             />
             <Grid container sx={{ paddingRight: { xs: 0, md: 2 } }} spacing={3}>
                 <Grid align="center" size={{ xs: 12, md: 4, lg: 6 }}>

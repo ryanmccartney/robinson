@@ -5,6 +5,8 @@ import {
     FavoriteBorder,
     ViewColumn,
     DensityLarge,
+    FileUpload,
+    MenuBook,
     AutoStories,
     NavigateBefore,
     NavigateNext,
@@ -30,6 +32,10 @@ const IconResolver = ({ iconName, ...props }) => {
             return <NavigateNext {...props} />;
         case "ViewColumn":
             return <ViewColumn {...props} />;
+        case "FileUpload":
+            return <FileUpload {...props} />;
+        case "MenuBook":
+            return <MenuBook {...props} />;
         default:
             console.error(`Icon "${iconName}" not found`);
             return null;

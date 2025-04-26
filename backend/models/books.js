@@ -21,6 +21,7 @@ const userSchema = mongoose.Schema({
     publisher: { type: String },
     dateAdded: { type: Date, default: () => new Date(), immutable: true },
     cover: { type: String },
+    ebook: { type: Object },
     pages: { type: Number, default: 0 },
     hardback: { type: Boolean, default: false },
     comments: [{ body: String, date: Date, user: String }],

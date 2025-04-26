@@ -26,3 +26,4 @@ const connect = async () => {
 connect();
 
 module.exports = mongoose;
+module.exports.uri = uri;

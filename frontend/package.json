@@ -40,6 +40,7 @@
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.55.0",
     "react-qr-code": "^2.0.15",
+    "react-reader": "^2.0.13",
     "react-router-dom": "^7.4.1",
     "react-webcam": "^7.2.0",
     "serve": "^14.2.4",

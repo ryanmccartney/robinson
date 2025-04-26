@@ -24,7 +24,6 @@ const schema = mongoose.Schema({
     password: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: false },
-    libraries: { type: Array },
     preferences: [preferencesSchema],
     role: {
         type: String,

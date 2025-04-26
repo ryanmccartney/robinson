@@ -252,6 +252,52 @@ Delete a book by it's ID
 | 405 | Incorrect request data |
 | 500 | Error |
 
+### /books/ebook/{bookId}
+
+#### POST
+##### Summary
+
+Upload an ebook
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| bookId | path | The book ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+### /books/ebook/{filename}.epub
+
+#### GET
+##### Summary
+
+Download an ebook
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| filename | path | The book ID string followed by .epub | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
 ---
 ### /cases
 
@@ -339,104 +385,6 @@ Delete a case by it's ID
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
 | caseId | path | The case ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /libraries
-
-#### GET
-##### Summary
-
-Get a list of all libraries
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### POST
-##### Summary
-
-Add a new library
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /libraries/{libraryId}
-
-#### GET
-##### Summary
-
-Get a library by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| libraryId | path | The library ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### PUT
-##### Summary
-
-Update a library by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| libraryId | path | The library ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### DELETE
-##### Summary
-
-Delete a library by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| libraryId | path | The library ID string | Yes | string |
 
 ##### Responses
 
@@ -555,7 +503,7 @@ Get a list of all available metadata and create a book with it
 #### GET
 ##### Summary
 
-Search books, shelves, libraries, cases
+Search books, shelves, cases
 
 ##### Parameters
 

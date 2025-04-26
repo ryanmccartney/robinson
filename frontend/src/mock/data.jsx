@@ -135,21 +135,4 @@ const cases = {
     },
 };
 
-const libraries = {
-    library1: {
-        id: "library1",
-        owner: "Joe Bloggs",
-        title: "My Library",
-        order: 1,
-        cases: ["case1"],
-    },
-    library2: {
-        id: "library1",
-        owner: "Jayne Doe",
-        title: "My Second Library",
-        order: 2,
-        cases: ["case2"],
-    },
-};
-
-export { books, shelves, cases, libraries };
+export { books, shelves, cases };
