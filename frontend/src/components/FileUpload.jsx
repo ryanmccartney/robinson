@@ -36,12 +36,11 @@ const FileUpload = ({ onUpload = () => {}, fileName, fileType = "ebook" }) => {
                 }}
                 onFocus={(e) => e.target.blur()}
                 focused={false}
-                f
             />
             <input
                 type="file"
                 ref={fileInputRef}
-                accept={".epub, .pdf"}
+                accept={".epub"}
                 style={{ display: "none" }}
                 onChange={handleChange}
             />

@@ -8,21 +8,25 @@ import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
 import { useBook } from "@utils/data";
-import fetcher from "@utils/fetcher";
 
 const Reader = () => {
     const navigate = useNavigate();
     const { bookId } = useParams();
-    const { book, isBookLoading, bookMutate } = useBook(bookId);
+    const { book, isBookLoading } = useBook(bookId);
 
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
 
-    const updateProgress = async (epubcifi) => {
-        console.log(epubcifi);
-        await fetcher.put(`books/${bookId}`, { progress: 10 });
-        bookMutate();
-    };
+    // const handleRendition = async (rendition) => {
+    //     await rendition.book.locations.generate();
+    //     const totalPages = parseInt(rendition.book.locations.length());
+    //     rendition.on("relocated", (location) => {
+    //         const currentLocation = location.start.cfi;
+    //         const currentPage = parseInt(
+    //             rendition.book.locations.locationFromCfi(currentLocation) + 1
+    //         );
+    //     });
+    // };
 
     useEffect(() => {
         setBreadcrumbs([
@@ -60,8 +64,15 @@ const Reader = () => {
         <Box sx={{ height: "80vh" }}>
             <ReactReader
                 location={book.progress}
-                locationChanged={updateProgress}
+                //getRendition={handleRendition}
                 url={`/api/books/ebook/${bookId}.epub`}
+                epubInitOptions={{
+                    openAs: "epub",
+                }}
+                epubOptions={{
+                    allowPopups: false,
+                    allowScriptedContent: false,
+                }}
             />
         </Box>
     );

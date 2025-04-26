@@ -6,16 +6,12 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useMetadata } from "@utils/metadata";
 import Divider from "@mui/material/Divider";
 
 import FileUpload from "@components/FileUpload";
 
-const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
+const FileUploadDialog = ({ open = false, setOpen, book, bookMutate }) => {
     const navigate = useNavigate();
-    const { metadata } = useMetadata(
-        book.ebook ? `/api/books/ebook/${book.bookId}.epub` : ""
-    );
 
     const onUpload = async (formData) => {
         const response = await fetch(`/api/books/ebook/${book.bookId}`, {
@@ -47,7 +43,7 @@ const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
                 component="div"
                 mt={2}
             >
-                {metadata?.description}
+                {book?.ebook?.description}
             </Typography>
 
             <Divider sx={{ mb: 2, mt: 2 }} />
@@ -98,7 +94,7 @@ const FileUploadDialog = ({ open, setOpen, book, bookMutate }) => {
                         mb={2}
                     >
                         {book?.ebook
-                            ? "Add an eBook for this title, upload an ePUB or PDF file"
+                            ? "Add an eBook for this title, upload an ePUB file"
                             : ""}
                     </Typography>
 
