@@ -40,7 +40,9 @@ const metadata = async (epubBuffer) => {
     }
 
     if (Array.isArray(dataParsed.package.metadata["dc:identifier"])) {
-        for (const identifiers of dataParsed.package.metadata["dc:identifier"]) {
+        for (const identifiers of dataParsed.package.metadata[
+            "dc:identifier"
+        ]) {
             if (identifiers["@_id"] === "isbn-id") {
                 parsedMetadata.isbn = identifiers["#text"];
             }
