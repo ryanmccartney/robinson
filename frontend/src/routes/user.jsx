@@ -85,7 +85,7 @@ const User = () => {
                 justifyContent="center"
                 spacing={3}
             >
-                <Grid size={{ xs: 12, md: 4, lg: 6, xl: 6 }}>
+                <Grid size={{ xs: 12, sm: 10, md: 8, lg: 6, xl: 6 }}>
                     <Card
                         sx={{ marginTop: 6, padding: 3, overflow: "visible" }}
                     >

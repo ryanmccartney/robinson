@@ -37,26 +37,32 @@ const Root = () => {
     return (
         <Box sx={{ m: 2 }}>
             <Grid container spacing={2}>
-                <Grid size={{ xs: 12 }}>
-                    <BookCarousel
-                        title="Recently Added"
-                        books={recently?.books}
-                    />
-                </Grid>
+                {recently?.books && recently?.books.length > 0 ? (
+                    <Grid size={{ xs: 12 }}>
+                        <BookCarousel
+                            title="Recently Added"
+                            books={recently?.books}
+                        />
+                    </Grid>
+                ) : null}
 
-                <Grid size={{ xs: 12 }}>
-                    <BookCarousel
-                        title="Continue Reading"
-                        books={reading?.books}
-                    />
-                </Grid>
+                {reading?.books && reading?.books.length > 0 ? (
+                    <Grid size={{ xs: 12 }}>
+                        <BookCarousel
+                            title="Continue Reading"
+                            books={reading?.books}
+                        />
+                    </Grid>
+                ) : null}
 
-                <Grid size={{ xs: 12 }}>
-                    <BookCarousel
-                        title="Favourites"
-                        books={favourites?.books}
-                    />
-                </Grid>
+                {favourites?.books && favourites?.books.length > 0 ? (
+                    <Grid size={{ xs: 12 }}>
+                        <BookCarousel
+                            title="Favourites"
+                            books={favourites?.books}
+                        />
+                    </Grid>
+                ) : null}
             </Grid>
         </Box>
     );
