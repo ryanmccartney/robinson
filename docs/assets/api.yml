@@ -277,6 +277,7 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
+  "/books/ebook/{bookId}.epub":
     get:
       summary: Download an ebook
       tags:

@@ -275,6 +275,8 @@ Upload an ebook
 | 405 | Incorrect request data |
 | 500 | Error |
 
+### /books/ebook/{bookId}.epub
+
 #### GET
 ##### Summary
 

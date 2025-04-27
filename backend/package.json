@@ -1,6 +1,6 @@
 {
   "name": "robinson-backend",
-  "version": "0.0.73",
+  "version": "0.0.74",
   "description": "Backend for Robinson project",
   "main": "index.js",
   "scripts": {
