@@ -35,13 +35,14 @@ Check your reading timeline and search your library. Easily add book by scanning
 # Features
 
 * Organizes books into, shelves and bookcase
-* Add books by scanning ISBN barcodes with your phone
+* Add books by scanning an ISBN barcode with your phone
 * Uses multiple sources to pull book information from ISBN
 * Bookmarking, keep your place
 * Search across all books
 * Favorites, bookmarking and ratings are kept on a per-user basis
 * Organize physical books and eBooks
 * Built in eBook reader
+* Install on your device as a Progressive Web App (PWA)
 
 # Technology
 

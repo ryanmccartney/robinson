@@ -32,6 +32,19 @@ Check your reading timeline and search your library. Easily add book by scanning
 
 ![](./docs/assets/interface-dark.gif)
 
+
+# Features
+
+* Organizes books into, shelves and bookcase
+* Add books by scanning an ISBN barcode with your phone
+* Uses multiple sources to pull book information from ISBN
+* Bookmarking, keep your place
+* Search across all books
+* Favorites, bookmarking and ratings are kept on a per-user basis
+* Organize physical books and eBooks
+* Built in eBook reader
+* Install on your device as a Progressive Web App (PWA)
+
 # Installation
 
 If you're ready to self-host robinson yourself here's some steps to get started;
@@ -79,18 +92,6 @@ Access robinson at `http://localhost:80`
 
 Login with the default username `admin` and password `robinson123`
 
-# Development
+# Documentation
 
--   `git clone https://github.com/ryanmccartney/robinson`
--   `cd ./backend && npm i`
--   `cd ./frontend && npm i`
--   `docker compose up -d`
-
-Find the development frontend on `http://localhost:3000` and self-documenting API backend at `http://localhost:3100/api`
-
-# Technology
-
--   React fronted rolled with Vite
--   Material UI components
--   Node.js and Express.js Backend
--   Docker-based for easy self-hosting
+Read the full docs at [ryan.mccartney.info/robinson](https://ryan.mccartney.info/robinson/)
