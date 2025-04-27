@@ -6,11 +6,16 @@ const uppercaseFirst = (string) => {
     return firstLetter.toUpperCase() + string.substr(1);
 };
 
-const useData = (pathKey, pathKeyId, inputDataKey) => {
+const useData = (pathKey, pathKeyId, inputDataKey, showErrorMessages) => {
     const dataKey = inputDataKey ? inputDataKey : pathKey;
     const dataKeyUppercase = uppercaseFirst(dataKey);
     const path = pathKeyId ? `${pathKey}/${pathKeyId}` : pathKey;
-    const { data, error, isLoading, mutate } = useSWR(path, fetcher);
+    const { data, error, isLoading, mutate } = useSWR(
+        path,
+        (path, body, method) => {
+            return fetcher(path, body, method, showErrorMessages);
+        }
+    );
 
     return {
         [dataKey]: data?.[dataKey],
@@ -49,7 +54,7 @@ const useCase = (caseId) => {
 };
 
 const useUser = () => {
-    return useData("users", "current", "user");
+    return useData("users", "current", "user", false);
 };
 
 export {

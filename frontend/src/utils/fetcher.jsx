@@ -1,6 +1,11 @@
 import { enqueueSnackbar } from "notistack";
 
-const fetcher = async (path, body = {}, method = "GET") => {
+const fetcher = async (
+    path,
+    body = {},
+    method = "GET",
+    showErrorMessages = true
+) => {
     let data = {};
     const response = await fetch(`/api/${path}`, {
         method: method,
@@ -19,7 +24,7 @@ const fetcher = async (path, body = {}, method = "GET") => {
         };
     }
 
-    if (data?.error) {
+    if (data?.error && showErrorMessages) {
         enqueueSnackbar(
             data?.error?.message
                 ? data?.error?.message

@@ -1,6 +1,5 @@
 "use strict";
 
-const logger = require("@utils/logger")(module);
 const usersModel = require("@models/users");
 const getError = require("@utils/error-get");
 
@@ -13,7 +12,7 @@ module.exports = async (userId) => {
             );
             return { user: user };
         } else {
-            throw new Error("No user");
+            throw new Error("No user logged in");
         }
     } catch (error) {
         return getError(error);
