@@ -5,7 +5,6 @@ const preferencesSchema = mongoose.Schema(
     {
         bookId: {
             type: String,
-            index: { unique: true },
             immutable: true,
         },
         rating: { type: Number, min: 0, max: 5, default: 0 },
