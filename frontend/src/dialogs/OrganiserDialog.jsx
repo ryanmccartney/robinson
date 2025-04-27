@@ -2,7 +2,7 @@ import { useState } from "react";
 import fetcher from "@utils/fetcher";
 import { useCases, useShelves } from "@utils/data";
 
-import Card from "@mui/material/Card";
+import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -18,6 +18,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import Divider from "@mui/material/Divider";
 
 const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
+    const theme = useTheme();
     const { cases, isCasesLoading } = useCases();
     const { shelves, isShelvesLoading } = useShelves();
 
@@ -121,58 +122,44 @@ const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
 
     return (
         <div>
-            <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
-                <Card
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <Box
                     sx={{
+                        borderRadius: 1,
                         position: "absolute",
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
                         boxShadow: 24,
-                        p: 2,
+                        bgcolor: "background.paper",
+                        [theme.breakpoints.up("xs")]: { width: "90%", p: 1 },
+                        [theme.breakpoints.up("sm")]: { width: "70%", p: 1 },
+                        [theme.breakpoints.up("xl")]: { width: "50%", p: 2 },
                     }}
                 >
-                    <Typography
-                        id="modal-title"
-                        variant="h5"
-                        component="h2"
-                        mb={2}
-                    >
+                    <Typography variant="h5" component="h2" mb={2}>
                         Book Organiser
                     </Typography>
 
                     <Stack
-                        direction="row"
+                        direction={{ md: "row", xl: "column" }}
                         spacing={2}
                         divider={<Divider orientation="vertical" flexItem />}
                     >
                         <Box sx={{ width: "100%" }}>
-                            <Typography
-                                id="modal-title"
-                                variant="h6"
-                                component="h6"
-                            >
+                            <Typography variant="h6" component="h6">
                                 Cases
                             </Typography>
                             <List>{getCases()}</List>
                         </Box>
                         <Box sx={{ width: "100%" }}>
-                            <Typography
-                                id="modal-title"
-                                variant="h6"
-                                component="h6"
-                            >
+                            <Typography variant="h6" component="h6">
                                 Shelves
                             </Typography>
                             <List>{getShelves()}</List>
                         </Box>
                     </Stack>
-                </Card>
+                </Box>
             </Modal>
         </div>
     );

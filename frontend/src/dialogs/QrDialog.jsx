@@ -50,6 +50,7 @@ const QrDialog = ({ url, label }) => {
                 <Fade in={open}>
                     <Box
                         sx={{
+                            borderRadius: 1,
                             position: "absolute",
                             top: "50%",
                             left: "50%",

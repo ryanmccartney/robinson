@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+
+import { useTheme } from "@mui/material/styles";
 import { TextField, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useRef } from "react";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 const FileUpload = ({ onUpload = () => {}, fileName, fileType = "ebook" }) => {
     const fileInputRef = useRef(null);
     const [file, setFile] = useState(null);
+    const theme = useTheme();
 
     const handleUpload = async () => {
         if (file) {
@@ -25,7 +27,7 @@ const FileUpload = ({ onUpload = () => {}, fileName, fileType = "ebook" }) => {
     };
 
     return (
-        <Stack direction="row" spacing={1}>
+        <Stack spacing={1} direction={{ sm: "row", xl: "column" }}>
             <TextField
                 label={file?.name ? file?.name : "Select File"}
                 variant="outlined"
@@ -46,7 +48,11 @@ const FileUpload = ({ onUpload = () => {}, fileName, fileType = "ebook" }) => {
             />
 
             <Button
-                sx={{ width: "40%" }}
+                sx={{
+                    [theme.breakpoints.down("sm")]: { width: "100%" },
+                    [theme.breakpoints.up("sm")]: { width: "40%" },
+                    [theme.breakpoints.down("sm")]: { mt: 2, mb: 1 },
+                }}
                 variant="contained"
                 color="primary"
                 onClick={handleUpload}

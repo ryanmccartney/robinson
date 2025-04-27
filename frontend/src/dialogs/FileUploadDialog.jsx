@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import { useTheme } from "@mui/material/styles";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -12,6 +13,7 @@ import FileUpload from "@components/FileUpload";
 
 const FileUploadDialog = ({ open = false, setOpen, book, bookMutate }) => {
     const navigate = useNavigate();
+    const theme = useTheme();
 
     const onUpload = async (formData) => {
         const response = await fetch(`/api/books/ebook/${book.bookId}`, {
@@ -67,15 +69,20 @@ const FileUploadDialog = ({ open = false, setOpen, book, bookMutate }) => {
             <Fade in={open}>
                 <Box
                     sx={{
+                        borderRadius: 1,
                         position: "absolute",
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
                         bgcolor: "background.paper",
                         boxShadow: 24,
-                        p: 3,
+                        [theme.breakpoints.down("sm")]: { p: 2 },
+                        [theme.breakpoints.up("sm")]: { p: 3 },
                         textAlign: "center",
                         textDecoration: "none",
+                        m: 1,
+                        [theme.breakpoints.down("md")]: { width: "90%" },
+                        [theme.breakpoints.up("lg")]: { width: "40%" },
                     }}
                 >
                     <Typography
