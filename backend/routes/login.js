@@ -44,9 +44,8 @@ router.post("/", async (req, res, next) => {
         }
         if (!id) {
             return response(res, req, {
-                status: "failure",
                 message: "Login failed.",
-                data: id,
+                error: { status: 401, message: "Login failed" },
             });
         }
 
@@ -57,10 +56,12 @@ router.post("/", async (req, res, next) => {
                 return next(err);
             }
             return response(res, req, {
-                status: data.user ? "success" : "failure",
                 message: data.user
                     ? `Successfully logged in ${data.user.username}`
-                    : "Login failed",
+                    : null,
+                error: data.user
+                    ? null
+                    : { status: 401, message: "Login failed" },
                 user: data.user,
             });
         });

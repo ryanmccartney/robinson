@@ -16,11 +16,15 @@ const fetcher = async (
         body: method == "GET" ? undefined : JSON.stringify(body),
     });
 
-    if (response.status === 200) {
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
         data = await response.json();
     } else {
-        data.error = {
-            status: response.status,
+        data = {
+            text: await response.text(),
+            error: {
+                status: response.status,
+            },
         };
     }
 

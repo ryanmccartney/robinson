@@ -15,6 +15,6 @@ module.exports = async (userId) => {
             throw new Error("No user logged in");
         }
     } catch (error) {
-        return getError(error);
+        return getError(error, 401);
     }
 };
