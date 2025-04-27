@@ -398,7 +398,7 @@ router.post(
 
 /**
  * @swagger
- * /books/ebook/{bookId}:
+ * /books/ebook/{bookId}.epub:
  *    get:
  *      summary: Download an ebook
  *      tags: [books]
