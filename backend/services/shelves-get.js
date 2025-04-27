@@ -23,21 +23,24 @@ module.exports = async (shelfId) => {
 
         if (shelfId) {
             const shelf = await shelvesModel.findOne({ shelfId: shelfId });
-            data.shelf = shelf ? shelf.toObject() : {};
+            data.shelf = shelf ? shelf.toObject() : undefined;
 
-            const books = await booksModel.find({ shelfId: shelfId });
-            data.shelf.books = books
-                ? books.map((book) => book.toObject())
-                : [];
+            if (shelf) {
+                const books = await booksModel.find({ shelfId: shelfId });
+                data.shelf.books = books
+                    ? books.map((book) => book.toObject())
+                    : [];
 
-            data.shelf.current = data.shelf.books.reduce(
-                (accumulator, current) =>
-                    accumulator + (isNaN(current.width) ? 0 : current.width),
-                0
-            );
+                data.shelf.current = data.shelf.books.reduce(
+                    (accumulator, current) =>
+                        accumulator +
+                        (isNaN(current.width) ? 0 : current.width),
+                    0
+                );
 
-            const bookcase = await booksModel.findOne({ shelfId: shelfId });
-            data.shelf.case = bookcase ? bookcase.toObject() : null;
+                const bookcase = await booksModel.findOne({ shelfId: shelfId });
+                data.shelf.case = bookcase ? bookcase.toObject() : undefined;
+            }
         } else {
             data.shelves = await shelvesModel.find();
             data.shelves = await Promise.all(

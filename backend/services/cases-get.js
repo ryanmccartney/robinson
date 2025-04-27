@@ -40,15 +40,20 @@ module.exports = async (caseId) => {
         const data = {};
         if (caseId) {
             data.case =
-                (await casesModel.findOne({ caseId: caseId }).lean()) || null;
-            data.case.shelves =
-                (await shelvesModel.find({ caseId: caseId }).lean()) || null;
-            if (data.case.shelves) {
-                for (const i in data.case.shelves) {
-                    data.case.shelves[i].books =
-                        (await booksModel.find({
-                            shelfId: data.case.shelves[i].shelfId,
-                        })) || null;
+                (await casesModel.findOne({ caseId: caseId }).lean()) ||
+                undefined;
+
+            if (data.case) {
+                data.case.shelves =
+                    (await shelvesModel.find({ caseId: caseId }).lean()) ||
+                    undefined;
+                if (data.case.shelves) {
+                    for (const i in data.case.shelves) {
+                        data.case.shelves[i].books =
+                            (await booksModel.find({
+                                shelfId: data.case.shelves[i].shelfId,
+                            })) || null;
+                    }
                 }
             }
         } else {
