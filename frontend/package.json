@@ -46,7 +46,8 @@
     "react-webcam": "^7.2.0",
     "serve": "^14.2.4",
     "styled-components": "^6.1.16",
-    "swr": "^2.3.3"
+    "swr": "^2.3.3",
+    "vite-plugin-pwa": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
