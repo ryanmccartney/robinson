@@ -1,16 +1,19 @@
 const mongoose = require("@utils/mongoose");
 const id = require("@utils/id");
 
-const preferencesSchema = mongoose.Schema({
-    bookId: {
-        type: String,
-        index: { unique: true },
-        immutable: true,
+const preferencesSchema = mongoose.Schema(
+    {
+        bookId: {
+            type: String,
+            index: { unique: true },
+            immutable: true,
+        },
+        rating: { type: Number, min: 0, max: 5, default: 0 },
+        favourite: { type: Boolean, default: false },
+        progress: { type: Number, min: 0, default: 0 },
     },
-    rating: { type: Number, min: 0, max: 5, default: 0 },
-    favourite: { type: Boolean, default: false },
-    progress: { type: Number, min: 0, default: 0 },
-});
+    { _id: false }
+);
 
 const schema = mongoose.Schema({
     userId: {
@@ -24,7 +27,11 @@ const schema = mongoose.Schema({
     password: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: false },
-    preferences: [preferencesSchema],
+    preferences: {
+        type: [preferencesSchema],
+        required: false,
+        default: [],
+    },
     role: {
         type: String,
         enum: ["member", "curator", "librarian"],
