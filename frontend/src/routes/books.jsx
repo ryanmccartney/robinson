@@ -6,9 +6,10 @@ import { useBooks } from "@utils/data";
 import BookCard from "@cards/BookCard";
 import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
+import NotFound from "@components/NotFound";
 
 const Books = () => {
-    const { books, isBooksLoading } = useBooks();
+    const { books, isBooksLoading, booksMutate } = useBooks();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     useEffect(() => {
@@ -37,6 +38,10 @@ const Books = () => {
                     </Grid>
                 );
             });
+        }
+
+        if (bookCards.length === 0) {
+            return <NotFound label="book" link="books" mutate={booksMutate} />;
         }
 
         return bookCards;

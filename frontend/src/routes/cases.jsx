@@ -6,9 +6,10 @@ import { useCases } from "@utils/data";
 import CaseCard from "@cards/CaseCard";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import LoadingContent from "@components/LoadingContent";
+import NotFound from "@components/NotFound";
 
 const Cases = () => {
-    const { cases, isCasesLoading } = useCases();
+    const { cases, isCasesLoading, casesMutate } = useCases();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     useEffect(() => {
@@ -30,6 +31,11 @@ const Cases = () => {
         Object.keys(cases).forEach((id) => {
             caseCards.push(<CaseCard key={id} bookcase={cases[id]} />);
         });
+
+        if (caseCards.length === 0) {
+            return <NotFound label="case" link="cases" mutate={casesMutate} />;
+        }
+
         return caseCards;
     };
 

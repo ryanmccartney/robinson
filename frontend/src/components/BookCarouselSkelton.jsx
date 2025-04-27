@@ -35,6 +35,7 @@ const BookCarouselSkelton = ({
             setNewShelfDialogOpen(true);
         }
     };
+
     const handleNewShelf = async (shelfId) => {
         await fetcher.put(`shelves/${shelfId}`, {
             caseId,

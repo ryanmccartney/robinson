@@ -6,9 +6,10 @@ import { useShelves } from "@utils/data";
 import ShelfCard from "@cards/ShelfCard";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import LoadingContent from "@components/LoadingContent";
+import NotFound from "@components/NotFound";
 
 const Shelves = () => {
-    const { shelves, isShelvesLoading } = useShelves();
+    const { shelves, isShelvesLoading, shelvesMutate } = useShelves();
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
 
     useEffect(() => {
@@ -32,6 +33,17 @@ const Shelves = () => {
             Object.keys(shelves).forEach((id, index) => {
                 shelfCards.push(<ShelfCard key={index} shelf={shelves[id]} />);
             });
+        }
+
+        if (shelfCards.length === 0) {
+            return (
+                <NotFound
+                    label="shelf"
+                    link="shelves"
+                    labelPlural="shelves"
+                    mutate={shelvesMutate}
+                />
+            );
         }
 
         return shelfCards;
