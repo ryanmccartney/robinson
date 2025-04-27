@@ -2,27 +2,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
-import fetcher from "@utils/fetcher";
-import { enqueueSnackbar } from "notistack";
 
-const NotFound = ({
-    link = "shelves",
-    label = "shelf",
-    labelPlural,
-    mutate = () => {},
-}) => {
-    const handleClick = async () => {
-        const data = await fetcher.post(`${link}`, {
-            name: `A new ${label}`,
-        });
-
-        if (data.shelf) {
-            enqueueSnackbar(`Created a ${label} called ${data.shelf.name}`);
-        }
-
-        mutate();
-    };
-
+const NoEbookFound = ({ bookId }) => {
     return (
         <Stack
             direction="column"
@@ -36,7 +17,7 @@ const NotFound = ({
                 color={grey[500]}
                 variant="h3"
             >
-                {`You don't have any ${labelPlural ? labelPlural : `${label}s`}`}
+                {"This is no eBook for this title"}
             </Typography>
             <Typography
                 align="center"
@@ -50,12 +31,12 @@ const NotFound = ({
             <Button
                 sx={{ margin: 1, color: grey[500], borderColor: grey[600] }}
                 variant="outlined"
-                onClick={handleClick}
+                href={bookId ? `/book/${bookId}` : `/books`}
             >
-                {`Add ${label}`}
+                {bookId ? `Back to book` : `Back to books`}
             </Button>
         </Stack>
     );
 };
 
-export default NotFound;
+export default NoEbookFound;

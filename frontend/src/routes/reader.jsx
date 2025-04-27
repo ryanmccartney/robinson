@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import LoadingContent from "@components/LoadingContent";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import ButtonsContext from "@contexts/buttons";
+import NoEbookFound from "@components/NoEbookFound";
 import { useBook } from "@utils/data";
 
 const Reader = () => {
@@ -58,6 +59,10 @@ const Reader = () => {
     if (!isBookLoading && !book) {
         navigate(`/books`);
         return <LoadingContent />;
+    }
+
+    if (!book.ebook) {
+        return <NoEbookFound bookId={bookId} />;
     }
 
     return (

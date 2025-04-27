@@ -9,17 +9,8 @@ const Error = () => {
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     //const error = useRouteError();
 
-    const setContexts = () => {
+    useEffect(() => {
         setBreadcrumbs([{ title: "Home", link: `/` }]);
-    };
-
-    //On component Mount
-    useEffect(() => {
-        setContexts();
-    }, []);
-
-    //On component Unmount (cleanup)
-    useEffect(() => {
         return () => {
             setBreadcrumbs([]);
         };
@@ -46,18 +37,32 @@ const Error = () => {
             alignItems="center"
             sx={{ m: 2, width: 1, height: "75vh" }}
         >
-            <Typography sx={{ margin: 1 }} color={grey[500]} variant="h2">
+            <Typography
+                align="center"
+                sx={{ margin: 1 }}
+                color={grey[500]}
+                variant="h2"
+            >
                 Error
             </Typography>
-            <Typography sx={{ margin: 1 }} color={grey[500]} variant="h4">
+            <Typography
+                align="center"
+                sx={{ margin: 1 }}
+                color={grey[500]}
+                variant="h4"
+            >
                 {"Page can't be found"}
             </Typography>
 
-            <Typography sx={{ margin: 1 }} color={grey[500]} variant="subtitle">
+            <Typography
+                align="center"
+                sx={{ margin: 1 }}
+                color={grey[500]}
+                variant="subtitle"
+            >
                 {errorMessage}
             </Typography>
 
-            {/* <Typography variant="body1">{error.statusText || error.message}</Typography> */}
             <Button
                 sx={{ margin: 1, color: grey[500], borderColor: grey[600] }}
                 variant="outlined"
