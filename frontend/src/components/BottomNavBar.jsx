@@ -74,7 +74,7 @@ export default function FixedBottomNavigation() {
             <SpeedDial
                 sx={{
                     position: "fixed",
-                    bottom: "2rem",
+                    bottom: "6rem",
                     right: "2rem",
                     zIndex: 3000,
                 }}
