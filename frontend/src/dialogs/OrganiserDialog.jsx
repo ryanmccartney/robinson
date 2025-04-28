@@ -2,11 +2,9 @@ import { useState } from "react";
 import fetcher from "@utils/fetcher";
 import { useCases, useShelves } from "@utils/data";
 
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -17,8 +15,9 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import Divider from "@mui/material/Divider";
 
+import Dialog from "@components/Dialog";
+
 const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
-    const theme = useTheme();
     const { cases, isCasesLoading } = useCases();
     const { shelves, isShelvesLoading } = useShelves();
 
@@ -121,47 +120,30 @@ const OrganiserDialog = ({ open, setOpen, book, bookMutate }) => {
     };
 
     return (
-        <div>
-            <Modal open={open} onClose={() => setOpen(false)}>
-                <Box
-                    sx={{
-                        borderRadius: 1,
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        boxShadow: 24,
-                        bgcolor: "background.paper",
-                        [theme.breakpoints.up("xs")]: { width: "90%", p: 1 },
-                        [theme.breakpoints.up("sm")]: { width: "70%", p: 1 },
-                        [theme.breakpoints.up("xl")]: { width: "50%", p: 2 },
-                    }}
-                >
-                    <Typography variant="h5" component="h2" mb={2}>
-                        Book Organiser
-                    </Typography>
+        <Dialog open={open} setOpen={setOpen}>
+            <Typography align="left" variant="h5" component="h2" mb={2}>
+                Book Organiser
+            </Typography>
 
-                    <Stack
-                        direction={{ md: "row", xl: "column" }}
-                        spacing={2}
-                        divider={<Divider orientation="vertical" flexItem />}
-                    >
-                        <Box sx={{ width: "100%" }}>
-                            <Typography variant="h6" component="h6">
-                                Cases
-                            </Typography>
-                            <List>{getCases()}</List>
-                        </Box>
-                        <Box sx={{ width: "100%" }}>
-                            <Typography variant="h6" component="h6">
-                                Shelves
-                            </Typography>
-                            <List>{getShelves()}</List>
-                        </Box>
-                    </Stack>
+            <Stack
+                direction={{ md: "row", xl: "column" }}
+                spacing={2}
+                divider={<Divider orientation="vertical" flexItem />}
+            >
+                <Box sx={{ width: "100%" }}>
+                    <Typography align="left" variant="h6" component="h6">
+                        Cases
+                    </Typography>
+                    <List>{getCases()}</List>
                 </Box>
-            </Modal>
-        </div>
+                <Box sx={{ width: "100%" }}>
+                    <Typography align="left" variant="h6" component="h6">
+                        Shelves
+                    </Typography>
+                    <List>{getShelves()}</List>
+                </Box>
+            </Stack>
+        </Dialog>
     );
 };
 
