@@ -25,7 +25,11 @@ const LinearProgressWithLabel = (props) => {
                     <Typography
                         variant="subtitle1"
                         sx={{ color: "text.secondary" }}
-                    >{`${Math.round(normalise(props.value))}%`}</Typography>
+                    >
+                        {isNaN(normalise(props.value))
+                            ? `Add total number pages to see your progress`
+                            : `${Math.round(normalise(props.value))}%`}
+                    </Typography>
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <LinearProgress
