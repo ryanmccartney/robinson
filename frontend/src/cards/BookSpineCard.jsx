@@ -65,7 +65,7 @@ const BookSpineCard = ({
                 <Box
                     sx={{
                         rotate: "-90deg",
-                        zIndex: "tooltip",
+                        zIndex: 1025,
                         width: `${minHeight.split("rem")[0] * 0.9}rem`,
                         position: "absolute",
                         bottom: `${textPos}rem`,

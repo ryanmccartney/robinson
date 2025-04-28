@@ -74,7 +74,7 @@ const CaseCard = ({ bookcase, maxBooks = 9 }) => {
                             <Box
                                 sx={{
                                     m: 4,
-                                    zIndex: "tooltip",
+                                    zIndex: 1025,
                                     position: "absolute",
                                     top: 0,
                                     left: 0,
@@ -89,7 +89,7 @@ const CaseCard = ({ bookcase, maxBooks = 9 }) => {
                             sx={{
                                 height: "100%",
                                 width: "100%",
-                                zIndex: "modal",
+                                zIndex: 1000,
                                 position: "absolute",
                                 overflow: "hidden",
                                 top: 0,
@@ -99,7 +99,6 @@ const CaseCard = ({ bookcase, maxBooks = 9 }) => {
                             <Box
                                 sx={{
                                     height: "75%",
-                                    zIndex: "modal",
                                     overflow: "hidden",
                                     top: 0,
                                     left: 0,

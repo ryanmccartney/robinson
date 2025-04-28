@@ -55,7 +55,7 @@ const LibraryCard = ({ library }) => {
                             <Box
                                 sx={{
                                     m: 4,
-                                    zIndex: "tooltip",
+                                    zIndex: 1025,
                                     position: "absolute",
                                     top: 0,
                                     left: 0,
@@ -66,7 +66,7 @@ const LibraryCard = ({ library }) => {
                             sx={{
                                 height: 300,
                                 width: "100%",
-                                zIndex: "modal",
+                                zIndex: 1000,
                                 position: "absolute",
                                 top: 0,
                                 left: 0,

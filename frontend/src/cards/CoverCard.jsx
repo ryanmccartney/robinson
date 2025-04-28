@@ -178,7 +178,7 @@ const BookCard = ({ edit, book, bookMutate, opacity = "1" }) => {
                 {show && (
                     <Box
                         sx={{
-                            zIndex: "tooltip",
+                            zIndex: 1025,
                             top: "40%",
                             position: "absolute",
                             left: "0",

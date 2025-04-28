@@ -62,7 +62,7 @@ const BookCard = ({
                         <Box
                             sx={{
                                 m: 4,
-                                zIndex: "tooltip",
+                                zIndex: 1025,
                                 position: "absolute",
                                 top: 0,
                                 left: 0,
@@ -90,7 +90,7 @@ const BookCard = ({
                         sx={{
                             height: "85%",
                             width: "100%",
-                            zIndex: "modal",
+                            zIndex: 1000,
                             position: "absolute",
                             top: 0,
                             left: 0,
