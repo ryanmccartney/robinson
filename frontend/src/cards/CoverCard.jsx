@@ -12,7 +12,7 @@ import Barcode from "react-barcode";
 import isbn from "isbn3";
 import fetcher from "@utils/fetcher";
 
-import BookmarkUpdater from "@components/BookmarkUpdater";
+import BookmarkDialog from "@dialogs/BookmarkDialog";
 
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -72,7 +72,7 @@ const BookCard = ({ edit, book, bookMutate, opacity = "1" }) => {
                 </Typography>
                 <br></br>
 
-                <Box sx={{ marginTop: 20 }}>
+                <Box sx={{ marginTop: "50%" }}>
                     <Barcode
                         format="EAN13"
                         width={2}
@@ -121,7 +121,7 @@ const BookCard = ({ edit, book, bookMutate, opacity = "1" }) => {
                 type="file"
                 name="cover"
             />
-            <BookmarkUpdater
+            <BookmarkDialog
                 book={book}
                 bookMutate={bookMutate}
                 open={bookmarkOpener}

@@ -28,7 +28,7 @@
   }
   
   .Input {
-    border: 1px solid white;;
+    border: 1px solid #c2c9d6;
     margin: 0;
     padding: 0;
     border-radius: 8px;
@@ -38,13 +38,11 @@
     font-size: 1rem;
     font-weight: normal;
     background-color: transparent;
-    color: var(--color-gray-900);
     text-align: center;
     font-variant-numeric: tabular-nums;
-  
     &:focus {
       z-index: 1;
-      outline: 2px solid var(--color-blue);
+      border: 1px solid #2f3237;
     }
   }
   
