@@ -10,6 +10,7 @@ import ButtonsContext from "@contexts/buttons";
 import LoadingContent from "@components/LoadingContent";
 import BookCarousel from "@components/BookCarousel";
 import ShelfCapacity from "@components/ShelfCapacity";
+import ShelfLength from "@dialogs/ShelfLength";
 import fetcher from "@utils/fetcher";
 import { useShelf } from "@utils/data";
 
@@ -18,6 +19,7 @@ const Shelf = () => {
     const { shelfId } = useParams();
     const { shelf, isShelfLoading, shelfMutate } = useShelf(shelfId);
 
+    const [length, setLength] = useState(false);
     const [edit, setEdit] = useState(false);
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
     const { setButtons } = useContext(ButtonsContext);
@@ -50,6 +52,11 @@ const Shelf = () => {
                 icon: "Edit",
                 callback: () => setEdit((s) => !s),
             },
+            {
+                label: "Shelf Length",
+                icon: "Straighten",
+                callback: () => setLength((s) => !s),
+            },
             { label: "Delete", icon: "Delete", callback: deleteShelf },
         ]);
 
@@ -70,6 +77,12 @@ const Shelf = () => {
 
     return (
         <Box sx={{ m: 2 }}>
+            <ShelfLength
+                open={length}
+                setOpen={setLength}
+                shelf={shelf}
+                shelfMutate={shelfMutate}
+            />
             <Grid
                 container
                 direction="column"
@@ -103,12 +116,18 @@ const Shelf = () => {
                     <BookCarousel books={shelf?.books} />
                 </Grid>
 
-                <Grid align="center" sx={{ pt: 2 }} size={{ xs: 12, lg: 12 }}>
-                    <ShelfCapacity
-                        current={shelf?.current}
-                        capacity={shelf?.length}
-                    />
-                </Grid>
+                {shelf?.length ? (
+                    <Grid
+                        align="center"
+                        sx={{ pt: 2 }}
+                        size={{ xs: 12, lg: 12 }}
+                    >
+                        <ShelfCapacity
+                            current={shelf?.current}
+                            capacity={shelf?.length}
+                        />
+                    </Grid>
+                ) : null}
             </Grid>
         </Box>
     );

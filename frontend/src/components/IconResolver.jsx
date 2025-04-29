@@ -10,6 +10,7 @@ import {
     AutoStories,
     NavigateBefore,
     NavigateNext,
+    Straighten,
 } from "@mui/icons-material";
 
 const IconResolver = ({ iconName, ...props }) => {
@@ -36,6 +37,8 @@ const IconResolver = ({ iconName, ...props }) => {
             return <FileUpload {...props} />;
         case "MenuBook":
             return <MenuBook {...props} />;
+        case "Straighten":
+            return <Straighten {...props} />;
         default:
             console.error(`Icon "${iconName}" not found`);
             return null;

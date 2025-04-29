@@ -2,11 +2,18 @@ import { useId } from "react";
 import { NumberField } from "@base-ui-components/react/number-field";
 import styles from "./NumberInput.module.css";
 
-const NumberInput = ({ defaultValue, min = 0, max, onChange = () => {} }) => {
+const NumberInput = ({
+    defaultValue,
+    min = 0,
+    max,
+    onChange = () => {},
+    disabled,
+}) => {
     const id = useId();
     return (
         <NumberField.Root
             onValueChange={onChange}
+            disabled={disabled}
             smallStep={1}
             allowWheelScrub
             id={id}
@@ -22,13 +29,17 @@ const NumberInput = ({ defaultValue, min = 0, max, onChange = () => {} }) => {
             </NumberField.ScrubArea>
 
             <NumberField.Group className={styles.Group}>
-                <NumberField.Decrement className={styles.Decrement}>
-                    <MinusIcon />
-                </NumberField.Decrement>
+                {disabled ? null : (
+                    <NumberField.Decrement className={styles.Decrement}>
+                        <MinusIcon />
+                    </NumberField.Decrement>
+                )}
                 <NumberField.Input className={styles.Input} />
-                <NumberField.Increment className={styles.Increment}>
-                    <PlusIcon />
-                </NumberField.Increment>
+                {disabled ? null : (
+                    <NumberField.Increment className={styles.Increment}>
+                        <PlusIcon />
+                    </NumberField.Increment>
+                )}
             </NumberField.Group>
         </NumberField.Root>
     );
