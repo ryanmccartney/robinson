@@ -6,7 +6,7 @@ const shelvesModel = require("@models/shelves");
 const casesModel = require("@models/cases");
 const preferences = require("@models/preferences");
 
-module.exports = async (bookId, userId) => {
+module.exports = async (bookId, userId, filter = {}) => {
     try {
         const data = {};
         if (bookId) {
@@ -40,7 +40,7 @@ module.exports = async (bookId, userId) => {
                 }
             }
         } else {
-            const books = await booksModel.find({}, { cover: 0 });
+            const books = await booksModel.find({}, { cover: 0 }).sort(filter);
             data.books = books ? books.map((book) => book.toObject()) : [];
         }
         return data;

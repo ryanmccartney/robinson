@@ -11,6 +11,7 @@ import {
     NavigateBefore,
     NavigateNext,
     Straighten,
+    SwapVert,
 } from "@mui/icons-material";
 
 const IconResolver = ({ iconName, ...props }) => {
@@ -39,6 +40,8 @@ const IconResolver = ({ iconName, ...props }) => {
             return <MenuBook {...props} />;
         case "Straighten":
             return <Straighten {...props} />;
+        case "SwapVert":
+            return <SwapVert {...props} />;
         default:
             console.error(`Icon "${iconName}" not found`);
             return null;

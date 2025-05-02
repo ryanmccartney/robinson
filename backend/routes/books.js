@@ -26,6 +26,55 @@ const addEbook = require("@services/books-add-ebook");
  *    get:
  *      summary: Get a list of all books
  *      tags: [books]
+ *      parameters:
+ *       - in: query
+ *         name: pages
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by pages, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: progress
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by progress, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: title
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by title, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: rating
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by rating, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: author
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by author, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: favorites
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by favorites, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: shelfId
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by shelfId, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: lastUpdated
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
  *      responses:
  *         '200':
  *           description: Success
@@ -39,7 +88,7 @@ const addEbook = require("@services/books-add-ebook");
  *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res) => {
-    const data = await getBooks();
+    const data = await getBooks(null, null, req.query);
     response(res, req, data);
 });
 

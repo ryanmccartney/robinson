@@ -6,10 +6,20 @@ const uppercaseFirst = (string) => {
     return firstLetter.toUpperCase() + string.substr(1);
 };
 
-const useData = (pathKey, pathKeyId, inputDataKey, showErrorMessages) => {
+const useData = (
+    pathKey,
+    {
+        pathKeyId = null,
+        inputDataKey = null,
+        showErrorMessages = true,
+        filter = {},
+    } = {}
+) => {
+    const params = new URLSearchParams(filter);
     const dataKey = inputDataKey ? inputDataKey : pathKey;
     const dataKeyUppercase = uppercaseFirst(dataKey);
-    const path = pathKeyId ? `${pathKey}/${pathKeyId}` : pathKey;
+    let path = pathKeyId ? `${pathKey}/${pathKeyId}` : pathKey;
+    path += params.size > 0 ? `?${params}` : "";
     const { data, error, isLoading, mutate } = useSWR(
         path,
         (path, body, method) => {
@@ -25,8 +35,8 @@ const useData = (pathKey, pathKeyId, inputDataKey, showErrorMessages) => {
     };
 };
 
-const useBooks = () => {
-    return useData("books");
+const useBooks = (filter) => {
+    return useData("books", { filter });
 };
 
 const useShelves = () => {
@@ -42,19 +52,23 @@ const useUsers = () => {
 };
 
 const useBook = (bookId) => {
-    return useData("books", bookId, "book");
+    return useData("books", { pathKeyId: bookId, inputDataKey: "book" });
 };
 
 const useShelf = (shelfId) => {
-    return useData("shelves", shelfId, "shelf");
+    return useData("shelves", { pathKeyId: shelfId, inputDataKey: "shelf" });
 };
 
 const useCase = (caseId) => {
-    return useData("cases", caseId, "case");
+    return useData("cases", { pathKeyId: caseId, inputDataKey: "case" });
 };
 
 const useUser = () => {
-    return useData("users", "current", "user", false);
+    return useData("users", {
+        pathKeyId: "current",
+        inputDataKey: "user",
+        showErrorMessages: false,
+    });
 };
 
 export {
