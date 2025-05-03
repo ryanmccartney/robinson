@@ -17,7 +17,6 @@
   "author": "Ryan McCartney",
   "license": "GPLv3",
   "dependencies": {
-    "chroma-js": "^3.1.2",
     "connect-mongodb-session": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
