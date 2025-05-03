@@ -20,8 +20,7 @@ const convertBase64 = (file) => {
         fileReader.readAsDataURL(file);
 
         fileReader.onload = () => {
-            const data = fileReader.result.split(",")[1];
-            resolve(data);
+            resolve(fileReader.result);
         };
 
         fileReader.onerror = (error) => {

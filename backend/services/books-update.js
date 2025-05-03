@@ -6,11 +6,16 @@ const preferences = require("@models/preferences");
 const booksModel = require("@models/books");
 const shelvesModel = require("@models/shelves");
 const casesModel = require("@models/cases");
+const coverColor = require("@utils/cover-color");
 
 module.exports = async (bookId, update = {}, userId) => {
     try {
         if (bookId) {
             const data = {};
+
+            if (update.cover) {
+                update.coverColors = await coverColor(update.cover);
+            }
 
             const book = await booksModel.findOneAndUpdate(
                 { bookId: bookId },

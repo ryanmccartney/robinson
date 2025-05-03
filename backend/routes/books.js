@@ -289,9 +289,18 @@ router.get("/cover/:bookId", auth.restrict(["get_data"]), async (req, res) => {
     const data = await getBooks(req.params.bookId);
 
     if (data?.book?.cover && typeof data?.book?.cover == "string") {
-        const image = Buffer.from(data?.book?.cover, "base64");
+        const imageString = data?.book?.cover.split(",");
+        const mimeType =
+            imageString.length > 1
+                ? imageString[0].split(":")[1].split(";")[0]
+                : "image/png";
+        const image = Buffer.from(
+            imageString.length > 1 ? imageString[1] : imageString[0],
+            "base64"
+        );
+
         res.writeHead(200, {
-            "Content-Type": "image/png",
+            "Content-Type": mimeType,
             "Content-Length": image.length,
         });
         res.end(image);

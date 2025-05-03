@@ -2,7 +2,6 @@
 
 const logger = require("@utils/logger")(module);
 const getImage = require("@utils/image-get");
-const imageGet = require("./image-get");
 
 module.exports = async (isbn) => {
     let data = {};
@@ -19,7 +18,7 @@ module.exports = async (isbn) => {
 
         if (data?.covers) {
             for (const cover of data?.covers) {
-                const coverData = await imageGet(
+                const coverData = await getImage(
                     `https://covers.openlibrary.org/a/id/${cover}-L.jpg`
                 );
                 if (coverData.length > chosenCover.length) {
