@@ -67,6 +67,12 @@ paths:
             type: number
           required: false
           description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
+        - in: query
+          name: order
+          schema:
+            type: number
+          required: false
+          description: Filter by user set order, set to -1 or 1 for ascending of descending
       responses:
         "200":
           description: Success
@@ -611,6 +617,29 @@ paths:
             type: number
           required: true
           description: ISBN of the book, should convert between any format
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "405":
+          description: Incorrect request data
+        "500":
+          description: Error
+  "/organise/{field}":
+    post:
+      summary: Organise books by author
+      tags:
+        - organise
+      parameters:
+        - in: path
+          name: field
+          schema:
+            type: string
+          required: true
+          description: Book field to oganise books by
       responses:
         "200":
           description: Success
