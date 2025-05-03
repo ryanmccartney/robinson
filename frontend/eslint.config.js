@@ -19,7 +19,6 @@ export default defineConfig([
                 ...globals.node,
                 ...pluginJest.environments.globals.globals,
                 __APP_VERSION__: "readonly",
-
             },
             ecmaVersion: 2020,
             parserOptions: {

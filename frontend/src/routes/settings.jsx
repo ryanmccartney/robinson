@@ -31,9 +31,7 @@ const Settings = () => {
                 spacing={3}
             >
                 <Grid size={{ xs: 12, sm: 10, md: 8, lg: 6, xl: 6 }}>
-                    <Card
-                        sx={{ marginTop: 6, padding: 3, overflow: "visible" }}
-                    >
+                    <Card sx={{ padding: 3, overflow: "visible" }}>
                         <Typography align="center" variant="h4" gutterBottom>
                             Settings
                         </Typography>
