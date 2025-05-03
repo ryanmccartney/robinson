@@ -13,6 +13,7 @@ const schema = mongoose.Schema({
     description: { type: String },
     length: { type: Number, min: 0, default: 0 },
     order: { type: Number, required: true, default: 0 },
+    lastUpdated: { type: Date, type: Date, default: () => new Date() },
 });
 
 module.exports = mongoose.model("shelves", schema);

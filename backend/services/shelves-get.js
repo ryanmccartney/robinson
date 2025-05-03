@@ -17,7 +17,7 @@ const getBooksOnShelf = async (shelf) => {
     return newShelf;
 };
 
-module.exports = async (shelfId) => {
+module.exports = async (shelfId, filter = {}) => {
     try {
         const data = {};
 
@@ -42,7 +42,7 @@ module.exports = async (shelfId) => {
                 data.shelf.case = bookcase ? bookcase.toObject() : undefined;
             }
         } else {
-            data.shelves = await shelvesModel.find();
+            data.shelves = await shelvesModel.find().sort(filter);
             data.shelves = await Promise.all(
                 data.shelves.map(async (shelf) => {
                     return await getBooksOnShelf(shelf);

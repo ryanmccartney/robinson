@@ -15,6 +15,31 @@ const updateShelves = require("@services/shelves-update");
  *    get:
  *      summary: Get a list of all shelves
  *      tags: [shelves]
+ *      parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by name, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: length
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by length, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by order, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: lastUpdated
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
  *      responses:
  *         '200':
  *           description: Success
@@ -28,7 +53,7 @@ const updateShelves = require("@services/shelves-update");
  *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getShelves();
+    const data = await getShelves(null, req.query);
     response(res, req, data);
 });
 

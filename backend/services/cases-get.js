@@ -35,7 +35,7 @@ const getShelvesinCase = async (bookcase) => {
     return newCase;
 };
 
-module.exports = async (caseId) => {
+module.exports = async (caseId, filter = {}) => {
     try {
         const data = {};
         if (caseId) {
@@ -57,7 +57,7 @@ module.exports = async (caseId) => {
                 }
             }
         } else {
-            data.cases = await casesModel.find();
+            data.cases = await casesModel.find().sort(filter);
 
             data.cases = await Promise.all(
                 data.cases.map(async (bookcase) => {

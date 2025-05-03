@@ -15,6 +15,25 @@ const updateCases = require("@services/cases-update");
  *    get:
  *      summary: Get a list of all cases
  *      tags: [cases]
+ *      parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by name, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by order, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: lastUpdated
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
  *      responses:
  *         '200':
  *           description: Success
@@ -28,7 +47,7 @@ const updateCases = require("@services/cases-update");
  *           description: Incorrect request data
  */
 router.get("/", auth.restrict(["get_data"]), async (req, res, next) => {
-    const data = await getCases();
+    const data = await getCases(null, req.query);
     response(res, req, data);
 });
 

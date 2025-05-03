@@ -39,16 +39,16 @@ const useBooks = (filter) => {
     return useData("books", { filter });
 };
 
-const useShelves = () => {
-    return useData("shelves");
+const useShelves = (filter) => {
+    return useData("shelves", { filter });
 };
 
-const useCases = () => {
-    return useData("cases");
+const useCases = (filter) => {
+    return useData("cases", { filter });
 };
 
-const useUsers = () => {
-    return useData("users");
+const useUsers = (filter) => {
+    return useData("users", { filter });
 };
 
 const useBook = (bookId) => {
