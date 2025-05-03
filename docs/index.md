@@ -23,7 +23,6 @@ nav_order: 1
   </a>
 </h4>
 
-
 Self-hosted Book management for your personal library.
 
 Add your bookcases, shelves and books. Track where they're stored, who they're loaned to and bookmark your reading
@@ -34,7 +33,8 @@ Check your reading timeline and search your library. Easily add book by scanning
 
 # Features
 
-* Organizes books into, shelves and bookcase
+* Manually organise books into, shelves and bookcase
+* Automatically organise your entirely library by title, author, genre,
 * Add books by scanning an ISBN barcode with your phone
 * Uses multiple sources to pull book information from ISBN
 * Bookmarking, keep your place
@@ -43,6 +43,11 @@ Check your reading timeline and search your library. Easily add book by scanning
 * Organize physical books and eBooks
 * Built in eBook reader
 * Install on your device as a Progressive Web App (PWA)
+
+# Coming Soon
+
+* Drag and drop manual organization of books
+* Automatically organise books by cover colour
 
 # Technology
 
