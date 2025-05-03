@@ -18,6 +18,8 @@ export default defineConfig([
                 ...globals.browser,
                 ...globals.node,
                 ...pluginJest.environments.globals.globals,
+                __APP_VERSION__: "readonly",
+
             },
             ecmaVersion: 2020,
             parserOptions: {

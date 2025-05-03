@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { fileURLToPath } from "url";
 import { VitePWA } from "vite-plugin-pwa";
+import pkg from "./package.json";
 
 const manifestForPlugIn = {
     registerType: "prompt",
@@ -78,6 +79,9 @@ export default () => {
                 "@fonts": path.resolve(__dirname, "./src/fonts"),
                 "@contexts": path.resolve(__dirname, "./src/contexts"),
             },
+        },
+        define: {
+            __APP_VERSION__: JSON.stringify(pkg.version),
         },
     });
 };

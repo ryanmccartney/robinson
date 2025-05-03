@@ -19,6 +19,7 @@ const Root = lazy(() => import("@routes/root"));
 const Scan = lazy(() => import("@routes/scan"));
 const Login = lazy(() => import("@routes/login"));
 const Reader = lazy(() => import("@routes/reader"));
+const Settings = lazy(() => import("@routes/settings"));
 
 const Shelves = lazy(() => import("@routes/shelves"));
 const Shelf = lazy(() => import("@routes/shelf"));
@@ -50,6 +51,7 @@ const AppRoutes = () => {
                 <Route path="case/:caseId" element={<Case />} />
                 <Route path="users" element={<Users />} />
                 <Route path="user" element={<User />} />
+                <Route path="settings" element={<Settings />} />
                 <Route path="*" element={<Error />} />
             </Route>
         </Routes>

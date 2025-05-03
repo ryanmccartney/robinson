@@ -14,6 +14,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import fetcher from "@utils/fetcher";
 import { UserContext } from "@contexts/user";
@@ -49,6 +50,11 @@ const MenuContents = ({ close }) => {
         navigate(`/user`);
     };
 
+    const settings = async () => {
+        close();
+        navigate(`/settings`);
+    };
+
     if (user) {
         items.push(
             <MenuItem key="edit-accounts" onClick={edit}>
@@ -66,6 +72,14 @@ const MenuContents = ({ close }) => {
                         <PeopleOutlineIcon fontSize="medium" />
                     </ListItemIcon>
                     <ListItemText>Edit Users</ListItemText>
+                </MenuItem>
+            );
+            items.push(
+                <MenuItem key="settings" onClick={settings}>
+                    <ListItemIcon>
+                        <SettingsIcon fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText>Settings</ListItemText>
                 </MenuItem>
             );
         }
