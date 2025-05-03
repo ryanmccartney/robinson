@@ -23,6 +23,7 @@ const metadata = require("@routes/metadata");
 const search = require("@routes/search");
 const login = require("@routes/login");
 const logout = require("@routes/logout");
+const organise = require("@routes/organise");
 
 // rate limiting
 const apiLimiter = rateLimit({
@@ -101,6 +102,7 @@ app.use("/api/metadata", metadata);
 app.use("/api/login", login);
 app.use("/api/logout", logout);
 app.use("/api/search", search);
+app.use("/api/organise", organise);
 
 if (nodeEnv === "production") {
     const staticFiles = path.join(__dirname, "..", "build");

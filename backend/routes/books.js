@@ -75,6 +75,12 @@ const addEbook = require("@services/books-add-ebook");
  *           type: number
  *         required: false
  *         description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: Filter by user set order, set to -1 or 1 for ascending of descending
  *      responses:
  *         '200':
  *           description: Success

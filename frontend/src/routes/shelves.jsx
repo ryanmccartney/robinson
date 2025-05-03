@@ -99,7 +99,7 @@ const Shelves = () => {
                         descending: "Longest to Shortest",
                     },
                     order: {
-                        label: "User Order",
+                        label: "Case Order",
                         ascending: "Forward",
                         descending: "Reverse",
                     },

@@ -48,6 +48,11 @@ const SortMenu = ({
             ascending: "Most to Least recent",
             descending: "Least to Most recent",
         },
+        order: {
+            label: "Shelf Order",
+            ascending: "Forward",
+            descending: "Reverse",
+        },
     },
     setFilter = () => {},
     filter = {},

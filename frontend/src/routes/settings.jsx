@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react";
+import { enqueueSnackbar } from "notistack";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -7,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 
+import fetcher from "@utils/fetcher";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 
 const Settings = () => {
@@ -21,6 +23,11 @@ const Settings = () => {
             setBreadcrumbs([]);
         };
     }, []);
+
+    const organise = async (felid = "title") => {
+        await fetcher.post(`organise/${felid}`);
+        enqueueSnackbar(`Organising books by ${felid}`);
+    };
 
     return (
         <Box sx={{ m: 2 }}>
@@ -131,7 +138,13 @@ const Settings = () => {
                                 style={{ textAlign: "right" }}
                                 sx={{ margin: "auto" }}
                             >
-                                <Button color="error" variant="outlined">
+                                <Button
+                                    color="error"
+                                    variant="outlined"
+                                    onClick={() => {
+                                        organise("title");
+                                    }}
+                                >
                                     Organise
                                 </Button>
                             </Grid>
@@ -155,7 +168,13 @@ const Settings = () => {
                                 style={{ textAlign: "right" }}
                                 sx={{ margin: "auto" }}
                             >
-                                <Button color="error" variant="outlined">
+                                <Button
+                                    color="error"
+                                    variant="outlined"
+                                    onClick={() => {
+                                        organise("author");
+                                    }}
+                                >
                                     Organise
                                 </Button>
                             </Grid>
@@ -179,7 +198,13 @@ const Settings = () => {
                                 style={{ textAlign: "right" }}
                                 sx={{ margin: "auto" }}
                             >
-                                <Button color="error" variant="outlined">
+                                <Button
+                                    color="error"
+                                    variant="outlined"
+                                    onClick={() => {
+                                        organise("pages");
+                                    }}
+                                >
                                     Organise
                                 </Button>
                             </Grid>
