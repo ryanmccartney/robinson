@@ -25,6 +25,19 @@ hello@mccartney.info
 
 Get a list of all books
 
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| pages | query | Filter by pages, set to -1 or 1 for ascending of descending | No | number |
+| progress | query | Filter by progress, set to -1 or 1 for ascending of descending | No | number |
+| title | query | Filter by title, set to -1 or 1 for ascending of descending | No | number |
+| rating | query | Filter by rating, set to -1 or 1 for ascending of descending | No | number |
+| author | query | Filter by author, set to -1 or 1 for ascending of descending | No | number |
+| favorites | query | Filter by favorites, set to -1 or 1 for ascending of descending | No | number |
+| shelfId | query | Filter by shelfId, set to -1 or 1 for ascending of descending | No | number |
+| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
+
 ##### Responses
 
 | Code | Description |
