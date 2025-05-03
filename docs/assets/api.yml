@@ -354,6 +354,25 @@ paths:
       summary: Get a list of all cases
       tags:
         - cases
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: number
+          required: false
+          description: Filter by name, set to -1 or 1 for ascending of descending
+        - in: query
+          name: order
+          schema:
+            type: number
+          required: false
+          description: Filter by order, set to -1 or 1 for ascending of descending
+        - in: query
+          name: lastUpdated
+          schema:
+            type: number
+          required: false
+          description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
       responses:
         "200":
           description: Success
@@ -631,6 +650,31 @@ paths:
       summary: Get a list of all shelves
       tags:
         - shelves
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: number
+          required: false
+          description: Filter by name, set to -1 or 1 for ascending of descending
+        - in: query
+          name: length
+          schema:
+            type: number
+          required: false
+          description: Filter by length, set to -1 or 1 for ascending of descending
+        - in: query
+          name: order
+          schema:
+            type: number
+          required: false
+          description: Filter by order, set to -1 or 1 for ascending of descending
+        - in: query
+          name: lastUpdated
+          schema:
+            type: number
+          required: false
+          description: Filter by lastUpdated, set to -1 or 1 for ascending of descending
       responses:
         "200":
           description: Success

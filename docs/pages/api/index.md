@@ -319,6 +319,14 @@ Download an ebook
 
 Get a list of all cases
 
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| name | query | Filter by name, set to -1 or 1 for ascending of descending | No | number |
+| order | query | Filter by order, set to -1 or 1 for ascending of descending | No | number |
+| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
+
 ##### Responses
 
 | Code | Description |
@@ -541,6 +549,15 @@ Search books, shelves, cases
 ##### Summary
 
 Get a list of all shelves
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| name | query | Filter by name, set to -1 or 1 for ascending of descending | No | number |
+| length | query | Filter by length, set to -1 or 1 for ascending of descending | No | number |
+| order | query | Filter by order, set to -1 or 1 for ascending of descending | No | number |
+| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
 
 ##### Responses
 
