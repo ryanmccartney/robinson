@@ -208,6 +208,36 @@ const Settings = () => {
                                     Organise
                                 </Button>
                             </Grid>
+
+                            <Grid size={{ xs: 8 }} sx={{ margin: "auto" }}>
+                                <Typography
+                                    fontWeight="fontWeightMedium"
+                                    variant="body1"
+                                    sx={{ fontSize: "0.9rem" }}
+                                >
+                                    Books by cover colors
+                                </Typography>
+
+                                <Typography variant="caption">
+                                    Reassign all books to shelves based on the
+                                    color of their cover
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                size={{ right: 0, xs: 4 }}
+                                style={{ textAlign: "right" }}
+                                sx={{ margin: "auto" }}
+                            >
+                                <Button
+                                    color="error"
+                                    variant="outlined"
+                                    onClick={() => {
+                                        organise("color");
+                                    }}
+                                >
+                                    Organise
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Card>
                 </Grid>

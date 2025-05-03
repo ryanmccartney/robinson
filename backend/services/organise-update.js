@@ -5,14 +5,22 @@ const logger = require("@utils/logger")(module);
 const booksModel = require("@models/books");
 const shelvesModel = require("@models/shelves");
 const casesModel = require("@models/cases");
+const colorSort = require("@utils/color-sort");
 
 module.exports = async (field, direction = "asc", dryRun = false) => {
     try {
         const data = { shelves: {} };
 
-        const books = await booksModel
+        let books = await booksModel
             .find({}, { cover: 0 })
             .sort({ [field]: direction === "asc" ? 1 : -1 });
+
+        if (field === "color") {
+            books = books.sort((a, b) => {
+                return colorSort(a.coverColors[0], b.coverColors[0]);
+            });
+        }
+
         const cases = await casesModel.find().sort({ order: 1 });
         const shelves = await shelvesModel.find().sort({});
 
