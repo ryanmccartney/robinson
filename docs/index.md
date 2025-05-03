@@ -34,7 +34,7 @@ Check your reading timeline and search your library. Easily add book by scanning
 # Features
 
 * Manually organise books into, shelves and bookcase
-* Automatically organise your entirely library by title, author, genre,
+* Automatically organise your entirely library by title, author, genre and cover color
 * Add books by scanning an ISBN barcode with your phone
 * Uses multiple sources to pull book information from ISBN
 * Bookmarking, keep your place
@@ -46,8 +46,9 @@ Check your reading timeline and search your library. Easily add book by scanning
 
 # Coming Soon
 
-* Drag and drop manual organization of books
-* Automatically organise books by cover colour
+* Drag and drop for manual organization of your books
+* Generate a printable bookmark for each of your books
+* Distributed sort to evenly spread books across shelves
 
 # Technology
 
