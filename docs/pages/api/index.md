@@ -37,6 +37,7 @@ Get a list of all books
 | favorites | query | Filter by favorites, set to -1 or 1 for ascending of descending | No | number |
 | shelfId | query | Filter by shelfId, set to -1 or 1 for ascending of descending | No | number |
 | lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
+| order | query | Filter by user set order, set to -1 or 1 for ascending of descending | No | number |
 
 ##### Responses
 
@@ -507,6 +508,30 @@ Get a list of all available metadata and create a book with it
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
 | isbn | path | ISBN of the book, should convert between any format | Yes | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /organise/{field}
+
+#### POST
+##### Summary
+
+Organise books by author
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| field | path | Book field to oganise books by | Yes | string |
 
 ##### Responses
 
