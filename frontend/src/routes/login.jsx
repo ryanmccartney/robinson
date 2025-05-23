@@ -55,11 +55,10 @@ const Root = () => {
             navigate(-1);
         }
 
-        // Don't forget to clean up
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, []);
+    }, [username, password]);
 
     return (
         <Stack
