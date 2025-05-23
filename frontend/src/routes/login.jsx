@@ -59,7 +59,7 @@ const Root = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, []);
+    }, [username, password]);
 
     return (
         <Stack
