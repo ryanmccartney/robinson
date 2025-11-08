@@ -63,6 +63,7 @@ jobs:
           uses: actions/checkout@v4
           with:
             fetch-depth: 0
+            ssh-key: ${{ secrets.DEPLOY_KEY }}
 
         - name: Setup SSH
           run: |
@@ -94,8 +95,6 @@ jobs:
 
         - name: Run release
           run: cd ./backend && npm run release --ci
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     deploy:
       runs-on: ubuntu-latest
       name: Build and Deploy to GHCR
