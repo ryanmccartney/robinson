@@ -7,6 +7,11 @@ on:
       - main
     paths-ignore:
       - 'docs/**'
+      - 'CHANGELOG.md'
+      - 'backend/package.json'
+      - 'frontend/package.json'
+    tags-ignore:
+      - '*'
   workflow_dispatch:
 
 env:
@@ -95,6 +100,8 @@ jobs:
 
         - name: Run release
           run: cd ./backend && npm run release --ci
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     deploy:
       runs-on: ubuntu-latest
       name: Build and Deploy to GHCR
