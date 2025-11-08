@@ -9,7 +9,9 @@ on:
       - 'docs/**'
       - 'CHANGELOG.md'
       - 'backend/package.json'
+      - 'backend/package-lock.json'
       - 'frontend/package.json'
+      - 'frontend/package-lock.json'
     tags-ignore:
       - '*'
   workflow_dispatch:
