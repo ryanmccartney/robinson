@@ -24,7 +24,7 @@ module.exports = async (isbn) => {
         }
 
         //Compare ISBN
-        if (data.openlibrary.title || data.openlibrary.title) {
+        if (data.google?.title || data.openlibrary?.title) {
             data.combined.isbn = isbn;
         } else if (data.openlibrary.isbn) {
             data.combined.isbn = data.openlibrary.isbn;
