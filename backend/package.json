@@ -85,7 +85,8 @@
         "git add ../frontend/package.json",
         "git add ../frontend/package-lock.json",
         "git add ../CHANGELOG.md",
-        "git add ../docs/pages/changelog/index.md"
+        "git add ../docs/pages/changelog/index.md",
+        "git checkout -b release/v${version}"
       ]
     },
     "github": {
