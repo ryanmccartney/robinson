@@ -75,6 +75,7 @@ jobs:
           run: |
             git config --global user.email "ryan@mccartney.info"
             git config --global user.name "Release Workflow"
+            git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 
         - name: Log git status
           run: git status
