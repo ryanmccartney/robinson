@@ -55,7 +55,7 @@ const strategy = new LocalStrategy(async (username, password, done) => {
     if (
         user.password != crypto.createHash("md5").update(password).digest("hex")
     ) {
-        logger.info(`[auth] Passport is incorrect`);
+        logger.info(`[auth] Password is incorrect`);
         return done(new Error(`Password incorrect`), false);
     }
 
