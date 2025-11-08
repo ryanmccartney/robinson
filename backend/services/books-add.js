@@ -14,6 +14,9 @@ module.exports = async (newBook) => {
                 newBook.isbn = isbnParsed.isbn13;
             } else {
                 newBook.isbn = undefined;
+                logger.error(
+                    `ISBN Invalid: ${newBook.isbn} could not be parsed`
+                );
             }
         }
 

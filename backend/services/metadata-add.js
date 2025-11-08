@@ -7,14 +7,14 @@ const addBooks = require("@services/books-add");
 
 module.exports = async (isbn) => {
     try {
-        let book = {};
+        let data = {};
         const response = await getMetadata(isbn);
 
         if (response.metadata.combined) {
-            book = await addBooks(response.metadata.combined);
+            data = await addBooks(response.metadata.combined);
         }
 
-        return { metadata: response.metadata, book: book };
+        return { metadata: response.metadata, ...data };
     } catch (error) {
         logger.warn(error);
         return { errors: error };
