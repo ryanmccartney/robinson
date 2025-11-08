@@ -64,7 +64,14 @@ jobs:
           with:
             fetch-depth: 0
 
-        - name: Initialize Git user
+        - name: Setup SSH
+          run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+            chmod 600 ~/.ssh/id_ed25519
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+        - name: Setup Git
           run: |
             git config --global user.email "ryan@mccartney.info"
             git config --global user.name "Release Workflow"
