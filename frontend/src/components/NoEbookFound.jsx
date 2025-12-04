@@ -17,7 +17,7 @@ const NoEbookFound = ({ bookId }) => {
                 color={grey[500]}
                 variant="h3"
             >
-                {"This is no eBook for this title"}
+                {"There is no eBook for this title"}
             </Typography>
             <Typography
                 align="center"
