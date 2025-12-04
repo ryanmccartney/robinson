@@ -13,7 +13,7 @@ import EditableTypography from "@components/EditableTypography";
 const Scan = ({ delay = 250 }) => {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
-    const [, setBarcode] = useState("");
+    const [barcode, setBarcode] = useState("");
     const [windowSize, setWindowSize] = useState({
         width: undefined,
         height: undefined,
@@ -56,15 +56,16 @@ const Scan = ({ delay = 250 }) => {
                 const image = await new Promise((resolve) =>
                     canvas.toBlob(resolve)
                 );
-                const barcode = await barcodeDetector.detect(image);
-                setBarcode(barcode);
+                const newBarcode = await barcodeDetector.detect(image);
+                setBarcode(newBarcode);
 
                 if (
-                    barcode.length > 0 &&
-                    barcode[0].rawValue &&
-                    barcode[0].format == "ean_13"
+                    newBarcode !== barcode &&
+                    newBarcode.length > 0 &&
+                    newBarcode[0].rawValue &&
+                    newBarcode[0].format == "ean_13"
                 ) {
-                    checkForIsbn(barcode[0].rawValue);
+                    checkForIsbn(newBarcode[0].rawValue);
                 }
             }
         };
