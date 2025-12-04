@@ -40,5 +40,5 @@ Find the development frontend on `http://localhost:3000` and self-documenting AP
  * [ ] - CI/CD and helper script changes
  * [ ] - Documentation changes
 
-## Aditional information
+## Additional information
 *Provide any additional information that might be useful to the reviewer in evaluating this pull request. This could include performance considerations,design choices, etc.*
