@@ -5,8 +5,7 @@
 *Provide a detailed description of how exactly this task will be accomplished. This can be something technical. What specific steps will be taken to achieve the goal? This should include details on service integration, job logic, implementation, etc.*
 
 ## Changes in the codebase
-*This is where becomes technical. Here is where you can be more focused on the engineering side of your solution. Include information about the functionality they are adding or modifying, as well as any refactoring or improvement of existing code.*
- updates to third-party services, changes to infrastructure configuration, integration with external APIs, etc.*
+*This is where becomes technical. Here is where you can be more focused on the engineering side of your solution. Include information about the functionality they are adding or modifying, as well as any refactoring or improvement of existing code. Updates to third-party services, changes to infrastructure configuration, integration with external APIs, etc.*
 
  * [ ] - Frontend changes
  * [ ] - Backend changes
