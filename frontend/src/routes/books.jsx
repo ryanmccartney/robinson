@@ -28,7 +28,14 @@ const BooksList = ({ filter }) => {
         }
 
         if (bookCards.length === 0) {
-            return <NotFound label="book" link="books" mutate={booksMutate} />;
+            return (
+                <NotFound
+                    label="book"
+                    link="books"
+                    mutate={booksMutate}
+                    data={{ title: "My First Book" }}
+                />
+            );
         }
 
         return bookCards;

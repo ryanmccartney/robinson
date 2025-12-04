@@ -72,7 +72,6 @@ const Scan = () => {
 
         const id = setInterval(processImage, 100);
         return () => clearInterval(id);
-
     }, [barcode]);
 
     useEffect(() => {

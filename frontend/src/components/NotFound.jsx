@@ -8,16 +8,20 @@ import { enqueueSnackbar } from "notistack";
 const NotFound = ({
     link = "shelves",
     label = "shelf",
+    data = {},
     labelPlural,
     mutate = () => {},
 }) => {
     const handleClick = async () => {
-        const data = await fetcher.post(`${link}`, {
-            name: `A new ${label}`,
+        const response = await fetcher.post(`${link}`, {
+            ...{
+                name: `A new ${label}`,
+            },
+            ...data,
         });
 
-        if (data.shelf) {
-            enqueueSnackbar(`Created a ${label} called ${data.shelf.name}`);
+        if (response.shelf) {
+            enqueueSnackbar(`Created a ${label} called ${response.shelf.name}`);
         }
 
         mutate();
