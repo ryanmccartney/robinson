@@ -10,7 +10,7 @@ import fetcher from "@utils/fetcher";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
 import EditableTypography from "@components/EditableTypography";
 
-const Scan = ({ delay = 250 }) => {
+const Scan = () => {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
     const [barcode, setBarcode] = useState("");
@@ -57,24 +57,23 @@ const Scan = ({ delay = 250 }) => {
                     canvas.toBlob(resolve)
                 );
                 const newBarcode = await barcodeDetector.detect(image);
-                setBarcode(newBarcode);
 
                 if (
-                    newBarcode !== barcode &&
                     newBarcode.length > 0 &&
                     newBarcode[0].rawValue &&
-                    newBarcode[0].format == "ean_13"
+                    newBarcode[0].format == "ean_13" &&
+                    newBarcode[0].rawValue !== barcode
                 ) {
+                    setBarcode(newBarcode[0].rawValue);
                     checkForIsbn(newBarcode[0].rawValue);
                 }
             }
         };
 
-        if (delay !== null) {
-            const id = setInterval(processImage, delay);
-            return () => clearInterval(id);
-        }
-    }, [delay]);
+        const id = setInterval(processImage, 100);
+        return () => clearInterval(id);
+
+    }, [barcode]);
 
     useEffect(() => {
         const handleResize = () => {
