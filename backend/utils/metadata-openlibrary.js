@@ -2,6 +2,7 @@
 
 const logger = require("@utils/logger")(module);
 const getImage = require("@utils/image-get");
+const fetchRetry = require("@utils/fetch-retry");
 
 module.exports = async (isbn) => {
     let data = {};
@@ -10,10 +11,19 @@ module.exports = async (isbn) => {
 
     try {
         if (isbn) {
-            const response = await fetch(
+            const response = await fetchRetry(
                 `https://openlibrary.org/isbn/${isbn}.json`
             );
+            if (!response.ok) {
+                logger.warn(
+                    `Open library API request for ${isbn} returned status ${response.status}`
+                );
+                return {};
+            }
             data = await response.json();
+        } else {
+            logger.warn(`Open library API request no ISBN provided`);
+            return {};
         }
 
         if (data?.covers) {
