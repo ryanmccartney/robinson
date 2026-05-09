@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     cover: { type: String },
     coverColors: { type: Array },
     ebook: { type: Object },
-    pages: { type: Number, default: 0 },
+    pages: { type: Number, default: 0, set: (v) => (Number.isNaN(v) ? 0 : v) },
     hardback: { type: Boolean, default: false },
     comments: [{ body: String, date: Date, user: String }],
     lastUpdated: { type: Date, type: Date, default: () => new Date() },
