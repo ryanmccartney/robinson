@@ -11,7 +11,7 @@ const fetchRetry = async (
         let response;
         try {
             response = await fetch(url, options);
-            logger.info(
+            logger.debug(
                 `Request attempt ${attempt + 1} for ${url} returned status ${response.status}`
             );
             if (response.status >= 500 && response.status < 600) {
