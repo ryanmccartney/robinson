@@ -49,7 +49,7 @@ To improve securityif you're exposing robinson on the internet through a reverse
 
 ## Additional Resources
 
-- Google Books API Documentation: https://developers.google.com/books/docs/v1/using
-- Google Cloud Console: https://console.cloud.google.com/
-- API Keys Documentation: https://cloud.google.com/docs/authentication/api-keys
-- APIs & Services Dashboard: https://console.cloud.google.com/apis/dashboard
+- Google Books API Documentation: [https://developers.google.com/books/docs/v1/using](https://developers.google.com/books/docs/v1/using)
+- Google Cloud Console: [https://console.cloud.google.com/](https://console.cloud.google.com/) 
+- API Keys Documentation: [https://cloud.google.com/docs/authentication/api-keys](https://cloud.google.com/docs/authentication/api-keys) 
+- APIs & Services Dashboard:[https://console.cloud.google.com/apis/dashboard](https://console.cloud.google.com/apis/dashboard) 
