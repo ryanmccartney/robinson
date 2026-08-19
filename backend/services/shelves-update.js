@@ -8,7 +8,8 @@ module.exports = async (shelfId, update) => {
         if (shelfId) {
             const shelf = await shelvesModel.findOneAndUpdate(
                 { shelfId: shelfId },
-                { ...update, ...{ lastUpdated: new Date() } }
+                { ...update, ...{ lastUpdated: new Date() } },
+                { new: true, lean: true }
             );
             if (shelf) {
                 logger.info(

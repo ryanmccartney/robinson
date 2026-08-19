@@ -18,12 +18,12 @@ module.exports = async () => {
         }
 
         for (const book of books) {
-            if (shelvesId.includes(book.bookId)) {
+            if (!book.shelfId || !shelvesId.includes(book.shelfId)) {
                 orphanedBooks.push(book);
             }
         }
 
-        return { shelves: shelves, books: books };
+        return { shelves: shelves, books: orphanedBooks };
     } catch (error) {
         return getError(error);
     }
