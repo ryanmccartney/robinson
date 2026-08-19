@@ -43,7 +43,9 @@ class RetryingSessionStore extends EventEmitter {
             }
             this.retryDelay = INITIAL_RETRY_DELAY_MS;
             this.current = store;
-            logger.info(`Connected to session store (collection: ${this.options.collection})`);
+            logger.info(
+                `Connected to session store (collection: ${this.options.collection})`
+            );
             this.emit("connected");
         });
 
@@ -74,7 +76,9 @@ class RetryingSessionStore extends EventEmitter {
 
     destroy(id, callback) {
         if (!this.current) {
-            return this.once("connected", () => this.current.destroy(id, callback));
+            return this.once("connected", () =>
+                this.current.destroy(id, callback)
+            );
         }
         return this.current.destroy(id, callback);
     }
