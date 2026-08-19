@@ -6,8 +6,7 @@ const booksModel = require("@models/books");
 // Escape regex metacharacters so a caller-supplied query can only ever
 // match as a literal substring - prevents both malformed-pattern errors
 // and catastrophic-backtracking (ReDoS) patterns from reaching $regex.
-const escapeRegExp = (string) =>
-    string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 module.exports = async (
     query,
@@ -38,7 +37,10 @@ module.exports = async (
                     data.results = data.results.concat(
                         await booksModel.find(
                             {
-                                description: { $regex: safeQuery, $options: "i" },
+                                description: {
+                                    $regex: safeQuery,
+                                    $options: "i",
+                                },
                             },
                             { cover: 0 }
                         )
