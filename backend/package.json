@@ -1,6 +1,6 @@
 {
   "name": "robinson-backend",
-  "version": "0.0.102",
+  "version": "0.0.104",
   "description": "Backend for Robinson project",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   "author": "Ryan McCartney",
   "license": "GPLv3",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-mongodb-session": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
