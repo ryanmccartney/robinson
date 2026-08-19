@@ -5,10 +5,20 @@ const parser = new XMLParser({
     ignoreAttributes: false,
 });
 
+// Comfortably larger than any real epub metadata (.opf) file - guards
+// against a zip-bomb-style entry (tiny compressed size, huge declared
+// uncompressed size) being fully inflated into memory on every upload.
+const MAX_ENTRY_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB
+
 const unzipAndGrab = async (zipBuffer, filePath) => {
     const directory = await unzipper.Open.buffer(zipBuffer);
     for (const file of directory.files) {
         if (file.path.includes(filePath)) {
+            if (file.uncompressedSize > MAX_ENTRY_SIZE_BYTES) {
+                throw new Error(
+                    `Refusing to extract ${file.path}: declared uncompressed size ${file.uncompressedSize} bytes exceeds ${MAX_ENTRY_SIZE_BYTES} byte limit`
+                );
+            }
             const contentBuffer = await file.buffer();
             return contentBuffer.toString("utf8");
         }
