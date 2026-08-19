@@ -8,7 +8,10 @@ const BCRYPT_COST_FACTOR = 12;
 
 module.exports = async (newUser) => {
     try {
-        newUser.password = bcrypt.hashSync(newUser.password, BCRYPT_COST_FACTOR);
+        newUser.password = bcrypt.hashSync(
+            newUser.password,
+            BCRYPT_COST_FACTOR
+        );
 
         const user = new usersModel(newUser);
         await user.save();
