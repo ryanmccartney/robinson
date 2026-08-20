@@ -23,7 +23,10 @@ const fetchRetry = async (
             lastError = err;
 
             if (attempt >= retries) {
-                return response;
+                if (response) {
+                    return response;
+                }
+                throw lastError;
             }
 
             await new Promise((resolve) => setTimeout(resolve, retryDelay));

@@ -64,7 +64,7 @@ const findFavourites = async (userId) => {
             },
         ]);
 
-        return data[0].preferences;
+        return data[0]?.preferences ?? [];
     }
     return {};
 };
@@ -86,7 +86,7 @@ const findProgress = async (userId, threshold = 0) => {
             },
         ]);
 
-        return data[0].preferences;
+        return data[0]?.preferences ?? [];
     }
     return {};
 };
@@ -133,7 +133,7 @@ const findOneAndUpdatePreferences = async (userId, query = {}, update = {}) => {
             );
         }
 
-        return parsePreference(preference.preferences);
+        return parsePreference(preference?.preferences);
     }
     return {};
 };
