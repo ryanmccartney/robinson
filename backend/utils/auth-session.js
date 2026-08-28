@@ -1,6 +1,5 @@
 "use strict";
 
-const EventEmitter = require("events");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const logger = require("@utils/logger")(module);
@@ -27,7 +26,14 @@ const MAX_RETRY_DELAY_MS = 30000;
 // unhandled rejection that kills the whole process. This wrapper always
 // keeps an 'error' listener attached and retries the underlying store with
 // capped exponential backoff instead of ever letting that happen.
-class RetryingSessionStore extends EventEmitter {
+//
+// It extends session.Store (not EventEmitter directly) because passport
+// calls req.logIn() -> req.session.regenerate(), which lives on
+// session.Store.prototype along with load() and createSession().
+// Extending EventEmitter alone makes every login throw
+// "this.req.sessionStore.regenerate is not a function". session.Store
+// itself extends EventEmitter, so the retry logic below is unaffected.
+class RetryingSessionStore extends session.Store {
     constructor(options) {
         super();
         this.options = options;
@@ -72,6 +78,15 @@ class RetryingSessionStore extends EventEmitter {
             );
         }
         return this.current.set(id, sessionData, callback);
+    }
+
+    touch(id, sessionData, callback) {
+        if (!this.current) {
+            return this.once("connected", () =>
+                this.current.touch(id, sessionData, callback)
+            );
+        }
+        return this.current.touch(id, sessionData, callback);
     }
 
     destroy(id, callback) {
