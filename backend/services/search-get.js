@@ -3,6 +3,11 @@
 const getError = require("@utils/error-get");
 const booksModel = require("@models/books");
 
+// Escape regex metacharacters so a caller-supplied query can only ever
+// match as a literal substring - prevents both malformed-pattern errors
+// and catastrophic-backtracking (ReDoS) patterns from reaching $regex.
+const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 module.exports = async (
     query,
     fields = ["books", "author", "title", "description"]
@@ -10,11 +15,12 @@ module.exports = async (
     try {
         const data = { results: [] };
         if (query) {
+            const safeQuery = escapeRegExp(query);
             if (fields.includes("books")) {
                 if (fields.includes("title")) {
                     data.results = data.results.concat(
                         await booksModel.find(
-                            { title: { $regex: query, $options: "i" } },
+                            { title: { $regex: safeQuery, $options: "i" } },
                             { cover: 0 }
                         )
                     );
@@ -22,7 +28,7 @@ module.exports = async (
                 if (fields.includes("author")) {
                     data.results = data.results.concat(
                         await booksModel.find(
-                            { author: { $regex: query, $options: "i" } },
+                            { author: { $regex: safeQuery, $options: "i" } },
                             { cover: 0 }
                         )
                     );
@@ -31,7 +37,10 @@ module.exports = async (
                     data.results = data.results.concat(
                         await booksModel.find(
                             {
-                                description: { $regex: query, $options: "i" },
+                                description: {
+                                    $regex: safeQuery,
+                                    $options: "i",
+                                },
                             },
                             { cover: 0 }
                         )
