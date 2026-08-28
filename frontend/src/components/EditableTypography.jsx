@@ -1,6 +1,6 @@
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { grey } from "@mui/material/colors";
 
 const InputBaseWithChildren = ({ children, ...props }) => {
@@ -41,6 +41,10 @@ const EditableTypography = ({
     ...props
 }) => {
     const [internalValue, setInternalValue] = useState(props.children);
+
+    useEffect(() => {
+        setInternalValue(props.children);
+    }, [props.children]);
 
     const handleChange = (e) => {
         setInternalValue(e.target.value);
