@@ -33,6 +33,12 @@ const MAX_RETRY_DELAY_MS = 30000;
 // Extending EventEmitter alone makes every login throw
 // "this.req.sessionStore.regenerate is not a function". session.Store
 // itself extends EventEmitter, so the retry logic below is unaffected.
+//
+// Deliberately no touch(): connect-mongodb-session does not implement it,
+// and express-session skips touching entirely when the store has no touch
+// method. Defining one here that forwards to the underlying store crashes
+// the first authenticated request with "this.current.touch is not a
+// function".
 class RetryingSessionStore extends session.Store {
     constructor(options) {
         super();
@@ -78,15 +84,6 @@ class RetryingSessionStore extends session.Store {
             );
         }
         return this.current.set(id, sessionData, callback);
-    }
-
-    touch(id, sessionData, callback) {
-        if (!this.current) {
-            return this.once("connected", () =>
-                this.current.touch(id, sessionData, callback)
-            );
-        }
-        return this.current.touch(id, sessionData, callback);
     }
 
     destroy(id, callback) {
