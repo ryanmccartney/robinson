@@ -8,9 +8,6 @@ const coverColor = require("@utils/cover-color");
 
 module.exports = async (newBook) => {
     try {
-        // bookId/dateAdded are server-generated identity fields - Mongoose's
-        // `immutable` only blocks changes on save, not on initial creation,
-        // so a client-supplied value here would otherwise be accepted as-is.
         delete newBook.bookId;
         delete newBook.dateAdded;
 

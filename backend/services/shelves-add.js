@@ -5,8 +5,6 @@ const shelvesModel = require("@models/shelves");
 
 module.exports = async (newShelf) => {
     try {
-        // shelfId is a server-generated identity field - Mongoose's
-        // `immutable` only blocks changes on save, not on initial creation.
         delete newShelf.shelfId;
 
         const shelf = new shelvesModel(newShelf);
