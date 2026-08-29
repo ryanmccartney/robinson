@@ -14,12 +14,25 @@ const uri = `mongodb://${dbUser}:${dbPassword.replace("@", "%40")}@${dbHost}:${d
 // mongoose.set("useCreateIndex", true);
 // mongoose.set("useUnifiedTopology", true);
 
-const connect = async () => {
+const INITIAL_RETRY_DELAY_MS = 2000;
+const MAX_RETRY_DELAY_MS = 30000;
+
+// mongoose.connect() rejecting used to only log a warning and give up,
+// leaving the app permanently disconnected if the very first attempt lost
+// a startup DNS race with the DB container. Retry with capped exponential
+// backoff instead of giving up after one try.
+const connect = async (retryDelay = INITIAL_RETRY_DELAY_MS) => {
     try {
         await mongoose.connect(uri);
         logger.info(`Connected to database ${dbName}`);
     } catch (error) {
-        logger.warn(error);
+        logger.warn(
+            `Failed to connect to database ${dbName}, retrying in ${retryDelay}ms: ${error.message}`
+        );
+        setTimeout(
+            () => connect(Math.min(retryDelay * 2, MAX_RETRY_DELAY_MS)),
+            retryDelay
+        );
     }
 };
 

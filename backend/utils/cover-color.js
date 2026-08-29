@@ -3,9 +3,6 @@
 const logger = require("@utils/logger")(module);
 const getColors = require("get-image-colors");
 
-// get-image-colors is only asked to decode formats it actually supports -
-// anything else (or a non-image mime type claim entirely) is rejected
-// before the buffer is handed to the decoding library.
 const ALLOWED_COVER_MIME_TYPES = [
     "image/png",
     "image/jpeg",

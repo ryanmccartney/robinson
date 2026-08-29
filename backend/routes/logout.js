@@ -20,15 +20,21 @@ const getUsersCurrent = require("@services/users-get-current");
  *         '405':
  *           description: Incorrect request data
  */
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
     const data = await getUsersCurrent(req?.user);
     try {
         req.logout((err) => {
             if (err) {
                 throw err;
             }
-            data.message = `Successfully logged out ${data?.user?.firstName} ${data?.user?.lastName}`;
-            response(res, req, data);
+            req.session.destroy((err) => {
+                if (err) {
+                    throw err;
+                }
+                res.clearCookie("robinson");
+                data.message = `Successfully logged out ${data?.user?.firstName} ${data?.user?.lastName}`;
+                response(res, req, data);
+            });
         });
     } catch (error) {
         next(error);

@@ -7,9 +7,17 @@ const { finished } = require("stream/promises");
 const deleteEbook = require("@services/books-delete-ebook");
 const epub = require("@utils/epub");
 
+const ZIP_MAGIC = Buffer.from([0x50, 0x4b]); // "PK"
+
 module.exports = async (bookId, userId, file) => {
     try {
-        if (bookId && file && file.mimetype === "application/epub+zip") {
+        if (
+            bookId &&
+            file &&
+            file.mimetype === "application/epub+zip" &&
+            file.buffer?.length >= 2 &&
+            file.buffer.subarray(0, 2).equals(ZIP_MAGIC)
+        ) {
             await deleteEbook(bookId);
 
             const metadata = await epub.metadata(file.buffer);

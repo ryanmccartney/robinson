@@ -42,21 +42,21 @@ const strategy = new LocalStrategy(async (username, password, done) => {
 
     if (!user) {
         logger.info(`[auth] User '${username}' does not exist.`);
-        return done(new Error(`User does not exist.`), false);
+        return done(null, false, { message: "User does not exist." });
     }
 
     if (!user.enabled) {
         logger.info(
             `[auth] User '${user?.firstName} ${user?.lastName}' is not enabled.`
         );
-        return done(new Error(`User is not enabled.`), false);
+        return done(null, false, { message: "User is not enabled." });
     }
 
     if (
         user.password != crypto.createHash("md5").update(password).digest("hex")
     ) {
         logger.info(`[auth] Password is incorrect`);
-        return done(new Error(`Password incorrect`), false);
+        return done(null, false, { message: "Password incorrect" });
     }
 
     logger.info(`[auth] ${user?.firstName} ${user?.lastName} logged in.`);
