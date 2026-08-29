@@ -1,5 +1,8 @@
+"use strict";
+
 const router = require("express").Router();
 const response = require("@utils/response");
+const auth = require("@utils/auth");
 const getSearch = require("@services/search-get");
 
 /**
@@ -27,7 +30,7 @@ const getSearch = require("@services/search-get");
  *         '405':
  *           description: Incorrect request data
  */
-router.get("/", async (req, res) => {
+router.get("/", auth.restrict(["get_data"]), async (req, res) => {
     const data = await getSearch(req?.query?.query);
     response(res, req, data);
 });
