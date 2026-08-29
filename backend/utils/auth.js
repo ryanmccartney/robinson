@@ -13,9 +13,7 @@ const authSession = require("@utils/auth-session");
 
 const BCRYPT_COST_FACTOR = 12;
 
-// Legacy password hashes were unsalted MD5 (32 hex characters). Matched
-// here only to support a one-time, transparent migration to bcrypt on next
-// successful login - never used for any newly-set password.
+// Legacy hashes are unsalted MD5 (32 hex chars), migrated on next login.
 const isLegacyMd5Hash = (hash) =>
     typeof hash === "string" && /^[a-f0-9]{32}$/i.test(hash);
 
@@ -69,8 +67,6 @@ const strategy = new LocalStrategy(async (username, password, done) => {
             crypto.createHash("md5").update(password).digest("hex");
 
         if (passwordMatches) {
-            // Rehash to bcrypt now that we have the correct plaintext in
-            // hand - the account never needs to carry an MD5 hash again.
             user.password = bcrypt.hashSync(password, BCRYPT_COST_FACTOR);
             await user.save();
             logger.info(
