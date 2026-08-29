@@ -11,7 +11,7 @@ module.exports = async (isbn) => {
     try {
         if (isbn) {
             const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
-            const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}${apiKey ? `&key=${apiKey}` : ""}`;
+            const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${encodeURIComponent(isbn)}${apiKey ? `&key=${apiKey}` : ""}`;
             const response = await fetchRetry(url);
             if (!response.ok) {
                 logger.warn(
@@ -37,7 +37,7 @@ module.exports = async (isbn) => {
         logger.debug(JSON.stringify(book, undefined, 4));
 
         parsedData = {
-            author: book?.volumeInfo?.authors[0],
+            author: book?.volumeInfo?.authors?.[0],
             title: book?.volumeInfo?.title,
             subtitle: book?.volumeInfo?.subtitle,
             publisher: book?.volumeInfo?.publisher,
@@ -45,7 +45,7 @@ module.exports = async (isbn) => {
             description: book?.volumeInfo?.description,
             pages: book?.volumeInfo?.pageCount,
             cover: await getImage(book?.volumeInfo?.imageLinks?.thumbnail),
-            isbn: book?.volumeInfo?.industryIdentifiers[1]?.identifier,
+            isbn: book?.volumeInfo?.industryIdentifiers?.[1]?.identifier,
         };
     } catch (error) {
         logger.warn(`Google books API request for ${isbn} failed`);

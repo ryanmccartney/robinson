@@ -12,7 +12,7 @@ module.exports = async (isbn) => {
     try {
         if (isbn) {
             const response = await fetchRetry(
-                `https://openlibrary.org/isbn/${isbn}.json`
+                `https://openlibrary.org/isbn/${encodeURIComponent(isbn)}.json`
             );
             if (!response.ok) {
                 logger.warn(
@@ -43,8 +43,8 @@ module.exports = async (isbn) => {
         parsedData = {
             title: data?.title,
             publishData: data?.publish_date,
-            isbn: data?.isbn_13[0],
-            publisher: data?.publishers[0],
+            isbn: data?.isbn_13?.[0],
+            publisher: data?.publishers?.[0],
             description: data?.subtitle,
             subtitle: data?.subtitle,
             pages: parseInt(data?.pagination),
