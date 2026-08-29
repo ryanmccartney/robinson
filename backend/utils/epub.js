@@ -5,13 +5,23 @@ const parser = new XMLParser({
     ignoreAttributes: false,
 });
 
+const MAX_ENTRY_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB
+
 const unzipAndGrab = async (zipBuffer, filePath) => {
     const directory = await unzipper.Open.buffer(zipBuffer);
     for (const file of directory.files) {
-        if (file.path.includes(filePath)) {
-            const contentBuffer = await file.buffer();
-            return contentBuffer.toString("utf8");
+        if (!file.path.includes(filePath)) {
+            continue;
         }
+
+        if (file.uncompressedSize > MAX_ENTRY_SIZE_BYTES) {
+            throw new Error(
+                `Refusing to extract ${file.path}: declared uncompressed size ${file.uncompressedSize} bytes exceeds ${MAX_ENTRY_SIZE_BYTES} byte limit`
+            );
+        }
+
+        const contentBuffer = await file.buffer();
+        return contentBuffer.toString("utf8");
     }
 };
 
