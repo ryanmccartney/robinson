@@ -7,9 +7,6 @@ const { finished } = require("stream/promises");
 const deleteEbook = require("@services/books-delete-ebook");
 const epub = require("@utils/epub");
 
-// All zip local file headers begin with this signature - checking it
-// catches a renamed non-zip file before it reaches the zip parser, since
-// the client-supplied mimetype/Content-Type alone is trivially spoofable.
 const ZIP_MAGIC = Buffer.from([0x50, 0x4b]); // "PK"
 
 module.exports = async (bookId, userId, file) => {
