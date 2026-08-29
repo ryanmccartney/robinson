@@ -39,7 +39,7 @@ jobs:
 
         - name: Run tests
           run: cd ./frontend && npm run test
-          
+
     check-backend:
       runs-on: ubuntu-latest
       name: Check Backend
@@ -65,6 +65,9 @@ jobs:
       needs:
         - check-backend
         - check-frontend
+      outputs:
+        version: ${{ steps.release-version.outputs.version }}
+        tag: ${{ steps.release-version.outputs.tag }}
       steps:
         - name: Checkout source code
           uses: actions/checkout@v4
@@ -88,13 +91,13 @@ jobs:
         - name: Log git status
           run: git status
 
-        - name: Install the frontend dependencies
+        - name: Install frontend dependencies
           run: cd ./frontend && npm ci
-      
+
         - name: Update frontend version number
           run: cd ./frontend && npm run release --ci
 
-        - name: Install the backend dependencies
+        - name: Install backend dependencies
           run: cd ./backend && npm ci
 
         - name: Update the docs
@@ -104,19 +107,46 @@ jobs:
           run: cd ./backend && npm run release --ci
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Get released version
+          id: release-version
+          run: |
+            git fetch --all --tags
+
+            TAG=$(git describe --tags --abbrev=0)
+            VERSION="${TAG#v}"
+
+            echo "Released tag: ${TAG}"
+            echo "Released version: ${VERSION}"
+
+            echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+            echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
     deploy:
       runs-on: ubuntu-latest
       name: Build and Deploy to GHCR
       needs: release
       steps:
-        - name: Checkout source code
+        - name: Checkout released version
           uses: actions/checkout@v4
           with:
+            ref: ${{ needs.release.outputs.tag }}
             fetch-depth: 0
 
-        - name: Fetch latest changes from origin
+        - name: Verify released version
           run: |
-            git fetch --all --tags
+            VERSION="${{ needs.release.outputs.version }}"
+            PACKAGE_VERSION=$(node -p "require('./backend/package.json').version")
+
+            echo "Release version: ${VERSION}"
+            echo "Backend package version: ${PACKAGE_VERSION}"
+
+            if [ "$VERSION" != "$PACKAGE_VERSION" ]; then
+              echo "::error::Version mismatch!"
+              echo "Release:  ${VERSION}"
+              echo "Package:  ${PACKAGE_VERSION}"
+              exit 1
+            fi
 
         - name: Install the backend dependencies
           run: cd ./backend && npm ci
@@ -124,25 +154,26 @@ jobs:
           run: cd ./frontend && npm ci
 
         - name: Set current date and time as an environment variable
-          run: echo "timestamp=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-        - name: Print current date and time
-          run: echo ${{ env.timestamp }}
+          run: echo "timestamp=$(date +'%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_ENV"
 
-        - uses: martinbeentjes/npm-get-version-action@master
-          name: Get Version Number
-          id: version
-          with:
-              path: ./backend
-        - name: Print Current Version
-          run: echo Building with version ${{ steps.version.outputs.current-version }}
+        - name: Print current date and time
+          run: echo "${{ env.timestamp }}"
+
+        - name: Set release version
+          run: echo "VERSION=${{ needs.release.outputs.version }}" >> "$GITHUB_ENV"
+
+        - name: Print release version
+          run: echo "Building with version ${VERSION}"
 
         - name: Build the frontend
           run: cd ./frontend && npm run build
+
         - name: Move build files to the backend folder
           run: mkdir ./backend/build && mv ./frontend/build/* ./backend/build/
+
         - name: Check contents of build folder
           run: ls -l ./backend/build
-          
+
         - name: Login to GHCR Registry
           uses: docker/login-action@v3
           with:
@@ -150,25 +181,29 @@ jobs:
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }}
               logout: false
-        
+
         - name: Build and push to registry
           uses: docker/build-push-action@v6
           with:
-              context: "./backend"
-              push: ${{ github.event_name != 'pull_request' }}
-              tags: |
-                  ${{env.REGISTRY}}/ryanmccartney/robinson:latest
-                  ${{env.REGISTRY}}/ryanmccartney/robinson:${{steps.version.outputs.current-version}}
-              outputs: type=registry
-              labels: |
-                  author=${{github.actor}}
-                  version=${{steps.version.outputs.current-version}}
-                  org.opencontainers.image.licenses=GPLv3
-                  org.opencontainers.image.url=${{github.server_url}}/${{github.repository}}
-                  org.opencontainers.image.source=${{github.server_url}}/${{github.repository}}
-                  info.mccartney.ryan.build.timestamp=${{env.timestamp}}
-                  info.mccartney.ryan.build.number=${{github.run_number}}
-                  info.mccartney.ryan.build.id=${{github.run_id}}
-                  info.mccartney.ryan.build.branch=${{github.ref_name}}
-                  info.mccartney.ryan.build.commit=${{github.sha}}
-                  info.mccartney.ryan.build.repository=${{github.server_url}}/${{github.repository}}
+            context: "./backend"
+            push: true
+
+            tags: |
+              ${{ env.REGISTRY }}/ryanmccartney/robinson:latest
+              ${{ env.REGISTRY }}/ryanmccartney/robinson:${{ env.VERSION }}
+
+            outputs: type=registry
+
+            labels: |
+              author=${{ github.actor }}
+              version=${{ env.VERSION }}
+              org.opencontainers.image.version=${{ env.VERSION }}
+              org.opencontainers.image.licenses=GPLv3
+              org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}
+              org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+              info.mccartney.ryan.build.timestamp=${{ env.timestamp }}
+              info.mccartney.ryan.build.number=${{ github.run_number }}
+              info.mccartney.ryan.build.id=${{ github.run_id }}
+              info.mccartney.ryan.build.branch=${{ github.ref_name }}
+              info.mccartney.ryan.build.commit=${{ github.sha }}
+              info.mccartney.ryan.build.repository=${{ github.server_url }}/${{ github.repository }}

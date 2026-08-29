@@ -47,6 +47,15 @@ const Scan = () => {
         }
     };
 
+    const checkForIsbn = (rawText) => {
+        if (rawText) {
+            const isbnObject = isbn.parse(rawText);
+            if (isbnObject) {
+                addBook(isbnObject);
+            }
+        }
+    };
+
     useEffect(() => {
         setBreadcrumbs([]);
 
@@ -86,15 +95,6 @@ const Scan = () => {
         handleResize();
         return () => window.removeEventListener("resize", handleResize);
     }, []);
-
-    const checkForIsbn = (rawText) => {
-        if (rawText) {
-            const isbnObject = isbn.parse(rawText);
-            if (isbnObject) {
-                addBook(isbnObject);
-            }
-        }
-    };
 
     return (
         <Box sx={{ height: "83vh", overflow: "hidden" }}>

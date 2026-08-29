@@ -63,8 +63,8 @@ const User = () => {
         }
     };
 
-    //On component Mount
     useEffect(() => {
+        //eslint-disable-next-line
         setTheme(localStorage.getItem("theme"));
         setContexts(user);
         return () => {

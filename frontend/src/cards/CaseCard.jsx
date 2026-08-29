@@ -29,6 +29,7 @@ const CaseCard = ({ bookcase, maxBooks = 9 }) => {
                 }
             }
         }
+        //eslint-disable-next-line
         setBooks(bookIds);
     }, [bookcase]);
 

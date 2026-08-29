@@ -43,6 +43,7 @@ const EditableTypography = ({
     const [internalValue, setInternalValue] = useState(props.children);
 
     useEffect(() => {
+        //eslint-disable-next-line
         setInternalValue(props.children);
     }, [props.children]);
 
