@@ -8,6 +8,9 @@ const coverColor = require("@utils/cover-color");
 
 module.exports = async (newBook) => {
     try {
+        delete newBook.bookId;
+        delete newBook.dateAdded;
+
         if (newBook.isbn) {
             const isbnParsed = isbn.parse(newBook.isbn);
             if (isbnParsed) {

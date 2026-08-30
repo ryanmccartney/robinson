@@ -5,6 +5,8 @@ const shelvesModel = require("@models/shelves");
 
 module.exports = async (newShelf) => {
     try {
+        delete newShelf.shelfId;
+
         const shelf = new shelvesModel(newShelf);
         await shelf.save();
         logger.info(

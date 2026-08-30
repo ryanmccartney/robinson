@@ -6,6 +6,8 @@ const casesModel = require("@models/cases");
 
 module.exports = async (newCase) => {
     try {
+        delete newCase.caseId;
+
         const cases = new casesModel(newCase);
         await cases.save();
         logger.info(

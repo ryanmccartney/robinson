@@ -38,8 +38,11 @@ module.exports = async (shelfId, filter = {}) => {
                     0
                 );
 
-                const bookcase = await booksModel.findOne({ shelfId: shelfId });
-                data.shelf.case = bookcase ? bookcase.toObject() : undefined;
+                data.shelf.case = data.shelf.caseId
+                    ? await casesModel
+                          .findOne({ caseId: data.shelf.caseId })
+                          .lean()
+                    : undefined;
             }
         } else {
             data.shelves = await shelvesModel.find().sort(filter);
