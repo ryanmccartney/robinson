@@ -168,24 +168,30 @@ const Search = () => {
                     />
                 );
             }}
-            renderInput={(params) => {
-                return (
-                    <SearchStyled>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            ref={params.InputProps.ref}
-                            inputRef={searchRef}
-                            inputProps={{
-                                ...params.inputProps,
-                                type: "search",
-                            }}
-                            placeholder="Press  /"
-                        />
-                    </SearchStyled>
-                );
-            }}
+            renderInput={(params) => (
+                <SearchStyled>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+
+                    <StyledInputBase
+                        inputRef={(node) => {
+                            searchRef.current = node;
+
+                            if (typeof params.InputProps?.ref === "function") {
+                                params.InputProps.ref(node);
+                            } else if (params.InputProps?.ref) {
+                                params.InputProps.ref.current = node;
+                            }
+                        }}
+                        inputProps={{
+                            ...params.inputProps,
+                            type: "search",
+                        }}
+                        placeholder="Press /"
+                    />
+                </SearchStyled>
+            )}
         />
     );
 };

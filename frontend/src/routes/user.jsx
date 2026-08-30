@@ -78,12 +78,24 @@ const User = () => {
     }
 
     return (
-        <Box sx={{ m: 2 }}>
+        <Box
+            sx={{
+                minHeight: "70vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
             <Grid
                 container
-                alignItems="center"
-                justifyContent="center"
                 spacing={3}
+                sx={{
+                    m: 2,
+                    minHeight: "70vh",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
             >
                 <Grid size={{ xs: 12, sm: 10, md: 8, lg: 6, xl: 6 }}>
                     <Card

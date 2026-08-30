@@ -13,7 +13,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import EditIcon from "@mui/icons-material/Edit";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import fetcher from "@utils/fetcher";
@@ -69,7 +69,7 @@ const MenuContents = ({ close }) => {
             items.push(
                 <MenuItem key="edit-users" onClick={users}>
                     <ListItemIcon>
-                        <PeopleOutlineIcon fontSize="medium" />
+                        <PeopleOutlinedIcon fontSize="medium" />
                     </ListItemIcon>
                     <ListItemText>Edit Users</ListItemText>
                 </MenuItem>
