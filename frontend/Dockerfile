@@ -1,10 +1,11 @@
 FROM node:22-alpine
 
+USER node
 WORKDIR /home/node/app
-COPY . .
+COPY --chown=node:node . .
 
 #Install Dependencies
-RUN npm install
+RUN npm ci
 
 #Build
 RUN npm run build
