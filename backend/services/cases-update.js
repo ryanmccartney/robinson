@@ -9,7 +9,7 @@ module.exports = async (caseId, update) => {
             const bookcase = await casesModel.findOneAndUpdate(
                 { caseId: caseId },
                 { ...update, ...{ lastUpdated: new Date() } },
-                { new: true, lean: true }
+                { returnDocument: "after", lean: true }
             );
             if (bookcase) {
                 logger.info(

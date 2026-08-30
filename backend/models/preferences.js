@@ -106,7 +106,7 @@ const findOneAndUpdatePreferences = async (userId, query = {}, update = {}) => {
                 },
             },
             {
-                new: true,
+                returnDocument: "after",
                 lean: true,
                 "preferences.$": 1,
             }
@@ -126,7 +126,7 @@ const findOneAndUpdatePreferences = async (userId, query = {}, update = {}) => {
                     },
                 },
                 {
-                    new: true,
+                    returnDocument: "after",
                     lean: true,
                     "preferences.$": 1,
                 }

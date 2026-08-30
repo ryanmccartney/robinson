@@ -20,7 +20,7 @@ module.exports = async (bookId, update = {}, userId) => {
             const book = await booksModel.findOneAndUpdate(
                 { bookId: bookId },
                 { ...update, ...{ lastUpdated: new Date() } },
-                { new: true, lean: true }
+                { returnDocument: "after", lean: true }
             );
 
             data.book = {
