@@ -18,6 +18,498 @@ hello@mccartney.info
 **License:** [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ---
+### /users
+
+#### GET
+##### Summary
+
+Get a list of all users
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### POST
+##### Summary
+
+Add a new user
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+### /users/current
+
+#### GET
+##### Summary
+
+Get the current user
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update the current user
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+### /users/{userId}
+
+#### GET
+##### Summary
+
+Get a user by their ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| userId | path | The user ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a user by their ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| userId | path | The user ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### DELETE
+##### Summary
+
+Delete a user by their ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| userId | path | The user ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /shelves
+
+#### GET
+##### Summary
+
+Get a list of all shelves
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| name | query | Filter by name, set to -1 or 1 for ascending of descending | No | number |
+| length | query | Filter by length, set to -1 or 1 for ascending of descending | No | number |
+| order | query | Filter by order, set to -1 or 1 for ascending of descending | No | number |
+| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### POST
+##### Summary
+
+Add a new shelf
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+### /shelves/{shelfId}
+
+#### GET
+##### Summary
+
+Get a shelf by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| shelfId | path | The shelf ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a shelf by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| shelfId | path | The shelf ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### DELETE
+##### Summary
+
+Delete a shelf by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| shelfId | path | The shelf ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /search
+
+#### GET
+##### Summary
+
+Search books, shelves, cases
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| query | query | The query string to make a search against | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /organise/{field}
+
+#### POST
+##### Summary
+
+Organise books by author
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| field | path | Book field to oganise books by | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /metadata/{isbn}
+
+#### GET
+##### Summary
+
+Get a list of all available metadata
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| isbn | path | ISBN of the book, should convert between any format | Yes | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Get a list of all available metadata and update existing records for an existing book
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| isbn | path | ISBN of the book, should convert between any format | Yes | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### POST
+##### Summary
+
+Get a list of all available metadata and create a book with it
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| isbn | path | ISBN of the book, should convert between any format | Yes | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /logout
+
+#### POST
+##### Summary
+
+Clears any session cookies to log a user out.
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+### /login
+
+#### POST
+##### Summary
+
+Creates a login session
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
+### /cases
+
+#### GET
+##### Summary
+
+Get a list of all cases
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| name | query | Filter by name, set to -1 or 1 for ascending of descending | No | number |
+| order | query | Filter by order, set to -1 or 1 for ascending of descending | No | number |
+| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### POST
+##### Summary
+
+Add a new case
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+### /cases/{caseId}
+
+#### GET
+##### Summary
+
+Get a case by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| caseId | path | The case ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### PUT
+##### Summary
+
+Update a case by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| caseId | path | The case ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+#### DELETE
+##### Summary
+
+Delete a case by it's ID
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| caseId | path | The case ID string | Yes | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
 ### /books
 
 #### GET
@@ -301,498 +793,6 @@ Download an ebook
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
 | bookId | path | The book ID string followed by .epub | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /cases
-
-#### GET
-##### Summary
-
-Get a list of all cases
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| name | query | Filter by name, set to -1 or 1 for ascending of descending | No | number |
-| order | query | Filter by order, set to -1 or 1 for ascending of descending | No | number |
-| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### POST
-##### Summary
-
-Add a new case
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /cases/{caseId}
-
-#### GET
-##### Summary
-
-Get a case by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| caseId | path | The case ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### PUT
-##### Summary
-
-Update a case by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| caseId | path | The case ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### DELETE
-##### Summary
-
-Delete a case by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| caseId | path | The case ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /login
-
-#### POST
-##### Summary
-
-Creates a login session
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /logout
-
-#### POST
-##### Summary
-
-Clears any session cookies to log a user out.
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /metadata/{isbn}
-
-#### GET
-##### Summary
-
-Get a list of all available metadata
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| isbn | path | ISBN of the book, should convert between any format | Yes | number |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### PUT
-##### Summary
-
-Get a list of all available metadata and update existing records for an existing book
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| isbn | path | ISBN of the book, should convert between any format | Yes | number |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### POST
-##### Summary
-
-Get a list of all available metadata and create a book with it
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| isbn | path | ISBN of the book, should convert between any format | Yes | number |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /organise/{field}
-
-#### POST
-##### Summary
-
-Organise books by author
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| field | path | Book field to oganise books by | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /search
-
-#### GET
-##### Summary
-
-Search books, shelves, cases
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| query | query | The query string to make a search against | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /shelves
-
-#### GET
-##### Summary
-
-Get a list of all shelves
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| name | query | Filter by name, set to -1 or 1 for ascending of descending | No | number |
-| length | query | Filter by length, set to -1 or 1 for ascending of descending | No | number |
-| order | query | Filter by order, set to -1 or 1 for ascending of descending | No | number |
-| lastUpdated | query | Filter by lastUpdated, set to -1 or 1 for ascending of descending | No | number |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### POST
-##### Summary
-
-Add a new shelf
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /shelves/{shelfId}
-
-#### GET
-##### Summary
-
-Get a shelf by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| shelfId | path | The shelf ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### PUT
-##### Summary
-
-Update a shelf by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| shelfId | path | The shelf ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### DELETE
-##### Summary
-
-Delete a shelf by it's ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| shelfId | path | The shelf ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
----
-### /users
-
-#### GET
-##### Summary
-
-Get a list of all users
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### POST
-##### Summary
-
-Add a new user
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /users/current
-
-#### GET
-##### Summary
-
-Get the current user
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### PUT
-##### Summary
-
-Update the current user
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-### /users/{userId}
-
-#### GET
-##### Summary
-
-Get a user by their ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| userId | path | The user ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### PUT
-##### Summary
-
-Update a user by their ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| userId | path | The user ID string | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Success |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 405 | Incorrect request data |
-| 500 | Error |
-
-#### DELETE
-##### Summary
-
-Delete a user by their ID
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| userId | path | The user ID string | Yes | string |
 
 ##### Responses
 
