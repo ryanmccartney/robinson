@@ -10,7 +10,7 @@ jobs:
       name: Check Frontend
       steps:
         - name: Checkout source code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
 
         - name: Install dependencies
           run: cd ./frontend && npm ci
@@ -29,7 +29,7 @@ jobs:
       name: Check Backend
       steps:
         - name: Checkout source code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
 
         - name: Install dependencies
           run: cd ./backend && npm ci
