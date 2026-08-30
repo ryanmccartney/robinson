@@ -118,12 +118,7 @@ const User = () => {
                             Account Details
                         </Typography>
 
-                        <Grid
-                            container
-                            alignItems="center"
-                            justifyContent="center"
-                            spacing={3}
-                        >
+                        <Grid container spacing={3}>
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     fullWidth

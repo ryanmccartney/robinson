@@ -63,8 +63,6 @@ const Root = () => {
     return (
         <Stack
             direction="row"
-            justifyContent="center"
-            alignItems="center"
             sx={{
                 minHeight: "70vh",
                 m: 2,
@@ -104,7 +102,6 @@ const Root = () => {
                     <Grid
                         size={{ xs: 12, md: 12 }}
                         direction="row"
-                        alignItems="center"
                         justify="flex-end"
                     >
                         <Button onClick={login} variant="outlined">

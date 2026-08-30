@@ -30,9 +30,13 @@ const NotFound = ({
     return (
         <Stack
             direction="column"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ m: 2, width: 1, height: "75vh" }}
+            sx={{
+                minHeight: "75vh",
+                m: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
         >
             <Typography
                 align="center"

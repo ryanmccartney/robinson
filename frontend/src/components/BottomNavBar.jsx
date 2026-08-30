@@ -86,7 +86,11 @@ export default function FixedBottomNavigation() {
                         onClick={action.onClick}
                         key={action.name}
                         icon={action.icon}
-                        tooltipTitle={action.name}
+                        slotProps={{
+                            tooltip: {
+                                title: action.name,
+                            },
+                        }}
                     />
                 ))}
             </SpeedDial>

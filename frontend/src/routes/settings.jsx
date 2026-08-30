@@ -124,13 +124,7 @@ const Settings = () => {
                             Organise
                         </Typography>
 
-                        <Grid
-                            container
-                            spacing={2}
-                            direction="row"
-                            justifyContent="flex-start"
-                            alignItems="flex-start"
-                        >
+                        <Grid container spacing={2} direction="row">
                             <Grid size={{ xs: 8 }} sx={{ margin: "auto" }}>
                                 <Typography
                                     fontWeight="fontWeightMedium"
