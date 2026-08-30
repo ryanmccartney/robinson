@@ -24,7 +24,6 @@
     "express-openapi-validator": "^5.3.5",
     "express-rate-limit": "^7.1.5",
     "express-session": "^1.18.0",
-    "express-validator": "^7.0.1",
     "fast-xml-parser": "^5.2.1",
     "get-image-colors": "^4.0.1",
     "helmet": "^7.1.0",
@@ -66,8 +65,7 @@
     "@routes": "./routes/",
     "@models": "./models/",
     "@utils": "./utils/",
-    "@services": "./services/",
-    "@validators": "./validators/"
+    "@services": "./services/"
   },
   "release-it": {
     "git": {
