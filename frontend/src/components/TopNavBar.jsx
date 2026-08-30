@@ -21,7 +21,7 @@ const TopNavBar = ({ user }) => {
                         size="large"
                         edge="start"
                         color="inherit"
-                        aria-label="open drawer"
+                        aria-label="home"
                         sx={{ mr: 2 }}
                     >
                         <ImportContactsIcon />
