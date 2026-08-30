@@ -35,9 +35,13 @@ const Error = () => {
         <Box sx={{ m: 2 }}>
             <Stack
                 direction="column"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ m: 2, width: 1, height: "70vh" }}
+                sx={{
+                    minHeight: "70vh",
+                    m: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
             >
                 <Typography
                     align="center"

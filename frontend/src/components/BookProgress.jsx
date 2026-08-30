@@ -3,7 +3,10 @@ import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const LinearProgressWithLabel = (props) => {
-    const normalise = (value) => ((value - 0) * 100) / (props.max - 0);
+    const normalise = (value) => {
+        const normalisedValue = ((value - 0) * 100) / (props.max - 0);
+        return isNaN(normalisedValue) ? 0 : normalisedValue;
+    };
 
     return (
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -17,7 +20,9 @@ const LinearProgressWithLabel = (props) => {
                 <Typography
                     variant="subtitle1"
                     sx={{ color: "text.secondary" }}
-                >{`${Math.round(props.value)} pages`}</Typography>
+                >
+                    {props.max ? `${Math.round(props.value)} pages` : ""}
+                </Typography>
             </Box>
 
             <Box sx={{ width: "100%" }}>
@@ -35,7 +40,13 @@ const LinearProgressWithLabel = (props) => {
                     <LinearProgress
                         sx={{ height: 20, borderRadius: 5 }}
                         variant="determinate"
-                        {...{ ...props, ...{ value: normalise(props.value) } }}
+                        {...{
+                            ...props,
+                            ...{
+                                max: props.max ? props.max : 1,
+                                value: normalise(props.value),
+                            },
+                        }}
                     />
                 </Box>
             </Box>
@@ -49,7 +60,9 @@ const LinearProgressWithLabel = (props) => {
                 <Typography
                     variant="subtitle1"
                     sx={{ color: "text.secondary" }}
-                >{`${Math.round(props.max)} pages`}</Typography>
+                >
+                    {props.max ? `${Math.round(props.max)} pages` : ""}
+                </Typography>
             </Box>
         </Box>
     );
@@ -58,7 +71,11 @@ const LinearProgressWithLabel = (props) => {
 export default function BookProgress({ total, progress }) {
     return (
         <Box sx={{ width: "100%" }}>
-            <LinearProgressWithLabel value={progress} max={total} />
+            {total ? (
+                <LinearProgressWithLabel value={progress ?? 0} max={total} />
+            ) : (
+                <LinearProgressWithLabel color="inherit" value={0} max={0} />
+            )}
         </Box>
     );
 }

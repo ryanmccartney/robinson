@@ -23,7 +23,6 @@ const Layout = () => {
                     </Grid>
                     <Grid
                         size={{ xs: 3 }}
-                        alignItems="flex-end"
                         justify="flex-end"
                         sx={{ justifyContent: "end" }}
                     >

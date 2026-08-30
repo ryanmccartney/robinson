@@ -42,12 +42,7 @@ const UserDialog = ({ onUserNew, onUserUpdate, open, setOpen, user }) => {
                 {user ? "Edit " : "Add "} User
             </Typography>
 
-            <Grid
-                container
-                alignItems="center"
-                justifyContent="center"
-                spacing={3}
-            >
+            <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 6 }}>
                     <TextField
                         fullWidth

@@ -20,9 +20,14 @@ const LoadingContent = ({ title, noTitle = false }) => {
     return (
         <Stack
             direction="column"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ width: 1, height: "75vh" }}
+            sx={{
+                width: 1,
+                minHeight: "75vh",
+                m: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
         >
             <CircularProgress sx={{ margin: 1 }} />
             <Typography

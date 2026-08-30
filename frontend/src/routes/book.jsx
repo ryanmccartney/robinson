@@ -190,9 +190,12 @@ const Book = () => {
                         </Grid>
                         <Grid
                             margin="0"
-                            paddingTop="5px"
                             align="right"
                             size={{ xs: 12, lg: 4 }}
+                            sx={{
+                                paddingTop: "5px",
+                                margin: 0,
+                            }}
                         >
                             {getChips()}
                         </Grid>
@@ -235,13 +238,7 @@ const Book = () => {
                         Details
                     </Typography>
 
-                    <Grid
-                        container
-                        spacing={2}
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                    >
+                    <Grid container spacing={2} direction="row">
                         <Grid size={{ xs: 6 }}>
                             <Typography
                                 fontWeight="fontWeightMedium"

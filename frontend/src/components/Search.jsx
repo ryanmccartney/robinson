@@ -11,6 +11,15 @@ import Grid from "@mui/material/Grid";
 
 import fetcher from "@utils/fetcher";
 
+const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
+    [theme.breakpoints.up("sm")]: {
+        width: "30ch",
+        "&:focus": {
+            width: "40ch",
+        },
+    },
+}));
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     width: "100%",
@@ -18,12 +27,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create("width"),
-        [theme.breakpoints.up("sm")]: {
-            width: "30ch",
-            "&:focus": {
-                width: "40ch",
-            },
-        },
     },
 }));
 
@@ -61,19 +64,20 @@ const SearchResult = ({ result, close }) => {
                 navigate(`/book/${result.bookId}`);
                 close();
             }}
-            sx={{ mb: 1, p: 2 }}
-            onMouseOver={(e) => {
-                e.target.style.opacity = "0.5";
-            }}
-            onMouseOut={(e) => {
-                e.target.style.opacity = "1";
+            sx={{
+                width: "100%",
+                boxSizing: "border-box",
+                mb: 1,
+                p: 2,
+                "&:hover": {
+                    opacity: 0.5,
+                },
             }}
         >
             <Grid container spacing={1}>
                 <Grid size={2}>
                     <img
                         src={`/api/books/cover/${result.bookId}`}
-                        alt="Cover"
                         width={"50rem"}
                         height={"80rem"}
                     />
@@ -128,23 +132,26 @@ const Search = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.keyCode === 191) {
+            if (e.key === "/" && searchRef.current) {
                 e.preventDefault();
                 searchRef.current.focus();
             }
-            if (e.keyCode === 27) {
+
+            if (e.key === "Escape" && searchRef.current) {
                 e.preventDefault();
                 searchRef.current.blur();
             }
         };
+
         document.addEventListener("keydown", handleKeyDown);
+
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
     }, []);
 
     return (
-        <Autocomplete
+        <StyledAutocomplete
             disableClearable
             autoHighlight
             options={options}
@@ -155,33 +162,40 @@ const Search = () => {
             getOptionLabel={(result) => {
                 return result.title;
             }}
-            renderOption={(props, result) => {
-                const { ...optionProps } = props;
-                return (
-                    <SearchResult
-                        key={result.bookId}
-                        optionProps={optionProps}
-                        result={result}
-                        close={() => {
-                            searchRef.current.blur();
-                        }}
-                    />
-                );
-            }}
+            renderOption={(props, result) => (
+                <SearchResult
+                    {...props}
+                    key={result.bookId}
+                    result={result}
+                    close={() => {
+                        searchRef.current?.blur();
+                    }}
+                />
+            )}
             renderInput={(params) => {
+                const { input, htmlInput } = params.slotProps;
+
                 return (
                     <SearchStyled>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
+
                         <StyledInputBase
-                            ref={params.InputProps.ref}
-                            inputRef={searchRef}
+                            inputRef={(node) => {
+                                searchRef.current = node;
+
+                                if (typeof input.ref === "function") {
+                                    input.ref(node);
+                                } else if (input.ref) {
+                                    input.ref.current = node;
+                                }
+                            }}
                             inputProps={{
-                                ...params.inputProps,
+                                ...htmlInput,
                                 type: "search",
                             }}
-                            placeholder="Press  /"
+                            placeholder="Press /"
                         />
                     </SearchStyled>
                 );
