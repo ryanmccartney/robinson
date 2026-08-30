@@ -11,15 +11,6 @@ import Grid from "@mui/material/Grid";
 
 import fetcher from "@utils/fetcher";
 
-const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
-    [theme.breakpoints.up("sm")]: {
-        width: "30ch",
-        "&:focus": {
-            width: "40ch",
-        },
-    },
-}));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     width: "100%",
@@ -27,6 +18,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create("width"),
+        [theme.breakpoints.up("sm")]: {
+            width: "30ch",
+            "&:focus": {
+                width: "40ch",
+            },
+        },
     },
 }));
 
@@ -151,11 +148,22 @@ const Search = () => {
     }, []);
 
     return (
-        <StyledAutocomplete
+        <Autocomplete
             disableClearable
             autoHighlight
             options={options}
             loading={loading}
+            slotProps={{
+                popper: {
+                    sx: {
+                        padding: 0,
+                        width: {
+                            xs: "100% !important",
+                            sm: "45ch !important",
+                        },
+                    },
+                },
+            }}
             onInputChange={(_, newInputValue) => {
                 setSearchTerm(newInputValue);
             }}
