@@ -1,21 +1,21 @@
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { grey } from "@mui/material/colors";
 
 const InputBaseWithChildren = ({ children, ...props }) => {
-    let value = "";
-    if (children) {
-        if (typeof children == "string" || typeof children == "number") {
-            value = children.toString();
-        }
-    }
+    const value =
+        typeof children === "string" || typeof children === "number"
+            ? String(children)
+            : "";
 
-    const childProps = { ...props };
-    delete childProps.gutterBottom;
+    const { ...inputProps } = props;
 
     return (
         <InputBase
+            {...inputProps}
+            fullWidth
+            value={value}
             sx={{
                 margin: 0.5,
                 lineHeight: 0,
@@ -24,11 +24,6 @@ const InputBaseWithChildren = ({ children, ...props }) => {
                 borderRadius: 1,
                 borderColor: grey[500],
             }}
-            fullWidth
-            {...childProps}
-            className={""}
-            value={value}
-            inputProps={{ className: props.className }}
         />
     );
 };
@@ -38,38 +33,32 @@ const EditableTypography = ({
     edit = false,
     onChange,
     multiline = false,
+    children,
     ...props
 }) => {
-    const [internalValue, setInternalValue] = useState(props.children);
-
-    useEffect(() => {
-        //eslint-disable-next-line
-        setInternalValue(props.children);
-    }, [props.children]);
+    const [internalValue, setInternalValue] = useState(children ?? "");
 
     const handleChange = (e) => {
-        setInternalValue(e.target.value);
-        if (onChange) {
-            onChange({ [field]: e.target.value });
-        }
+        const value = e.target.value;
+
+        setInternalValue(value);
+        onChange?.({ [field]: value });
     };
 
-    props.multiline = multiline.toString();
-    delete props.children;
-
-    if (edit) {
-        return (
-            <Typography
-                {...props}
-                component={InputBaseWithChildren}
-                onChange={handleChange}
-            >
-                {internalValue}
-            </Typography>
-        );
+    if (!edit) {
+        return <Typography {...props}>{children ?? ""}</Typography>;
     }
 
-    return <Typography {...props}>{internalValue}</Typography>;
+    return (
+        <Typography
+            {...props}
+            component={InputBaseWithChildren}
+            multiline={multiline}
+            onChange={handleChange}
+        >
+            {internalValue}
+        </Typography>
+    );
 };
 
 export default EditableTypography;

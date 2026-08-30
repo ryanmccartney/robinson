@@ -48,7 +48,7 @@ module.exports = async (bookId, userId, file) => {
             const data = await booksModel.findOneAndUpdate(
                 { bookId: bookId },
                 { ...update, ...{ lastUpdated: new Date() } },
-                { new: true, lean: true }
+                { returnDocument: "after", lean: true }
             );
 
             return {
