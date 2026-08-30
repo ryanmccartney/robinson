@@ -26,7 +26,7 @@ jobs:
       name: Check Frontend
       steps:
         - name: Checkout source code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
 
         - name: Install dependencies
           run: cd ./frontend && npm ci
@@ -45,7 +45,7 @@ jobs:
       name: Check Backend
       steps:
         - name: Checkout source code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
 
         - name: Install dependencies
           run: cd ./backend && npm ci
@@ -70,7 +70,7 @@ jobs:
         tag: ${{ steps.release-version.outputs.tag }}
       steps:
         - name: Checkout source code
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
           with:
             fetch-depth: 0
             ssh-key: ${{ secrets.DEPLOY_KEY }}
@@ -128,7 +128,7 @@ jobs:
       needs: release
       steps:
         - name: Checkout released version
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
           with:
             ref: ${{ needs.release.outputs.tag }}
             fetch-depth: 0
