@@ -32,7 +32,7 @@
     "mongodb": "^7.6.0",
     "mongoose": "^9.9.4",
     "multer": "^2.3.0",
-    "nanoid": "^6.0.1",
+    "nanoid": "^3.3.18",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.1",
