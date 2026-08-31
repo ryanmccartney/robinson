@@ -63,6 +63,10 @@ const useCase = (caseId) => {
     return useData("cases", { pathKeyId: caseId, inputDataKey: "case" });
 };
 
+const useVersion = () => {
+    return useData("system/version", { inputDataKey: "version" });
+};
+
 const useUser = () => {
     return useData("users", {
         pathKeyId: "current",
@@ -80,4 +84,5 @@ export {
     useShelf,
     useCase,
     useUser,
+    useVersion,
 };

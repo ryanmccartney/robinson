@@ -24,17 +24,16 @@ const search = require("@routes/search");
 const login = require("@routes/login");
 const logout = require("@routes/logout");
 const organise = require("@routes/organise");
+const system = require("@routes/system");
 
-// rate limiting
-// Only anonymous traffic is limited. An authenticated session legitimately
-// issues one /api/books/cover/<id> request per book on every render.
+// rate limiting - authenticated users
 const apiLimiter = rateLimit({
     windowMs: 5 * 60 * 1000,
     max: process.env.RATE_LIMIT || 1000,
     skip: (req) => req.isAuthenticated(),
 });
 
-// Brute force protection, so successful logins are not counted.
+// rate limiting - unauthenticated users
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: process.env.LOGIN_RATE_LIMIT || 20,
@@ -50,7 +49,7 @@ if (process.env.PROXY_ADDRESS) {
     app.set("trust proxy", process.env.PROXY_ADDRESS);
 }
 
-//File limits
+// file limits
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 
@@ -113,6 +112,7 @@ app.use("/api/login", loginLimiter, login);
 app.use("/api/logout", logout);
 app.use("/api/search", search);
 app.use("/api/organise", organise);
+app.use("/api/system", system);
 
 if (nodeEnv === "production") {
     const staticFiles = path.join(__dirname, "..", "build");
@@ -129,7 +129,7 @@ app.use("/api", (req, res, next) => {
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    const err = new Error("File Not Found");
+    const err = new Error("Not Found");
     err.status = 404;
     next(err);
 });
