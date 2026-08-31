@@ -148,7 +148,7 @@ Delete a user by their ID
 | 500 | Error |
 
 ---
-### /version
+### /system/version
 
 #### GET
 ##### Summary

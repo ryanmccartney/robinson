@@ -142,7 +142,7 @@ paths:
           description: Incorrect request data
         "500":
           description: Error
-  /version:
+  /system/version:
     get:
       summary: Get system version
       tags:
