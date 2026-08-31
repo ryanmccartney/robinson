@@ -7,6 +7,15 @@ import pkg from "./package.json";
 
 const manifestForPlugIn = {
     registerType: "prompt",
+    workbox: {
+        // Navigations must reach the network. The default app-shell fallback
+        // answers every navigation from the precached index.html, which
+        // swallows the redirect an upstream SSO proxy (Cloudflare Access,
+        // Authelia, oauth2-proxy) issues when its session expires: the login
+        // page renders from cache, then every API call fails cross-origin and
+        // signing in silently does nothing.
+        navigateFallback: null,
+    },
     manifest: {
         name: "Robinson",
         short_name: "Robinson",
