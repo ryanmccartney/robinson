@@ -76,6 +76,7 @@ const SearchResult = ({ result, close }) => {
                 <Grid size={2}>
                     <ImageFallback
                         src={`/api/books/cover/${result.bookId}`}
+                        fallback="/no-cover.jpg"
                         width={"50rem"}
                         height={"80rem"}
                     />
