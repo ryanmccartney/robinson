@@ -71,7 +71,7 @@ const BookCard = ({ edit, book, bookMutate, opacity = "1" }) => {
                 </Typography>
                 <br></br>
 
-                <Box sx={{ marginTop: "50%" }}>
+                <Box sx={{ marginTop: "40%" }}>
                     <Barcode
                         format="EAN13"
                         width={2}
@@ -169,6 +169,9 @@ const BookCard = ({ edit, book, bookMutate, opacity = "1" }) => {
                         objectPosition: "50% 0%",
                     }}
                     image={`/api/books/cover/${book.bookId}`}
+                    onError={(e) => {
+                        e.currentTarget.src = "/no-cover.jpg";
+                    }}
                     component="img"
                     title={book?.title}
                     loading="lazy"

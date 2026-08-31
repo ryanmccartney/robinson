@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from "@mui/material/Grid";
 
+import ImageFallback from "@components/ImageFallback";
 import fetcher from "@utils/fetcher";
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -73,7 +74,7 @@ const SearchResult = ({ result, close }) => {
         >
             <Grid container spacing={1}>
                 <Grid size={2}>
-                    <img
+                    <ImageFallback
                         src={`/api/books/cover/${result.bookId}`}
                         width={"50rem"}
                         height={"80rem"}

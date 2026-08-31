@@ -306,8 +306,7 @@ router.get("/cover/:bookId", auth.restrict(["get_data"]), async (req, res) => {
         res.end(image);
     } else {
         response(res, req, {
-            error: { message: "Unable to retrieve cover" },
-            status: "error",
+            error: { message: "Book cover not found", status: 404 },
         });
     }
 });

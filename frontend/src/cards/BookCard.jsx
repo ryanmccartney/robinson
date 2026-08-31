@@ -107,6 +107,11 @@ const BookCard = ({
                             title={book.title}
                             image={`/api/books/cover/${book.bookId}`}
                             component="img"
+                            onError={(e) => {
+                                e.currentTarget.src = "/no-cover.jpg";
+                            }}
+                            loading="lazy"
+                            alt=""
                         />
 
                         <CardContent>
