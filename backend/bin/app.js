@@ -26,9 +26,19 @@ const logout = require("@routes/logout");
 const organise = require("@routes/organise");
 
 // rate limiting
+// Only anonymous traffic is limited. An authenticated session legitimately
+// issues one /api/books/cover/<id> request per book on every render.
 const apiLimiter = rateLimit({
     windowMs: 5 * 60 * 1000,
     max: process.env.RATE_LIMIT || 1000,
+    skip: (req) => req.isAuthenticated(),
+});
+
+// Brute force protection, so successful logins are not counted.
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: process.env.LOGIN_RATE_LIMIT || 20,
+    skipSuccessfulRequests: true,
 });
 
 // get environment
@@ -99,7 +109,7 @@ app.use("/api/shelves", shelves);
 app.use("/api/cases", cases);
 app.use("/api/users", users);
 app.use("/api/metadata", metadata);
-app.use("/api/login", login);
+app.use("/api/login", loginLimiter, login);
 app.use("/api/logout", logout);
 app.use("/api/search", search);
 app.use("/api/organise", organise);
