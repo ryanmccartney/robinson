@@ -148,6 +148,24 @@ Delete a user by their ID
 | 500 | Error |
 
 ---
+### /version
+
+#### GET
+##### Summary
+
+Get system version
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Success |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 405 | Incorrect request data |
+| 500 | Error |
+
+---
 ### /shelves
 
 #### GET

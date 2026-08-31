@@ -7,12 +7,15 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import Chip from "@mui/material/Chip";
 
 import fetcher from "@utils/fetcher";
 import BreadcrumbsContext from "@contexts/breadcrumbs";
+import { useVersion } from "@utils/data";
 
 const Settings = () => {
     const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+    const { version, isVersionLoading } = useVersion();
 
     useEffect(() => {
         setBreadcrumbs([
@@ -27,6 +30,12 @@ const Settings = () => {
     const organise = async (felid = "title") => {
         await fetcher.post(`organise/${felid}`);
         enqueueSnackbar(`Organising books by ${felid}`);
+    };
+
+    const getCurrentVersionText = () => {
+        const currentVersion =
+            !isVersionLoading && version ? version.current : __APP_VERSION__;
+        return `Version: v${currentVersion}`;
     };
 
     return (
@@ -60,7 +69,20 @@ const Settings = () => {
                             gutterBottom
                             sx={{ fontSize: "0.9rem", mb: 2 }}
                         >
-                            Version: v{__APP_VERSION__}
+                            {getCurrentVersionText()}
+                            {!isVersionLoading && version?.updateAvailable ? (
+                                <Chip
+                                    sx={{ marginLeft: 1 }}
+                                    label={`Update available v${version?.latest}`}
+                                    variant="outlined"
+                                    color="error"
+                                    component="a"
+                                    href={`https://github.com/ryanmccartney/robinson/releases/tag/v${version?.latest}`}
+                                    clickable
+                                />
+                            ) : (
+                                ""
+                            )}
                         </Typography>
 
                         <Typography
@@ -69,7 +91,7 @@ const Settings = () => {
                             variant="body1"
                         >
                             {
-                                "Robinson is a self-hosted book management for your physical and virtual library. Add your bookcases, shelves and books. View the source could or contribute on "
+                                "Robinson is a self-hosted book management for your physical and virtual library. Add your bookcases, shelves and books. View the source code or contribute on "
                             }
                             <Link
                                 href="https://github.com/ryanmccartney/robinson"
