@@ -92,6 +92,8 @@ Access robinson at `http://localhost:80`
 
 Login with the default username `admin` and password `robinson123`
 
+> **Password storage note:** as of this version, passwords are hashed with bcrypt instead of the previous unsalted MD5. Existing accounts upgrade automatically and transparently the next time each user logs in with their current password - there is no manual migration step, no config change, and no risk of being locked out. New accounts (including the default `admin` account on a fresh install) are bcrypt-hashed from creation.
+
 # Documentation
 
 Read the full docs at [ryan.mccartney.info/robinson](https://ryan.mccartney.info/robinson/)
