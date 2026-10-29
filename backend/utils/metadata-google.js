@@ -45,7 +45,13 @@ module.exports = async (isbn) => {
             description: book?.volumeInfo?.description,
             pages: book?.volumeInfo?.pageCount,
             cover: await getImage(book?.volumeInfo?.imageLinks?.thumbnail),
-            isbn: book?.volumeInfo?.industryIdentifiers?.[1]?.identifier,
+            // Select the ISBN-13 by type. Position 1 is not reliably
+            // the ISBN-13, and a volume may carry neither.
+            isbn:
+                book?.volumeInfo?.industryIdentifiers?.find(
+                    (identifier) => identifier?.type === "ISBN_13"
+                )?.identifier ??
+                book?.volumeInfo?.industryIdentifiers?.[1]?.identifier,
         };
     } catch (error) {
         logger.warn(`Google books API request for ${isbn} failed`);
