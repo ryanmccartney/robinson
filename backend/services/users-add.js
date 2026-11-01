@@ -2,14 +2,16 @@
 
 const logger = require("@utils/logger")(module);
 const usersModel = require("@models/users");
-const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
+
+const BCRYPT_COST_FACTOR = 12;
 
 module.exports = async (newUser) => {
     try {
-        newUser.password = crypto
-            .createHash("md5")
-            .update(newUser.password)
-            .digest("hex");
+        newUser.password = bcrypt.hashSync(
+            newUser.password,
+            BCRYPT_COST_FACTOR
+        );
 
         const user = new usersModel(newUser);
         await user.save();
